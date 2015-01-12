@@ -13,15 +13,15 @@ keystone.init({
 
 	'name': 'Cox Solution Finder',
 	'brand': 'Cox Solution Finder',
-	
+
 	'less': 'public',
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'jade',
-	
+
 	'emails': 'templates/emails',
-	
+
 	'auto update': true,
 	'session': true,
 	'auth': true,
@@ -30,6 +30,10 @@ keystone.init({
 
 });
 
+// Override default view setting.
+if (process.env.SOLUTION_MODE == 'showroom'){
+	keystone.set('views', 'templates/views/showroom');
+}
 // Load your project's Models
 
 keystone.import('models');

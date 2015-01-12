@@ -1,0 +1,56 @@
+//Development Container
+.html-development {
+	background:#333;
+	body {
+		box-shadow: 0px 0px 0px 20px rgba(255, 0, 0, 0.5);
+	}
+	.view-hint {
+		display:none;
+		position:fixed;
+		top:0;
+		right:0;
+		padding:1em;
+		background:black;
+		border:1px solid white;
+		h3 {
+			margin:0;
+			color:white;
+		}
+		span.touchscreen,
+		span.ipad,
+		span.ipad-retina {
+			display:none;
+		}
+
+		span.touchscreen {
+			.showfloor-screen({
+				display:block;
+			});
+		}
+		span.ipad {
+			.showfloor-tablet-only({
+				display:block;
+			});
+		}
+		span.ipad-retina {
+			.showfloor-tablet-retina({
+				display:block;
+			});
+		}
+		span.none {
+			display:block;
+			.showfloor-screen({
+				display:none;
+			});
+			.showfloor-tablet-only({
+				display:none;
+			});
+			.showfloor-tablet-retina({
+				display:none;
+			});
+		}
+	}
+}
+.view-hint {
+	display:none;
+}

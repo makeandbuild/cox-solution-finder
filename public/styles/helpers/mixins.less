@@ -1,0 +1,114 @@
+// Media Queries
+
+// Usage
+// .classname {
+//     width: 100%;
+//     .responsive(450px, {
+//         float: left;
+//         margin-top: 10px;
+//     });
+// }
+
+// Custom Min-width Media Query
+.responsive(@minWidth; @rules) {
+    @media only screen and (min-width: @minWidth) {
+        @rules();
+    }
+}
+// Custom Max-width Media Query
+.responsive-max(@maxWidth; @rules) {
+    @media only screen and (max-width: @maxWidth) {
+        @rules();
+    }
+}
+
+// Companion Site Mixins - Normal Mixins
+
+/*
+CSF Companion Site will use the same view for 991px down. Above that
+use fluid approach up for desktop. For example, default styles will be up to 991px,
+and `.desktop({ content })` should be Desktop, with `.large-desktop({ content })` used
+sparingly if needed.
+*/
+
+// Use these only when needed. Otherwise use mobile first mixins below.
+.phone-only(@rules) {
+  @media (max-width: 767px) {
+    @rules();
+  }
+}
+.mobile-only(@rules) {
+  @media (max-width: 991px) {
+    @rules();
+  }
+}
+.tablet-only(@rules) {
+  @media (min-width: 768px) and (max-width: 991px) {
+    @rules();
+  }
+}
+
+// Mobile First Mixins
+.small-phone(@rules) {
+  @media (min-width: 480px) { @rules(); }
+}
+.tablet(@rules) {
+  @media (min-width: 768px) { @rules(); }
+}
+.desktop(@rules) {
+  @media (min-width: 992px) { @rules(); }
+}
+.large-desktop(@rules) {
+  @media (min-width: 1396px) { @rules(); }
+}
+
+
+// Tablet, Tablet-Retina, and Touchscreen Mixins.
+
+// Use these as you would mobile first. Tablet is
+// default, then use retina mixins, or use touchscreen mixins.
+// Build for Retina always. Ideally with the
+// exception of specific cases, you should only use default
+// styles for tablet, and the touchscreen mixin for touchscreen variations.
+
+//Use only when needed.
+.showfloor-tablet-only(@rules) {
+    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-max-device-pixel-ratio : 1),
+    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (max-device-pixel-ratio : 1) {
+        @rules();
+    }
+}
+//Target retina displays for tablet
+.showfloor-tablet-retina(@rules) {
+    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2),
+    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (min-device-pixel-ratio : 2) {
+        @rules();
+    }
+}
+//Target Touchscreen
+.showfloor-screen(@rules) {
+    @media only screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+    only screen and (min-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+        @rules();
+    }
+}
+
+
+
+
+
+
+
+.clearfix {
+  display: block;
+  zoom: 1;
+
+  &:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}

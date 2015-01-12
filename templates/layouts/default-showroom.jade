@@ -1,12 +1,13 @@
 include ../mixins/flash-messages
 
 doctype html
-html
+html.html-development
+	//- Use the `.html-development` class to make it easier to see the views for touch/tablet.
 
 	//- HTML HEADER
 	head
 		meta(charset="utf-8")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
 		title= title || 'Cox Solution Finder'
@@ -27,34 +28,20 @@ html
 		block head
 
 	//- HTML BODY
-	body
+	body.showroom
 
 		//- HEADER
-		#header: .container
+		#side-navigation
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
-			//- ... or completely change this header to suit your design.
-
-			div(role="navigation").navbar.navbar-default
-				.container-fluid
-					.navbar-header
-						button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-							span.sr-only Toggle navigation
-							span.icon-bar
-							span.icon-bar
-							span.icon-bar
-						a.navbar-brand(href='/') Cox Solution Finder
-					.collapse.navbar-collapse
-						ul.nav.navbar-nav.navbar-left
-							each link in navLinks
-								li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
-						ul.nav.navbar-nav.navbar-right
-							if user
-								if user.canAccessKeystone
-									li: a(href='/keystone') Open Keystone
-								li: a(href='/keystone/signout') Sign Out
-							else
-								li: a(href='/keystone/signin') Sign In
+			a.navigation-item.navigation-logo(href='/')
+				img(src='cox-maps-image')
+			a.navigation-item.navigation-solution-finder(href='/') Solution Finder
+			ul.navigation-item-list
+				each link in navLinks
+					li(class=(section == link.key ? 'active' : null))
+						a.navigation-item(href=link.href)= link.label
+			a.navigation-item.navigation-restart(href='/') Start Over
 
 		//- BODY
 		#body
@@ -79,7 +66,7 @@ html
 
 
 		//- JAVASCRIPT
-		script(src='/js/lib/jquery/jquery-2.2.1.min.js')
+		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
 
 		//- Customise which Bootstrap javascript files are served by including
 		//- them specifically here, instead of bootstrap-3.2.0.min.js

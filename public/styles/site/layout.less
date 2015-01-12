@@ -1,16 +1,27 @@
-#header {
-	margin-top: 30px;
+html {
+	overflow:hidden;
+	.opensans-light();
+}
+.showroom {
+	width:1024px;
+	height:768px;
+	//overflow:hidden; //Use this when in production to hide overflow bugs if they happen.
+	.showroom-screen({
+		width:1920px;
+		height:1080px;
+	});
 }
 
-#footer {
-	margin-top: 30px;
-	border-top: 1px solid @gray-lighter;
-	padding-top: 30px;
-	color: @gray-light;
-}
-
-.gallery-image img{
-    display: block;
-    max-width: 100%;
-    height: auto;
+#body {
+	width:1024px;
+	background:@xlightGray;
+	vertical-align: top;
+	display:block;
+	height:100%;
+	.showroom-screen({
+		width:1700px;
+		position:relative;
+		display:inline-block;
+		margin-left:-4px;
+	});
 }

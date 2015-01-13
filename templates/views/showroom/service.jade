@@ -23,6 +23,8 @@ block content
 				div
 					img(src="/uploads/images/#{product.item_one.icon.filename}")
 				div= product.item_one.content
+
+				h2 Now for the cool stuff
 				each service in product.services
 					if service.id == data.service.id
 						div= service.title

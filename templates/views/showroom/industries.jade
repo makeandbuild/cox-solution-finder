@@ -1,0 +1,10 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+block content
+	div Industries Landing
+	.container
+		each industry in data.industries.results
+			h2: a(href='/industries/' + industry.slug)= industry.title
+			div= industry.heading
+			div= industry.content

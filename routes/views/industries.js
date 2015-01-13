@@ -7,16 +7,16 @@ exports = module.exports = function(req, res) {
     locals = res.locals;
 
   // Init locals
-  locals.section = 'services';
+  locals.section = 'industries';
   locals.data = {
-    services: []
+    industries: []
   };
 
 
-  // Load the Services
+  // Load the Industries
   view.on('init', function(next) {
 
-    var q = keystone.list('Service').paginate({
+    var q = keystone.list('Industry').paginate({
         page: req.query.page || 1,
         perPage: 10,
         maxPages: 10
@@ -24,13 +24,13 @@ exports = module.exports = function(req, res) {
       .where('state', 'published');
 
     q.exec(function(err, results) {
-      locals.data.services = results;
+      locals.data.industries = results;
       next(err);
     });
 
   });
 
   // Render the view
-  view.render('services');
+  view.render('industries');
 
 };

@@ -2,18 +2,18 @@ var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
 /**
- * Service Model
+ * Industry Model
  * ==========
  */
 
-var Service = new keystone.List('Service', {
+var Industry = new keystone.List('Industry', {
 	map: { name: 'title' },
 	autokey: { path: 'slug', from: 'title', unique: true },
 	track: true
 });
 
 
-Service.add({
+Industry.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	heading: { type: String, required: true, default: 'Example Heading' },
@@ -21,5 +21,9 @@ Service.add({
 });
 
 
-Service.defaultColumns = 'title, state|20%, heading|20%';
-Service.register();
+Industry.defaultColumns = 'title, state|20%, heading|20%';
+Industry.register();
+
+
+
+//Just the model for now, more will be added later.

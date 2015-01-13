@@ -2,7 +2,7 @@ var keystone = require('keystone'),
 	Types = keystone.Field.Types;
 
 /**
- * Post Model
+ * Product Model
  * ==========
  */
 
@@ -22,6 +22,7 @@ Product.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	services: { type: Types.Relationship, ref: 'Service', required: true, many: true, initial: false },
+	industries: { type: Types.Relationship, ref: 'Industry', required: true, many: true, initial: false },
 	hero: { type: Types.LocalFile, dest: 'public/uploads/images'},
 	//MAKE ME BETTER
 	item_one: section,

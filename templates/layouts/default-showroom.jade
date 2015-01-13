@@ -36,7 +36,8 @@ html.html-development
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			a.navigation-item.navigation-logo(href='/')
 				img(src='cox-maps-image')
-			a.navigation-item.navigation-solution-finder(href='/') Solution Finder
+			a.navigation-item.navigation-solution-finder(href='/') Solution
+				span Finder
 			ul.navigation-item-list
 				each link in navLinks
 					li(class=(section == link.key ? 'active' : null))
@@ -45,7 +46,7 @@ html.html-development
 
 		//- BODY
 		#body
-
+			button.navigation-toggle.temp-toggle Toggle Me!
 			//- NOTE:
 			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
 			//- Remember to include it in your templates when you override the intro and content blocks!
@@ -62,7 +63,7 @@ html.html-development
 
 
 		//- FOOTER
-		.container: #footer
+		//- .container: #footer
 
 
 		//- JAVASCRIPT

@@ -1,0 +1,21 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+block content
+	.container
+		h1 Service Page
+		if !data.service
+			h2 Invalid Post.
+		else
+			h2 True! Now what?
+			div= data.service.title
+			div= data.service.heading
+			div= data.service.content
+
+		h1 Products
+		if !data.products
+			h2 No Products!
+		else
+			h2 Sweet, you got a product!
+			each product in data.products
+				div= product.title

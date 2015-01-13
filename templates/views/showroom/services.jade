@@ -1,0 +1,14 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+mixin service(service)
+	.post
+		h2 services.title
+
+block content
+	div Services Landing
+	.container
+		each service in data.services.results
+			h2: a(href='/services/' + service.slug)= service.title
+			div= service.heading
+			div= service.content

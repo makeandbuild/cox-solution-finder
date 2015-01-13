@@ -19,9 +19,9 @@ var Service = new keystone.List('Service', {
 
 Service.add({
 	title: { type: String, required: true },
-	heading: { type: String, required: false },
-	content: { type: Types.Textarea, height: 400, required: false },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	heading: { type: String, required: true, default: 'Example Heading' },
+	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
 	// author: { type: Types.Relationship, ref: 'User', index: true },
 	// publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	// tease: { type: Types.Markdown, wysiwyg: true, height: 150 , required: true, initial: false},

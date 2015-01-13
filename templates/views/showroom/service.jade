@@ -19,3 +19,10 @@ block content
 			h2 Sweet, you got a product!
 			each product in data.products
 				div= product.title
+				div= product.item_one.title
+				div
+					img(src="/uploads/images/#{product.item_one.icon.filename}")
+				div= product.item_one.content
+				each service in product.services
+					if service.id == data.service.id
+						div= service.title

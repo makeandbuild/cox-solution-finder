@@ -31,7 +31,7 @@ exports = module.exports = function(req, res) {
 	// Load other posts
 	view.on('init', function(next) {
 
-		var q = keystone.list('Product').model.find().where('state', 'published');
+		var q = keystone.list('Product').model.find().where('state', 'published').populate('services');
 
 		q.exec(function(err, results) {
 			locals.data.products = results;

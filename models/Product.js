@@ -12,15 +12,24 @@ var Product = new keystone.List('Product', {
 	track: true
 });
 
-// var section = {
-// 	image: { type: Types.CloudinaryImage },
-// 	content: { type: Types.Markdown, wysiwyg: true, height: 400 }
-// }
+var section = {
+	title: { type: String, requred: true },
+	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
+	content: { type: Types.Textarea, wysiwyg: true, height: 200 }
+}
 
 Product.add({
 	title: { type: String, required: true },
-	image: { type: Types.LocalFile, dest: 'public/uploads/images'},
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	services: { type: Types.Relationship, ref: 'Service', required: true, many: true, initial: false },
+	hero: { type: Types.LocalFile, dest: 'public/uploads/images'},
+	//MAKE ME BETTER
+	item_one: section,
+	item_two: section,
+	item_three: section,
+	item_four: section,
+	item_five: section,
+	item_six: section
 	// author: { type: Types.Relationship, ref: 'User', index: true },
 	// publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	// tease: { type: Types.Markdown, wysiwyg: true, height: 150 , required: true, initial: false},
@@ -37,5 +46,5 @@ Product.add({
 // 	return this.content.extended || this.content.brief;
 // });
 
-Product.defaultColumns = 'title, state|20%, heading|20%';
+Product.defaultColumns = 'title, state|20%';
 Product.register();

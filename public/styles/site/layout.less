@@ -18,11 +18,23 @@ html {
 	vertical-align: top;
 	display:block;
 	height:100%;
+	.opensans-light();
 	.showroom-screen({
 		width:1700px;
 		position:relative;
 		display:inline-block;
 		margin-left:-5px;
+	});
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-weight:300;
+}
+
+.header-space {
+	height: 35px;
+	.showroom-screen({
+		height: 125px;
 	});
 }
 button {

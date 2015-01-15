@@ -27,7 +27,28 @@ function initDevelopment(){
 // Global Functions
 function initGlobal(){
 	console.log('initGlobal Called');
+	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 
+}
+
+/*  
+	Standard Global Item Navigation within a view. (i.e. Product Navigation in Services)
+	
+	To use, set the argument `navigationItem` to the jQuery nav item to be clicked,
+	and set the arguement `item` to the jQuery item that should appear.
+
+	In the HTML set `data-navigationitem` and `data-item` as the same string.
+
+	Both should use the active class to denote selection, with
+	CSS creating any animations.
+*/
+function itemNavigation(navigationItem, item){
+	navigationItem.on('click',function(){
+		var keystone_id = $(this).data('navigationitem');
+		var theItem = item.filter("[data-item='" + keystone_id + "']");
+		$(this).addClass('active').siblings().removeClass('active');
+		theItem.addClass('active').siblings().removeClass('active');
+	});
 }
 
 

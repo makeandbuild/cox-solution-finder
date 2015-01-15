@@ -1,0 +1,126 @@
+//Styles and Classes used throughout the site for various elements
+.section-heading {
+	color:@darkBlue;
+	font-size:1.8em;
+	line-height: 1.2;
+	.showroom-screen({
+		font-size: 2em;
+		line-height: 1.1;
+	});
+}
+.section-content {
+	margin-bottom: 3em;
+	margin-top: 1em;
+	.showroom-screen({
+		font-size: 1.25em;
+		margin-bottom: 3.5em;
+		margin-top: 2em;
+	});
+}
+.shadow-normal {
+	-webkit-box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.3);
+	-moz-box-shadow:    2px 2px 5px 0 rgba(50, 50, 50, 0.3);
+	box-shadow:         2px 2px 5px 0 rgba(50, 50, 50, 0.3);
+}
+.shadow-remove {
+	-webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	-moz-box-shadow:    0 0 0 0 rgba(0, 0, 0, 0);
+	box-shadow:         0 0 0 0 rgba(0, 0, 0, 0);
+}
+.background-shadow {
+	width:0px;
+	height:100%;
+	position: absolute;
+	top:0;
+	bottom:0;
+	vertical-align: middle;
+	&.from-left {
+		left:0;
+		-webkit-box-shadow: -210px 0 340px 415px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow:    -210px 0 340px 415px rgba(0, 0, 0, 0.2);
+		box-shadow:         -210px 0 340px 415px rgba(0, 0, 0, 0.2);
+	}
+	&.from-right {
+		right:0;
+		-webkit-box-shadow: 210px 0 340px 415px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow:    210px 0 340px 415px rgba(0, 0, 0, 0.2);
+		box-shadow:         210px 0 340px 415px rgba(0, 0, 0, 0.2);
+	}	
+}
+
+.full-background-blur {
+	background-image: url(../images/backgroundtouch.jpg);
+	background-repeat:no-repeat;
+	background-size:100%;
+	background-position: center;
+	display: block;
+	width:1024px;
+	height:768px;
+	position: absolute;
+	left:0;
+	top:0;
+	z-index: 1;
+	overflow: hidden;
+	.blur(20px);
+	.showroom-screen({
+		width: 1700px;
+		height: 1080px;
+	});
+}
+.landing-tile-row {
+	padding-top: 11em;
+	.showroom-screen({
+		padding-top: 20em;
+	});
+}
+.landing-tile {
+	position: relative;
+	z-index:5;
+	display:inline-block;
+	width: 200px;
+	height: 200px;
+	margin-right: 1em;
+	background-color:@darkBlue;
+	color:@white;
+	margin-bottom: 1em;
+	vertical-align: top;
+	.opensans-regular();
+	&.fake-tile {
+		visibility: hidden;
+		opacity:0;
+		margin-left: 5em;
+		.showroom-screen({
+			margin-left:8em;
+		});
+	}
+	&:first-child {
+		margin-left: 5em;
+		.showroom-screen({
+			margin-left:8em;
+		});
+	}
+	&:hover, &.active {
+		color:@white;
+	}
+	.tile-icon {
+		display:block;
+		height:50%;
+		position:relative;
+		img {
+			vertical-align: bottom;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+	}
+	.tile-title {
+		height:50%;
+		display:block;
+		text-align: center;
+		font-size: 1.2em;
+	}
+}

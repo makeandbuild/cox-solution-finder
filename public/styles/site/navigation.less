@@ -7,16 +7,11 @@
 	display:block;
 	height: 768px;
 	background-color:@darkGray;
-	-webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+	.transition();
+    z-index:10;
 	&.active {
 		left:0;
-		-webkit-transition: all 0.3s ease-in-out;
-	    -moz-transition: all 0.3s ease-in-out;
-	    -o-transition: all 0.3s ease-in-out;
-	    transition: all 0.3s ease-in-out;
+		.transition();
 	}
 	.showroom-screen({
 		width:220px;
@@ -39,7 +34,7 @@
 	font-size: 1em;
 	text-transform: uppercase;
 	text-decoration: none;
-	.opensans-light();
+	.opensans-regular();
 	.showroom-screen({
 		padding-left: 32px;
 		font-size: 1.15em;
@@ -92,4 +87,7 @@
 		background-color:@lightBlue;
 		color:@white;
 	}
+}
+.navigation-toggle {
+	z-index:9;
 }

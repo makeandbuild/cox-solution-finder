@@ -16,6 +16,7 @@ var Service = new keystone.List('Service', {
 Service.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
+	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
 	heading: { type: String, required: true, default: 'Example Heading' },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
 });

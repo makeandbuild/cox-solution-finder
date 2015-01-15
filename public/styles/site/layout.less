@@ -1,6 +1,11 @@
+//Styles attributed to the structure and overall layout
+
 html {
 	overflow:hidden;
-	.opensans-light();
+	.opensans-regular();
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
 }
 .showroom {
 	width:1024px;
@@ -14,11 +19,13 @@ html {
 
 #body {
 	width:1024px;
-	background:@xlightGray;
+	background:@xxlightGray;
 	vertical-align: top;
 	display:block;
 	height:100%;
-	.opensans-light();
+	z-index:1;
+	right: -1px;
+	.opensans-regular();
 	.showroom-screen({
 		width:1700px;
 		position:relative;
@@ -29,7 +36,11 @@ html {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-weight:300;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
 }
+
 
 .header-space {
 	height: 35px;
@@ -47,3 +58,32 @@ a {
 		text-decoration: none;
 	}
 }
+.full-height-col {
+	height: 768px;
+	.showroom-screen({
+		height:1080px;
+	});
+}
+.container-fluid {
+	overflow: hidden;
+	padding:0;
+}
+
+// If you need 5 columns..
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+.col-sm-15 {
+    width: 20%;
+    float: left;
+}
+.col-md-15 {
+    width: 20%;
+    float: left;
+}
+.col-lg-15 {
+	width: 20%;
+	float: left;
+}
+

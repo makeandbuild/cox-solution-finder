@@ -3,8 +3,7 @@ extends ../../layouts/default-showroom
 
 block content
 	div Industries Landing
-	.container
-		each industry in data.industries.results
-			h2: a(href='/industries/' + industry.slug)= industry.title
-			div= industry.heading
-			div= industry.content
+	each industry in data.industries.results
+		h2: a(href='/industries/' + industry.slug)= industry.title
+		div= industry.heading
+		div= industry.content

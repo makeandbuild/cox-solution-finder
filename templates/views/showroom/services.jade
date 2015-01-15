@@ -10,14 +10,21 @@ mixin service(service)
 
 block content
 	.full-background-blur
-	if data.services.results.length < 0
+	if data.services.results.length < 3
 		.row.landing-tile-row
 			each service, index in data.services.results
 				+service(service)
-	if data.services.results.length < 4
+	if data.services.results.length < 5
 		.row.landing-tile-row
 			each service, index in data.services.results
 				+service(service)
 				if index == 1
+					br
+					a.landing-tile.fake-tile
+	if data.services.results.length > 4
+		.row.landing-tile-row
+			each service, index in data.services.results
+				+service(service)
+				if index == 2
 					br
 					a.landing-tile.fake-tile

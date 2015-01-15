@@ -51,6 +51,15 @@ function itemNavigation(navigationItem, item){
 	});
 }
 
+function scrollTo(toBeScrolled, whereToScroll, time){
+	if(typeof(time)==='undefined') time = 200;
+	toBeScrolled.animate({
+        scrollTop: whereToScroll
+    }, time);
+}
+
+
+
 
 // --------------------------------
 // Showroom Functions
@@ -68,8 +77,20 @@ function initShowroom(){
 			}
 		});
 	}
-}
 
+	$('.product-showroom-scroll').on('click',function(){
+		var parent = $(this).parent();
+		if(parent.hasClass('scrolled')){
+			scrollTo(parent, 0, 1000);
+			parent.removeClass('scrolled');
+		} else {
+			scrollTo(parent, parent.children('.row').last().offset().top, 1000);
+			parent.addClass('scrolled');
+		}
+	});
+
+	//scrollTo($('.product-item-container'), $('.product-item-container').)
+}
 
 // --------------------------------
 // Companion Site Functions

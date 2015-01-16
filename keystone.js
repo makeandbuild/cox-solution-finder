@@ -99,3 +99,22 @@ keystone.set('nav', {
 // Start Keystone to connect to your database and initialise the web server
 
 keystone.start();
+
+var events = require('events');
+var emitter = new events.EventEmitter();
+
+emitter.on('connectionAvailable', function(e) {
+	console.log('Connection Available to ' + e.target +'.');
+});
+
+setInterval(function() {
+	var url = 'www.google.com';
+
+	require('dns').resolve(url, function(err) {
+		if (err) {
+			console.log(err);
+		} else {
+			emitter.emit('connectionAvailable', { target: url });
+		}
+	});
+}, 5000);

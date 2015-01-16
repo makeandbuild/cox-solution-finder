@@ -1,0 +1,27 @@
+mixin tile(tile)
+	a(href='/services/' + tile.slug alt=tile.title).navigation-modal-tile
+		.tile-icon
+			img(src="/uploads/images/#{tile.icon.filename}" alt="service-icon")
+		.tile-title
+			span= tile.title
+
+mixin tiles(tiles, key)
+	.navigation-modal-tiles(data-navigation-modal=key)
+		if tiles.length < 3
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile)
+		if tiles.length == 3 || tiles.length == 4
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile)
+					if index == 1
+						br
+						a.navigation-modal-tile.fake-tile
+		if tiles.length > 4
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile)
+					if index == 2
+						br
+						a.navigation-modal-tile.fake-tile

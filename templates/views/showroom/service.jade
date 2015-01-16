@@ -55,7 +55,7 @@ block content
 
 	//- Check the Service exists
 	if !data.service
-		h2 Invalid Post.
+		h2 Service Invalid Post.
 	else
 		.row
 			.col-xs-6.full-height-col.service-container
@@ -65,7 +65,9 @@ block content
 					.col-xs-10.col-lg-8.col-xs-offset-1
 						h1.service-title= data.service.title
 						section
-							p Industry Goes Here
+							if data.industries
+								+dropdown(data.industries, "Industries")
+
 						p.section-heading= data.service.heading
 						p.section-content= data.service.content
 					.col-xs-10.col-xs-offset-1

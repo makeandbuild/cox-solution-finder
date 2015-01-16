@@ -36,6 +36,19 @@ html {
 	});
 }
 
+.the-looking-glass {
+	.blur(0px);
+	.transition(0.3s);
+	height: 768px;
+	.showroom-screen({
+		height:1080px;
+	});
+	&.active {
+		.blur(20px);
+		.transition(0.3s);
+	}
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-weight:300;
 	-webkit-font-smoothing: antialiased;

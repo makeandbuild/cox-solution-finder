@@ -1,4 +1,6 @@
 include ../mixins/flash-messages
+include ../mixins/navigation-modal
+include ../mixins/dropdown
 
 doctype html
 html.html-development
@@ -40,13 +42,33 @@ html.html-development
 				span Finder
 			ul.navigation-item-list
 				each link in navLinks
-					li(class=(section == link.key ? 'active' : null))
-						a.navigation-item(href=link.href)= link.label
+					if link.type == 'page'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item(href=link.href)= link.label
+					if link.type == 'modal'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 			a.navigation-item.navigation-restart(href='/') Start Over
 
 		//- BODY
 		#body
 			button.navigation-toggle.temp-toggle Toggle Me!
+			
+			if !data.navigation_services
+				h1 STOP
+			else
+				each item in data.navigation_services
+					//- h1= item
+
+
+			each navigationModal in navLinks
+				if navigationModal.type == 'modal'
+					if navigationModal.key == 'services'
+						+tiles(data.navigation_services, navigationModal.key)
+					if navigationModal.key == 'industries'
+						+tiles(data.navigation_industries, navigationModal.key)
+
+
 			//- NOTE:
 			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
 			//- Remember to include it in your templates when you override the intro and content blocks!
@@ -59,7 +81,7 @@ html.html-development
 			+flash-messages(messages)
 
 			//- The content block should contain the body of your template's content
-			.container-fluid
+			.container-fluid.the-looking-glass
 				block content
 
 

@@ -28,7 +28,7 @@ function initDevelopment(){
 function initGlobal(){
 	console.log('initGlobal Called');
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
-
+	navigationModal();
 }
 
 /*  
@@ -56,6 +56,45 @@ function scrollTo(toBeScrolled, whereToScroll, time){
 	toBeScrolled.animate({
         scrollTop: whereToScroll
     }, time);
+}
+
+
+function navigationModal(){
+	$('.navigation-modal-item').on('click',function(){
+
+		$scope = {};
+		$scope.$tiles = $('.navigation-modal-tiles');
+		$scope.$glass = $('.the-looking-glass');
+		$scope.glassActive = $scope.$glass.hasClass('active');
+		$scope.$navItem = $(this);
+		$scope.$selector = $(this).data('navigation-modal-item');
+		$scope.$target = $scope.$tiles.filter("[data-navigation-modal='" + $scope.$selector + "']");
+		$scope.tilesActive = $scope.$tiles.hasClass('active');
+		$scope.$allTiles = $('.navigation-modal-tile');
+
+
+		if(!$scope.$target.hasClass('active')){
+			$scope.$glass.removeClass('active');
+			$scope.$tiles.removeClass('active');
+			$scope.$allTiles.removeClass('active');
+
+			$scope.$glass.toggleClass('active');
+			setTimeout(function(){
+				$scope.$target.toggleClass('active');
+				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
+			},150);
+		} else {
+			setTimeout(function(){
+				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
+			},0);
+			setTimeout(function(){
+				$scope.$glass.toggleClass('active');
+			},150);
+			$scope.$target.toggleClass('active');
+		}
+		
+	
+	});
 }
 
 

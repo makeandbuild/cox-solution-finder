@@ -18,6 +18,8 @@ Industry.add({
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	heading: { type: String, required: true, default: 'Example Heading' },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
+	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
+	services: { type: Types.Relationship, ref: 'Service', required: true, many: true, initial: false },
 });
 
 

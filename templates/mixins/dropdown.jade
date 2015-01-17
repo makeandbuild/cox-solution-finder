@@ -1,4 +1,4 @@
-mixin dropdown(options, industry)
-	p= industry
+mixin industryDropdown(options, industry, service)
+	h1= industry
 	each option in options
-		p= option.title
+		a(href="/services/"+service.slug+"/"+option.slug)= option.title

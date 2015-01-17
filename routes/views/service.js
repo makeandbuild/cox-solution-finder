@@ -9,21 +9,34 @@ exports = module.exports = function(req, res) {
 	// item in the header navigation.
 	locals.section = 'services';
 	locals.filters = {
-		service: req.params.service
+		service: req.params.service,
+		industry: req.params.industry
 	};
 	locals.data = {};
 
 	// Load the current service
 	view.on('init', function(next) {
 
-		var q = keystone.list('Service').model.findOne({
+		//Old queries
+
+		// var q = keystone.list('Service').model.findOne({
+		// 	state: 'published',
+		// 	slug: locals.filters.service
+		// });
+
+		// q.exec(function(err, result) {
+		// 	locals.data.service = result;
+		// 	next(err);
+		// });
+
+		var k = keystone.list('Service').model.findOne({
 			state: 'published',
 			slug: locals.filters.service
-		});
-
-		q.exec(function(err, result) {
-			locals.data.service = result;
-			next(err);
+		}).where('industry', locals.filters.industry.id).populate('industries');
+		k.exec(function(err, result) {
+		    locals.data.service = result;
+		    locals.data.industry = locals.filters.industry;
+		    next(err);
 		});
 
 	});

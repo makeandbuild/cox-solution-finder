@@ -19,8 +19,8 @@ Service.add({
 	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
 	heading: { type: String, required: true, default: 'Example Heading' },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
+	industries: { type: Types.Relationship, ref: 'Industry', required: true, many: true, initial: false }
 });
-
 
 Service.defaultColumns = 'title, state|20%, heading|20%';
 Service.register();

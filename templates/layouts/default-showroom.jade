@@ -1,6 +1,5 @@
 include ../mixins/flash-messages
 include ../mixins/navigation-modal
-include ../mixins/dropdown
 
 doctype html
 html.html-development
@@ -54,12 +53,8 @@ html.html-development
 		#body
 			button.navigation-toggle.temp-toggle Toggle Me!
 			
-			if !data.navigation_services
-				h1 STOP
-			else
-				each item in data.navigation_services
-					//- h1= item
-
+			//- if section
+			//- 	p= section
 
 			each navigationModal in navLinks
 				if navigationModal.type == 'modal'

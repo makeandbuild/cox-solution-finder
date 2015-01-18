@@ -1,7 +1,8 @@
 include ../mixins/flash-messages
+include ../mixins/navigation-modal
 
 doctype html
-html
+html.html-development
 
 	//- HTML HEADER
 	head
@@ -27,7 +28,7 @@ html
 		block head
 
 	//- HTML BODY
-	body
+	body.companion-site
 
 		//- HEADER
 		#header: .container
@@ -58,10 +59,15 @@ html
 
 		//- BODY
 		#body
+	
+			//- Generates the Navigation Modals for Services and Industries
+			each navigationModal in navLinks
+				if navigationModal.type == 'modal'
+					if navigationModal.key == 'services'
+						+tiles(data.navigation_services, navigationModal.key)
+					if navigationModal.key == 'industries'
+						+tiles(data.navigation_industries, navigationModal.key)
 
-			//- NOTE:
-			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
-			//- Remember to include it in your templates when you override the intro and content blocks!
 
 			//- The Intro block appears above flash messages (used for temporary information display)
 			block intro
@@ -71,15 +77,16 @@ html
 			+flash-messages(messages)
 
 			//- The content block should contain the body of your template's content
-			block content
+			.container-fluid.the-looking-glass
+				block content
 
 
 		//- FOOTER
-		.container: #footer
+		//- .container: #footer
 
 
 		//- JAVASCRIPT
-		script(src='/js/lib/jquery/jquery-2.2.1.min.js')
+		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
 
 		//- Customise which Bootstrap javascript files are served by including
 		//- them specifically here, instead of bootstrap-3.2.0.min.js

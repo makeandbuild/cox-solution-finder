@@ -12,42 +12,71 @@ html {
 	//cursor:none !important; Enable this before launch so that no pointer shows up for touchscreen.
 	width:1024px;
 	height:768px;
-	//overflow:hidden; //Use this when in production to hide overflow bugs if they happen.
+	overflow:hidden;
 	.showroom-screen({
 		width:1920px;
 		height:1080px;
 	});
-}
-
-#body {
-	width:1024px;
-	background:@xxlightGray;
-	vertical-align: top;
-	display:block;
-	height:100%;
-	z-index:1;
-	right: -1px;
-	.opensans-regular();
-	.showroom-screen({
-		width:1700px;
-		position:relative;
-		display:inline-block;
-		margin-left:-5px;
-	});
-}
-
-.the-looking-glass {
-	.blur(0px);
-	.transition(0.3s);
-	height: 768px;
-	.showroom-screen({
-		height:1080px;
-	});
-	&.active {
-		.blur(20px);
+	#body {
+		width:1024px;
+		background:@xxlightGray;
+		vertical-align: top;
+		display:block;
+		height:100%;
+		z-index:1;
+		right: -1px;
+		.opensans-regular();
+		.showroom-screen({
+			width:1700px;
+			position:relative;
+			display:inline-block;
+			margin-left:-5px;
+		});
+	}
+	.the-looking-glass {
+		.blur(0px);
 		.transition(0.3s);
+		height: 768px;
+		.showroom-screen({
+			height:1080px;
+		});
+		&.active {
+			.blur(20px);
+			.transition(0.3s);
+		}
+	}
+	.full-height-col {
+		height: 768px;
+		overflow: hidden;
+		.showroom-screen({
+			height:1080px;
+		});
 	}
 }
+.companion-site {
+	#body {
+		background:@xxlightGray;
+		// vertical-align: top;
+		// display:block;
+		// height:100%;
+		z-index:1;
+		//right: -1px;
+		.opensans-regular();
+	}
+	.the-looking-glass {
+		.blur(0px);
+		.transition(0.3s);
+		// height: 100%;
+		// width:100%;
+		&.active {
+			.blur(20px);
+			.transition(0.3s);
+		}
+	}
+}
+
+
+
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-weight:300;
@@ -73,12 +102,7 @@ a {
 		text-decoration: none;
 	}
 }
-.full-height-col {
-	height: 768px;
-	.showroom-screen({
-		height:1080px;
-	});
-}
+
 .container-fluid {
 	overflow: hidden;
 	padding:0;

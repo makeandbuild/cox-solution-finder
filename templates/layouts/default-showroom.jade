@@ -32,7 +32,7 @@ html.html-development
 	body.showroom
 
 		//- HEADER
-		#side-navigation
+		#side-navigation(role="navigation")
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			a.navigation-item.navigation-logo(href='/')
@@ -50,7 +50,7 @@ html.html-development
 			a.navigation-item.navigation-restart(href='/') Start Over
 
 		//- BODY
-		#body
+		main#body
 			button.navigation-toggle.temp-toggle Toggle Me!
 	
 			//- Generates the Navigation Modals for Services and Industries

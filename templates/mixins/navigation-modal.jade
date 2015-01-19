@@ -1,26 +1,6 @@
 mixin tile(tile, key)
 
-	//- Inits
-	- var generatedLink
-	- var firstIndustry;
-
-	//- This section creates the link for the tile
-
-	//- Services Link
-	if key == 'services'
-
-		//- Finds the first industry of a given service
-		each industry in data.navigation_industries
-			if industry.id == tile.industries[0]
-				- firstIndustry = industry.slug
-		- generatedLink = '/'+key+'/' + tile.slug + '/' + firstIndustry
-
-	//- Industries Link
-	if key == 'industries'
-		- generatedLink = '/'+key+'/' + tile.slug
-
-	//- The Generated Tile
-	a(href=generatedLink alt=tile.title).navigation-modal-tile
+	a(href='/'+key+'/' + tile.slug alt=tile.title).navigation-modal-tile
 		.tile-icon
 			img(src="/uploads/images/#{tile.icon.filename}" alt=tile.title + " icon")
 		.tile-title

@@ -27,7 +27,6 @@ function initDevelopment(){
 // Global Functions
 function initGlobal(){
 	console.log('initGlobal Called');
-	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	navigationModal();
 }
 
@@ -104,6 +103,7 @@ function navigationModal(){
 // Showroom Functions
 function initShowroom(){
 	console.log('initShowroom Called');
+	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 
 	//Make me better
 	if($('body').width() <= config.breakpoints.showroom.tablet) {

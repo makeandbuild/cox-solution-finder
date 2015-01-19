@@ -1,0 +1,141 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+mixin industryDropdown(options, industry, service)
+	h1= industry
+	each option in options
+		a(href="/services/"+service.slug+"/"+option.slug)= option.title
+
+mixin product(product)
+	.row
+		.col-xs-10.col-xs-offset-1.col-lg-12.col-lg-offset-0
+			h2.product-title= product.title
+		.col-xs-10.col-xs-offset-1
+			
+			section.product-hero-container
+				img(src="/uploads/images/#{product.hero.filename}" alt="product-hero-image")
+			.overflow-wrapper
+			section.product-item-container
+				span.product-fade-bottom
+				.product-showroom-scroll
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_one.title
+						p.section-content= product.item_one.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_two.title
+						p.section-content= product.item_two.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_three.title
+						p.section-content= product.item_three.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_four.title
+						p.section-content= product.item_four.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_five.title
+						p.section-content= product.item_five.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_six.title
+						p.section-content= product.item_six.content
+			
+
+block content
+
+	//- Check the Service exists
+	if !data.service
+		h2 Service Invalid Post.
+	else
+		.row
+			.col-xs-6.full-height-col.service-container
+				span.background-shadow.from-left
+				.row.header-space
+				.row
+					.col-xs-10.col-lg-8.col-xs-offset-1
+						h1.service-title= data.service.title
+						section
+							- var current
+							each industry in data.service.industries
+								if data.industry == industry.slug
+									- current = industry.title
+							+industryDropdown(data.service.industries, current, data.service)
+
+						p.section-heading= data.service.heading
+						p.section-content= data.service.content
+					.col-xs-10.col-xs-offset-1
+						if !data.products
+							h2 No Products!
+						else
+							.col-xs-6.col-lg-4.product-navigation-title-container
+								article.product-navigation-title
+									span PRODUCTS
+							each product, index in data.products
+								if index == 0
+									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
+										article.product-navigation-item
+											span= product.title
+								else
+									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
+										article.product-navigation-item
+											span= product.title
+
+			.col-xs-6.full-height-col
+				span.background-shadow.from-right
+				span.product-gradient: span
+				if !data.products
+					h2 No Products!
+				else
+					each product, index in data.products
+						if index == 0
+							.col-xs-12.full-height-col.product-container(data-item=product.id).active
+								+product(product)
+						else
+							.col-xs-12.full-height-col.product-container(data-item=product.id)
+								+product(product)
+
+						
+
+
+
+
+				//- .row
+				//- 	.col-xs-10.col-xs-offset-1
+				//- 			h1= data.service.title
+				//- 			section
+				//- 				p Industry Goes Here
+				//- 			p.section-heading= data.service.heading
+				//- 			p.section-content= data.service.content
+				//- 	.col-xs-10.col-xs-offset-1
+				//- 			h1 Products
+				//- 			if !data.products
+				//- 				h2 No Products!
+				//- 			else
+				//- 				h2 Sweet, you got a product!
+				//- 				each product in data.products
+				//- 					div= product.title
+				//- 					div= product.item_one.title
+				//- 					div
+				//- 						//- img(src="/uploads/images/#{product.item_one.icon.filename}")
+				//- 					div= product.item_one.content
+
+				//- 					h2 Now for the cool stuff
+				//- 					if product.services
+				//- 						each this_service in product.services
+				//- 							if this_service.id == data.service.id
+				//- 								div= this_service.title

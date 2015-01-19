@@ -32,7 +32,7 @@ html.html-development
 	body.showroom
 
 		//- HEADER
-		#side-navigation
+		#side-navigation(role="navigation")
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			a.navigation-item.navigation-logo(href='/')
@@ -50,12 +50,10 @@ html.html-development
 			a.navigation-item.navigation-restart(href='/') Start Over
 
 		//- BODY
-		#body
+		main#body
 			button.navigation-toggle.temp-toggle Toggle Me!
-			
-			//- if section
-			//- 	p= section
-
+	
+			//- Generates the Navigation Modals for Services and Industries
 			each navigationModal in navLinks
 				if navigationModal.type == 'modal'
 					if navigationModal.key == 'services'
@@ -63,10 +61,6 @@ html.html-development
 					if navigationModal.key == 'industries'
 						+tiles(data.navigation_industries, navigationModal.key)
 
-
-			//- NOTE:
-			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
-			//- Remember to include it in your templates when you override the intro and content blocks!
 
 			//- The Intro block appears above flash messages (used for temporary information display)
 			block intro

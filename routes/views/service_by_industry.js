@@ -17,14 +17,14 @@ exports = module.exports = function(req, res) {
 	// Load the current service
 	view.on('init', function(next) {
 
-		var q = keystone.list('Service').model.findOne({
+		var k = keystone.list('Service').model.findOne({
 			state: 'published',
 			slug: locals.filters.service
-		});
-
-		q.exec(function(err, result) {
-			locals.data.service = result;
-			next(err);
+		}).where('industry', locals.filters.industry.id).populate('industries');
+		k.exec(function(err, result) {
+		    locals.data.service = result;
+		    locals.data.industry = locals.filters.industry;
+		    next(err);
 		});
 
 	});
@@ -73,5 +73,5 @@ exports = module.exports = function(req, res) {
 	// ---------------
 
 	// Render the view
-	view.render('service');
+	view.render('service_by_industry');
 };

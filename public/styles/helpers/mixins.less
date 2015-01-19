@@ -123,3 +123,9 @@ sparingly if needed.
   -ms-filter: blur(@amount);
   filter: blur(@amount);
 }
+
+.box-shadow(@w: 0; @h: 0; @blur: 0; @spread: 0; @color: rgba(0, 0, 0, 0)){
+  -webkit-box-shadow: @w @h @blur @spread @color;
+  -moz-box-shadow:    @w @h @blur @spread @color;
+  box-shadow:         @w @h @blur @spread @color;
+}

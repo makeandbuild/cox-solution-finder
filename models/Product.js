@@ -15,8 +15,15 @@ var Product = new keystone.List('Product', {
 var section = {
 	title: { type: String, requred: true },
 	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
-	content: { type: Types.Textarea, wysiwyg: true, height: 200 }
+	content: { type: Types.Textarea, height: 200 }
 }
+var resource = {
+	title: { type: String },
+	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
+	pdf: {  type: Types.LocalFile, dest: 'public/uploads/resources' },
+	description: { type: Types.Textarea, height: 100 }
+}
+
 
 Product.add({
 	title: { type: String, required: true },
@@ -24,6 +31,11 @@ Product.add({
 	services: { type: Types.Relationship, ref: 'Service', required: true, many: true, initial: false },
 	industries: { type: Types.Relationship, ref: 'Industry', required: true, many: true, initial: false },
 	hero: { type: Types.LocalFile, dest: 'public/uploads/images'},
+	resource_one: resource,
+	resource_two: resource,
+	resource_three: resource,
+	resource_four: resource,
+	
 	//MAKE ME BETTER
 	item_one: section,
 	item_two: section,
@@ -31,21 +43,7 @@ Product.add({
 	item_four: section,
 	item_five: section,
 	item_six: section
-	// author: { type: Types.Relationship, ref: 'User', index: true },
-	// publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-	// tease: { type: Types.Markdown, wysiwyg: true, height: 150 , required: true, initial: false},
-	// first: {
-	// 	image: { type: Types.CloudinaryImage,required: true, initial: false },
-	// 	content: { type: Types.Markdown, wysiwyg: true, height: 400, required: true, initial: false }
-	// },
-	// second: section,
-	// third: section,
-	//categories: { type: Types.Relationship, ref: 'ProductCategory', many: true }
 });
-
-// Product.schema.virtual('content.full').get(function() {
-// 	return this.content.extended || this.content.brief;
-// });
 
 Product.defaultColumns = 'title, state|20%';
 Product.register();

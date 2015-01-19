@@ -12,6 +12,12 @@ var Industry = new keystone.List('Industry', {
 	track: true
 });
 
+var resource = {
+	title: { type: String },
+	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
+	pdf: {  type: Types.LocalFile, dest: 'public/uploads/resources' },
+	description: { type: Types.Textarea, height: 100 }
+}
 
 Industry.add({
 	title: { type: String, required: true },
@@ -19,7 +25,9 @@ Industry.add({
 	heading: { type: String, required: true, default: 'Example Heading' },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
 	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
-	//services: { type: Types.Relationship, ref: 'Service', required: true, many: true, initial: false }
+	resource_one: resource,
+	resource_two: resource,
+	resource_three: resource
 });
 
 Industry.relationship({ ref: 'Service', refPath: ':service', path: ':industry' });

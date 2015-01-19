@@ -8,16 +8,37 @@ block content
 	if !data.service
 		h2 Service Invalid Post.
 	else
+		.row.header-space
 		.row
-			.col-xs-12.col-lg-6.service-container
+			.col-xs-12.col-md-6.service-container
 				section.service-icon
 					img(src=data.service.icon)
 				h1.service-title= data.service.title					
 				p.section-heading= data.service.heading
 				p.section-content= data.service.content
 					
-			.col-xs-12.col-lg-6.resource-container
-				p Resources
+			.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
+				h3.resource-header RESOURCES
+				.col-xs-12.resource-subcontainer
+					article.resource-download
+						.resource-icon
+							img(src="/uploads/images/#{data.service.resource_one.icon.filename}" alt="resource-icon")
+						.resource-info
+							p.resource-title=data.service.resource_one.title
+							p.resource-description=data.service.resource_one.description
+					article.resource-download
+						.resource-icon
+							img(src="/uploads/images/#{data.service.resource_two.icon.filename}" alt="resource-icon")
+						.resource-info
+							p.resource-title=data.service.resource_two.title
+							p.resource-description=data.service.resource_two.description
+					article.resource-download
+						.resource-icon
+							img(src="/uploads/images/#{data.service.resource_three.icon.filename}" alt="resource-icon")
+						.resource-info
+							p.resource-title=data.service.resource_three.title
+							p.resource-description=data.service.resource_three.description
+
 
 		.row
 			.col-xs-12
@@ -29,6 +50,15 @@ block content
 						article.product-navigation-title
 							span PRODUCTS
 					each product, index in data.products
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+							article.product-navigation-item
+								span= product.title
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+							article.product-navigation-item
+								span= product.title
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+							article.product-navigation-item
+								span= product.title
 						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
 							article.product-navigation-item
 								span= product.title

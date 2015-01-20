@@ -8,7 +8,7 @@ html {
 
 }
 .showroom {
-	//cursor:none !important; Enable this before launch so that no pointer shows up for touchscreen.
+	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
 	width:1024px;
 	height:768px;
 	overflow:hidden;
@@ -63,10 +63,13 @@ html {
 		background:@xxlightGray;
 		z-index:1;
 		position: relative;
-		min-height: 100vh;
+		.respond-md({
+			min-height: 100vh;
+		});
 		.opensans-regular();
 	}
 	.the-looking-glass {
+		position: relative;
 		.blur(0px);
 		.transition(0.3s);
 		&.active {

@@ -21,7 +21,7 @@ var resource = {
 			return '<img src="/uploads/images/'+file.filename+'" alt='+file.filename+'>'
 		}
 	},
-	pdf: {  type: Types.LocalFile, dest: 'public/uploads/resources' },
+	resource_link: { type: String, required: true, initial:false },
 	description: { type: Types.Textarea, height: 100 }
 }
 

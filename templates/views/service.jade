@@ -2,63 +2,135 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 
+mixin product(product)
+	.row
+		.col-xs-10.col-xs-offset-1
+			h2.product-title= product.title
+		.col-xs-10.col-xs-offset-1
+			
+			section.product-hero-container
+				img(src="/uploads/images/#{product.hero.filename}" alt="product-hero-image")
+			.overflow-wrapper
+			section.product-item-container
+				span.product-fade-bottom
+				.product-showroom-scroll
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_one.title
+						p.section-content= product.item_one.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_two.title
+						p.section-content= product.item_two.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_three.title
+						p.section-content= product.item_three.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_four.title
+						p.section-content= product.item_four.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_five.title
+						p.section-content= product.item_five.content
+				.row
+					.col-xs-2
+						img(alt="icon here")
+					.col-xs-9.col-lg-7
+						p.section-heading= product.item_six.title
+						p.section-content= product.item_six.content
+
+
 block content
 
-	//- Check the Service exists
-	if !data.service
-		h2 Service Invalid Post.
-	else
-		.row.header-space
-		.row
-			.col-xs-12.col-md-6.service-container
-				section.service-icon
-					img(src=data.service.icon)
-				h1.service-title= data.service.title					
-				p.section-heading= data.service.heading
-				p.section-content= data.service.content
-					
-			.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
-				h3.resource-header RESOURCES
-				.col-xs-12.resource-subcontainer
-					article.resource-download
-						.resource-icon
-							img(src="/uploads/images/#{data.service.resource_one.icon.filename}" alt="resource-icon")
-						.resource-info
-							p.resource-title=data.service.resource_one.title
-							p.resource-description=data.service.resource_one.description
-					article.resource-download
-						.resource-icon
-							img(src="/uploads/images/#{data.service.resource_two.icon.filename}" alt="resource-icon")
-						.resource-info
-							p.resource-title=data.service.resource_two.title
-							p.resource-description=data.service.resource_two.description
-					article.resource-download
-						.resource-icon
-							img(src="/uploads/images/#{data.service.resource_three.icon.filename}" alt="resource-icon")
-						.resource-info
-							p.resource-title=data.service.resource_three.title
-							p.resource-description=data.service.resource_three.description
+	article.container-fluid.the-looking-glass
+
+		.container
+
+			//- Check the Service exists
+			if !data.service
+				h2 Service Invalid Post.
+			else
+				.row.header-space
+				.row
+					.col-xs-12.col-md-6.service-container
+						section.service-icon
+							img(src=data.service.icon)
+						h1.service-title= data.service.title					
+						p.section-heading= data.service.heading
+						p.section-content= data.service.content
+							
+					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
+						h3.resource-header RESOURCES
+						.col-xs-12.resource-subcontainer
+							article.resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_one.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_one.title
+									p.resource-description=data.service.resource_one.description
+							article.resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_two.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_two.title
+									p.resource-description=data.service.resource_two.description
+							article.resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_three.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_three.title
+									p.resource-description=data.service.resource_three.description
 
 
-		.row
-			.col-xs-12
+				.row
+					.col-xs-12
 
-				if !data.products
-					h2 No Products!
-				else
-					.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-						article.product-navigation-title
-							span PRODUCTS
+						if !data.products
+							h2 No Products!
+						else
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+								article.product-navigation-title
+									span PRODUCTS
+							each product, index in data.products
+								if index == 0
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+										article.product-navigation-item
+											span= product.title
+								else
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+										article.product-navigation-item
+											span= product.title
+
+
+	article.container-fluid.the-looking-glass.container-fluid-products
+		span.product-gradient: span
+		.container
+			if !data.products
+				h2 No Products!
+			else
+				.row
 					each product, index in data.products
-						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
-							article.product-navigation-item
-								span= product.title
-						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
-							article.product-navigation-item
-								span= product.title
-						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
-							article.product-navigation-item
-								span= product.title
-						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
-							article.product-navigation-item
-								span= product.title
+						if index == 0
+							.col-xs-12.product-container(data-item=product.id).active
+								+product(product)
+						else
+							.col-xs-12.product-container(data-item=product.id)
+								+product(product)
+
+
+
+
+
+

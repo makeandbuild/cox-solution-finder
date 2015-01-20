@@ -1,7 +1,6 @@
 //Styles attributed to the structure and overall layout
 
 html {
-	overflow:hidden;
 	.opensans-regular();
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
@@ -62,18 +61,14 @@ html {
 .companion-site {
 	#body {
 		background:@xxlightGray;
-		// vertical-align: top;
-		// display:block;
-		// height:100%;
 		z-index:1;
-		//right: -1px;
+		position: relative;
+		min-height: 100vh;
 		.opensans-regular();
 	}
 	.the-looking-glass {
 		.blur(0px);
 		.transition(0.3s);
-		// height: 100%;
-		// width:100%;
 		&.active {
 			.blur(20px);
 			.transition(0.3s);
@@ -81,7 +76,7 @@ html {
 	}
 	.header-space {
 		height: 3em;
-		.desktop({
+		.respond-lg({
 			height: 6em;
 		});
 	}

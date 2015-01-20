@@ -51,7 +51,7 @@ html
 							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
 		//- BODY
-		main#body.the-looking-glass
+		main#body
 	
 			//- Generates the Navigation Modals for Services and Industries
 			each navigationModal in navLinks
@@ -69,9 +69,8 @@ html
 			//- validation errors, success messages, etc.
 			+flash-messages(messages)
 
-			//- The content block should contain the body of your template's content
-			article.container.main-container
-				block content
+			//- Unlike the showroom template, all containers are within the content blocks
+			block content
 
 
 		//- FOOTER

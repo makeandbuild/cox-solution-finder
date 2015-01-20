@@ -27,39 +27,41 @@
 /*
 CSF Companion Site will use the same view for 991px down. Above that
 use fluid approach up for desktop. For example, default styles will be up to 991px,
-and `.desktop({ content })` should be Desktop, with `.large-desktop({ content })` used
+and `.respond-md({ content })` should be Desktop, with `.respond-lg({ content })` used
 sparingly if needed.
 */
 
 // Use these only when needed. Otherwise use mobile first mixins below.
-.phone-only(@rules) {
+.respond-xs-only(@rules) {
   @media (max-width: 767px) {
     @rules();
   }
 }
-.mobile-only(@rules) {
+.respond-xs-sm-only(@rules) {
   @media (max-width: 991px) {
     @rules();
   }
 }
-.tablet-only(@rules) {
+.respond-sm-only(@rules) {
   @media (min-width: 768px) and (max-width: 991px) {
+    @rules();
+  }
+}
+.respond-md-only(@rules) {
+  @media (min-width: 992px) and (max-width: 1199px) {
     @rules();
   }
 }
 
 // Mobile First Mixins
-.small-phone(@rules) {
-  @media (min-width: 480px) { @rules(); }
-}
-.tablet(@rules) {
+.respond-sm(@rules) {
   @media (min-width: 768px) { @rules(); }
 }
-.desktop(@rules) {
+.respond-md(@rules) {
   @media (min-width: 992px) { @rules(); }
 }
-.large-desktop(@rules) {
-  @media (min-width: 1396px) { @rules(); }
+.respond-lg(@rules) {
+  @media (min-width: 1200px) { @rules(); }
 }
 
 

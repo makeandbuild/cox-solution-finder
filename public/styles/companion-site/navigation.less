@@ -1,0 +1,44 @@
+// Navigation Styles for the Companion Site
+#header {
+	background-color:@darkGray;
+	vertical-align: top;
+	display:block;
+	height:96px;
+	position: relative;
+	.respond-lg({
+		height:96px;
+	});
+	.navigation-item {
+		vertical-align: top;
+		height:100%;
+		position:relative;
+		cursor:pointer;
+	}
+	.navigation-logo {
+		display:inline-block;
+	}
+	.navigation-solution-finder {
+		display:block;
+		position:absolute;
+		left:0;
+		bottom:-40px;
+		height:40px;
+	}
+	.navigation-item-list {
+		vertical-align: top;
+		display:inline-block;
+		height:100%;
+		li {
+			display:table-cell;
+			a {
+				height: 96px;
+				display: table-cell;
+				vertical-align: middle;
+				padding-left:1em;
+				padding-right:1em;
+				font-size:1.15em;
+			}
+		}
+	}
+
+}

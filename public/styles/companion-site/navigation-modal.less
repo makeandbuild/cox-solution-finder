@@ -3,15 +3,19 @@
 	left:0;
 	top:0;
 	visibility: hidden;
+	z-index: 15;
+	width: 100%;
+	display:none;
+	.respond-lg({
+		display:block;
+	});
 	&.active {
 		visibility: visible;
 	}
 }
 .navigation-modal-tile-row {
-	padding-top: 11em;
-	.showroom-screen({
-		padding-top: 20em;
-	});
+	padding-top: 7em;
+	text-align: center;
 }
 .navigation-modal-tile {
 	position: relative;
@@ -19,10 +23,10 @@
 	display:inline-block;
 	width: 200px;
 	height: 200px;
-	margin-right: 1em;
+	margin-right: 2em;
+	margin-bottom: 2em;
 	background-color:@darkBlue;
 	color:@white;
-	margin-bottom: 1em;
 	vertical-align: top;
 	opacity:0;
 	.transition(0.2s);
@@ -34,16 +38,8 @@
 	&.fake-tile {
 		visibility: hidden;
 		opacity:0;
-		margin-left: 5em;
-		.showroom-screen({
-			margin-left:8em;
-		});
 	}
 	&:first-child {
-		margin-left: 5em;
-		.showroom-screen({
-			margin-left:8em;
-		});
 	}
 	&:hover, &.active {
 		color:@white;
@@ -61,6 +57,7 @@
 			bottom: 0;
 			left: 0;
 			right: 0;
+			width: 35%;
 		}
 	}
 	.tile-title {

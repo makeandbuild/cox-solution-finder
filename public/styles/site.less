@@ -15,8 +15,22 @@
 @import "site/layout";
 @import "site/globals";
 @import "site/navigation";
-@import "site/navigation-modal";
-@import "site/services";
-@import "site/products";
-@import "site/industries";
-@import "site/resources";
+
+// Showroom
+.showroom {
+	@import "showroom/navigation";
+	@import "showroom/navigation-modal";
+	@import "showroom/services";
+	@import "showroom/products";
+	@import "showroom/industries";
+}
+
+// Companion Site
+.companion-site {
+	@import "companion-site/navigation";
+	@import "companion-site/navigation-modal";
+	@import "companion-site/services";
+	@import "companion-site/products";
+	@import "companion-site/industries";
+	@import "companion-site/resources";
+}

@@ -22,7 +22,7 @@ exports = module.exports = function(req, res) {
 		});
 
 		q.exec(function(err, result) {
-			locals.data.service = result;
+			locals.data.product = result;
 			next(err);
 		});
 

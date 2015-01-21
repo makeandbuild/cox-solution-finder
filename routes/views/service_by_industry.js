@@ -73,5 +73,5 @@ exports = module.exports = function(req, res) {
 	// ---------------
 
 	// Render the view
-	view.render('service_by_industry');
+	view.render('service');
 };

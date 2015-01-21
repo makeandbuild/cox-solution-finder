@@ -20,7 +20,7 @@ exports = module.exports = function(req, res) {
 		var q = keystone.list('Service').model.findOne({
 			state: 'published',
 			slug: locals.filters.service
-		});
+		}).populate('industries');
 
 		q.exec(function(err, result) {
 			locals.data.service = result;

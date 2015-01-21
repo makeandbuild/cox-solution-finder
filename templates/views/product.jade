@@ -2,4 +2,55 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 block content
-	h1 PRODUCTS LOL
+
+	article.container-fluid.the-looking-glass.container-fluid-products.container-fluid-products-view
+		span.product-gradient.product-gradient-companion: span
+		.container
+			if !data.product
+				h2 No Products!
+			else
+				.row
+					.col-xs-12
+						h2.product-title= data.product.title
+					.col-xs-12
+						
+						section.product-hero-container
+							img(src="/uploads/images/#{data.product.hero.filename}" alt="product-hero-image")
+						section.product-item-container
+							.product-showroom-scroll
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_one.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_one.title
+									p.section-content= data.product.item_one.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_two.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_two.title
+									p.section-content= data.product.item_two.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_three.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_three.title
+									p.section-content= data.product.item_three.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_four.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_four.title
+									p.section-content= data.product.item_four.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_five.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_five.title
+									p.section-content= data.product.item_five.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									img(src="/uploads/images/#{data.product.item_six.icon.filename}" alt="icon here").product-item-icon
+								.col-xs-12
+									p.section-heading= data.product.item_six.title
+									p.section-content= data.product.item_six.content

@@ -2,9 +2,24 @@ extends ../../layouts/default-showroom
 //- Use the Showroom Default Template
 
 mixin industryDropdown(options, industry, service)
-	h1= industry
-	each option in options
-		a(href="/services/"+service.slug+"/"+option.slug)= option.title
+
+	.dropdown.custom-dropdown
+		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+			span.caret
+		span.custom-dropdown-current for 
+			= industry
+		ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+			li(role="presentation")
+				a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/") All
+			each option in options
+				li(role="presentation")
+					a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/"+option.slug)= option.title
+
+
+	//- h1: a(href="/services/"+service.slug+"/")= industry
+	//- a(href="/services/"+service.slug) All
+	//- each option in options
+	//- 	a(href="/services/"+service.slug+"/"+option.slug)= option.title
 
 mixin product(product)
 	.row
@@ -70,11 +85,14 @@ block content
 					.col-xs-10.col-lg-8.col-xs-offset-1
 						h1.service-title= data.service.title
 						section
-							- var current
+							- var current = 0
 							each industry in data.service.industries
 								if data.industry == industry.slug
 									- current = industry.title
-							+industryDropdown(data.service.industries, current, data.service)
+							if current
+								+industryDropdown(data.service.industries, current, data.service)
+							else
+								+industryDropdown(data.service.industries, 'All', data.service)
 
 						p.section-heading= data.service.heading
 						p.section-content= data.service.content

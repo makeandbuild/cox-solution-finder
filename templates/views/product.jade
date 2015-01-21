@@ -54,3 +54,32 @@ block content
 								.col-xs-12
 									p.section-heading= data.product.item_six.title
 									p.section-content= data.product.item_six.content
+
+				.row
+					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container.resource-container-products-view
+						h3.resource-header RESOURCES
+						.col-xs-12.resource-subcontainer
+							a(href=data.product.resource_one.resource_link download=data.product.resource_one.resource_link target="_blank" title=data.product.resource_one.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.product.resource_one.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.product.resource_one.title
+									p.resource-description=data.product.resource_one.description
+							a(href=data.product.resource_two.resource_link download=data.product.resource_two.resource_link target="_blank" title=data.product.resource_two.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.product.resource_two.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.product.resource_two.title
+									p.resource-description=data.product.resource_two.description
+							a(href=data.product.resource_three.resource_link download=data.product.resource_three.resource_link target="_blank" title=data.product.resource_three.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.product.resource_three.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.product.resource_three.title
+									p.resource-description=data.product.resource_three.description
+							a(href=data.product.resource_four.resource_link download=data.product.resource_four.resource_link target="_blank" title=data.product.resource_four.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.product.resource_four.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.product.resource_four.title
+									p.resource-description=data.product.resource_four.description

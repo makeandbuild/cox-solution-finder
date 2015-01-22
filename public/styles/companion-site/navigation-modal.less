@@ -1,15 +1,38 @@
+.the-looking-glass {
+	position: relative;
+	.blur(0px);
+	.transition(0.3s);
+	&.active {
+		.blur(20px);
+		.transition(0.3s);
+	}
+	.respond-xs-sm-only({
+		.blur(0px);
+		.transition(0);
+		&.active {
+			.blur(0px);
+			.transition(0);
+		}
+	});
+}
+
+
 .navigation-modal-tiles {
 	position: absolute;
 	left:0;
 	top:0;
 	visibility: hidden;
+	height:0;
 	z-index: 15;
 	width: 100%;
-	display:none;
-	.respond-md({
-		display:block;
+
+	.respond-xs-sm-only({
+		display:none;
+		visibility:hidden;
+		height:0;
 	});
 	&.active {
+		height:auto;
 		visibility: visible;
 	}
 }

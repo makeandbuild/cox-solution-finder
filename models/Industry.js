@@ -15,7 +15,7 @@ var Industry = new keystone.List('Industry', {
 var resource = {
 	title: { type: String },
 	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
-	resource_link: { type: String, required: true, initial:false },
+	resource_link: { type: String, initial:false },
 	description: { type: Types.Textarea, height: 100 }
 }
 

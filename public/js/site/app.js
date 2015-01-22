@@ -104,21 +104,8 @@ function navigationModal(){
 // Showroom Functions
 function initShowroom(){
 	console.log('initShowroom Called');
+	sidebarNavigation();
 	
-
-	//Make me better
-	if($('body').width() <= config.breakpoints.showroom.tablet) {
-		console.log('body');
-		$('.navigation-toggle').on('click', function(){
-			$('#side-navigation').toggleClass('active');
-			console.log('toggle');
-		});
-		$(document).on('click', function(e){
-			if(!$(e.target).hasClass('navigation-toggle') && $(this).parents('#body')){
-				$('#side-navigation').removeClass('active');
-			}
-		});
-	}
 
 	$('.product-showroom-scroll').on('click',function(){
 		var parent = $(this).parent();
@@ -130,8 +117,17 @@ function initShowroom(){
 			parent.addClass('scrolled');
 		}
 	});
+}
 
-	//scrollTo($('.product-item-container'), $('.product-item-container').)
+// Tablet Sidebar Navigation
+function sidebarNavigation(){
+	$('.navigation-toggle').on('click', function(){
+		$('#side-navigation').toggleClass('active');
+		console.log('toggle');
+	});
+	$('#body').on('click', function(e){
+		$('#side-navigation').removeClass('active');
+	});
 }
 
 // --------------------------------

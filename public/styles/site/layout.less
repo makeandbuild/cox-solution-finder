@@ -10,12 +10,17 @@ html {
 .showroom {
 	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
 	width:1024px;
-	height:768px;
+	height:748px;
 	overflow:hidden;
 	.showroom-screen({
 		width:1920px;
 		height:1080px;
 	});
+
+	& * {
+		.transition(0.3s);
+	}
+
 	#body {
 		width:1024px;
 		background:@xxlightGray;
@@ -35,7 +40,7 @@ html {
 	.the-looking-glass {
 		.blur(0px);
 		.transition(0.3s);
-		height: 768px;
+		height: 748px;
 		.showroom-screen({
 			height:1080px;
 		});
@@ -45,7 +50,7 @@ html {
 		}
 	}
 	.full-height-col {
-		height: 768px;
+		height: 748px;
 		overflow: hidden;
 		.showroom-screen({
 			height:1080px;
@@ -59,6 +64,12 @@ html {
 	}
 }
 .companion-site {
+	& * {
+		.respond-md({
+			.transition(0.3s);
+		});
+		
+	}
 	#body {
 		background:@xxlightGray;
 		z-index:1;
@@ -68,25 +79,13 @@ html {
 		});
 		.opensans-regular();
 	}
-	.the-looking-glass {
-		position: relative;
-		.blur(0px);
-		.transition(0.3s);
-		&.active {
-			.blur(20px);
-			.transition(0.3s);
-		}
-	}
+	
 	.header-space {
 		height: 3em;
 		.respond-lg({
 			height: 6em;
 		});
 	}
-}
-
-body * {
-	.transition(0.3s);
 }
 
 
@@ -97,6 +96,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
+*[class^="col-"] {
+    z-index:0;
+}
 
 
 button {

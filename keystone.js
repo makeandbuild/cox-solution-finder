@@ -104,21 +104,12 @@ keystone.set('nav', {
 
 keystone.start();
 
-var events = require('events');
-var emitter = new events.EventEmitter();
+// Start the ethernet connection listener
+var sync = require('./components/sync.js').sync,
+		emitter = sync.getEmitter();
 
 emitter.on('connectionAvailable', function(e) {
-	console.log('Connection Available to ' + e.target +'.');
-});
-
-setInterval(function() {
-	var url = 'www.google.com';
-
-	require('dns').resolve(url, function(err) {
-		if (err) {
-			console.log(err);
-		} else {
-			emitter.emit('connectionAvailable', { target: url });
-		}
+		console.log('Connection Available to ' + e.target +'.');
+		// TODO: react to connectionAvailable event
 	});
-}, 5000);
+sync.start();

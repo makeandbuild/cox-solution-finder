@@ -32,3 +32,6 @@ node_modules
 
 # Ignore Uploads Folder
 public/uploads/*
+
+/tmp/*
+!.gitkeep

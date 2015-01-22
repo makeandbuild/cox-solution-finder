@@ -19,7 +19,6 @@ keystone.init({
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'jade',
-	'port': '3000',
 
 	'emails': 'templates/emails',
 
@@ -31,8 +30,34 @@ keystone.init({
 
 });
 
+if (process.env.PORT) {
+	keystone.set('port', process.env.PORT);
+}
+
+if (process.env.LISTEN) {
+	keystone.set('listen', process.env.LISTEN);
+}
+
+if (process.env.MONGO_URI) {
+	keystone.set('mongo', process.env.MONGO_URI);
+	keystone.set('session store', 'mongo');
+}
+
+if (process.env.S3_BUCKET) {
+	keystone.set('s3 config', {
+		bucket: process.env.S3_BUCKET,
+		key: process.env.S3_KEY,
+		secret: process.env.S3_SECRET
+	});
+}
+
+if (process.env.COOKIE_SECRET) {
+	keystone.set('cookie secret', process.env.COOKIE_SECRET);
+}
+
+
 // Override default view setting.
-if (process.env.SOLUTION_MODE == 'showroom'){
+if (process.env.SOLUTION_MODE == 'showroom') {
 	keystone.set('views', 'templates/views/showroom');
 }
 // Load your project's Models

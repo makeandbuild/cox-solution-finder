@@ -101,31 +101,29 @@ block content
 									span PRODUCTS
 
 							//- Loops thru all Products
+							- var activeSwitch = 0
 							each product, index in data.products
-
-								//- Find current industry or whether in none.
 								- var currentIndustry = 0
 								each industry in data.service.industries
 									if data.industry == industry.slug
 										- currentIndustry = industry
-
-								//- If within an industry
 								if currentIndustry
 									each productIndustry in product.industries
 										if productIndustry == currentIndustry.id
-											p= currentIndustry.title
-
-
-								//- If not in an industry, just do the thing.
+											if !activeSwitch
+												.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
+													article.product-navigation-item
+														span= product.title
+												- activeSwitch = true;
+											else
+												.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
+													article.product-navigation-item
+														span= product.title
+									
 								else
-									if index == 0
-										.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
-											article.product-navigation-item
-												span= product.title
-									else
-										.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
-											article.product-navigation-item
-												span= product.title
+									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id class=(index == 0 ? 'active' : null))
+										article.product-navigation-item
+											span= product.title
 
 			.col-xs-6.full-height-col
 				span.background-shadow.from-right
@@ -133,25 +131,26 @@ block content
 				if !data.products
 					h2 No Products!
 				else
+					- var activeSwitch = 0
 					each product, index in data.products
-						- var current = 0
+						- var currentIndustry = 0
 						each industry in data.service.industries
 							if data.industry == industry.slug
-								- current = industry.title
-						if current
+								- currentIndustry = industry
+						if currentIndustry
+							each productIndustry in product.industries
+								if productIndustry == currentIndustry.id
+									if !activeSwitch
+										.col-xs-12.full-height-col.product-container(data-item=product.id).active
+											+product(product)
+										- activeSwitch = true;
+									else
+										.col-xs-12.full-height-col.product-container(data-item=product.id)
+											+product(product)
+							
 						else
-							if index == 0
-								.col-xs-12.full-height-col.product-container(data-item=product.id).active
-									+product(product)
-							else
-								.col-xs-12.full-height-col.product-container(data-item=product.id)
-									+product(product)
-
-
-						
-
-						
-
+							.col-xs-12.full-height-col.product-container(data-item=product.id class=(index == 0 ? 'active' : null))
+								+product(product)
 
 
 

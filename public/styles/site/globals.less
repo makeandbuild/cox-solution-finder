@@ -27,6 +27,10 @@
 		margin-top:0;
 	}
 }
+.section-title {
+	.opensans-regular();
+	color:@darkBlue;
+}
 
 
 .shadow-normal {
@@ -49,6 +53,9 @@
 	&.from-right {
 		right:0;
 		.box-shadow(210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+	}
+	&.lighter {
+		.box-shadow(210px, 0, 320px, 315px, rgba(0, 0, 0, 0.15));
 	}	
 }
 .custom-dropdown {
@@ -59,6 +66,10 @@
 		-moz-border-radius: 0px;
 		border-radius: 0px;
 		background:@white !important;
+		padding: 6px 8px;
+		img {
+			width: 23px;
+		}
 	}
 	.custom-dropdown-current {
 		margin-left:10px;

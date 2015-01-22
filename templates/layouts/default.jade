@@ -38,7 +38,7 @@ html
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			a.navigation-item.navigation-logo(href='/')
-				img(src='cox-maps-image')
+				img(src='/images/logo.png')
 			a.navigation-item.navigation-solution-finder(href='/') Solution
 				span Finder
 			ul.navigation-item-list
@@ -57,9 +57,9 @@ html
 			each navigationModal in navLinks
 				if navigationModal.type == 'modal'
 					if navigationModal.key == 'services'
-						+tiles(data.navigation_services, navigationModal.key)
+						+tiles-companion(data.navigation_services, navigationModal.key)
 					if navigationModal.key == 'industries'
-						+tiles(data.navigation_industries, navigationModal.key)
+						+tiles-companion(data.navigation_industries, navigationModal.key)
 
 
 			//- The Intro block appears above flash messages (used for temporary information display)

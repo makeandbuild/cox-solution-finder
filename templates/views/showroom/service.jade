@@ -5,7 +5,7 @@ mixin industryDropdown(options, industry, service)
 
 	.dropdown.custom-dropdown
 		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-			span.caret
+			img(src="/images/arrow_down.png")
 		span.custom-dropdown-current for 
 			= industry
 		ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
@@ -15,11 +15,6 @@ mixin industryDropdown(options, industry, service)
 				li(role="presentation")
 					a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/"+option.slug)= option.title
 
-
-	//- h1: a(href="/services/"+service.slug+"/")= industry
-	//- a(href="/services/"+service.slug) All
-	//- each option in options
-	//- 	a(href="/services/"+service.slug+"/"+option.slug)= option.title
 
 mixin product(product)
 	.row
@@ -33,6 +28,7 @@ mixin product(product)
 			section.product-item-container
 				span.product-fade-bottom
 				.product-showroom-scroll
+					img(src="/images/arrow_down.png")
 				.row
 					.col-xs-2.product-icon-container
 						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
@@ -92,7 +88,7 @@ block content
 							if current
 								+industryDropdown(data.service.industries, current, data.service)
 							else
-								+industryDropdown(data.service.industries, 'All', data.service)
+								+industryDropdown(data.service.industries, 'All Industries', data.service)
 
 						p.section-heading= data.service.heading
 						p.section-content= data.service.content
@@ -103,15 +99,33 @@ block content
 							.col-xs-6.col-lg-4.product-navigation-title-container
 								article.product-navigation-title
 									span PRODUCTS
+
+							//- Loops thru all Products
 							each product, index in data.products
-								if index == 0
-									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
-										article.product-navigation-item
-											span= product.title
+
+								//- Find current industry or whether in none.
+								- var currentIndustry = 0
+								each industry in data.service.industries
+									if data.industry == industry.slug
+										- currentIndustry = industry
+
+								//- If within an industry
+								if currentIndustry
+									each productIndustry in product.industries
+										if productIndustry == currentIndustry.id
+											p= currentIndustry.title
+
+
+								//- If not in an industry, just do the thing.
 								else
-									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
-										article.product-navigation-item
-											span= product.title
+									if index == 0
+										.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
+											article.product-navigation-item
+												span= product.title
+									else
+										.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
+											article.product-navigation-item
+												span= product.title
 
 			.col-xs-6.full-height-col
 				span.background-shadow.from-right
@@ -120,12 +134,21 @@ block content
 					h2 No Products!
 				else
 					each product, index in data.products
-						if index == 0
-							.col-xs-12.full-height-col.product-container(data-item=product.id).active
-								+product(product)
+						- var current = 0
+						each industry in data.service.industries
+							if data.industry == industry.slug
+								- current = industry.title
+						if current
 						else
-							.col-xs-12.full-height-col.product-container(data-item=product.id)
-								+product(product)
+							if index == 0
+								.col-xs-12.full-height-col.product-container(data-item=product.id).active
+									+product(product)
+							else
+								.col-xs-12.full-height-col.product-container(data-item=product.id)
+									+product(product)
+
+
+						
 
 						
 

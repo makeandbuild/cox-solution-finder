@@ -4,6 +4,7 @@ extends ../layouts/default
 block content
 
 	article.container-fluid.the-looking-glass.container-fluid-products.container-fluid-products-view
+		span.background-shadow.from-right.lighter
 		span.product-gradient.product-gradient-companion: span
 		.container
 			if !data.product
@@ -56,7 +57,7 @@ block content
 									p.section-content= data.product.item_six.content
 
 				.row
-					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container.resource-container-products-view
+					.col-xs-12.resource-container.resource-container-products-view
 						h3.resource-header RESOURCES
 						.col-xs-12.resource-subcontainer
 							a(href=data.product.resource_one.resource_link download=data.product.resource_one.resource_link target="_blank" title=data.product.resource_one.title).resource-download

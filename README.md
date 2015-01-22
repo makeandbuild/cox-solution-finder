@@ -13,4 +13,5 @@ following line:
 This will be picked up by keystone.js and change the views directory to be
 `templates/views/showroom`.
 
+The `.env` is ingorned by git, *do not add it to the repo*.
 

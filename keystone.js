@@ -103,3 +103,13 @@ keystone.set('nav', {
 // Start Keystone to connect to your database and initialise the web server
 
 keystone.start();
+
+// Start the ethernet connection listener
+var sync = require('./components/sync.js').sync,
+		emitter = sync.getEmitter();
+
+emitter.on('connectionAvailable', function(e) {
+		console.log('Connection Available to ' + e.target +'.');
+		// TODO: react to connectionAvailable event
+	});
+sync.start();

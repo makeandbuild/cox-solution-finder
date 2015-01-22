@@ -51,7 +51,7 @@ if (process.env.S3_BUCKET) {
 	});
 }
 
-if (process.env.COOOKIE_SECRET) {
+if (process.env.COOKIE_SECRET) {
 	keystone.set('cookie secret', process.env.COOKIE_SECRET);
 }
 

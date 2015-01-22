@@ -1,0 +1,98 @@
+//Styles and Classes used throughout the site for various elements
+.section-heading {
+	color:@darkBlue;
+	font-size:1.8em;
+	line-height: 1.2;
+	.showroom-screen({
+		font-size: 2em;
+		line-height: 1.1;
+	});
+}
+.section-content {
+	margin-bottom: 3em;
+	margin-top: 1em;
+	.showroom-screen({
+		font-size: 1.25em;
+		margin-bottom: 3.5em;
+		margin-top: 2em;
+	});
+}
+
+.companion-site {
+	.section-heading {
+		margin-bottom: 1em;
+	}
+	.section-content {
+		margin-bottom: 2em;
+		margin-top:0;
+	}
+}
+
+
+.shadow-normal {
+	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.3));
+}
+.shadow-remove {
+	.box-shadow(0, 0, 0, 0, rgba(0, 0, 0, 0));
+}
+.background-shadow {
+	width:0px;
+	height:100%;
+	position: absolute;
+	top:0;
+	bottom:0;
+	vertical-align: middle;
+	&.from-left {
+		left:0;
+		.box-shadow(-210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+	}
+	&.from-right {
+		right:0;
+		.box-shadow(210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+	}	
+}
+.custom-dropdown {
+	margin-bottom: 1.5em;
+	button {
+		border: 0;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		background:@white !important;
+	}
+	.custom-dropdown-current {
+		margin-left:10px;
+		display:inline-block;
+		vertical-align: bottom;
+		margin-bottom: 4px;
+	}
+	ul {
+		border: 0;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		margin: 0;
+		padding-top: 0;
+		padding-bottom:0;
+		li {
+			border-bottom:1px solid @somewhatlightGray;
+			&:last-child {
+				border-bottom:0;
+			}
+			&:active, &:focus {
+				outline:0;
+			}
+			a {
+				padding: 10px 42px 10px 42px;
+				.transition(0);
+			}
+			&:hover {
+				a {
+					background: @darkBlue;
+					color: @white;
+					.transition(0);
+				}
+			}
+		}
+	}
+}

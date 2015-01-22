@@ -1,0 +1,36 @@
+mixin tile(tile, key)
+
+	a(href='/'+key+'/' + tile.slug alt=tile.title).navigation-modal-tile
+		.tile-icon
+			img(src="/uploads/images/#{tile.icon.filename}" alt=tile.title + " icon")
+		.tile-title
+			span= tile.title
+
+mixin tiles(tiles, key)
+
+	//- The Tiles
+	.navigation-modal-tiles(data-navigation-modal=key)
+
+		//- Single Row of Tiles
+		if tiles.length < 3
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile, key)
+
+		//- After 2nd Tile go to second row and create a fake tile
+		if tiles.length == 3 || tiles.length == 4
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile, key)
+					if index == 1
+						br
+						a.navigation-modal-tile.fake-tile
+
+		//- After 3rd Tile go to second row and create a fake tile
+		if tiles.length > 4
+			.row.navigation-modal-tile-row
+				each tile, index in tiles
+					+tile(tile, key)
+					if index == 2
+						br
+						a.navigation-modal-tile.fake-tile

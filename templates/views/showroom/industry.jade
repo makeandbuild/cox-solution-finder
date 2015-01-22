@@ -1,0 +1,12 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+block content
+	h1 Industry Page
+	if !data.industry
+		h2 Invalid Post.
+	else
+		h2 True! Now what?
+		div= data.industry.title
+		div= data.industry.heading
+		div= data.industry.content

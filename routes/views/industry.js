@@ -7,9 +7,38 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'home';
-
+	locals.section = 'industries';
+	locals.filters = {
+		industry: req.params.industry
+	};
 	locals.data = {};
+
+	// Load the current industries
+	view.on('init', function(next) {
+
+		var q = keystone.list('Industry').model.findOne({
+			state: 'published',
+			slug: locals.filters.industry
+		});
+
+		q.exec(function(err, result) {
+			locals.data.industry = result;
+			next(err);
+		});
+
+	});
+
+	// Load other posts
+	view.on('init', function(next) {
+
+		var q = keystone.list('Service').model.find().where('state', 'published').populate('services');
+
+		q.exec(function(err, results) {
+			locals.data.services = results;
+			next(err);
+		});
+
+	});
 
 	// ---------------
 	// Navigation Data
@@ -28,8 +57,9 @@ exports = module.exports = function(req, res) {
 		});
 	});
 	// ---------------
-	
+
+
+
 	// Render the view
-	view.render('index');
-	
+	view.render('industry');
 };

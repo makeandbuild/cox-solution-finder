@@ -1,16 +1,138 @@
-#header {
-	margin-top: 30px;
+//Styles attributed to the structure and overall layout
+
+html {
+	.opensans-regular();
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
+
+}
+.showroom {
+	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
+	width:1024px;
+	height:768px;
+	overflow:hidden;
+	.showroom-screen({
+		width:1920px;
+		height:1080px;
+	});
+	#body {
+		width:1024px;
+		background:@xxlightGray;
+		vertical-align: top;
+		display:block;
+		height:100%;
+		z-index:1;
+		right: -1px;
+		.opensans-regular();
+		.showroom-screen({
+			width:1700px;
+			position:relative;
+			display:inline-block;
+			margin-left:-5px;
+		});
+	}
+	.the-looking-glass {
+		.blur(0px);
+		.transition(0.3s);
+		height: 768px;
+		.showroom-screen({
+			height:1080px;
+		});
+		&.active {
+			.blur(20px);
+			.transition(0.3s);
+		}
+	}
+	.full-height-col {
+		height: 768px;
+		overflow: hidden;
+		.showroom-screen({
+			height:1080px;
+		});
+	}
+	.header-space {
+		height: 35px;
+		.showroom-screen({
+			height: 125px;
+		});
+	}
+}
+.companion-site {
+	#body {
+		background:@xxlightGray;
+		z-index:1;
+		position: relative;
+		.respond-md({
+			min-height: 100vh;
+		});
+		.opensans-regular();
+	}
+	.the-looking-glass {
+		position: relative;
+		.blur(0px);
+		.transition(0.3s);
+		&.active {
+			.blur(20px);
+			.transition(0.3s);
+		}
+	}
+	.header-space {
+		height: 3em;
+		.respond-lg({
+			height: 6em;
+		});
+	}
 }
 
-#footer {
-	margin-top: 30px;
-	border-top: 1px solid @gray-lighter;
-	padding-top: 30px;
-	color: @gray-light;
+body * {
+	.transition(0.3s);
 }
 
-.gallery-image img{
-    display: block;
-    max-width: 100%;
-    height: auto;
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	font-weight:300;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
 }
+
+
+
+button {
+	&:focus {
+		outline:0 !important;
+	}
+}
+a {
+	&:hover, &.active, &:focus, &:visited {
+		text-decoration: none;
+	}
+}
+
+.container-fluid {
+	overflow: hidden;
+	padding:0;
+}
+.overflow-wrapper {
+	overflow:hidden;
+}
+
+// If you need 5 columns..
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+.col-sm-15 {
+    width: 20%;
+    float: left;
+}
+.col-md-15 {
+    width: 20%;
+    float: left;
+}
+.col-lg-15 {
+	width: 20%;
+	float: left;
+}
+

@@ -7,9 +7,27 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'home';
-
+	locals.section = 'products';
+	locals.filters = {
+		product: req.params.product
+	};
 	locals.data = {};
+
+	// Load the current service
+	view.on('init', function(next) {
+
+		var q = keystone.list('Product').model.findOne({
+			state: 'published',
+			slug: locals.filters.product
+		});
+
+		q.exec(function(err, result) {
+			locals.data.product = result;
+			next(err);
+		});
+
+	});
+
 
 	// ---------------
 	// Navigation Data
@@ -28,8 +46,7 @@ exports = module.exports = function(req, res) {
 		});
 	});
 	// ---------------
-	
+
 	// Render the view
-	view.render('index');
-	
+	view.render('product');
 };

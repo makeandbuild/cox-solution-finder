@@ -19,6 +19,7 @@ keystone.init({
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
 	'view engine': 'jade',
+	'port': '3000',
 
 	'emails': 'templates/emails',
 
@@ -93,7 +94,10 @@ keystone.set('email tests', require('./routes/emails'));
 
 keystone.set('nav', {
 	'enquiries': 'enquiries',
-	'users': 'users'
+	'users': 'users',
+	'industries' : 'industries',
+	'services' : 'services',
+	'products' : 'products'
 });
 
 // Start Keystone to connect to your database and initialise the web server

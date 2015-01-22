@@ -1,26 +1,36 @@
 // Bootstrap
-// =========
+@import "bootstrap/bootstrap";
 
-// You can include less bootstrap components if you like by
-// importing the .less files you want directly, instead of
-// the main bootstrap/bootstrap.less file.
-//
-// Bootstrap can be removed entirely by deleting this line.
+// Helpers
+@import "helpers/mixins";
+@import "helpers/development";
 
-@import "bootstrap/bootstrap.less";
+// Fonts
+@import "site/fonts";
 
-// The easiest way to customise Bootstrap variables while
-// being able to easily override the source files with new
-// versions is to override the ones you want in another file.
-//
-// You can also add your own custom variables to this file for
-// use in your site stylesheets.
+// Variables
+@import "site/variables";
 
-@import "site/variables.less";
+// Site
+@import "site/layout";
+@import "site/globals";
+@import "site/navigation";
 
+// Showroom
+.showroom {
+	@import "showroom/navigation";
+	@import "showroom/navigation-modal";
+	@import "showroom/services";
+	@import "showroom/products";
+	@import "showroom/industries";
+}
 
-// Site Styles
-// ===========
-
-// Add your own site style includes here
-@import "site/layout.less";
+// Companion Site
+.companion-site {
+	@import "companion-site/navigation";
+	@import "companion-site/navigation-modal";
+	@import "companion-site/services";
+	@import "companion-site/products";
+	@import "companion-site/industries";
+	@import "companion-site/resources";
+}

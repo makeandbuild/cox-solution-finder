@@ -1,0 +1,86 @@
+// Navigation Styles for the Showroom
+#side-navigation {
+	width:160px;
+	position:fixed;
+	left:-160px;
+	top:0;
+	vertical-align: top;
+	display:block;
+	height: 768px;
+	background-color:@darkGray;
+	.transition();
+    z-index:10;
+	&.active {
+		left:0;
+		.transition();
+	}
+	.showroom-screen({
+		width:220px;
+		height: 1080px;
+		left:0;
+		position:relative;
+		display:inline-block;
+	});
+
+	.navigation-item {
+		width:100%;
+		display:block;
+		height:auto;
+		padding-top:2em;
+		padding-left: 28px;
+		padding-bottom:2em;
+		padding-right:0em;
+		font-size: 1em;
+		text-transform: uppercase;
+		text-decoration: none;
+		.showroom-screen({
+			padding-left: 32px;
+			font-size: 1.15em;
+		});
+	}
+	.navigation-item-list {
+		li {
+			&:hover, &.active {
+				a {						
+				}
+				
+			}
+			a {
+				
+			}
+		}
+	}
+
+	.navigation-logo {
+		
+	}
+	.navigation-solution-finder {
+		
+		padding-top:1em;
+		padding-bottom:1em;
+		font-size: 1em;
+		padding-left:10px;
+		
+		span {
+			
+		}
+		.showroom-screen({
+			padding-left:32px;
+		});
+	}
+	.navigation-restart {
+		position: absolute;
+		bottom:0;
+		left:0;
+		text-align: center;
+		padding-left:0;
+		padding-right:0;
+		
+		&:hover, &.active {
+			
+		}
+	}
+	.navigation-toggle {
+
+	}
+}

@@ -1,0 +1,185 @@
+extends ../layouts/default
+//- Use the Companion Site Default Template
+
+
+mixin product(product)
+	.row
+		.col-xs-10.col-xs-offset-1
+			h2.product-title= product.title
+		.col-xs-10.col-xs-offset-1
+			
+			section.product-hero-container
+				img(src="/uploads/images/#{product.hero.filename}" alt="product-hero-image")
+			section.product-item-container
+				.product-showroom-scroll
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_one.title
+						p.section-content= product.item_one.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_two.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_two.title
+						p.section-content= product.item_two.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_three.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_three.title
+						p.section-content= product.item_three.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_four.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_four.title
+						p.section-content= product.item_four.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_five.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_five.title
+						p.section-content= product.item_five.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						img(src="/uploads/images/#{product.item_six.icon.filename}" alt="icon here").product-item-icon
+					.col-xs-12
+						p.section-heading= product.item_six.title
+						p.section-content= product.item_six.content
+
+	.resources-container-products
+		.row
+			.col-xs-12
+				h3 RESOURCES
+		.row
+			.col-xs-12.col-md-6
+				a(href=product.resource_one.resource_link download=product.resource_one.resource_link target="_blank" title=product.resource_one.title).resource-download
+					.resource-icon
+						img(src="/uploads/images/#{product.resource_one.icon.filename}" alt="resource-icon")
+					.resource-info
+						p.resource-title=product.resource_one.title
+						p.resource-description=product.resource_one.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_two.resource_link download=product.resource_two.resource_link target="_blank" title=product.resource_two.title).resource-download
+					.resource-icon
+						img(src="/uploads/images/#{product.resource_two.icon.filename}" alt="resource-icon")
+					.resource-info
+						p.resource-title=product.resource_two.title
+						p.resource-description=product.resource_two.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_three.resource_link download=product.resource_three.resource_link target="_blank" title=product.resource_three.title).resource-download
+					.resource-icon
+						img(src="/uploads/images/#{product.resource_three.icon.filename}" alt="resource-icon")
+					.resource-info
+						p.resource-title=product.resource_three.title
+						p.resource-description=product.resource_three.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_four.resource_link download=product.resource_four.resource_link target="_blank" title=product.resource_four.title).resource-download
+					.resource-icon
+						img(src="/uploads/images/#{product.resource_four.icon.filename}" alt="resource-icon")
+					.resource-info
+						p.resource-title=product.resource_four.title
+						p.resource-description=product.resource_four.description
+
+
+block content
+
+	article.container-fluid.the-looking-glass
+
+		.container
+
+			//- Check the Service exists
+			if !data.service
+				h2 Service Invalid Post.
+			else
+				.row.header-space
+				.row
+					.col-xs-12.col-md-6.service-container
+						section.service-icon
+							img(src="/uploads/images/#{data.service.icon.filename}" alt="service-icon")
+						h1.service-title= data.service.title					
+						p.section-heading= data.service.heading
+						p.section-content= data.service.content
+							
+					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
+						h3.resource-header RESOURCES
+						.col-xs-12.resource-subcontainer
+							a(href=data.service.resource_one.resource_link download=data.service.resource_one target="_blank" title=data.service.resource_one.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_one.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_one.title
+									p.resource-description=data.service.resource_one.description
+							a(href=data.service.resource_two.resource_link download=data.service.resource_two target="_blank" title=data.service.resource_two.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_two.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_two.title
+									p.resource-description=data.service.resource_two.description
+							a(href=data.service.resource_three.resource_link download=data.service.resource_three target="_blank" title=data.service.resource_three.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.service.resource_three.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.service.resource_three.title
+									p.resource-description=data.service.resource_three.description
+		.extend-products-background
+
+	article.container-fluid.the-looking-glass.container-fluid-products-navigation
+
+		.container
+
+			.row
+				.col-xs-12.products-md
+
+					if !data.products
+						h2 No Products!
+					else
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+							article.product-navigation-title
+								span PRODUCTS
+						each product, index in data.products
+							if index == 0
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+									article.product-navigation-item
+										span= product.title
+							else
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+									article.product-navigation-item
+										span= product.title
+
+				.col-xs-12.products-xs
+
+					if !data.products
+						h2 No Products!
+					else
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+							article.product-navigation-title
+								span PRODUCTS
+						each product, index in data.products
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+								a(href="/products/#{product.slug}").product-navigation-item
+									span= product.title
+
+
+	article.container-fluid.the-looking-glass.container-fluid-products.products-md
+		span.product-gradient: span
+		.container
+			if !data.products
+				h2 No Products!
+			else
+				.row
+					each product, index in data.products
+						if index == 0
+							.col-xs-12.product-container(data-item=product.id).active
+								+product(product)
+						else
+							.col-xs-12.product-container(data-item=product.id)
+								+product(product)
+
+
+
+
+
+

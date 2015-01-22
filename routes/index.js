@@ -33,7 +33,11 @@ var routes = {
 
 // Setup Route Bindings
 exports = module.exports = function(app) {
-	
+
+	app.get('/_status_/heartbeat', function (req, res) {
+		res.type("text").send("OK");
+	});
+
 	// Views
 	app.get('/', routes.views.index);
 	app.all('/contact', routes.views.contact);

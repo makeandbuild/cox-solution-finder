@@ -108,8 +108,10 @@ function initShowroom(){
 
 	//Make me better
 	if($('body').width() <= config.breakpoints.showroom.tablet) {
+		console.log('body');
 		$('.navigation-toggle').on('click', function(){
 			$('#side-navigation').toggleClass('active');
+			console.log('toggle');
 		});
 		$(document).on('click', function(e){
 			if(!$(e.target).hasClass('navigation-toggle') && $(this).parents('#body')){

@@ -131,9 +131,6 @@
 
 
 
-
-
-
 // Product Viewing Section
 .product-gradient {
 	background-color:@lightBlue;
@@ -148,7 +145,13 @@
 	&.product-gradient-companion {
 		height:10%;
 		.respond-md({
-			height:35%;
+			height:15%;
+		});
+	}
+	&.product-gradient-companion-services {
+		height:10%;
+		.respond-md({
+			height:25%;
 		});
 	}
 	span {
@@ -159,9 +162,7 @@
 		bottom:0;
 		left:0;
 		right:0;
-		-webkit-box-shadow: 0px 26px 170px 120px rgba(255, 255, 255, 0.5);
-		-moz-box-shadow:    0px 26px 170px 120px rgba(255, 255, 255, 0.5);
-		box-shadow:         0px 26px 170px 120px rgba(255, 255, 255, 0.5);
+		.box-shadow(0px 26px 170px 150px rgba(255, 255, 255, 0.5));
 	}
 }
 .product-fade-bottom {
@@ -179,24 +180,7 @@
 	-moz-box-shadow:    0 0 126px 60px rgba(247, 247, 247, 0.75);
 	box-shadow:         0 0 126px 60px rgba(247, 247, 247, 0.75);
 }
-// .product-showroom-scroll {
-// 	position: absolute;
-// 	bottom: 0;
-// 	left: 0;
-// 	width: 100%;
-// 	height: 100px;
-// 	z-index: 5;
-// 	display:none;
-// }
-// .scrolled {
-// 	.product-showroom-scroll {
-// 		bottom: 458px;
-// 	}
-// 	.product-fade-bottom {
-// 		opacity: 0;
-// 		.transition(0.3s);
-// 	}
-// }
+
 .extend-products-background {
 	background: @xlightGray;
 	padding: 3em;

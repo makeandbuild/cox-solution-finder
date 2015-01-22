@@ -2,11 +2,55 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 block content
-	h1 Industry Page
-	if !data.industry
-		h2 Invalid Post.
-	else
-		h2 True! Now what?
-		div= data.industry.title
-		div= data.industry.heading
-		div= data.industry.content
+	span.background-shadow.from-right
+	article.container-fluid.the-looking-glass
+		
+
+		.container
+
+			//- Check the Service exists
+			if !data.industry
+				h2 Service Invalid Post.
+			else
+				.row.header-space
+				.row
+					.col-xs-12.col-md-6.service-container
+						h1.service-title= data.industry.title					
+						p.section-heading= data.industry.heading
+						p.section-content= data.industry.content
+							
+					.col-xs-12.col-md-6.media-buffet
+						h1 Media Buffet here
+
+				.resources-container-products
+					.row
+						.col-xs-12
+							h3 RESOURCES
+					.row
+						.col-xs-12.col-md-6
+							a(href=data.industry.resource_one.resource_link download=data.industry.resource_one.resource_link target="_blank" title=data.industry.resource_one.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.industry.resource_one.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.industry.resource_one.title
+									p.resource-description=data.industry.resource_one.description
+						.col-xs-12.col-md-6
+							a(href=data.industry.resource_two.resource_link download=data.industry.resource_two.resource_link target="_blank" title=data.industry.resource_two.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.industry.resource_two.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.industry.resource_two.title
+									p.resource-description=data.industry.resource_two.description
+						.col-xs-12.col-md-6
+							a(href=data.industry.resource_three.resource_link download=data.industry.resource_three.resource_link target="_blank" title=data.industry.resource_three.title).resource-download
+								.resource-icon
+									img(src="/uploads/images/#{data.industry.resource_three.icon.filename}" alt="resource-icon")
+								.resource-info
+									p.resource-title=data.industry.resource_three.title
+									p.resource-description=data.industry.resource_three.description
+
+	article.container-fluid.the-looking-glass.container-fluid-products-navigation
+		span.background-shadow.from-right
+		.container
+
+			h2.section-title Services

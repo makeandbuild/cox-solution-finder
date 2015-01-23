@@ -30,8 +30,8 @@ node_modules
 # Ignore .DS_Store files on OS X
 .DS_Store
 
-# Ignore Uploads Folder
-public/uploads/*
+# Ignore Uploads
+/public/uploads/*
 
 /log/*
 /tmp/*

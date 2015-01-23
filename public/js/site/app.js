@@ -125,7 +125,7 @@ function sidebarNavigation(){
 		$('#side-navigation').toggleClass('active');
 		console.log('toggle');
 	});
-	$('#body').on('click', function(e){
+	$('#body, .navigation-modal-item').on('click', function(e){
 		$('#side-navigation').removeClass('active');
 	});
 }

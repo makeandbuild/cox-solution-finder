@@ -9,6 +9,9 @@ html {
 }
 .showroom {
 	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
+	.showroom-screen-exact({
+		cursor:none !important;
+	});
 	width:1024px;
 	height:748px;
 	overflow:hidden;
@@ -38,7 +41,7 @@ html {
 		});
 	}
 	.the-looking-glass {
-		.blur(0px);
+		.blur(0);
 		.transition(0.3s);
 		height: 748px;
 		.showroom-screen({

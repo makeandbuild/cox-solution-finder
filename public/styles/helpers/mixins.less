@@ -95,6 +95,14 @@ sparingly if needed.
     }
 }
 
+//Target Exactly the Touchscreen
+.showroom-screen-exact(@rules) {
+    @media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+    only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+        @rules();
+    }
+}
+
 ////////////////////////////////////////////
 // Global Mixins and Helpers
 
@@ -125,7 +133,7 @@ sparingly if needed.
   -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
   -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
 }
-.blur(@amount: 5px;){
+.blur(@amount: 0;) when (@amount = true){
   -webkit-filter: blur(@amount);
   -moz-filter: blur(@amount);
   -o-filter: blur(@amount);

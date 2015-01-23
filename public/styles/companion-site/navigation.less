@@ -3,11 +3,31 @@
 	background-color:@darkGray;
 	vertical-align: top;
 	display:block;
-	height:96px;
+	height:50px;
 	position: relative;
-	.respond-lg({
+	.respond-md({
 		height:96px;
 	});
+	.navigation-toggle {
+		position: relative;
+		height: 50px;
+		background: @black;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		border:0;
+		padding: 0 1em;
+		&:focus, &:active {
+			outline:0;
+		}
+		.icon-bar {
+			display: block;
+			height: 3px;
+			margin: 4px 0;
+			background-color: #FFF;
+			width: 23px;
+		}
+	}
 	.navigation-item {
 		vertical-align: top;
 		height:100%;
@@ -17,7 +37,10 @@
 	.navigation-logo {
 		display:inline-block;
 		padding: 1em 1.5em;
-		height: 96px;
+		height: 50px;
+		.respond-md({
+			height:96px;
+		});
 		.transition(0);
 		img {
 			width: 156px;
@@ -33,20 +56,32 @@
 		height:40px;
 	}
 	.navigation-item-list {
-		vertical-align: top;
-		display:inline-block;
-		height:100%;
+		position: absolute;
+		top:100%;
+
+		.respond-md({
+			vertical-align: top;
+			display:inline-block;
+			height:100%;
+		});
 		li {
-			display:table-cell;
+			display:block;
+			.respond-md({
+				display:table-cell;
+			});
 			a {
-				height: 96px;
+				height: 50px;
 				display: table-cell;
 				vertical-align: middle;
 				padding-left:1em;
 				padding-right:1em;
 				font-size:1.15em;
+				.respond-md({
+					height:96px;
+				});
 			}
 		}
 	}
+
 
 }

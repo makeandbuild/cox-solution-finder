@@ -49,6 +49,26 @@ html
 							li(class=(section == link.key ? 'active' : null))
 								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
+			.visible-xs.visible-sm
+
+				button.navigation-toggle
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+
+				a.navigation-item.navigation-logo(href='/')
+					img(src='/images/logo.png')
+				ul.navigation-item-list
+					each link in navLinks
+						if link.type == 'page'
+							li(class=(section == link.key ? 'active' : null))
+								a.navigation-item(href=link.href)= link.label
+						if link.type == 'modal'
+							li(class=(section == link.key ? 'active' : null))
+								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
+
+				a(href="tel:18001231234" title="Chat with Us").phone-cta
+
 		//- BODY
 		main#body
 	

@@ -35,6 +35,11 @@ run rm -R releases/$rel_tag/log releases/$rel_tag/tmp releases/$rel_tag/public/u
 run ln -s $APP_ROOT/shared/log releases/$rel_tag/log
 run ln -s $APP_ROOT/shared/tmp releases/$rel_tag/tmp
 run ln -s $APP_ROOT/shared/system/uploads releases/$rel_tag/public/uploads
+run ln -s $APP_ROOT/shared/config/.env releases/$rel_tag/.env
+
+###
+# NPM install
+run "cd releases/$rel_tag ; npm install"
 
 ###
 # Change current

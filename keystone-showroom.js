@@ -12,7 +12,5 @@ var express = require('express'),
     keystone = require('keystone').connect(mongoose, app);
 
 require('./setup')(keystone, function() {
-  if (process.env.SOLUTION_MODE == 'showroom') {
-    keystone.set('views', 'templates/views/showroom');
-  }
+  keystone.set('views', 'templates/views/showroom');
 });

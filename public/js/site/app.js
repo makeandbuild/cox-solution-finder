@@ -27,6 +27,7 @@ function initDevelopment(){
 // Global Functions
 function initGlobal(){
 	console.log('initGlobal Called');
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
 	navigationModal();
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 }
@@ -109,12 +110,21 @@ function initShowroom(){
 
 	$('.product-showroom-scroll').on('click',function(){
 		var parent = $(this).parent();
+		var target = $(this);
 		if(parent.hasClass('scrolled')){
 			scrollTo(parent, 0, 1000);
-			parent.removeClass('scrolled');
+			
+			target.fadeOut('300', function(){
+				parent.removeClass('scrolled');
+				target.fadeIn('300');
+			});
 		} else {
 			scrollTo(parent, parent.children('.row').last().offset().top, 1000);
-			parent.addClass('scrolled');
+			
+			target.fadeOut('300', function(){
+				parent.addClass('scrolled');
+				target.fadeIn('300');
+			});
 		}
 	});
 }

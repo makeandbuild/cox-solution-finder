@@ -60,23 +60,36 @@
 }
 .custom-dropdown {
 	margin-bottom: 1.5em;
+	z-index:50;
 	button {
 		border: 0;
 		-webkit-border-radius: 0px;
 		-moz-border-radius: 0px;
 		border-radius: 0px;
-		background:@white !important;
-		padding: 6px 8px;
-		img {
-			width: 23px;
+		background:transparent !important;
+		background:blue;
+		width:200px;
+		vertical-align: middle;
+		margin-left: -12px;
+		padding: 0 12px;
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+		.icon-arrow {
+			background:@white;
+			display:inline-block;
+			padding: 6px 8px;
+			img {
+				width: 23px;
+				vertical-align: middle;
+			}
+		}
+		.custom-dropdown-current {
+			margin-left: 5px;
+			display:inline-block;
+			vertical-align: top;
+			padding: 6px 8px;
 		}
 	}
-	.custom-dropdown-current {
-		margin-left:10px;
-		display:inline-block;
-		vertical-align: bottom;
-		margin-bottom: 4px;
-	}
+	
 	ul {
 		border: 0;
 		-webkit-border-radius: 0px;

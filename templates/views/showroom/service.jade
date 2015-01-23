@@ -5,9 +5,10 @@ mixin industryDropdown(options, industry, service)
 
 	.dropdown.custom-dropdown
 		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-			img(src="/images/arrow_down.png")
-		span.custom-dropdown-current for 
-			= industry
+			.icon-arrow
+				img(src="/images/arrow_down.png")
+			span.custom-dropdown-current for 
+				= industry
 		ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
 			li(role="presentation")
 				a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/") All
@@ -78,7 +79,7 @@ block content
 				span.background-shadow.from-left
 				.row.header-space
 				.row
-					.col-xs-10.col-lg-8.col-xs-offset-1
+					.col-xs-10.col-lg-8.col-xs-offset-1(style="z-index:50")
 						h1.service-title= data.service.title
 						section
 							- var current = 0

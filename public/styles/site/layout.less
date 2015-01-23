@@ -9,6 +9,9 @@ html {
 }
 .showroom {
 	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
+	.showroom-screen-exact({
+		cursor:none !important;
+	});
 	width:1024px;
 	height:748px;
 	overflow:hidden;
@@ -17,9 +20,22 @@ html {
 		height:1080px;
 	});
 
-	& * {
-		.transition(0.3s);
+	::selection {
+	  background: inherit;
+	  color: inherit;
 	}
+	::-moz-selection {
+	  background: inherit;
+	  color: inherit;
+	}
+
+
+	.showroom-screen({
+		& * {
+			.transition(0.3s);
+		}
+	});
+	
 
 	#body {
 		width:1024px;
@@ -38,15 +54,19 @@ html {
 		});
 	}
 	.the-looking-glass {
-		.blur(0px);
-		.transition(0.3s);
+		.blur(0);
+		
 		height: 748px;
 		.showroom-screen({
+			.transition(0.3s);
 			height:1080px;
 		});
 		&.active {
 			.blur(20px);
-			.transition(0.3s);
+			.showroom-screen({
+				.transition(0.3s);
+			});
+			
 		}
 	}
 	.full-height-col {

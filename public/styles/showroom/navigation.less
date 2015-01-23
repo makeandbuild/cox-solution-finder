@@ -8,11 +8,13 @@
 	display:block;
 	height: 748px;
 	background-color:@darkGray;
-	.transition();
+	
     z-index:10;
 	&.active {
 		left:0;
-		.transition();
+		.showroom-screen({
+			.transition(0.3s);
+		});
 	}
 	.showroom-screen({
 		width:220px;
@@ -20,6 +22,7 @@
 		left:0;
 		position:relative;
 		display:inline-block;
+		.transition(0.3s);
 	});
 
 	.navigation-item {

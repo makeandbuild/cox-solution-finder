@@ -29,14 +29,6 @@ html {
 	  color: inherit;
 	}
 
-
-	.showroom-screen({
-		& * {
-			.transition(0.3s);
-		}
-	});
-	
-
 	#body {
 		width:1024px;
 		background:@xxlightGray;
@@ -53,22 +45,7 @@ html {
 			margin-left:-5px;
 		});
 	}
-	.the-looking-glass {
-		.blur(0);
-		
-		height: 748px;
-		.showroom-screen({
-			.transition(0.3s);
-			height:1080px;
-		});
-		&.active {
-			.blur(20px);
-			.showroom-screen({
-				.transition(0.3s);
-			});
-			
-		}
-	}
+	
 	.full-height-col {
 		height: 748px;
 		overflow: hidden;
@@ -84,28 +61,26 @@ html {
 	}
 }
 .companion-site {
-	& * {
-		.respond-md({
-			.transition(0.3s);
-		});
-		
-	}
 	#body {
 		background:@xxlightGray;
 		z-index:1;
 		position: relative;
+		overflow: hidden;
+		margin-top:50px;
 		.respond-md({
+			margin-top:0px;
 			min-height: 100vh;
 		});
 		.opensans-regular();
 	}
 	
 	.header-space {
-		height: 3em;
-		.respond-lg({
-			height: 6em;
+		height: 7em;
+		.respond-md({
+			height: 7em;
 		});
 	}
+
 }
 
 

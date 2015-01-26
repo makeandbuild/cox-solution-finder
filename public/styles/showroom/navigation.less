@@ -26,6 +26,10 @@
 	});
 
 	.navigation-item {
+		color:@lightGray;
+		text-transform: uppercase;
+		text-decoration: none;
+		.opensans-regular();
 		width:100%;
 		display:block;
 		height:auto;
@@ -42,11 +46,16 @@
 		});
 	}
 	.navigation-item-list {
+		padding:0;
+		margin:0;
+		display:block;
+		list-style-type: none;
 		li {
 			&:hover, &.active {
-				a {						
+				a {
+					background-color:@lightBlue;
+					color:@white;
 				}
-				
 			}
 			a {
 				
@@ -55,37 +64,65 @@
 	}
 
 	.navigation-logo {
+		background-color:@darkBlue;
+		color:@white;
 		img {
 			width: 85%;
 		}
 	}
 	.navigation-solution-finder {
-		
+		background-color:@white;
+		color:@darkBlue;
+		.opensans-regular();
 		padding-top:1em;
 		padding-bottom:1em;
 		font-size: 1em;
 		padding-left:10px;
 		
 		span {
-			
+			.opensans-semibold();
 		}
 		.showroom-screen({
 			padding-left:32px;
 		});
 	}
 	.navigation-restart {
+		background-color:@regularGray;
+		color:@white;
 		position: absolute;
 		bottom:0;
 		left:0;
 		text-align: center;
 		padding-left:0;
 		padding-right:0;
-		
 		&:hover, &.active {
-			
+			background-color:@lightBlue;
+			color:@white;
 		}
 	}
 	.navigation-toggle {
-
+		z-index:9;
+		position: absolute;
+		top:0;
+		left:0;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		border:0;
+		background-color:@darkBlue;
+		padding: 0.7em 0.8em;
+		&:focus, &:active {
+			outline:0;
+		}
+		.showroom-screen({
+			display:none;
+		});
+		.icon-bar {
+			display: block;
+			height: 3px;
+			margin: 4px 0;
+			background-color: #FFF;
+			width: 23px;
+		}
 	}
 }

@@ -3,7 +3,7 @@ extends ../layouts/default
 
 block content
 
-	article.container-fluid.the-looking-glass
+	article.container-fluid
 		span.background-shadow.from-right.lighter
 		.container
 			if !data.product
@@ -24,7 +24,7 @@ block content
 					.col-xs-12
 						h1.product-page-title= data.product.title
 
-	article.container-fluid.the-looking-glass.container-fluid-products.container-fluid-products-view
+	article.container-fluid.container-fluid-products.container-fluid-products-view
 		span.background-shadow.from-right.lighter
 		.container
 			if !data.product

@@ -144,9 +144,66 @@ function sidebarNavigation(){
 // Companion Site Functions
 function initCompanion(){
 	console.log('initCompanion Called');
+	mobileNavigation();
+	setMobileNavHeight();
 
 }
 
+// Tablet Sidebar Navigation
+function mobileNavigation(){
+	$('.navigation-toggle').on('click', function(){
+		if($(this).hasClass('active')){
+			$('.navigation-mobile-sub-menu').removeClass('active');
+			$('.navigation-item.has-menu').removeClass('viewing');
+			$('.navigation-mobile ul').children().removeClass('viewing').children().removeClass('active');
+			$('.navigation-mobile ul').children().children('.navigation-mobile-sub-menu').slideUp();
+			$('.navigation-mobile-body-background').removeClass('active');
+			$('#body').show();
+		} else {
+			$('.navigation-mobile-body-background').addClass('active');
+			$('#body').hide();
+		}
+		$(this).toggleClass('active');
+		$('.navigation-mobile').toggleClass('active');
+
+	});
+	$('.navigation-item.has-menu').on('click', function(){
+		$(this).parent().siblings().removeClass('viewing').children().removeClass('active');
+		$(this).parent().siblings().children('.navigation-mobile-sub-menu').slideUp();
+		$(this).parent().toggleClass('viewing');
+		$(this).siblings('.navigation-mobile-sub-menu').slideToggle();
+	})
+	$('#body, .navigation-mobile-body-background').on('click', function(e){
+		$('.navigation-mobile, .navigation-toggle, .navigation-mobile-sub-menu').removeClass('active');
+		$('.navigation-item.has-menu').removeClass('viewing');
+		$('.navigation-mobile ul').children().removeClass('viewing').children().removeClass('active');
+		$('.navigation-mobile ul').children().children('.navigation-mobile-sub-menu').slideUp();
+		$('.navigation-mobile-body-background').removeClass('active');
+		$('#body').show();
+	});
+}
+
+
+function setMobileNavHeight(){
+	$('.navigation-mobile').css('max-height', document.documentElement.clientHeight - 50 + 'px');
+}
+
+
+
+
+// Functions for Window Resizing
+$(window).resize(function(){
+	if($('body').hasClass('showroom')){
+
+	}
+	if($('body').hasClass('companion-site')){
+		if(document.documentElement.clientWidth <= config.breakpoints.site.mobile) {
+			setMobileNavHeight();
+		}
+	}
+		
+	
+});
 
 
 $(function() {
@@ -155,7 +212,7 @@ $(function() {
 	initGlobal();
 	if($('body').hasClass('showroom'))
 		initShowroom();
-	if($('body').hasClass('companion'))
+	if($('body').hasClass('companion-site'))
 		initCompanion();
 
 	//Development Only

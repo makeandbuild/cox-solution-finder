@@ -69,12 +69,36 @@
 	// Phone CTA
 	.navigation-phone-cta {
 		position:absolute;
-		float:right;
-		display:block;
-		top:0;
-		right:0;
-		padding: 0 1em;
-		height:50px;
+		display: block;
+		top: 0;
+		right: 0;
+		padding: 0 0 0 4em;
+		height: 50px;
+		background-image: url(../images/phone-cta-icon.png);
+		background-position: center;
+		background-size: 30%;
+		z-index: 6;
+		background-repeat: no-repeat;
+		span {
+			display:none;
+		}
+		.respond-md({
+			height: 96px;
+			background-position: 15% center;
+			background-size: 15%;
+			padding-top: 1.5em;
+			padding-right: 2em;
+			padding-left: 5em;
+			background-color: @regularGray;
+			span {
+				display:block;
+				color: @xsomewhatlightGray;
+				.opensans-semibold();
+				&:first-child {
+					color: @white;
+				}
+			}
+		});
 	}
 
 	// LOGO
@@ -97,6 +121,18 @@
 	}
 	.navigation-logo-mobile {
 		color:@white;
+		background-image: url(../images/logo.png);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: auto 35px;
+		display:block;
+		position:absolute;
+		left:0;
+		right:0;
+		top:0;
+		margin:auto;
+		width:50%;
+		z-index:6;
 	}
 
 
@@ -157,12 +193,13 @@
 		top:0;
 		width:100%;
 		z-index:4;
-		overflow:scroll;
+		overflow-y:scroll;
+		overflow-x:hidden;
 		.translate(0,-100%);
-		.transition(0.3s, transform);
+		.transition(0.3s);
 		&.active {
 			.translate(0,50px);
-			.transition(0.3s, transform);
+			.transition(0.3s);
 		}
 		> ul {
 			list-style-type: none;
@@ -178,11 +215,17 @@
 					color:@white;
 					padding:1em 0 1em 1em;
 					background-color:@lblack;
+
+					.opensans-semibold();
 				}
 				&.viewing {
 					> a {
 						background-color:@lightBlue;
 						color:@white;
+						background-image: url(../images/arrow_down_white.png);
+						background-repeat: no-repeat;
+						background-position: 97% center;
+						background-size: 26px;
 					}
 				}
 			}
@@ -260,8 +303,18 @@
 	left: 0;
 	bottom: 0;
 	right: 0;
+
+	background-image: url(../images/logo-email.gif);
+	background-position: center;
+	background-repeat: no-repeat;
+
+	
+
 	&.active {
 		display:block;
+		.respond-md({
+			display:none;
+		});
 	}
 	span {
 		position: absolute;
@@ -272,3 +325,5 @@
 
 	}
 }
+
+

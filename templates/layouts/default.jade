@@ -1,6 +1,9 @@
 include ../mixins/flash-messages
 include ../mixins/navigation-modal
 
+//- Inits
+- var navigationLinks = navLinks
+
 doctype html
 html
 
@@ -38,8 +41,8 @@ html
 
 				a.navigation-item.navigation-logo(href='/')
 					img(src='/images/logo.png')
-				a.navigation-item.navigation-solution-finder(href='/') Solution
-					span Finder
+					.navigation-solution-finder Solution
+						span Finder
 				ul.navigation-item-list
 					each link in navLinks
 						if link.type == 'page'
@@ -55,26 +58,59 @@ html
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
+				.navigation-mobile-background
+				//- a.navigation-item.navigation-logo-mobile(href='/')
+				//- 	img(src='/images/logo.png')
+				nav(role="navigation").navigation-mobile
+					ul
+						each link in navigationLinks
+							li(class=(section == link.key ? 'active' : null))
+								if link.type == 'modal'
+									if link.key == 'services'
+										a.navigation-item.has-menu= link.label
+										ul.navigation-mobile-sub-menu.row
+											each item, index in data.navigation_services
+												li.col-xs-6
+													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
+														.navigation-mobile-icon
+															img(src="/uploads/images/#{item.icon.filename}" alt=item.title + " icon")
+														.navigation-mobile-title
+															span= item.title
+									else if link.key == 'industries'
+										a.navigation-item.has-menu= link.label
+										ul.navigation-mobile-sub-menu.row
+											each item, index in data.navigation_industries
+												li.col-xs-6
+													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
+														.navigation-mobile-icon
+															img(src="/uploads/images/#{item.icon.filename}" alt=item.title + " icon")
+														.navigation-mobile-title
+															span= item.title
+									
+								else
+									a.navigation-item(href=link.href)= link.label
 
-				a.navigation-item.navigation-logo(href='/')
-					img(src='/images/logo.png')
-				ul.navigation-item-list-dropdown
-					each link in navLinks
-						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item(href=link.href)= link.label
-				a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+
+
+				//- a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+
+
+		//- Generates the Navigation Modals for Services and Industries
+		each navigationModal in navigationLinks
+			if navigationModal.type == 'modal'
+				if navigationModal.key == 'services'
+					+tiles-companion(data.navigation_services, navigationModal.key)
+				if navigationModal.key == 'industries'
+					+tiles-companion(data.navigation_industries, navigationModal.key)
+
+		.navigation-mobile-body-background
+			span
 
 
 		//- BODY
-		main#body
+		main#body.the-looking-glass
 	
-			//- Generates the Navigation Modals for Services and Industries
-			each navigationModal in navLinks
-				if navigationModal.type == 'modal'
-					if navigationModal.key == 'services'
-						+tiles-companion(data.navigation_services, navigationModal.key)
-					if navigationModal.key == 'industries'
-						+tiles-companion(data.navigation_industries, navigationModal.key)
+			
 
 
 			//- The Intro block appears above flash messages (used for temporary information display)

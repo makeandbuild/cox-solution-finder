@@ -52,6 +52,12 @@ html
 							li(class=(section == link.key ? 'active' : null))
 								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
+				a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+					span Let's Talk.
+					span 800-123-1234
+
+
+
 			.visible-xs.visible-sm
 
 				button.navigation-toggle
@@ -59,8 +65,9 @@ html
 					span.icon-bar
 					span.icon-bar
 				.navigation-mobile-background
-				//- a.navigation-item.navigation-logo-mobile(href='/')
-				//- 	img(src='/images/logo.png')
+
+				a.navigation-item.navigation-logo-mobile(href='/')
+
 				nav(role="navigation").navigation-mobile
 					ul
 						each link in navigationLinks
@@ -92,7 +99,7 @@ html
 
 
 
-				//- a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+				a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
 
 
 		//- Generates the Navigation Modals for Services and Industries
@@ -104,7 +111,6 @@ html
 					+tiles-companion(data.navigation_industries, navigationModal.key)
 
 		.navigation-mobile-body-background
-			span
 
 
 		//- BODY

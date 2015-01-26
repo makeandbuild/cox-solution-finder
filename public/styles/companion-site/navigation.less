@@ -1,51 +1,86 @@
 // Navigation Styles for the Companion Site
 #header {
-	background-color:@darkGray;
+	background-color:@regularGray;
 	vertical-align: top;
 	display:block;
 	height:50px;
 	position: relative;
 	.respond-md({
+		background-color:@darkGray;
 		height:96px;
 	});
-	.navigation-toggle {
-		position: relative;
-		height: 50px;
-		background: @black;
-		-webkit-border-radius: 0px;
-		-moz-border-radius: 0px;
-		border-radius: 0px;
-		border:0;
-		padding: 0 1em;
-		&:focus, &:active {
-			outline:0;
-		}
-		.icon-bar {
-			display: block;
-			height: 3px;
-			margin: 4px 0;
-			background-color: #FFF;
-			width: 23px;
-		}
-	}
 	.navigation-item {
+		color:@lightGray;
+		text-transform: uppercase;
+		text-decoration: none;
+		.opensans-regular();
 		vertical-align: top;
 		height:100%;
 		position:relative;
 		cursor:pointer;
 	}
+	.navigation-toggle {
+		position: relative;
+		height: 50px;
+		background-color:@lblack;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		border:0;
+		padding: 0 1em;
+		&:focus, &:active, &:hover {
+			outline:0;
+			.icon-bar {
+				background-color:@lightBlue;
+			}
+		}
+		.icon-bar {
+			display: block;
+			height: 1px;
+			margin: 4px 0;
+			background-color: @xsomewhatlightGray;
+			width: 15px;
+		}
+	}
+	.navigation-phone-cta {
+		position:absolute;
+		float:right;
+		display:block;
+		top:0;
+		right:0;
+		padding: 0 1em;
+		height:50px;
+	}
 	.navigation-logo {
-		display:inline-block;
-		padding: 1em 1.5em;
+		padding: 7px;
+		position: absolute;
+		margin: auto;
+		display: block;
+		width: 130px;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color:transparent;
+		background-color:@darkBlue;
+		color:@white;
+		
 		height: 50px;
 		.respond-md({
+
 			height:96px;
+			display:inline-block;
+			padding: 1em 1.5em;
+			position:relative;
 		});
 		.transition(0);
 		img {
-			width: 156px;
+			height: 36px;
+			width: auto;
 			vertical-align: middle;
 			.transition(0);
+			.respond-md({
+				width: 156px;
+			});
 		}
 	}
 	.navigation-solution-finder {
@@ -54,31 +89,51 @@
 		left:0;
 		bottom:-40px;
 		height:40px;
+		background-color:@white;
+		color:@darkBlue;
+		.opensans-regular();
+		span {
+			.opensans-semibold();
+		}
 	}
 	.navigation-item-list {
-		position: absolute;
-		top:100%;
-
-		.respond-md({
-			vertical-align: top;
-			display:inline-block;
-			height:100%;
-		});
+		padding:0;
+		margin:0;
+		display:block;
+		list-style-type: none;
+		vertical-align: top;
+		display:inline-block;
+		height:100%;
+		position: relative;
 		li {
-			display:block;
-			.respond-md({
-				display:table-cell;
-			});
+			display:table-cell;
 			a {
-				height: 50px;
+				height:96px;
 				display: table-cell;
 				vertical-align: middle;
 				padding-left:1em;
 				padding-right:1em;
 				font-size:1.15em;
-				.respond-md({
-					height:96px;
-				});
+			}
+			&:hover, &.active {
+				a {
+					background-color:@lightBlue;
+					color:@white;
+				}
+			}
+		}
+	}
+	.navigation-item-list-dropdwon {
+		position: absolute;
+		top:100%;
+		z-index:1;
+		li {
+			display:block;
+			width:100%;
+			a {
+				display: block;
+				vertical-align: middle;
+				font-size:1.15em;
 			}
 		}
 	}

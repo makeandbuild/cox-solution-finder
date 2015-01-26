@@ -1,7 +1,8 @@
 #!/bin/bash
 
 APP_NAME="sfv2"
-TARGET_HOST='dev.sfv2.cox.mxmcloud.com'
+ENVIRONMENT="dev"
+TARGET_HOST="$ENVIRONMENT.sfv2.cox.mxmcloud.com"
 APP_ROOT="/srv/$APP_NAME"
 
 run() {
@@ -14,6 +15,15 @@ run() {
   ssh $APP_NAME@$TARGET_HOST "$cmd"
 }
 
+notify_slack() {
+  curl -sS --data-binary @- \
+      -H 'Content-Type: application/json' \
+      -H 'Accept: application/json' \
+      -XPOST https://hooks.slack.com/services/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 <<EOJSON
+{ "channel": "#cox-solution-finder", "text": "$@" }
+EOJSON
+}
+
 ###
 # Create release
 rel_tag=` git tag --points-at=HEAD `
@@ -21,6 +31,8 @@ rel_tag=` git tag --points-at=HEAD `
 git ls-files -z | xargs -0 tar -czf tmp/release-$rel_tag.tar.gz
 
 echo "Release: tmp/release-$rel_tag.gz"
+
+notify_slack "Starting deployment: $rel_tag to $ENVIRONMENT"
 
 ###
 # Upload release
@@ -49,3 +61,5 @@ run ln -s $APP_ROOT/releases/$rel_tag current
 ###
 # Restart
 run touch current/tmp/restart.txt
+
+notify_slack "Finished deployment: $rel_tag to $ENVIRONMENT"

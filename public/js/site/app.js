@@ -61,37 +61,52 @@ function scrollTo(toBeScrolled, whereToScroll, time){
 
 
 function navigationModal(){
+
+	$('.navigation-item-list li.active').addClass('current');
+
 	$('.navigation-modal-item').on('click',function(){
 
 		$scope = {};
 		$scope.$tiles = $('.navigation-modal-tiles');
 		$scope.$glass = $('.the-looking-glass');
 		$scope.glassActive = $scope.$glass.hasClass('active');
+		$scope.$navItems = $('.navigation-modal-item');
 		$scope.$navItem = $(this);
 		$scope.$selector = $(this).data('navigation-modal-item');
 		$scope.$target = $scope.$tiles.filter("[data-navigation-modal='" + $scope.$selector + "']");
 		$scope.tilesActive = $scope.$tiles.hasClass('active');
 		$scope.$allTiles = $('.navigation-modal-tile');
+		$scope.$activePage = $('.navigation-item-list li.current');
 
 
 		if(!$scope.$target.hasClass('active')){
 			$scope.$glass.removeClass('active');
 			$scope.$tiles.removeClass('active');
 			$scope.$allTiles.removeClass('active');
+			$scope.$navItems.removeClass('viewing');
+			console.log('a');
 
 			$scope.$glass.toggleClass('active');
 			setTimeout(function(){
 				$scope.$target.toggleClass('active');
 				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
+				$scope.$navItem.toggleClass('viewing');
+				$scope.$activePage.removeClass('active');
+				console.log('b');
 			},150);
 		} else {
 			setTimeout(function(){
 				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
+				console.log('c');
 			},0);
 			setTimeout(function(){
 				$scope.$glass.toggleClass('active');
+				console.log('d');
 			},150);
 			$scope.$target.toggleClass('active');
+			$scope.$navItem.toggleClass('viewing');
+			$scope.$activePage.addClass('active');
+			console.log('e');
 		}
 		
 	
@@ -136,9 +151,9 @@ function initShowroom(){
 function sidebarNavigation(){
 	$('.navigation-toggle').on('click', function(){
 		$('#side-navigation').toggleClass('active');
-		console.log('toggle');
 	});
-	$('#body, .navigation-modal-item').on('click', function(e){
+	$('#body').on('click', function(e){
+		console.log(e.target);
 		$('#side-navigation').removeClass('active');
 	});
 }

@@ -36,7 +36,6 @@ html.html-development
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 			a.navigation-item.navigation-logo(href='/')
-				img(src='/images/logo.png')
 			a.navigation-item.navigation-solution-finder(href='/') Solution
 				span Finder
 			ul.navigation-item-list
@@ -47,6 +46,7 @@ html.html-development
 					if link.type == 'modal'
 						li(class=(section == link.key ? 'active' : null))
 							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
+								.arrow-right
 			a.navigation-item.navigation-restart(href='/') Start Over
 
 		button.navigation-toggle

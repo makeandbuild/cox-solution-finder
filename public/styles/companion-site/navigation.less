@@ -108,16 +108,11 @@
 		height:96px;
 		display:inline-block;
 		position:relative;
-		padding: 1em 2.2em;
-		.transition(0);
-		img {
-			display:block;
-			max-height: 100%;
-			width: auto;
-			height:auto;
-			vertical-align: middle;
-			.transition(0);
-		}
+		width: 15em;
+		background-image: url(../images/logo.png);
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: 65%;
 	}
 	.navigation-logo-mobile {
 		color:@white;
@@ -172,14 +167,19 @@
 				height:96px;
 				display: table-cell;
 				vertical-align: middle;
-				padding-left:1em;
-				padding-right:1em;
+				padding: 0 1.5em;
 				font-size:1.15em;
+				.transition(0.3s);
 			}
 			&:hover, &.active {
 				a {
-					//background-color:@lightBlue;
 					color:@white;
+					.transition(0.3s);
+				}
+			}
+			&:first-child {
+				a {
+					padding-left:2em;
 				}
 			}
 		}
@@ -304,9 +304,9 @@
 	bottom: 0;
 	right: 0;
 
-	background-image: url(../images/logo-email.gif);
+	background-image: url(../images/line_gradient.png);
 	background-position: center;
-	background-repeat: no-repeat;
+	background-repeat: repeat-y;
 
 	
 

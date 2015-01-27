@@ -8,9 +8,8 @@ html {
 
 }
 .showroom {
-	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
 	.showroom-screen-exact({
-		cursor:none !important;
+		cursor:none !important; // Removes the cursor on the touchscreen.
 	});
 	width:1024px;
 	height:748px;
@@ -61,6 +60,15 @@ html {
 	}
 }
 .companion-site {
+	::selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+	::-moz-selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+
 	#body {
 		background:@xxlightGray;
 		z-index:1;

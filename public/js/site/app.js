@@ -96,6 +96,9 @@ function navigationModal(){
 		
 	
 	});
+	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(){
+		$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile').removeClass('active');
+	});
 }
 
 

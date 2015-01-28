@@ -19,8 +19,17 @@ block content
 
 	if !isPersonal
 		article.container-fluid.home-hero
-			.container
-				h1 1,234,567
+			.row
+				.col-xs-12
+					.hero-header 1,234,567
+					.hero-subtext
+						span Businesses powered by
+						img(src="/images/logo.png")
+
+					a.hero-video-cta(data-video="video-link")
+						span SEE WHY
+						.hero-video-icon.video-icon
+
 
 		article.container-fluid
 			span.background-shadow.from-right
@@ -61,8 +70,21 @@ block content
 
 	else
 		article.container-fluid.home-hero
-			.container
-				h1 Hi, Nick
+			.row
+				.col-xs-12
+					.hero-header HI 
+						=firstName
+					.hero-subtext
+						span Thanks for visiting us at
+						br
+						span= eventName
+					p.hero-content
+						We look forward to lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar.
+
+					a.hero-reset(href="/" title="Reset Personalization") (not 
+						=firstName
+						| ?)
+
 
 		article.container-fluid
 			span.background-shadow.from-right

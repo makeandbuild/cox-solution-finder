@@ -118,13 +118,15 @@ module.exports = function(keystone, callback) {
 
   // Start the ethernet connection listener
   var sync = require('./components/sync.js').sync,
-  emitter = sync.getEmitter();
+      emitter = sync.getEmitter(),
+      monitor = require('./components/monitor.js').monitor(emitter);
 
   emitter.on('connectionAvailable', function(e) {
-    console.log('Connection Available to ' + e.target +'.');
-    // TODO: react to connectionAvailable event
-  });
-  sync.start();
+      console.log('Connection Available to ' + e.target +'.');
 
+      // TODO: react to connectionAvailable event
+    });
+  sync.start();
+  
   return keystone;
 }

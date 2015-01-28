@@ -11,6 +11,22 @@ exports = module.exports = function(req, res) {
 
 	locals.data = {};
 
+	var isPersonal = true;
+
+	if (isPersonal) {
+		locals.data.custom_data = {};
+
+		//Fake Data
+		locals.data.custom_data.name = {};
+		locals.data.custom_data.name.first = "Mark";
+		locals.data.custom_data.name.last = "Cunningham";
+		locals.data.custom_data.eventName = "LA Hospitality Convention";
+
+		locals.data.custom_data.favorites = {};
+		locals.data.custom_data.favorites.industries = ['hospitality', 'government'];
+		locals.data.custom_data.favorites.services = ['internet', 'tv', 'voice'];
+	}
+
 	// ---------------
 	// Navigation Data
 	view.on('init', function(next) {

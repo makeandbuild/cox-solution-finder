@@ -95,6 +95,14 @@ sparingly if needed.
     }
 }
 
+//Target Exactly the Touchscreen
+.showroom-screen-exact(@rules) {
+    @media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+    only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+        @rules();
+    }
+}
+
 ////////////////////////////////////////////
 // Global Mixins and Helpers
 
@@ -118,7 +126,28 @@ sparingly if needed.
       -o-transition: @time @target ease-in-out;
       transition: @time @target ease-in-out;
 }
-.blur(@amount: 5px;){
+.translate( @translateX: 0; @translateY: 0;){
+  transform: translate(@translateX, @translateY);
+  -webkit-transform: translate(@translateX, @translateY);
+  -moz-transform: translate(@translateX, @translateY);
+  -o-transform: translate(@translateX, @translateY);
+  -ms-transform: translate(@translateX, @translateY);
+}
+.transform(@rotate: 0deg; @scale: 1; @skew: 0deg; @translate: 0;){
+  transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+  -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+  -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+  -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+  -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+}
+.remove-filter(){
+  -webkit-filter: none;
+  -moz-filter: none;
+  -o-filter: none;
+  -ms-filter: none;
+  filter: none;
+}
+.blur(@amount) when (@amount > 0){
   -webkit-filter: blur(@amount);
   -moz-filter: blur(@amount);
   -o-filter: blur(@amount);

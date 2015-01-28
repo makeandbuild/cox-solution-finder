@@ -1,3 +1,19 @@
+.the-looking-glass {
+	.remove-filter();
+	height: 748px;
+	.showroom-screen({
+		//.transition(0.3s);
+		height:1080px;
+	});
+	&.active {
+		.blur(20px);
+		.showroom-screen({
+			//.transition(0.3s);
+		});
+		
+	}
+}
+
 .navigation-modal-tiles {
 	position: absolute;
 	left:0;
@@ -9,17 +25,22 @@
 	}
 }
 .navigation-modal-tile-row {
-	padding-top: 11em;
+	padding-left: 12.5em;
+	display: table-cell;
+	height: 768px;
+	vertical-align: middle;
 	.showroom-screen({
-		padding-top: 20em;
+		height: 1080px;
+		padding-left: 3em;
 	});
 }
 .navigation-modal-tile {
 	position: relative;
 	z-index:5;
 	display:inline-block;
-	width: 200px;
-	height: 200px;
+	width: 9em;
+	height: 9em;
+	
 	margin-right: 1em;
 	background-color:@darkBlue;
 	color:@white;
@@ -28,30 +49,37 @@
 	opacity:0;
 	.transition(0.2s);
 	.opensans-regular();
+	.showroom-screen({
+		width: 19.2em;
+		height: 19.2em;
+	});
+
 	&.active {
 		opacity:1;
 		.transition(0.2s);
 	}
+
 	&.fake-tile {
 		visibility: hidden;
 		opacity:0;
-		margin-left: 5em;
 		.showroom-screen({
-			margin-left:8em;
+			
 		});
 	}
+
 	&:first-child {
-		margin-left: 5em;
 		.showroom-screen({
-			margin-left:8em;
+			
 		});
 	}
+
 	&:hover, &.active {
 		color:@white;
 	}
+
 	.tile-icon {
 		display:block;
-		height: 65%;
+		height: 62%;
 		position:relative;
 		img {
 			vertical-align: bottom;
@@ -66,9 +94,13 @@
 		}
 	}
 	.tile-title {
-		height:35%;
+		height:38%;
 		display:block;
 		text-align: center;
-		font-size: 1.2em;
+		font-size: 0.9em;
+		line-height: 1.2;
+		.showroom-screen({
+			font-size: 1.7em;
+		});
 	}
 }

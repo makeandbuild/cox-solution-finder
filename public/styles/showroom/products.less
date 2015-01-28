@@ -16,16 +16,18 @@
 	margin-bottom: 11px;
 	padding: 7px 9px;
 	position:relative;
-	.transition(0.1s);
+	
 	.shadow-normal();
 	.showroom-screen({
 		height:120px;
 		width: 90%;
 		margin-bottom: 20px;
+		.transition(0.1s);
 	});
 	span {
-		.transition(0.1s);
+		
 		.showroom-screen({
+			.transition(0.1s);
 			font-size: 1.5em;
 			display: block;
 			vertical-align: bottom;
@@ -72,9 +74,7 @@
 		bottom:0;
 		left:0;
 		right:0;
-		-webkit-box-shadow: 0px 26px 170px 120px rgba(255, 255, 255, 0.5);
-		-moz-box-shadow:    0px 26px 170px 120px rgba(255, 255, 255, 0.5);
-		box-shadow:         0px 26px 170px 120px rgba(255, 255, 255, 0.5);
+		.box-shadow(0px 26px 170px 150px rgba(255, 255, 255, 0.5));
 	}
 }
 .product-fade-bottom {
@@ -88,13 +88,9 @@
 	height:0;
 	z-index: 1;
 	.transition(0.3s);
-	-webkit-box-shadow: 0 0 126px 60px rgba(247, 247, 247, 0.75);
-	-moz-box-shadow:    0 0 126px 60px rgba(247, 247, 247, 0.75);
-	box-shadow:         0 0 126px 60px rgba(247, 247, 247, 0.75);
+	.box-shadow(0 0 126px 60px rgba(247, 247, 247, 0.75));
 	.showroom-screen({
-		-webkit-box-shadow: 0 0 236px 170px rgba(247, 247, 247, 0.8);
-		-moz-box-shadow:    0 0 236px 170px rgba(247, 247, 247, 0.8);
-		box-shadow:         0 0 236px 170px rgba(247, 247, 247, 0.8);
+		.box-shadow(0 0 176px 170px rgba(247, 247, 247, 0.8));
 	});
 }
 .product-showroom-scroll {
@@ -105,13 +101,30 @@
 	height: 100px;
 	z-index: 5;
 	display:none;
+	.transition(0);
 	.showroom-screen({
 		display:block;
 	});
+	img {
+		width: 41px;
+		position: relative;
+		display: block;
+		margin: auto;
+		margin-top: 2em;
+		background-color: rgba(247, 247, 247, 0.65);
+		.box-shadow(0 0 80px 40px rgba(247, 247, 247, 0.65));
+		.transition(1s, opacity);
+	}
 }
 .scrolled {
 	.product-showroom-scroll {
 		bottom: 458px;
+		.transition(0);
+		img {
+			.transform(540deg, 1, 0deg, 0px);
+			.box-shadow(0 0 80px 40px rgba(247, 247, 247, 0.65));
+			.transition(1s, opacity);
+		}
 	}
 	.product-fade-bottom {
 		opacity: 0;
@@ -122,14 +135,17 @@
 	opacity:0;
 	height:0;
 	visibility: hidden;
-	.transition(0.3s, opacity);
+	.showroom-screen({
+		.transition(0.3s, opacity);
+	});
 	&.active {
 		opacity:1;
-		height:768px;
+		height:748px;
 		visibility: visible;
-		.transition(0.3s, opacity);
+		
 		.showroom-screen({
 			height:1080px;
+			.transition(0.3s, opacity);
 		});
 	}
 }
@@ -156,6 +172,7 @@
 	img {
 		height: auto;
 		width: auto;
+		max-height: 350px;
 		max-width: 100%;
 		margin: auto;
 		display: block;

@@ -8,14 +8,26 @@ html {
 
 }
 .showroom {
-	//cursor:none !important; // Enable this before launch so that no pointer shows up for touchscreen.
+	.showroom-screen-exact({
+		cursor:none !important; // Removes the cursor on the touchscreen.
+	});
 	width:1024px;
-	height:768px;
+	height:748px;
 	overflow:hidden;
 	.showroom-screen({
 		width:1920px;
 		height:1080px;
 	});
+
+	::selection {
+	  background: inherit;
+	  color: inherit;
+	}
+	::-moz-selection {
+	  background: inherit;
+	  color: inherit;
+	}
+
 	#body {
 		width:1024px;
 		background:@xxlightGray;
@@ -32,20 +44,9 @@ html {
 			margin-left:-5px;
 		});
 	}
-	.the-looking-glass {
-		.blur(0px);
-		.transition(0.3s);
-		height: 768px;
-		.showroom-screen({
-			height:1080px;
-		});
-		&.active {
-			.blur(20px);
-			.transition(0.3s);
-		}
-	}
+	
 	.full-height-col {
-		height: 768px;
+		height: 748px;
 		overflow: hidden;
 		.showroom-screen({
 			height:1080px;
@@ -59,34 +60,35 @@ html {
 	}
 }
 .companion-site {
+	::selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+	::-moz-selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+
 	#body {
 		background:@xxlightGray;
 		z-index:1;
 		position: relative;
+		overflow: hidden;
+		margin-top:50px;
 		.respond-md({
+			margin-top:0px;
 			min-height: 100vh;
 		});
 		.opensans-regular();
 	}
-	.the-looking-glass {
-		position: relative;
-		.blur(0px);
-		.transition(0.3s);
-		&.active {
-			.blur(20px);
-			.transition(0.3s);
-		}
-	}
+	
 	.header-space {
-		height: 3em;
-		.respond-lg({
-			height: 6em;
+		height: 7em;
+		.respond-md({
+			height: 7em;
 		});
 	}
-}
 
-body * {
-	.transition(0.3s);
 }
 
 
@@ -97,6 +99,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+
+*[class^="col-"] {
+    z-index:0;
+}
 
 
 button {

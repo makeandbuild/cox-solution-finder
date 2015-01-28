@@ -21,7 +21,7 @@ var resource = {
 			return '<img src="/uploads/images/'+file.filename+'" alt='+file.filename+'>'
 		}
 	},
-	resource_link: { type: String, required: true, initial:false },
+	resource_link: { type: String, initial:false },
 	description: { type: Types.Textarea, height: 100 }
 }
 

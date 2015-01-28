@@ -86,7 +86,8 @@ mixin product(product)
 
 block content
 
-	article.container-fluid.the-looking-glass
+	article.container-fluid
+		span.background-shadow.from-right
 
 		.container
 
@@ -126,7 +127,8 @@ block content
 									p.resource-description=data.service.resource_three.description
 		.extend-products-background
 
-	article.container-fluid.the-looking-glass.container-fluid-products-navigation
+	article.container-fluid.container-fluid-products-navigation
+		span.background-shadow.from-right
 
 		.container
 
@@ -157,14 +159,18 @@ block content
 						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 							article.product-navigation-title
 								span PRODUCTS
+						if data.products.length == 2
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+								article.product-navigation-title
 						each product, index in data.products
 							.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
 								a(href="/products/#{product.slug}").product-navigation-item
 									span= product.title
 
 
-	article.container-fluid.the-looking-glass.container-fluid-products.products-md
-		span.product-gradient: span
+	article.container-fluid.container-fluid-products.products-md
+		span.background-shadow.from-right
+		span.product-gradient.product-gradient-companion-services: span
 		.container
 			if !data.products
 				h2 No Products!

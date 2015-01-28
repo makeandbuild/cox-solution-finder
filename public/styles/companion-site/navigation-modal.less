@@ -1,15 +1,29 @@
+.the-looking-glass {
+	.remove-filter();
+	.respond-md({
+		&.active {
+			.blur(20px);
+		}
+	});
+}
+
+
 .navigation-modal-tiles {
 	position: absolute;
 	left:0;
-	top:0;
+	top: 96px;
 	visibility: hidden;
+	height:0;
 	z-index: 15;
 	width: 100%;
-	display:none;
-	.respond-lg({
-		display:block;
+
+	.respond-xs-sm-only({
+		display:none;
+		visibility:hidden;
+		height:0;
 	});
 	&.active {
+		height:auto;
 		visibility: visible;
 	}
 }
@@ -65,5 +79,27 @@
 		display:block;
 		text-align: center;
 		font-size: 1.2em;
+	}
+}
+.tiles-companion {
+	.tiles-companion-subcontainer {
+		margin:auto;
+		display:block;
+		width:auto;
+	}
+	.go-left {
+		//float:left;
+	}
+	.go-right {
+		//float:left;
+	}
+	br {
+		clear:both;
+	}
+	.fake-tile {
+		display:none;
+		.responsive(1250px, {
+			display:inline-block;
+		});
 	}
 }

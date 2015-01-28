@@ -3,17 +3,36 @@ extends ../layouts/default
 
 block content
 
-	article.container-fluid.the-looking-glass.container-fluid-products.container-fluid-products-view
-		span.product-gradient.product-gradient-companion: span
+	article.container-fluid
+		span.background-shadow.from-right.lighter
+		.container
+			if !data.product
+				h2 No Products!
+			else
+				if data.referer
+					.row
+						.col-xs-12
+							h4: a(href=data.referer.link).referer-link Back to 
+								span= data.referer.parent 
+								|  > 
+								span= data.referer.slug 
+								if data.referer.category != '' && data.referer.category
+									|  > 
+									span= data.referer.category
+
+				.row
+					.col-xs-12
+						h1.product-page-title= data.product.title
+
+	article.container-fluid.container-fluid-products.container-fluid-products-view
+		span.background-shadow.from-right.lighter
 		.container
 			if !data.product
 				h2 No Products!
 			else
 				.row
+					span.product-gradient.product-gradient-companion: span
 					.col-xs-12
-						h2.product-title= data.product.title
-					.col-xs-12
-						
 						section.product-hero-container
 							img(src="/uploads/images/#{data.product.hero.filename}" alt="product-hero-image")
 						section.product-item-container
@@ -56,7 +75,7 @@ block content
 									p.section-content= data.product.item_six.content
 
 				.row
-					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container.resource-container-products-view
+					.col-xs-12.resource-container.resource-container-products-view
 						h3.resource-header RESOURCES
 						.col-xs-12.resource-subcontainer
 							a(href=data.product.resource_one.resource_link download=data.product.resource_one.resource_link target="_blank" title=data.product.resource_one.title).resource-download

@@ -29,7 +29,6 @@ var Sync = function() {
 
 			return this;
 		}
-		
 	};
 };
 

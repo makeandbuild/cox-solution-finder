@@ -14,7 +14,7 @@
 
 1.5 If necessary, [install and mount an external usb drive](http://www.raspberrypi.org/forums/viewtopic.php?t=38429).
 
-## 2.0 - TODO: WiFi Configuration
+## 2.0 - WiFi Configuration
 
 2.1 Install `hostapd`:
 
@@ -49,6 +49,12 @@ b. Change wlan0 to the following for a static IP address:
 	sudo ln -sf /usr/sbin/hostapd.edimax /usr/sbin/hostapd 
 	sudo chown root.root /usr/sbin/hostapd 
 	sudo chmod 755 /usr/sbin/hostapd
+
+2.7 Reboot:
+
+	sudo reboot
+
+When the Pi finishes rebooting, there will be an access point labeled `RaspAP` with the passphrase `raspberry`. Connecting to this WAP will give a device access to the webserver.
 
 ## 3.0 - Software Installation
 

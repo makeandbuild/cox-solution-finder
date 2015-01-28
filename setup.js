@@ -122,8 +122,6 @@ module.exports = function(keystone, callback) {
       monitor = require('./components/monitor.js').monitor(emitter);
 
   emitter.on('connectionAvailable', function(e) {
-      console.log('Connection Available to ' + e.target +'.');
-
       // TODO: react to connectionAvailable event
     });
   sync.start();

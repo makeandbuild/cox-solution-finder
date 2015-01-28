@@ -2,4 +2,149 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 block content
-	h1 Home Page! Hello World!
+
+	- var isPersonal = false
+
+	if data.custom_data
+		- isPersonal = true
+		- var firstName = data.custom_data.name.first
+		- var lastName = data.custom_data.name.last
+		- var eventName = data.custom_data.eventName
+		- var customIndustries = data.custom_data.favorites.industries
+		- var customServices = data.custom_data.favorites.services
+	else
+		h1 No Custom Data
+
+	
+
+	if !isPersonal
+		article.container-fluid.home-hero
+			.container
+				h1 1,234,567
+
+		article.container-fluid
+			span.background-shadow.from-right
+
+			.container
+				.row.header-space
+				.row
+					.col-xs-12.col-md-6.service-container
+						h1.cox-business Cox
+							strong Business				
+						p.section-heading Outstanding service for all businesses, big and small.
+						p.section-content Cox offers a variety of advanced digital video, high-speed Internet and telephone services over our own IP network. Business customers of all sizes are provided with our high speed Internet, phone and long distance services, as well as data nad video transport services.
+					.col-xs-12.col-md-6
+						+mediaBuffet('industry', 'home')
+
+		article.container-fluid
+			span.background-shadow.from-right
+
+			.container
+				h1 Industries Selection
+
+		article.container-fluid
+			span.background-shadow.from-right
+
+			.container
+				.row
+					.col-xs-12
+						h3 SERVICES
+				.row
+					p Services Selection
+
+				.row
+					.col-xs-12
+						h3 LET'S CONNECT
+				.row
+					p Connect Box
+
+
+	else
+		article.container-fluid.home-hero
+			.container
+				h1 Hi, Nick
+
+		article.container-fluid
+			span.background-shadow.from-right
+
+			.container
+				.row.header-space
+				if customIndustries
+					each industry in customIndustries
+						.row
+							.col-xs-12.col-md-6.service-container
+								+industryContent(industry)
+							.col-xs-12.col-md-6
+								+mediaBuffet('industry')
+							.col-xs-12
+								span.divider
+				else
+					h1 No Industries!
+
+				if customServices
+
+					.row
+						h3 SERVICES
+					each service in customServices
+						.row
+							+serviceContent(service)
+
+				else
+					h1 No Services!
+
+		if customIndustries || customServices
+
+			if customProducts
+
+				article.container-fluid.container-fluid-products-navigation
+					span.background-shadow.from-right
+
+					.container
+
+						.row
+							.col-xs-12.products-md
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								each product, index in customProducts
+									if index == 0
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+											article.product-navigation-item
+												span= product.title
+									else
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+											article.product-navigation-item
+												span= product.title
+
+							.col-xs-12.products-xs
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								if customProducts.length == 2
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+										article.product-navigation-title
+								each product, index in customProducts
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+										a(href="/products/#{product.slug}").product-navigation-item
+											span= product.title
+
+
+				article.container-fluid.container-fluid-products.products-md
+					span.background-shadow.from-right
+					span.product-gradient.product-gradient-companion-services: span
+					.container
+						
+						.row
+							each product, index in customProducts
+								if index == 0
+									.col-xs-12.product-container(data-item=product.id).active
+										+product(product)
+								else
+									.col-xs-12.product-container(data-item=product.id)
+										+product(product)
+
+
+
+

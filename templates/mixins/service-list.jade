@@ -1,0 +1,14 @@
+mixin service-list(services)
+	ul.services-list.row
+		each item, index in services
+			li.col-xs-12.col-md-3
+				a(href='/services/' + item.slug title=item.title).service-item
+					.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+
+						//- if item.icon.url
+						//- 	img(src=item.icon.url alt="service-icon")
+					section.service-info
+						h4.service-title=item.title
+						p.service-description=item.description
+							| An affordable, reliable WiFi solution that fulfills your guests' high expectations.
+						span.service-cta LEARN MORE

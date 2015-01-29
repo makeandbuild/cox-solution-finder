@@ -38,31 +38,42 @@ block content
 			//- span.background-shadow.from-right
 
 			.container
-				.row.header-space
+				.row.header-space-home
 				.row
-					.col-xs-12.col-md-6.service-container
-						h1.cox-business Cox
-							strong Business				
+					.col-xs-12.col-md-6
+						h1.cox-business COX
+							strong BUSINESS				
 						p.section-heading= data.home.default_heading
 						p.section-content= data.home.default_content
 					.col-xs-12.col-md-6
 						+mediaBuffet('industry', 'home')
 
-		article.container-fluid
+		article.container-fluid.home-industries
 			//- span.background-shadow.from-right
 
 			.container
-				h1 Industries Selection
+				.row
+					.col-xs-12
+						h3 INDUSTRIES
+				ul.industries-list.row
+					each item, index in data.navigation_industries
+						li.col-xs-6.col-md-2
+							span.industry-divider
+							a(href='/industries/'+item.slug title=item.title).industry-tile
+								.industry-icon
+									img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+								.industry-title
+									span= item.title
 
-		article.container-fluid
+
+		article.container-fluid.home-services
 			//- span.background-shadow.from-right
 
 			.container
 				.row
 					.col-xs-12
 						h3 SERVICES
-				.row
-					p Services Selection
+				+service-list(data.navigation_services)
 
 				.row
 					.col-xs-12

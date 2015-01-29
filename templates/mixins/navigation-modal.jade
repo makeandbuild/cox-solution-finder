@@ -2,7 +2,7 @@ mixin tile(tile, key)
 
 	a(href='/'+key+'/' + tile.slug title=tile.title).navigation-modal-tile
 		.tile-icon
-			img(src="/uploads/images/#{tile.icon.filename}" alt=tile.title + " icon")
+			img(src="/uploads/images/#{tile.custom_icon.filename}" alt=tile.title + " icon")
 		.tile-title
 			span= tile.title
 

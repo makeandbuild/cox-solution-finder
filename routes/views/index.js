@@ -11,7 +11,7 @@ exports = module.exports = function(req, res) {
 
 	locals.data = {};
 
-	var isPersonal = true;
+	var isPersonal = false;
 
 	if (isPersonal) {
 		locals.data.custom_data = {};
@@ -26,6 +26,19 @@ exports = module.exports = function(req, res) {
 		locals.data.custom_data.favorites.industries = ['hospitality', 'government'];
 		locals.data.custom_data.favorites.services = ['internet', 'tv', 'voice'];
 	}
+
+	view.on('init', function(next) {
+
+	  var q = keystone.list('Homepage').model.findOne({
+	    slug: 'home'
+	  });
+
+	  q.exec(function(err, result) {
+	    locals.data.home = result;
+	    next(err);
+	  });
+
+	});
 
 	// ---------------
 	// Navigation Data

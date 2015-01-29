@@ -12,45 +12,68 @@ block content
 		- var eventName = data.custom_data.eventName
 		- var customIndustries = data.custom_data.favorites.industries
 		- var customServices = data.custom_data.favorites.services
-	else
-		h1 No Custom Data
-
 	
 
 	if !isPersonal
 		article.container-fluid.home-hero
-			.container
-				h1 1,234,567
+			.hero-background-overlay
+			.hero-background(style="background-image: url(#{data.home.hero.background.url});")
+			.row
+
+				.col-xs-12
+					h2.hero-header= data.home.hero.business_count
+					.hero-box-shadow
+					p.hero-subtext
+						span Businesses powered by
+						img(src="/images/logo.png")
+
+					if data.home.hero.video
+
+					a.hero-video-cta(data-video="video-link")
+						span SEE WHY
+						img(src="/icons/png/icon-play.png").hero-video-icon
+
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
-				.row.header-space
+				.row.header-space-home
 				.row
-					.col-xs-12.col-md-6.service-container
-						h1.cox-business Cox
-							strong Business				
-						p.section-heading Outstanding service for all businesses, big and small.
-						p.section-content Cox offers a variety of advanced digital video, high-speed Internet and telephone services over our own IP network. Business customers of all sizes are provided with our high speed Internet, phone and long distance services, as well as data nad video transport services.
+					.col-xs-12.col-md-6
+						h1.cox-business COX
+							strong BUSINESS				
+						p.section-heading= data.home.default_heading
+						p.section-content= data.home.default_content
 					.col-xs-12.col-md-6
 						+mediaBuffet('industry', 'home')
 
-		article.container-fluid
-			span.background-shadow.from-right
+		article.container-fluid.home-industries
+			//- span.background-shadow.from-right
 
 			.container
-				h1 Industries Selection
+				.row
+					.col-xs-12
+						h3 INDUSTRIES
+				ul.industries-list.row
+					each item, index in data.navigation_industries
+						li.col-xs-6.col-md-2
+							span.industry-divider
+							a(href='/industries/'+item.slug title=item.title).industry-tile
+								.industry-icon
+									img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+								.industry-title
+									span= item.title
 
-		article.container-fluid
-			span.background-shadow.from-right
+
+		article.container-fluid.home-services
+			//- span.background-shadow.from-right
 
 			.container
 				.row
 					.col-xs-12
 						h3 SERVICES
-				.row
-					p Services Selection
+				+service-list(data.navigation_services)
 
 				.row
 					.col-xs-12
@@ -61,11 +84,24 @@ block content
 
 	else
 		article.container-fluid.home-hero
-			.container
-				h1 Hi, Nick
+			.row
+				.col-xs-12
+					h2.hero-header HI 
+						=firstName
+						| ,
+					p.hero-subtext
+						span Thanks for visiting us at
+						br
+						span= eventName
+					p.hero-content= data.home.hero.content
+
+					a.hero-reset(href="/" title="Reset Personalization") (not 
+						=firstName
+						| ?)
+
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
 				.row.header-space
@@ -97,7 +133,7 @@ block content
 			if customProducts
 
 				article.container-fluid.container-fluid-products-navigation
-					span.background-shadow.from-right
+					//- span.background-shadow.from-right
 
 					.container
 
@@ -132,7 +168,7 @@ block content
 
 
 				article.container-fluid.container-fluid-products.products-md
-					span.background-shadow.from-right
+					//- span.background-shadow.from-right
 					span.product-gradient.product-gradient-companion-services: span
 					.container
 						

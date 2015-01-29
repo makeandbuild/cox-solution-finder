@@ -3,6 +3,7 @@ include ../mixins/navigation-modal
 include ../mixins/media-buffet
 include ../mixins/industry-content
 include ../mixins/service-content
+include ../mixins/service-list
 
 
 //- Inits
@@ -83,7 +84,7 @@ html
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
 														.navigation-mobile-icon
-															img(src="/uploads/images/#{item.icon.filename}" alt=item.title + " icon")
+															img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
 														.navigation-mobile-title
 															span= item.title
 									else if link.key == 'industries'
@@ -93,7 +94,7 @@ html
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
 														.navigation-mobile-icon
-															img(src="/uploads/images/#{item.icon.filename}" alt=item.title + " icon")
+															img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
 														.navigation-mobile-title
 															span= item.title
 									

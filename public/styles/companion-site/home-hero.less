@@ -1,0 +1,119 @@
+.home-hero {
+	padding-top:4em;
+	padding-bottom:4em;
+	text-align: center;
+	color:@white;
+	position: relative;
+	overflow:hidden;
+	.opensans-regular();
+	.respond-md({
+		padding-top: 15em;
+		padding-bottom: 10em;
+	});
+	.hero-box-shadow {
+		height:0px;
+		width:0px;
+		position: relative;
+		margin:auto;
+		display:none;
+		text-align: center;
+		z-index:-1;
+		.box-shadow(0 0 300px 250px @lightBlue);
+		.respond-md({
+			display:block;
+		});
+	}
+	.hero-background-overlay {
+		position: absolute;
+		top:0;
+		left:0;
+		background-color:rgba(5, 163, 251, 0.85);
+		width:100%;
+		height:100%;
+		opacity:1;
+		z-index:0;
+		.respond-md({
+			background-color:rgba(5, 163, 251, 0.75);
+		});
+	}
+	.hero-background {
+		position: absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-position: center;
+		background-size:100%;
+		background-repeat:none;
+		z-index:-1;
+		.respond-md({
+			background-size:1920px;
+		});
+
+	}
+	.hero-header {
+		font-size: 4em;
+		display:block;
+		.opensans-light();
+		.respond-md({
+			font-size:8em;
+		});
+
+	}
+	.hero-subtext {
+		display: table;
+		font-size:1.15em;
+		width:90%;
+		margin:auto;
+		margin-bottom:1em;
+		.opensans-semibold();
+		.respond-md({
+			font-size:2em;
+			.opensans-regular();
+		});
+		span, img {
+		
+			.respond-md({
+				//display:inline-block;
+			});
+		}
+		span {
+			vertical-align: middle;
+			display:table-cell;
+			text-align: right;
+			line-height: 1;
+		}
+		img {
+			margin-left:0.5em;
+			margin-top: 0.5em;
+			width: 7em;
+			height:auto;
+			vertical-align: middle;
+			display:table-cell;
+		}
+	}
+	.hero-video-cta {
+		display: inline-block;
+		span, .hero-video-icon {
+			display:inline-block;
+			vertical-align: middle;
+			color:@white;
+		}
+		span {
+			text-transform: uppercase;
+			font-size:1em;
+			.opensans-semibold();
+			.respond-md({
+				.opensans-regular();
+				font-size:2em;
+			});
+		}
+		.hero-video-icon {
+			margin-left:1em;
+			width:2em;
+			.respond-md({
+				width:5em;
+			});
+		}
+	}	
+}

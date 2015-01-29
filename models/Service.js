@@ -28,7 +28,17 @@ var resource = {
 Service.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-	icon: { type: Types.LocalFile, dest: 'public/uploads/images' },
+	icon: {
+		type: Types.S3File,
+		s3path: 'uploads/images',
+		filename: function(item, filename){
+			// prefix file name with object id
+			return item._id + '-' + filename;
+		},
+		format: function(icon, file){
+			return '<pre>'+JSON.stringify(file, false, 2)+'</pre>'+'<img src="'+file.url+'" style="max-width: 300px">'
+		}
+	},
 	heading: { type: String, required: true, default: 'Example Heading' },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
 	industries: { type: Types.Relationship, ref: 'Industry', required: true, many: true, initial: false },

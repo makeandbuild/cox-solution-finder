@@ -12,27 +12,30 @@ block content
 		- var eventName = data.custom_data.eventName
 		- var customIndustries = data.custom_data.favorites.industries
 		- var customServices = data.custom_data.favorites.services
-	else
-		h1 No Custom Data
-
 	
 
 	if !isPersonal
 		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style="background-image: url(#{data.home.hero.background.url});")
 			.row
+
 				.col-xs-12
-					.hero-header 1,234,567
-					.hero-subtext
+					h2.hero-header= data.home.hero.business_count
+					.hero-box-shadow
+					p.hero-subtext
 						span Businesses powered by
 						img(src="/images/logo.png")
 
+					if data.home.hero.video
+
 					a.hero-video-cta(data-video="video-link")
 						span SEE WHY
-						.hero-video-icon.video-icon
+						img(src="/icons/png/icon-play.png").hero-video-icon
 
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
 				.row.header-space
@@ -40,19 +43,19 @@ block content
 					.col-xs-12.col-md-6.service-container
 						h1.cox-business Cox
 							strong Business				
-						p.section-heading Outstanding service for all businesses, big and small.
-						p.section-content Cox offers a variety of advanced digital video, high-speed Internet and telephone services over our own IP network. Business customers of all sizes are provided with our high speed Internet, phone and long distance services, as well as data nad video transport services.
+						p.section-heading= data.home.default_heading
+						p.section-content= data.home.default_content
 					.col-xs-12.col-md-6
 						+mediaBuffet('industry', 'home')
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
 				h1 Industries Selection
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
 				.row
@@ -72,14 +75,14 @@ block content
 		article.container-fluid.home-hero
 			.row
 				.col-xs-12
-					.hero-header HI 
+					h2.hero-header HI 
 						=firstName
-					.hero-subtext
+						| ,
+					p.hero-subtext
 						span Thanks for visiting us at
 						br
 						span= eventName
-					p.hero-content
-						We look forward to lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar lorem ipsum dolar.
+					p.hero-content= data.home.hero.content
 
 					a.hero-reset(href="/" title="Reset Personalization") (not 
 						=firstName
@@ -87,7 +90,7 @@ block content
 
 
 		article.container-fluid
-			span.background-shadow.from-right
+			//- span.background-shadow.from-right
 
 			.container
 				.row.header-space
@@ -119,7 +122,7 @@ block content
 			if customProducts
 
 				article.container-fluid.container-fluid-products-navigation
-					span.background-shadow.from-right
+					//- span.background-shadow.from-right
 
 					.container
 
@@ -154,7 +157,7 @@ block content
 
 
 				article.container-fluid.container-fluid-products.products-md
-					span.background-shadow.from-right
+					//- span.background-shadow.from-right
 					span.product-gradient.product-gradient-companion-services: span
 					.container
 						

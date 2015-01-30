@@ -16,12 +16,12 @@
 }
 
 .home-industries {
-
-
 	.respond-md({
 		background-color:@darkBlue;
 	});
 	h3 {
+		color:@darkBlue;
+		margin-bottom: 0;
 		.opensans-regular();
 		.respond-md({
 			color:@white;
@@ -45,6 +45,12 @@
 			font-size: 0.875em;
 			.opensans-semibold();
 			.industry-icon {
+				display: block;
+				height: 65%;
+				text-align: center;
+				font-size: 6em;
+			}
+			.industry-custom-icon {
 				display:block;
 				height:65%;
 				margin:auto;
@@ -114,6 +120,7 @@
 .home-services {
 	background: @xlightGray;
 	h3 {
+		color:@darkBlue;
 		.opensans-regular();
 	}
 }

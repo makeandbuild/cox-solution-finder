@@ -21,11 +21,34 @@
 	margin:0;
 	li {
 		padding:0;
+		.respond-md({
+			&.col-md-3:nth-child(4n) {
+				.service-item {
+					margin-left: 8%;
+				}
+			}
+			&.col-md-3:nth-child(4n-1) {
+				.service-item {
+					margin-left: 6%;
+					margin-right: 6%;
+				}
+			}
+			&.col-md-3:nth-child(4n-2) {
+				.service-item {
+					margin-left: 3%;
+					margin-right: 6%;
+				}
+			}
+		});
 	}
 	.service-item {
 		background-color:@white;
 		display:block;
 		margin-bottom:1em;
+		.respond-md({
+			width: 91%;
+			.shadow-normal();
+		});
 	}
 	.service-icon {
 		display:table-cell;
@@ -34,49 +57,81 @@
 		font-size: 6em;
 		text-align: center;
 		color:@lightGray;
+		.respond-md({
+			width: 100%;
+			display: block;
+			height: 50%;
+			padding: 0.2em 0;
+			font-size: 9em;
+		});
+	}
+	.service-custom-icon {
+		display:table-cell;
+		vertical-align: middle;
+		width:20%;
+		padding: 0.5em;
+		.respond-md({
+			padding: 0.2em 0;
+			font-size: 9em;
+		});
+		img {
+			vertical-align: middle;
+			width: 6em;
+			height: auto;
+			margin: auto;
+			display: block;
+			.respond-md({
+				width: 1em;
+			});
+		}
 	}
 	.service-info {
 		display:table-cell;
 		vertical-align: middle;
 		width:75%;
 		padding: 1em;
+		position:relative;
+		.respond-md({
+			width: 100%;
+			display: block;
+			height: 50%;
+			padding-bottom: 5em;
+		});
 	}
 	.service-title {
 		color:@darkBlue;
 		display:block;
 		margin:0;
 		.opensans-semibold();
+		.respond-md({
+			margin-bottom: 0.5em;
+		});
 	}
 	.service-description {
 		display:block;
 		margin:0;
 		color:@black;
+		.respond-md({
+			line-height: 1.4;
+		});
 	}
 	.service-cta {
 		display:none;
 		.respond-md({
 			display:block;
+			position: absolute;
+			bottom:1em;
+			.opensans-semibold();
+			color:@darkBlue;
+			img {
+				.transform(270deg);
+				height: 0.75em;
+				vertical-align: top;
+				margin-top: 0.3em;
+				margin-left: 0.3em;
+			}
 		});
 	}
 }
 
 
-// .respond-lg({
-// 		&.col-lg-3:nth-child(4n) {
-// 			.product-navigation-item {
-// 				margin-left: 8%;
-// 			}
-// 		}
-// 		&.col-lg-3:nth-child(4n-1) {
-// 			.product-navigation-item {
-// 				margin-left: 6%;
-// 				margin-right: 6%;
-// 			}
-// 		}
-// 		&.col-lg-3:nth-child(4n-2) {
-// 			.product-navigation-item {
-// 				margin-left: 3%;
-// 				margin-right: 6%;
-// 			}
-// 		}
-// 	});

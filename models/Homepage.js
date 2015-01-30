@@ -37,6 +37,12 @@ Homepage.add({
 
 	default_heading: { type: Types.Textarea, height: 200, label: "Default Heading" },
 	default_content: { type: Types.Textarea, height: 200, label: "Default Content" },
+	connect_background: {
+		type: Types.S3File,
+		label: 'Connect Background',
+		note: "Upload a normal RESOLUTION SIZE image at least. Right side of the image will have a blue overlay",
+		s3path: 'uploads/images'
+	}
 });
 
 Homepage.register();

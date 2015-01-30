@@ -119,9 +119,57 @@
 
 .home-services {
 	background: @xlightGray;
+	padding-bottom:5em;
 	h3 {
 		color:@darkBlue;
 		.opensans-regular();
 	}
 }
 
+.home-connect {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	.respond-md({
+		padding-right:0;
+	});
+	.respond-xs-sm-only({
+		background-image: none !important;
+	});
+	p {
+		font-size:1.5em;
+		.opensans-regular();
+		margin-bottom:0.6em;
+		color:@white;
+	}
+	form {
+
+		button {
+			margin-top:1em;
+			.respond-md({
+				float:right;
+			});
+		}
+	}
+}
+.home-connect-background-shadow {
+	height:0px;
+	width:0px;
+	position: relative;
+	margin:auto;
+	display:none;
+	text-align: center;
+	z-index:-1;
+	.box-shadow(0 0 260px 160px rgb(63, 197, 255));
+	.respond-md({
+		display:block;
+	});
+}
+.home-connect-form {
+	background-color:rgba(63, 197, 255, 1);
+	overflow: hidden;
+	.respond-md({
+		padding: 7em 5.2em;
+		background-color:rgba(63, 197, 255, 0.9);
+	});
+}

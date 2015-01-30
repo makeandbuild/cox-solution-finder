@@ -16,3 +16,5 @@ require('./setup')(keystone, function() {
     keystone.set('views', 'templates/views/showroom');
   }
 });
+
+require('./logo');

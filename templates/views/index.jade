@@ -17,7 +17,7 @@ block content
 	if !isPersonal
 		article.container-fluid.home-hero
 			.hero-background-overlay
-			.hero-background(style="background-image: url(#{data.home.hero.background.url});")
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
 			.row
 
 				.col-xs-12
@@ -60,7 +60,7 @@ block content
 						li.col-xs-6.col-md-2
 							span.industry-divider
 							a(href='/industries/'+item.slug title=item.title).industry-tile
-								if item.svg_icon
+								if !item.icon_choice
 									.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
 								else
 									.industry-custom-icon
@@ -82,7 +82,25 @@ block content
 					.col-xs-12
 						h3 LET'S CONNECT
 				.row
-					p Connect Box
+					.col-xs-12.home-connect(style= data.home.connect_background ? "background-image: url(" + data.home.connect_background.url + ");" : "")
+						.col-xs-12.col-md-offset-7.col-md-5.home-connect-form
+							p Tell us about yourself
+							form
+								.form-group
+									label.sr-only(for="firstName") First Name
+									input.form-control#firstName(type="text" placeholder="First")
+								.form-group
+									label.sr-only(for="lastName") Last Name
+									input.form-control#lastName(type="text" placeholder="Last")
+								.home-connect-background-shadow
+								.form-group
+									label.sr-only(for="email") Email
+									input.form-control#email(type="email" placeholder="Email")
+								.form-group
+									label.sr-only(for="zipcode") Zip Code
+									input.form-control#zipcode(type="number" placeholder="Zip Code")
+								button.btn.btn-default(type="submit") Submit
+
 
 
 	else

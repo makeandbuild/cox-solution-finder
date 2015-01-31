@@ -14,7 +14,47 @@
 
 1.5 If necessary, [install and mount an external usb drive](http://www.raspberrypi.org/forums/viewtopic.php?t=38429).
 
-## 2.0 - TODO: WiFi Configuration
+## 2.0 - WiFi Configuration
+
+2.1 Install `hostapd`:
+
+	sudo apt-get install hostapd
+
+2.2 Edit /etc/network/interfaces and make the following changes
+
+a. Comment out or remove the line `wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf`
+
+b. Change wlan0 to the following for a static IP address:
+	
+	iface wlan0 inet static
+    address 10.1.10.1
+    netmast 255.255.255.0
+
+2.3 Edit `/etc/default/hostapd` and add the following:
+
+	DAEMON_CONF="/etc/hostapd/hostapd.conf"
+
+2.4 Install `hostapd`:
+
+	sudo apt-get install bridge-utils hostapd
+
+2.5 Copy the `hostapd.conf` file from the root of this project to `/etc/hostapd/hostapd.conf`
+
+2.6 Download and install the updated driver:
+
+	wget http://www.daveconroy.com/wp3/wp-content/uploads/2013/07/hostapd.zip
+	unzip hostapd.zip 
+	sudo mv /usr/sbin/hostapd /usr/sbin/hostapd.bak
+	sudo mv hostapd /usr/sbin/hostapd.edimax 
+	sudo ln -sf /usr/sbin/hostapd.edimax /usr/sbin/hostapd 
+	sudo chown root.root /usr/sbin/hostapd 
+	sudo chmod 755 /usr/sbin/hostapd
+
+2.7 Reboot:
+
+	sudo reboot
+
+When the Pi finishes rebooting, there will be an access point labeled `RaspAP` with the passphrase `raspberry`. Connecting to this WAP will give a device access to the webserver.
 
 ## 3.0 - Software Installation
 

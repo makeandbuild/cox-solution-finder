@@ -98,6 +98,7 @@ module.exports = function(keystone, callback) {
 
   // Configure the navigation bar in Keystone's Admin UI
   keystone.set('nav', {
+    'Home': 'homepages',
     'enquiries': 'enquiries',
     'users': 'users',
     'industries' : 'industries',
@@ -118,12 +119,9 @@ module.exports = function(keystone, callback) {
 
   // Start the ethernet connection listener
   var sync = require('./components/sync.js').sync,
-      emitter = sync.getEmitter(),
-      monitor = require('./components/monitor.js').monitor(emitter);
+      emitter = sync.getEmitter();
 
   emitter.on('connectionAvailable', function(e) {
-      console.log('Connection Available to ' + e.target +'.');
-
       // TODO: react to connectionAvailable event
     });
   sync.start();

@@ -2,4 +2,206 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 block content
-	h1 Home Page! Hello World!
+
+	- var isPersonal = false
+
+	if data.custom_data
+		- isPersonal = true
+		- var firstName = data.custom_data.name.first
+		- var lastName = data.custom_data.name.last
+		- var eventName = data.custom_data.eventName
+		- var customIndustries = data.custom_data.favorites.industries
+		- var customServices = data.custom_data.favorites.services
+	
+
+	if !isPersonal
+		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
+			.row
+
+				.col-xs-12
+					h2.hero-header= data.home.hero.business_count
+					.hero-box-shadow
+					p.hero-subtext
+						span Businesses powered by
+						img(src="/images/logo.png")
+
+					if data.home.hero.video
+
+					a.hero-video-cta(data-video="video-link")
+						span SEE WHY
+						img(src="/icons/png/icon-play.png").hero-video-icon
+
+
+		article.container-fluid
+			//- span.background-shadow.from-right
+
+			.container
+				.row.header-space-home
+				.row
+					.col-xs-12.col-md-6
+						h1.cox-business COX
+							strong BUSINESS				
+						p.section-heading= data.home.default_heading
+						p.section-content= data.home.default_content
+					.col-xs-12.col-md-6
+						+mediaBuffet('industry', 'home')
+
+		article.container-fluid.home-industries
+			//- span.background-shadow.from-right
+
+			.container
+				.row
+					.col-xs-12
+						h3 INDUSTRIES
+				ul.industries-list.row
+					each item, index in data.navigation_industries
+						li.col-xs-6.col-md-2
+							span.industry-divider
+							a(href='/industries/'+item.slug title=item.title).industry-tile
+								if !item.icon_choice
+									.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
+								else
+									.industry-custom-icon
+										img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+								.industry-title
+									span= item.title
+
+
+		article.container-fluid.home-services
+			//- span.background-shadow.from-right
+
+			.container
+				.row
+					.col-xs-12
+						h3 SERVICES
+				+service-list(data.navigation_services)
+
+				.row
+					.col-xs-12
+						h3 LET'S CONNECT
+				.row
+					.col-xs-12.home-connect(style= data.home.connect_background ? "background-image: url(" + data.home.connect_background.url + ");" : "")
+						.col-xs-12.col-md-offset-7.col-md-5.home-connect-form
+							p Tell us about yourself
+							form
+								.form-group
+									label.sr-only(for="firstName") First Name
+									input.form-control#firstName(type="text" placeholder="First")
+								.form-group
+									label.sr-only(for="lastName") Last Name
+									input.form-control#lastName(type="text" placeholder="Last")
+								.home-connect-background-shadow
+								.form-group
+									label.sr-only(for="email") Email
+									input.form-control#email(type="email" placeholder="Email")
+								.form-group
+									label.sr-only(for="zipcode") Zip Code
+									input.form-control#zipcode(type="number" placeholder="Zip Code")
+								button.btn.btn-default(type="submit") Submit
+
+
+
+	else
+		article.container-fluid.home-hero
+			.row
+				.col-xs-12
+					h2.hero-header HI 
+						=firstName
+						| ,
+					p.hero-subtext
+						span Thanks for visiting us at
+						br
+						span= eventName
+					p.hero-content= data.home.hero.content
+
+					a.hero-reset(href="/" title="Reset Personalization") (not 
+						=firstName
+						| ?)
+
+
+		article.container-fluid
+			//- span.background-shadow.from-right
+
+			.container
+				.row.header-space
+				if customIndustries
+					each industry in customIndustries
+						.row
+							.col-xs-12.col-md-6.service-container
+								+industryContent(industry)
+							.col-xs-12.col-md-6
+								+mediaBuffet('industry')
+							.col-xs-12
+								span.divider
+				else
+					h1 No Industries!
+
+				if customServices
+
+					.row
+						h3 SERVICES
+					each service in customServices
+						.row
+							+serviceContent(service)
+
+				else
+					h1 No Services!
+
+		if customIndustries || customServices
+
+			if customProducts
+
+				article.container-fluid.container-fluid-products-navigation
+					//- span.background-shadow.from-right
+
+					.container
+
+						.row
+							.col-xs-12.products-md
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								each product, index in customProducts
+									if index == 0
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+											article.product-navigation-item
+												span= product.title
+									else
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+											article.product-navigation-item
+												span= product.title
+
+							.col-xs-12.products-xs
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								if customProducts.length == 2
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+										article.product-navigation-title
+								each product, index in customProducts
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+										a(href="/products/#{product.slug}").product-navigation-item
+											span= product.title
+
+
+				article.container-fluid.container-fluid-products.products-md
+					//- span.background-shadow.from-right
+					span.product-gradient.product-gradient-companion-services: span
+					.container
+						
+						.row
+							each product, index in customProducts
+								if index == 0
+									.col-xs-12.product-container(data-item=product.id).active
+										+product(product)
+								else
+									.col-xs-12.product-container(data-item=product.id)
+										+product(product)
+
+
+
+

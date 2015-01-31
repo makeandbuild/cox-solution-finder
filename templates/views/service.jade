@@ -99,7 +99,7 @@ block content
 				.row
 					.col-xs-12.col-md-6.service-container
 						section.service-icon
-							img(src="/uploads/images/#{data.service.icon.filename}" alt="service-icon")
+							img(src=data.service.icon.url alt="service-icon")
 						h1.service-title= data.service.title					
 						p.section-heading= data.service.heading
 						p.section-content= data.service.content
@@ -127,17 +127,18 @@ block content
 									p.resource-description=data.service.resource_three.description
 		.extend-products-background
 
-	article.container-fluid.container-fluid-products-navigation
-		span.background-shadow.from-right
+	if !data.products
+		h2 No Products!
+	else
 
-		.container
+		article.container-fluid.container-fluid-products-navigation
+			span.background-shadow.from-right
 
-			.row
-				.col-xs-12.products-md
+			.container
 
-					if !data.products
-						h2 No Products!
-					else
+				.row
+					.col-xs-12.products-md
+
 						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 							article.product-navigation-title
 								span PRODUCTS
@@ -151,11 +152,8 @@ block content
 									article.product-navigation-item
 										span= product.title
 
-				.col-xs-12.products-xs
+					.col-xs-12.products-xs
 
-					if !data.products
-						h2 No Products!
-					else
 						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 							article.product-navigation-title
 								span PRODUCTS
@@ -168,13 +166,14 @@ block content
 									span= product.title
 
 
-	article.container-fluid.container-fluid-products.products-md
-		span.background-shadow.from-right
-		span.product-gradient.product-gradient-companion-services: span
-		.container
-			if !data.products
-				h2 No Products!
-			else
+	if !data.products
+		h2 No Products!
+	else
+		article.container-fluid.container-fluid-products.products-md
+			span.background-shadow.from-right
+			span.product-gradient.product-gradient-companion-services: span
+			.container
+				
 				.row
 					each product, index in data.products
 						if index == 0

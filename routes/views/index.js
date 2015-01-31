@@ -11,6 +11,35 @@ exports = module.exports = function(req, res) {
 
 	locals.data = {};
 
+	var isPersonal = false;
+
+	if (isPersonal) {
+		locals.data.custom_data = {};
+
+		//Fake Data
+		locals.data.custom_data.name = {};
+		locals.data.custom_data.name.first = "Mark";
+		locals.data.custom_data.name.last = "Cunningham";
+		locals.data.custom_data.eventName = "LA Hospitality Convention";
+
+		locals.data.custom_data.favorites = {};
+		locals.data.custom_data.favorites.industries = ['hospitality', 'government'];
+		locals.data.custom_data.favorites.services = ['internet', 'tv', 'voice'];
+	}
+
+	view.on('init', function(next) {
+
+	  var q = keystone.list('Homepage').model.findOne({
+	    slug: 'home'
+	  });
+
+	  q.exec(function(err, result) {
+	    locals.data.home = result;
+	    next(err);
+	  });
+
+	});
+
 	// ---------------
 	// Navigation Data
 	view.on('init', function(next) {

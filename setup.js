@@ -118,13 +118,13 @@ module.exports = function(keystone, callback) {
   keystone.mount();
 
   // Start the ethernet connection listener
-  var sync = require('./components/sync.js').sync,
-      emitter = sync.getEmitter();
+  var monitor = new require('./components/monitor.js').Monitor(),
+      emitter = monitor.getEmitter();
 
   emitter.on('connectionAvailable', function(e) {
-      // TODO: react to connectionAvailable event
-    });
-  sync.start();
+    // TODO: react to connectionAvailable event
+  });
+  monitor.start();
   
   return keystone;
 }

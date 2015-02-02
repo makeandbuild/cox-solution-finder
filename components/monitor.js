@@ -43,8 +43,6 @@ exports.Monitor = function(url, delay, cb) {
 				}, delay);
 			}
 
-			status = 'Running';
-
 			return this;
 		},
 

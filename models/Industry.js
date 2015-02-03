@@ -17,7 +17,7 @@ var resource = {
 	icon_choice: {
 		type: Types.Boolean,
 		label: "Use Custom Icon?",
-		default: "false",
+		default: "false"
 	},
 	svg_icon: {
 		type: Types.Select,

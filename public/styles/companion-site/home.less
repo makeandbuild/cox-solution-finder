@@ -1,13 +1,19 @@
 .header-space-home {
 	height: 3em;
 	.respond-md({
-		height: 7em;
+		height: 3em;
 	});
+}
+.home-content {
+	overflow:visible;
 }
 .cox-business {
 	.opensans-light();
 	line-height: 0.9;
 	margin-bottom: 0.85em;
+	.respond-md({
+		margin-top:2em;
+	});
 	strong {
 		display:block;
 		color:@darkBlue;
@@ -16,6 +22,7 @@
 }
 
 .home-industries {
+	padding-top:1em;
 	.respond-md({
 		background-color:@darkBlue;
 	});
@@ -122,25 +129,30 @@
 	padding-bottom:5em;
 	h3 {
 		color:@darkBlue;
+		padding-top:2em;
 		.opensans-regular();
 	}
 }
 
 .home-connect {
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 15px center;
 	background-size: 100%;
 	.respond-md({
 		padding-right:0;
 	});
 	.respond-xs-sm-only({
 		background-image: none !important;
+		padding:0;
 	});
 	p {
 		font-size:1.5em;
 		.opensans-regular();
 		margin-bottom:0.6em;
 		color:@white;
+		.respond-xs-sm-only({
+			text-align: center;
+		});
 	}
 	form {
 
@@ -149,6 +161,14 @@
 			.respond-md({
 				float:right;
 			});
+		}
+		input[type='number'] {
+		    -moz-appearance:textfield;
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		    -webkit-appearance: none;
 		}
 	}
 }
@@ -168,6 +188,7 @@
 .home-connect-form {
 	background-color:rgba(63, 197, 255, 1);
 	overflow: hidden;
+	padding: 1em 5% 2em;
 	.respond-md({
 		padding: 7em 5.2em;
 		background-color:rgba(63, 197, 255, 0.9);

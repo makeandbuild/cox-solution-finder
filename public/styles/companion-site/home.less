@@ -1,13 +1,19 @@
 .header-space-home {
 	height: 3em;
 	.respond-md({
-		height: 7em;
+		height: 3em;
 	});
+}
+.home-content {
+	overflow:visible;
 }
 .cox-business {
 	.opensans-light();
 	line-height: 0.9;
 	margin-bottom: 0.85em;
+	.respond-md({
+		margin-top:2em;
+	});
 	strong {
 		display:block;
 		color:@darkBlue;
@@ -16,6 +22,7 @@
 }
 
 .home-industries {
+	padding-top:1em;
 	.respond-md({
 		background-color:@darkBlue;
 	});
@@ -122,13 +129,14 @@
 	padding-bottom:5em;
 	h3 {
 		color:@darkBlue;
+		padding-top:2em;
 		.opensans-regular();
 	}
 }
 
 .home-connect {
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: 15px center;
 	background-size: 100%;
 	.respond-md({
 		padding-right:0;

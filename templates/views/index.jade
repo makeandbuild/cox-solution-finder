@@ -60,11 +60,7 @@ block content
 						li.col-xs-6.col-md-2
 							span.industry-divider
 							a(href='/industries/'+item.slug title=item.title).industry-tile
-								if !item.icon_choice
-									.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
-								else
-									.industry-custom-icon
-										img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+								.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
 								.industry-title
 									span= item.title
 

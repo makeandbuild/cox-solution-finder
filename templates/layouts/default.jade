@@ -83,8 +83,7 @@ html
 											each item, index in data.navigation_services
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
-														.navigation-mobile-icon
-															img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
 														.navigation-mobile-title
 															span= item.title
 									else if link.key == 'industries'
@@ -93,8 +92,7 @@ html
 											each item, index in data.navigation_industries
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
-														.navigation-mobile-icon
-															img(src="/uploads/images/#{item.custom_icon.filename}" alt=item.title + " icon")
+														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
 														.navigation-mobile-title
 															span= item.title
 									

@@ -29,7 +29,7 @@ block content
 
 					if data.home.hero.video
 
-					a.hero-video-cta(data-video="video-link")
+					a.hero-video-cta(data-video="video-link").video-link
 						span SEE WHY
 						img(src="/icons/png/icon-play.png").hero-video-icon
 
@@ -46,7 +46,7 @@ block content
 						p.section-heading= data.home.default_heading
 						p.section-content= data.home.default_content
 					.col-xs-12.col-md-6
-						+mediaBuffet('industry', 'home')
+						+mediaBuffet('this')
 
 		article.container-fluid.home-industries
 			//- span.background-shadow.from-right
@@ -132,7 +132,7 @@ block content
 							.col-xs-12.col-md-6.service-container
 								+industryContent(industry)
 							.col-xs-12.col-md-6
-								+mediaBuffet('industry')
+								+mediaBuffet('this')
 							.col-xs-12
 								span.divider
 				else

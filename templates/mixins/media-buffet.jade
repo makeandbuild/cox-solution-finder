@@ -1,7 +1,33 @@
-mixin mediaBuffet(industry, type)
-	if type == 'home'
-		h2 Media Buffet Here.
-		p Home Version
-	else
-		h2 Media Buffet Here.
-		p Custom Version
+mixin mediaBuffet(media_buffet)
+	section.media-buffet
+	
+		.col-xs-12.col-md-6
+			.video
+				a(data-video="video-link" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
+					.video-prevew
+						img(src="/icons/png/icon-play.png").hero-video-icon
+
+		.col-xs-12.col-md-6
+			.values
+				p It's easy to do business with us because we focus on one thing:
+					strong what your business needs.
+				h4.media-title Cox
+					strong Values
+
+		.col-xs-6
+			.story
+				a(data-article="story-link" style= media_buffet.story.background ? "background-image: url(" + media_buffet.story.background.url+");" : "").story-link
+				h4.media-title Cox
+					strong Values
+
+		.col-xs-6
+			.facts
+				- var isImage = false
+				if isImage
+					span 1/3
+					p of all Americans encounter a Cox brand every day.
+				else
+					.fact-image
+						img
+				h4.media-title Cox
+					strong Values

@@ -1,5 +1,57 @@
 extends ../../layouts/default-showroom
 //- Use the Showroom Default Template
 
+mixin scene(scene)
+	.scene(data-scene=scene.title)
+		if !scene.content_choice
+			img(src=scene.featured_image.url).scene-preview-featured-image
+			h2.scene-preview-title= scene.title
+				img(src="/images/arrow_down.png")
+		else
+			.scene-preview-text
+				h2.scene-preview-text-header= data.home.hero.business_count
+				p.scene-preview-text-subtext
+					span Businesses powered by
+					img(src="/images/logo.png")
+
+			h2.scene-preview-title= scene.title
+				img(src="/images/arrow_down.png")
+
+	.act(data-act=scene.title)
+		h1 AWESOME STUFF FOR 
+			=scene.title
+		button.btn.btn-default.act-close(type="button")
+			img(src="/images/close.png")
+	
+
 block content
-	h1 Home Page! Hello World!
+	.home-stage
+		+scene(data.home.stage.scene_one)
+		+scene(data.home.stage.scene_two)
+		+scene(data.home.stage.scene_three)
+		.stage-background(style= data.home.stage_background ? "background-image: url(" + data.home.stage_background.url+");" : "")
+		.stage-background-overlay
+		.stage-background-shadow
+
+	.row.home-menu
+		.col-xs-12
+			h3 Featured
+			section(role="navigation").media-buffet
+				ul.services-list
+					each item, index in data.navigation_services
+						li: a(href='/services/' + item.slug title=item.title).service-item
+							.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+							h4.service-title=item.title
+						if index == 1
+							br
+				.story
+					a(data-article="story-link" style= data.home.media_buffet.story.featured_image ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
+						img(src="/icons/png/icon-play.png")
+					h4.media-title!=data.home.media_buffet.story.title
+				.values
+					.values-container
+						!= data.home.media_buffet.values.content
+					h4.media-title!=data.home.media_buffet.values.title
+				.video
+					a(data-video="test" style= data.home.media_buffet.video.background ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
+						img(src="/icons/png/icon-play.png")

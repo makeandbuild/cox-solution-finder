@@ -19,18 +19,20 @@ exports.Monitor = function(url, delay, cb) {
 		},
 
 		start: function() {
+			var self = this;
+
 			if (intervalId === null) {
 				intervalId = setInterval(function() {
 					dns.resolve(url, function(err) {
 						if (err) {
-							this.connected = false;
+							self.connected = false;
 							console.log(err);
 							cb({ 
 								status: 'Error! Unable to resolve DNS. Connection Unavailable.',
 								target: url
 							}, err);
 						} else {
-							this.connected = true;
+							self.connected = true;
 							emitter.emit('connectionAvailable', { target: url });
 							cb({
 								status: 'connectionAvailable',
@@ -43,7 +45,7 @@ exports.Monitor = function(url, delay, cb) {
 				}, delay);
 			}
 
-			return this;
+			return self;
 		},
 
 		stop: function() {

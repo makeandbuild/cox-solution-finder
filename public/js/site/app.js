@@ -84,7 +84,6 @@ function navigationModal(){
 			$scope.$tiles.removeClass('active');
 			$scope.$allTiles.removeClass('active');
 			$scope.$navItems.removeClass('viewing');
-			console.log('a');
 
 			$scope.$glass.toggleClass('active');
 			setTimeout(function(){
@@ -92,21 +91,17 @@ function navigationModal(){
 				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
 				$scope.$navItem.toggleClass('viewing');
 				$scope.$activePage.removeClass('active');
-				console.log('b');
 			},150);
 		} else {
 			setTimeout(function(){
 				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
-				console.log('c');
 			},0);
 			setTimeout(function(){
 				$scope.$glass.toggleClass('active');
-				console.log('d');
 			},150);
 			$scope.$target.toggleClass('active');
 			$scope.$navItem.toggleClass('viewing');
 			$scope.$activePage.addClass('active');
-			console.log('e');
 		}
 		
 	
@@ -124,6 +119,7 @@ function navigationModal(){
 function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
+	homeStageTransitions();
 	
 
 	$('.product-showroom-scroll').on('click',function(){
@@ -153,8 +149,44 @@ function sidebarNavigation(){
 		$('#side-navigation').toggleClass('active');
 	});
 	$('#body').on('click', function(e){
-		console.log(e.target);
 		$('#side-navigation').removeClass('active');
+	});
+}
+
+function homeStageTransitions(){
+	$('.home-stage .scene').on('click',function(){
+		console.log('click');
+		var clicked = $(this);
+		var selector = clicked.data('scene');
+		var target = $('.home-stage .act').filter("[data-act='"+selector+"']");
+
+		if (clicked.hasClass('scene-active')){
+			$('.home-stage .scene, .home-stage .act')
+			.removeClass('scene-active')
+			.removeClass('scene-inactive')
+			.removeClass('scene-in-focus')
+			.removeClass('active');
+		}
+		else if (clicked.hasClass('scene-inactive')){
+			alert("you shouldn't see this lol, go slack Nick if you see this haha");
+		}
+		else {
+			clicked.addClass('scene-active').siblings().addClass('scene-inactive').removeClass('scene-active');
+			setTimeout(function(){
+				if (clicked.hasClass('scene-active')){
+					clicked.addClass('scene-in-focus');
+					target.addClass('active').siblings().removeClass('active');
+				}
+			},1000);
+		}
+
+	});
+	$('.home-stage .act .act-close').on('click', function(){
+		$('.home-stage .scene, .home-stage .act')
+		.removeClass('scene-active')
+		.removeClass('scene-inactive')
+		.removeClass('scene-in-focus')
+		.removeClass('active');
 	});
 }
 

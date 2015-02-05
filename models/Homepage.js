@@ -12,6 +12,24 @@ var Homepage = new keystone.List('Homepage', {
 	nocreate: true
 });
 
+var scene = {
+	title: {
+		type: Types.Text,
+		label: "Showroom Stage: Scene Name"
+	},
+	content_choice: {
+		type: Types.Boolean,
+		label: "Use the Business Count Box using the data in the Companion Hero Section?",
+		default: false
+	},
+	featured_image: {
+		type: Types.S3File,
+		label: 'Featured Image',
+		note: "Upload a 2x image. This image will display as the clicked on navigation item on the Showrooom Stage Main View",
+		s3path: 'uploads/images'
+	}
+}
+
 
 Homepage.add({
 	name: { type: String, required: true, index: true, noedit: true },
@@ -39,6 +57,12 @@ Homepage.add({
 	default_content: { type: Types.Textarea, height: 200, label: "Default Content" },
 	media_buffet: {
 		video: {
+			title: { type: Types.Html,
+				wysiwyg: true,
+				height:40,
+				label: "Media Video: Title",
+				note: "1-2 Words"
+			},
 			video: {
 				type: Types.S3File,
 				label: 'Media Video: File',
@@ -121,6 +145,17 @@ Homepage.add({
 		label: 'Connect Background',
 		note: "Upload a normal RESOLUTION SIZE image at least. Right side of the image will have a blue overlay",
 		s3path: 'uploads/images'
+	},
+	stage_background: {
+		type: Types.S3File,
+		label: 'Showroom Stage: Background',
+		note: "Upload a 2x image. Image will have a white overlay",
+		s3path: 'uploads/images'
+	},
+	stage: {
+		scene_one: scene,
+		scene_two: scene,
+		scene_three: scene
 	}
 });
 

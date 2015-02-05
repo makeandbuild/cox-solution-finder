@@ -206,11 +206,13 @@ function homeStageTransitions(){
 }
 
 function homeStageVideoOptions(){
-	var player = videojs('home_stage_default_video', {
-	  controlBar: {
-	    muteToggle: false
-	  }
-	});
+	if ($('#home_stage_default_video')[0]){
+		var player = videojs('home_stage_default_video', {
+		  controlBar: {
+		    muteToggle: false
+		  }
+		});
+	}
 }
 
 

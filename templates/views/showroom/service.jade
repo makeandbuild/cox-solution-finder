@@ -24,7 +24,7 @@ mixin product(product)
 		.col-xs-10.col-xs-offset-1
 			
 			section.product-hero-container
-				img(src="/uploads/images/#{product.hero.filename}" alt="product-hero-image")
+				img(src=product.hero.url alt="product-hero-image")
 			.overflow-wrapper
 			section.product-item-container
 				span.product-fade-bottom
@@ -32,37 +32,37 @@ mixin product(product)
 					img(src="/images/arrow_down.png")
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_one.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_one.title
 						p.section-content= product.item_one.content
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_two.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_two.title
 						p.section-content= product.item_two.content
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_three.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_three.title
 						p.section-content= product.item_three.content
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_four.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_four.title
 						p.section-content= product.item_four.content
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_five.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_five.title
 						p.section-content= product.item_five.content
 				.row
 					.col-xs-2.product-icon-container
-						img(src="/uploads/images/#{product.item_one.icon.filename}" alt="icon here").product-item-icon
+						.product-item-icon.coxicon(class="coxicon_"+product.item_six.svg_icon)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_six.title
 						p.section-content= product.item_six.content

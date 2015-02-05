@@ -28,8 +28,10 @@ function initDevelopment(){
 function initGlobal(){
 	console.log('initGlobal Called');
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
+	videojs.options.flash.swf = "'/js/lib/videojs/video-js.swf";
 	navigationModal();
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
+	videoClose();
 }
 
 /*  
@@ -111,6 +113,19 @@ function navigationModal(){
 	});
 }
 
+// Global Video Functions
+function reloadVideo(videoID){
+	var player = videojs(videoID);
+	player.load();
+}
+
+function videoClose(){
+	$('.video-close').on('click',function(){
+		var selector = $(this).data('video-close');
+		reloadVideo(selector);
+	});
+}
+
 
 
 
@@ -120,6 +135,7 @@ function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
 	homeStageTransitions();
+	homeStageVideoOptions();
 	
 
 	$('.product-showroom-scroll').on('click',function(){
@@ -155,7 +171,6 @@ function sidebarNavigation(){
 
 function homeStageTransitions(){
 	$('.home-stage .scene').on('click',function(){
-		console.log('click');
 		var clicked = $(this);
 		var selector = clicked.data('scene');
 		var target = $('.home-stage .act').filter("[data-act='"+selector+"']");
@@ -189,6 +204,17 @@ function homeStageTransitions(){
 		.removeClass('active');
 	});
 }
+
+function homeStageVideoOptions(){
+	if ($('#home_stage_default_video')[0]){
+		var player = videojs('home_stage_default_video', {
+		  controlBar: {
+		    muteToggle: false
+		  }
+		});
+	}
+}
+
 
 // --------------------------------
 // Companion Site Functions

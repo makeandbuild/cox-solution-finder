@@ -24,7 +24,6 @@ html
 		//- VideoJS
 		link(href="/styles/videojs/video-js.min.css", rel="stylesheet")
 		script(src='/js/lib/videojs/video.js')
-		//- videojs.options.flash.swf = "'/js/lib/videojs/video-js.swf";
 
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
@@ -138,7 +137,19 @@ html
 
 
 		//- FOOTER
-		//- .container: #footer
+		footer.container-fluid: #footer.container
+			.row
+				.col-xs-12.col-md-2
+					.footer-logo
+				ul.col-xs-12.col-md-7
+					li: a(href="http://www.google.com").footer-item Newsroom
+					li: a(href="http://www.google.com").footer-item Careers
+					li: a(href="http://www.google.com").footer-item Investors
+					li: a(href="http://www.google.com").footer-item Contact Us
+					li: a(href="http://www.google.com").footer-item Privacy Policy
+				.col-xs-12.col-md-3
+					small.footer-item &copy; 1998-2015 Cox Communications
+
 
 
 		//- JAVASCRIPT

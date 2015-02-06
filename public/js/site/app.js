@@ -32,6 +32,8 @@ function initGlobal(){
 	navigationModal();
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	videoClose();
+	videoPauseEvents();
+	videoBlurEvents();
 }
 
 /*  
@@ -123,10 +125,42 @@ function videoClose(){
 	$('.video-close').on('click',function(){
 		var selector = $(this).data('video-close');
 		reloadVideo(selector);
+		$('.vjs-big-play-button').removeClass('csf-active');
 	});
 }
 
+function videoPauseEvents(){
+	$('.video-js').on('mouseover',function(){
+		$('.vjs-big-play-button').addClass('csf-active');
+	});
+	$('.video-js').on('mouseout',function(){
+		$('.vjs-big-play-button').removeClass('csf-active');
+	});
+	$('.vjs-big-play-button').on('click',function(){
+		if($(this).parent().hasClass('vjs-playing')){
+			$(this).siblings('.vjs-control-bar').children('.vjs-play-control').trigger('click');
+		}
+	});
+}
 
+function videoBlurEvents(){
+	// console.log('what');
+	// setTimeout(function(){
+	// 	console.log('huh');
+	// 	$('.cfs-modal').each(function(){
+	// 		console.log('test');
+	// 		var id = $(this).id;
+			
+	// 	});
+	// },500);
+	
+}
+$('.modal').on('show.bs.modal', function (e) {
+	$('.the-looking-glass').addClass('active');
+});
+$('.modal').on('hide.bs.modal', function (e) {
+	$('.the-looking-glass').removeClass('active');
+});
 
 
 // --------------------------------
@@ -222,6 +256,7 @@ function initCompanion(){
 	console.log('initCompanion Called');
 	mobileNavigation();
 	setMobileNavHeight();
+	customHomeNameAdjust();
 
 }
 
@@ -262,6 +297,19 @@ function mobileNavigation(){
 
 function setMobileNavHeight(){
 	$('.navigation-mobile').css('max-height', document.documentElement.clientHeight - 50 + 'px');
+}
+
+function customHomeNameAdjust(){
+	var target = $('.hero-custom-name');
+	var length = target[0].innerHTML.length;
+	if (length > 9 && length < 16){
+		target.css('font-size', '3em');
+	} else if (length > 15 && length < 21){
+		target.css('font-size', '2em');
+	} else if (length > 20){
+		target.css('font-size', '1.5em');
+		target.css('font-weight', 'normal');
+	}
 }
 
 

@@ -1,11 +1,39 @@
 .header-space-home {
 	height: 3em;
+	border-top:0;
 	.respond-md({
 		height: 3em;
 	});
 }
+.industry-row {
+	padding-bottom:3em;
+	border-bottom: 2px solid #E5E5E5;
+	&:last-of-type {
+		border-bottom:0;
+	}
+}
+.service-row {
+	background-color:@white;
+	padding:3em 2em 2em;
+	margin-bottom:2em;
+	.shadow-normal();
+	.resource-header {
+		color:@black;
+		width: 100%;
+		margin: auto;
+		padding: 0 0 0.75em 0;
+		.respond-lg({
+			width:85%;
+		});
+	}
+}
 .home-content {
 	overflow:visible;
+	h3 {
+		color:@darkBlue;
+		padding-top:2em;
+		.opensans-regular();
+	}
 }
 .cox-business {
 	.opensans-light();
@@ -126,7 +154,17 @@
 
 .home-services {
 	background: @xlightGray;
-	padding-bottom:5em;
+	
+	h3 {
+		color:@darkBlue;
+		padding-top:2em;
+		.opensans-regular();
+	}
+	.respond-md({
+		padding-bottom:5em;
+	});
+}
+.home-custom-services {
 	h3 {
 		color:@darkBlue;
 		padding-top:2em;

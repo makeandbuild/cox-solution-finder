@@ -100,23 +100,7 @@ block content
 						p.section-content= data.service.content
 							
 					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
-						h3.resource-header RESOURCES
-						.col-xs-12.resource-subcontainer
-							a(href=data.service.resource_one.resource_link download=data.service.resource_one target="_blank" title=data.service.resource_one.title).resource-download
-								.resource-icon.coxicon(class="coxicon_"+data.service.resource_one.svg_icon)
-								.resource-info
-									p.resource-title=data.service.resource_one.title
-									p.resource-description=data.service.resource_one.description
-							a(href=data.service.resource_two.resource_link download=data.service.resource_two target="_blank" title=data.service.resource_two.title).resource-download
-								.resource-icon.coxicon(class="coxicon_"+data.service.resource_two.svg_icon)
-								.resource-info
-									p.resource-title=data.service.resource_two.title
-									p.resource-description=data.service.resource_two.description
-							a(href=data.service.resource_three.resource_link download=data.service.resource_three target="_blank" title=data.service.resource_three.title).resource-download
-								.resource-icon.coxicon(class="coxicon_"+data.service.resource_three.svg_icon)
-								.resource-info
-									p.resource-title=data.service.resource_three.title
-									p.resource-description=data.service.resource_three.description
+						+resources(data.service)
 		.extend-products-background
 
 	if !data.products

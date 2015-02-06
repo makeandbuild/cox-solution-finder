@@ -28,6 +28,9 @@ Industry.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
 	heading: { type: String, required: true, default: 'Example Heading' },
+	attribute_one: { type: String, label: "Attribute One", required: true, initial:false },
+	attribute_two: { type: String, label: "Attribute Two", required: true, initial:false },
+	attribute_three: { type: String, label: "Attribute Three", required: true, initial:false },
 	content: { type: Types.Textarea, height: 400, required: true, default: 'Example Content' },
 	svg_icon: {
 		type: Types.Select,

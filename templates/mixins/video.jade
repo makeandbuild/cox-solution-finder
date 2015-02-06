@@ -1,0 +1,10 @@
+mixin modal(id)
+	.modal.csf-modal.fade(id=id tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+		button.btn.btn-default.global-close.video-close(type="button" data-dismiss="modal" data-video-close="home_stage_default_video")
+			img(src="/images/close.png")
+		//- .modal-dialog
+		//- 	.modal-content
+		video(id="home_stage_default_video" class="video-js" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
+			source(src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4')
+			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
+				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video

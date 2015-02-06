@@ -11,7 +11,7 @@ exports = module.exports = function(req, res) {
 
 	locals.data = {};
 
-	var isPersonal = false;
+	var isPersonal = true;
 
 	if (isPersonal) {
 		locals.data.custom_data = {};
@@ -38,6 +38,14 @@ exports = module.exports = function(req, res) {
 	    next(err);
 	  });
 
+	});
+
+	view.on('init', function(next) {
+		var q = keystone.list('Product').model.find().where('state', 'published');
+		q.exec(function(err, results) {
+			locals.data.products = results;
+			next(err);
+		});
 	});
 
 	// ---------------

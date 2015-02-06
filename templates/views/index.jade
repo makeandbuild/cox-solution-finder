@@ -11,8 +11,36 @@ block content
 		- var lastName = data.custom_data.name.last
 		- var eventName = data.custom_data.eventName
 		- var customIndustries = data.custom_data.favorites.industries
+		- var personalizedIndustries = [];
 		- var customServices = data.custom_data.favorites.services
-	
+		- var personalizedServices = [];
+		- var personalizedProducts = [];
+
+		each industry in data.navigation_industries
+			each customIndustry in customIndustries
+				if industry.slug == customIndustry
+					- personalizedIndustries.push(industry)
+
+		each service in data.navigation_services
+			each customService in customServices
+				if service.slug == customService
+					- personalizedServices.push(service)		
+
+		each product in data.products
+			each product_industry in product.industries
+				each industry in data.navigation_industries
+					if industry.id == product_industry
+						h1 test
+						if personalizedProducts.length == 0
+							each item, index in personalizedProducts
+								if item.id == product.id
+									h1 duplicate
+								else
+									- personalizedProducts.push(product)
+									h1 DING
+						else
+							- personalizedProducts.push(product)
+						
 
 	if !isPersonal
 		article.container-fluid.home-hero
@@ -100,103 +128,110 @@ block content
 
 
 	else
+		//- /////////////////
+		//- Personalized Home
+		//- /////////////////
 		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
 			.row
 				.col-xs-12
-					h2.hero-header HI 
-						=firstName
-						| ,
-					p.hero-subtext
+					h2.hero-header.hero-custom-name HI #{firstName},
+					p.hero-subtext-custom
 						span Thanks for visiting us at
-						br
 						span= eventName
-					p.hero-content= data.home.hero.content
+					.hero-content!=data.home.hero.content
 
-					a.hero-reset(href="/" title="Reset Personalization") (not 
-						=firstName
-						| ?)
+					a.hero-reset(href="/" title="Reset Personalization") (not #{firstName}?)
 
 
-		article.container-fluid
+
+		article.container-fluid.home-content
 			//- span.background-shadow.from-right
 
 			.container
-				.row.header-space
-				if customIndustries
-					each industry in customIndustries
-						.row
-							.col-xs-12.col-md-6.service-container
+				.row.header-space-home
+				if personalizedIndustries
+					each industry in personalizedIndustries
+
+						article.row.industry-row
+							.col-xs-12.col-md-5
 								+industryContent(industry)
-							.col-xs-12.col-md-6
-								+mediaBuffet(data.home.media_buffet)
-							.col-xs-12
-								span.divider
+							.col-xs-12.col-md-7
+								+mediaBuffet(industry.media_buffet)
+
 				else
 					h1 No Industries!
 
-				if customServices
+				if personalizedServices
 
 					.row
 						h3 SERVICES
-					each service in customServices
-						.row
-							+serviceContent(service)
+					each service in personalizedServices	
+						section.row.service-row
+							.col-xs-12.col-md-6
+								+serviceContent(service)
+							.col-xs-12.col-md-6
+								+resources(service)
 
 				else
 					h1 No Services!
 
-		if customIndustries || customServices
+		if personalizedIndustries || personalizedServices
 
-			if customProducts
-
-				article.container-fluid.container-fluid-products-navigation
-					//- span.background-shadow.from-right
-
-					.container
-
-						.row
-							.col-xs-12.products-md
-
-								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-									article.product-navigation-title
-										span PRODUCTS
-								each product, index in customProducts
-									if index == 0
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
-											article.product-navigation-item
-												span= product.title
-									else
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
-											article.product-navigation-item
-												span= product.title
-
-							.col-xs-12.products-xs
-
-								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-									article.product-navigation-title
-										span PRODUCTS
-								if customProducts.length == 2
-									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-										article.product-navigation-title
-								each product, index in customProducts
-									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
-										a(href="/products/#{product.slug}").product-navigation-item
-											span= product.title
+				each product in personalizedProducts
+					h1= product.title
 
 
-				article.container-fluid.container-fluid-products.products-md
-					//- span.background-shadow.from-right
-					span.product-gradient.product-gradient-companion-services: span
-					.container
+
+				//- article.container-fluid.container-fluid-products-navigation
+				//- 	//- span.background-shadow.from-right
+
+				//- 	.container
+
+				//- 		.row
+				//- 			.col-xs-12.products-md
+
+				//- 				.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+				//- 					article.product-navigation-title
+				//- 						span PRODUCTS
+				//- 				each product, index in customProducts
+				//- 					if index == 0
+				//- 						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+				//- 							article.product-navigation-item
+				//- 								span= product.title
+				//- 					else
+				//- 						.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+				//- 							article.product-navigation-item
+				//- 								span= product.title
+
+				//- 			.col-xs-12.products-xs
+
+				//- 				.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+				//- 					article.product-navigation-title
+				//- 						span PRODUCTS
+				//- 				if customProducts.length == 2
+				//- 					.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+				//- 						article.product-navigation-title
+				//- 				each product, index in customProducts
+				//- 					.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+				//- 						a(href="/products/#{product.slug}").product-navigation-item
+				//- 							span= product.title
+
+
+				//- article.container-fluid.container-fluid-products.products-md
+				//- 	//- span.background-shadow.from-right
+				//- 	span.product-gradient.product-gradient-companion-services: span
+				//- 	.container
 						
-						.row
-							each product, index in customProducts
-								if index == 0
-									.col-xs-12.product-container(data-item=product.id).active
-										+product(product)
-								else
-									.col-xs-12.product-container(data-item=product.id)
-										+product(product)
+				//- 		.row
+				//- 			each product, index in customProducts
+				//- 				if index == 0
+				//- 					.col-xs-12.product-container(data-item=product.id).active
+				//- 						+product(product)
+				//- 				else
+				//- 					.col-xs-12.product-container(data-item=product.id)
+				//- 						+product(product)
 
 
 

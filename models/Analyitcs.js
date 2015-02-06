@@ -13,10 +13,11 @@ var Analytics = new keystone.List('Analytics', {
 });
 
 Analytics.add({
-	pageViews: { type: Types.Number },
-	createdAt: { type: Date, default: Date.now }
+	route: { type: String, default: '', required: true },
+	archived: { type: Boolean, default: false, required: true },
+	createdAt: { type: Date, default: Date.now, required: true }
 });
 
 Analytics.defaultSort = '-createdAt';
-Analytics.defaultColumns = 'pageViews, createdAt';
+Analytics.defaultColumns = 'route, archived, createdAt';
 Analytics.register();

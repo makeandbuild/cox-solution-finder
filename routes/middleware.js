@@ -82,7 +82,11 @@ exports.logPageView = function(req, res, next) {
 	var keystone = require('keystone'),
 			Analytics = keystone.list('Analytics');
 
-console.log(Analytics);
+	new Analytics.model({
+		route: req.path,
+		archived: false,
+		createdAt: Date.now()
+	}).save();
 
 	next();
 

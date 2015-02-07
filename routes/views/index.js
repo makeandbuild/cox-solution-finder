@@ -25,6 +25,7 @@ exports = module.exports = function(req, res) {
 		locals.data.custom_data.favorites = {};
 		locals.data.custom_data.favorites.industries = ['hospitality', 'government'];
 		locals.data.custom_data.favorites.services = ['internet', 'tv', 'voice'];
+		locals.data.custom_data.favorites.products = ['optical-internet', 'telecoms'];
 	}
 
 	view.on('init', function(next) {

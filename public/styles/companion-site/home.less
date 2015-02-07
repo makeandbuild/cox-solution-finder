@@ -7,16 +7,30 @@
 }
 .industry-row {
 	padding-bottom:3em;
-	border-bottom: 2px solid #E5E5E5;
-	&:last-of-type {
-		border-bottom:0;
+	.home-industry-content {
+		padding:0 2em;
+		.respond-md({
+			padding-left: 15px;
+			padding-right: 15px;
+		});
+	}
+}
+.industry-divider {
+	hr {
+		margin-top: 0;
+		margin-bottom: 0;
+		border: inherit;
+		border-top: 2px solid #e2e2e2;
 	}
 }
 .service-row {
 	background-color:@white;
-	padding:3em 2em 2em;
+	padding:3em 1em 2em;
 	margin-bottom:2em;
 	.shadow-normal();
+	.respond-md({
+		padding:3em 2em 2em;
+	});
 	.resource-header {
 		color:@black;
 		width: 100%;
@@ -24,6 +38,12 @@
 		padding: 0 0 0.75em 0;
 		.respond-lg({
 			width:85%;
+		});
+	}
+	.resource-subcontainer {
+		.respond-xs-sm-only({
+			padding-left:0;
+			padding-right:0;
 		});
 	}
 }

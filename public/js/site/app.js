@@ -33,7 +33,6 @@ function initGlobal(){
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	videoClose();
 	videoPauseEvents();
-	videoBlurEvents();
 }
 
 /*  
@@ -143,18 +142,7 @@ function videoPauseEvents(){
 	});
 }
 
-function videoBlurEvents(){
-	// console.log('what');
-	// setTimeout(function(){
-	// 	console.log('huh');
-	// 	$('.cfs-modal').each(function(){
-	// 		console.log('test');
-	// 		var id = $(this).id;
-			
-	// 	});
-	// },500);
-	
-}
+// Blur on Modal
 $('.modal').on('show.bs.modal', function (e) {
 	$('.the-looking-glass').addClass('active');
 });
@@ -300,15 +288,17 @@ function setMobileNavHeight(){
 }
 
 function customHomeNameAdjust(){
-	var target = $('.hero-custom-name');
-	var length = target[0].innerHTML.length;
-	if (length > 9 && length < 16){
-		target.css('font-size', '3em');
-	} else if (length > 15 && length < 21){
-		target.css('font-size', '2em');
-	} else if (length > 20){
-		target.css('font-size', '1.5em');
-		target.css('font-weight', 'normal');
+	if ($('.hero-custom-name')[0]){
+		var target = $('.hero-custom-name');
+		var length = target[0].innerHTML.length;
+		if (length > 9 && length < 16){
+			target.css('font-size', '3em');
+		} else if (length > 15 && length < 21){
+			target.css('font-size', '2em');
+		} else if (length > 20){
+			target.css('font-size', '1.5em');
+			target.css('font-weight', 'normal');
+		}
 	}
 }
 

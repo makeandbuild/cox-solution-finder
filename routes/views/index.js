@@ -11,7 +11,7 @@ exports = module.exports = function(req, res) {
 
 	locals.data = {};
 
-	var isPersonal = true;
+	var isPersonal = false;
 
 	if (isPersonal) {
 		locals.data.custom_data = {};

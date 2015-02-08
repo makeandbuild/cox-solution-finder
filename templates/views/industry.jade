@@ -2,55 +2,55 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 
 block content
-	span.background-shadow.from-right
+
 	article.container-fluid
-		
+		//- span.background-shadow.from-right
 
 		.container
-
-			//- Check the Service exists
-			if !data.industry
-				h2 Service Invalid Post.
-			else
-				.row.header-space
+			.row.header-space
+			if data.industry
+				article.row.industry-page-content
+					.col-xs-12.col-md-5
+						+industryContent(data.industry)
+					.col-xs-12.col-md-7
+						+mediaBuffet(data.industry.media_buffet)
+			.resources-container-products
 				.row
-					.col-xs-12.col-md-6.service-container
-						h1.industry-title= data.industry.title					
-						p.section-heading= data.industry.heading
-						p.section-content= data.industry.content
-							
-					.col-xs-12.col-md-6.media-buffet
-						h1 Media Buffet here
-
-				.resources-container-products
-					.row
-						.col-xs-12
-							h3 RESOURCES
-					.row
+					.col-xs-12
+						h3 RESOURCES
+				.row
+					.col-xs-12.col-md-6
+						a(href=data.industry.resource_one.resource_link download=data.industry.resource_one.resource_link target="_blank" title=data.industry.resource_one.title).resource-download
+							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_one.svg_icon)
+							.resource-icon-divider: span
+							.resource-info
+								p.resource-title=data.industry.resource_one.title
+								p.resource-description=data.industry.resource_one.description
+					.col-xs-12.col-md-6
+						a(href=data.industry.resource_two.resource_link download=data.industry.resource_two.resource_link target="_blank" title=data.industry.resource_two.title).resource-download
+							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_two.svg_icon)
+							.resource-icon-divider: span
+							.resource-info
+								p.resource-title=data.industry.resource_two.title
+								p.resource-description=data.industry.resource_two.description
+					.col-xs-12.col-md-6
+						a(href=data.industry.resource_three.resource_link download=data.industry.resource_three.resource_link target="_blank" title=data.industry.resource_three.title).resource-download
+							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_three.svg_icon)
+							.resource-icon-divider: span
+							.resource-info
+								p.resource-title=data.industry.resource_three.title
+								p.resource-description=data.industry.resource_three.description
+					if data.industry.resource_four
 						.col-xs-12.col-md-6
-							a(href=data.industry.resource_one.resource_link download=data.industry.resource_one.resource_link target="_blank" title=data.industry.resource_one.title).resource-download
-								.resource-icon
-									img(src="/uploads/images/#{data.industry.resource_one.icon.filename}" alt="resource-icon")
+							a(href=data.industry.resource_four.resource_link download=data.industry.resource_four.resource_link target="_blank" title=data.industry.resource_four.title).resource-download
+								.resource-icon.coxicon(class="coxicon_"+data.industry.resource_four.svg_icon)
+								.resource-icon-divider: span
 								.resource-info
-									p.resource-title=data.industry.resource_one.title
-									p.resource-description=data.industry.resource_one.description
-						.col-xs-12.col-md-6
-							a(href=data.industry.resource_two.resource_link download=data.industry.resource_two.resource_link target="_blank" title=data.industry.resource_two.title).resource-download
-								.resource-icon
-									img(src="/uploads/images/#{data.industry.resource_two.icon.filename}" alt="resource-icon")
-								.resource-info
-									p.resource-title=data.industry.resource_two.title
-									p.resource-description=data.industry.resource_two.description
-						.col-xs-12.col-md-6
-							a(href=data.industry.resource_three.resource_link download=data.industry.resource_three.resource_link target="_blank" title=data.industry.resource_three.title).resource-download
-								.resource-icon
-									img(src="/uploads/images/#{data.industry.resource_three.icon.filename}" alt="resource-icon")
-								.resource-info
-									p.resource-title=data.industry.resource_three.title
-									p.resource-description=data.industry.resource_three.description
-
-	article.container-fluid.container-fluid-products-navigation
-		span.background-shadow.from-right
+									p.resource-title=data.industry.resource_four.title
+									p.resource-description=data.industry.resource_four.description
+	article.container-fluid.container-fluid-services-navigation
 		.container
-
-			h2.section-title Services
+			.row
+				.col-xs-12
+					h3 SERVICES
+			+service-list(data.navigation_services)

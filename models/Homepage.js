@@ -19,7 +19,7 @@ var scene = {
 	},
 	content_choice: {
 		type: Types.Boolean,
-		label: "Use the Business Count Box using the data in the Companion Hero Section?",
+		label: "Use the Business Count Box and Video using the data in the Companion Hero Section?",
 		default: false
 	},
 	featured_image: {

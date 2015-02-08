@@ -35,6 +35,7 @@ Service.add({
 	},
 	heading: { type: String, required: true, initial: false, label: "Service Heading" },
 	content: { type: Types.Textarea, height: 400, required: true, initial: false, label: "Service Content" },
+	description: { type: String, required: true, initial: false, label: "Service Description", note: "Text will appear on other pages linking this service, and not the service page itself." },
 	industries: { type: Types.Relationship, ref: 'Industry', required: true, many: true, initial: false, label: "Linked Industries" },
 	resource_one: resource,
 	resource_two: resource,

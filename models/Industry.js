@@ -119,7 +119,8 @@ Industry.add({
 	},
 	resource_one: resource,
 	resource_two: resource,
-	resource_three: resource
+	resource_three: resource,
+	resource_four: resource
 });
 
 Industry.relationship({ ref: 'Service', refPath: ':service', path: ':industry' });

@@ -7,13 +7,67 @@ block content
 
 	if data.custom_data
 		- isPersonal = true
+
+		//- Personal Info
 		- var firstName = data.custom_data.name.first
 		- var lastName = data.custom_data.name.last
 		- var eventName = data.custom_data.eventName
-		- var customIndustries = data.custom_data.favorites.industries
-		- var customServices = data.custom_data.favorites.services
-	
 
+		//- Chosen Industry Slugs and Empty Array
+		- var customIndustries = data.custom_data.favorites.industries
+		- var personalizedIndustries = [];
+
+		//- Chosen Service Slugs and Empty Array
+		- var customServices = data.custom_data.favorites.services
+		- var personalizedServices = [];
+
+		//- Chosen Product Slugs and Empty Array, and Complete Product Selection Array
+		- var customProducts = data.custom_data.favorites.products
+		- var personalizedProducts = [];
+		- var selectedProducts = [];
+
+		//- How about a little array building like in beginner's programming?
+
+		//- Setup the Custom Industries and Services
+		each industry in data.navigation_industries
+			each customIndustry in customIndustries
+				if industry.slug == customIndustry
+					- personalizedIndustries.push(industry)
+		each service in data.navigation_services
+			each customService in customServices
+				if service.slug == customService
+					- personalizedServices.push(service)
+		each product in data.products
+			each customProduct in customProducts
+				if product.slug == customProduct
+					- personalizedProducts.push(product)
+
+		//- Go ahead and add the chosen Products
+		each product in personalizedProducts
+			- selectedProducts.push(product)
+		
+		//- Gather all products in selected industries in services, including duplicates.
+		each product in data.products
+			each product_industry in product.industries
+				each industry in personalizedIndustries
+					if industry.id == product_industry
+						- selectedProducts.push(product)
+			each product_service in product.services
+				each service in personalizedServices
+					if service.id == product_service
+						- selectedProducts.push(product)
+
+		//- Now remove the duplicates
+		- var tempProducts = selectedProducts
+		each product, p_index in selectedProducts
+			- var productCount = 0
+			each tempProduct, t_index in tempProducts
+				if product && tempProduct
+					if product.id == tempProduct.id
+						- productCount++
+						if productCount > 1
+							- selectedProducts.splice(p_index, 1)
+			
 	if !isPersonal
 		article.container-fluid.home-hero
 			.hero-background-overlay
@@ -61,7 +115,7 @@ block content
 							span.industry-divider
 							a(href='/industries/'+item.slug title=item.title).industry-tile
 								.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
-								.industry-title
+								.industry-home-title
 									span= item.title
 
 
@@ -100,54 +154,63 @@ block content
 
 
 	else
+		//- /////////////////
+		//- Personalized Home
+		//- /////////////////
 		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
 			.row
 				.col-xs-12
-					h2.hero-header HI 
-						=firstName
-						| ,
-					p.hero-subtext
+					h2.hero-header.hero-custom-name HI #{firstName},
+					p.hero-subtext-custom
 						span Thanks for visiting us at
-						br
 						span= eventName
-					p.hero-content= data.home.hero.content
+					.hero-content!=data.home.hero.content
 
-					a.hero-reset(href="/" title="Reset Personalization") (not 
-						=firstName
-						| ?)
+					a.hero-reset(href="/" title="Reset Personalization") (not #{firstName}?)
 
 
-		article.container-fluid
+
+		article.container-fluid.home-content
 			//- span.background-shadow.from-right
 
 			.container
-				.row.header-space
-				if customIndustries
-					each industry in customIndustries
-						.row
-							.col-xs-12.col-md-6.service-container
+				.row.header-space-home
+				if personalizedIndustries
+					each industry, index in personalizedIndustries
+						article.row.industry-row
+							unless index == 0
+								.col-xs-12.industry-divider: hr
+							.col-xs-12.col-md-5.home-industry-content
 								+industryContent(industry)
-							.col-xs-12.col-md-6
-								+mediaBuffet(data.home.media_buffet)
-							.col-xs-12
-								span.divider
+							.col-xs-12.col-md-7
+								+mediaBuffet(industry.media_buffet)
+
 				else
 					h1 No Industries!
 
-				if customServices
+				if personalizedServices
 
 					.row
-						h3 SERVICES
-					each service in customServices
-						.row
-							+serviceContent(service)
+						.col-xs-12
+							h3 SERVICES
+					each service in personalizedServices
+						.col-xs-12
+							section.row.service-row
+								.col-xs-12.col-md-6
+									+serviceContent(service)
+								.col-xs-12.col-md-6
+									+resources(service)
 
 				else
 					h1 No Services!
 
-		if customIndustries || customServices
+		if personalizedIndustries || personalizedServices
 
-			if customProducts
+
+			if selectedProducts
+
 
 				article.container-fluid.container-fluid-products-navigation
 					//- span.background-shadow.from-right
@@ -160,7 +223,7 @@ block content
 								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 									article.product-navigation-title
 										span PRODUCTS
-								each product, index in customProducts
+								each product, index in selectedProducts
 									if index == 0
 										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
 											article.product-navigation-item
@@ -175,10 +238,10 @@ block content
 								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 									article.product-navigation-title
 										span PRODUCTS
-								if customProducts.length == 2
+								if selectedProducts.length == 2
 									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 										article.product-navigation-title
-								each product, index in customProducts
+								each product, index in selectedProducts
 									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
 										a(href="/products/#{product.slug}").product-navigation-item
 											span= product.title
@@ -190,13 +253,13 @@ block content
 					.container
 						
 						.row
-							each product, index in customProducts
+							each item, index in selectedProducts
 								if index == 0
-									.col-xs-12.product-container(data-item=product.id).active
-										+product(product)
+									.col-xs-12.product-container(data-item=item.id).active
+										+product(item)
 								else
-									.col-xs-12.product-container(data-item=product.id)
-										+product(product)
+									.col-xs-12.product-container(data-item=item.id)
+										+product(item)
 
 
 

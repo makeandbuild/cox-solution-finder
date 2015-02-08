@@ -152,31 +152,3 @@ block content
 						else
 							.col-xs-12.full-height-col.product-container(data-item=product.id class=(index == 0 ? 'active' : null))
 								+product(product)
-
-
-
-				//- .row
-				//- 	.col-xs-10.col-xs-offset-1
-				//- 			h1= data.service.title
-				//- 			section
-				//- 				p Industry Goes Here
-				//- 			p.section-heading= data.service.heading
-				//- 			p.section-content= data.service.content
-				//- 	.col-xs-10.col-xs-offset-1
-				//- 			h1 Products
-				//- 			if !data.products
-				//- 				h2 No Products!
-				//- 			else
-				//- 				h2 Sweet, you got a product!
-				//- 				each product in data.products
-				//- 					div= product.title
-				//- 					div= product.item_one.title
-				//- 					div
-				//- 						//- img(src="/uploads/images/#{product.item_one.icon.filename}")
-				//- 					div= product.item_one.content
-
-				//- 					h2 Now for the cool stuff
-				//- 					if product.services
-				//- 						each this_service in product.services
-				//- 							if this_service.id == data.service.id
-				//- 								div= this_service.title

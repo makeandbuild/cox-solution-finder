@@ -11,7 +11,12 @@
 	color:@darkBlue;
 }
 .service-title {
-	margin: 0.3em 0 0.6em;
+	margin: 0.6em 0 0.6em;
+	text-transform: uppercase;
+	.opensans-regular();
+	.respond-md({
+		.opensans-light();
+	});
 }
 
 
@@ -105,6 +110,7 @@
 		color:@darkBlue;
 		display:block;
 		margin:0;
+		text-transform: none;
 		.opensans-semibold();
 		.respond-md({
 			margin-bottom: 0.5em;

@@ -3,7 +3,7 @@ mixin mediaBuffet(media_buffet)
 	
 		.media-buffet-container-full
 			.video
-				a(data-video="test" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
+				a(data-video="test" data-toggle="modal" data-target="#myModal" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
 					img(src="/icons/png/icon-play.png")
 
 		.media-buffet-container-full
@@ -30,5 +30,3 @@ mixin mediaBuffet(media_buffet)
 				a(data-article="story-link" style= media_buffet.story.featured_image ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
 					img(src="/icons/png/icon-play.png")
 				h4.media-title!=media_buffet.story.title
-
-		

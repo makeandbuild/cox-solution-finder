@@ -1,0 +1,80 @@
+mixin product(product)
+	.row
+		.col-xs-10.col-xs-offset-1
+			h2.product-title= product.title
+		.col-xs-10.col-xs-offset-1
+			
+			section.product-hero-container
+				img(src=product.hero.url alt="product-hero-image")
+			section.product-item-container
+				.product-showroom-scroll
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_one.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_one.title
+						p.section-content= product.item_one.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_two.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_two.title
+						p.section-content= product.item_two.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_three.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_three.title
+						p.section-content= product.item_three.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_four.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_four.title
+						p.section-content= product.item_four.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_five.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_five.title
+						p.section-content= product.item_five.content
+				.col-md-6.col-lg-4
+					.col-xs-12
+						.product-item-icon.coxicon(class="coxicon_"+product.item_six.svg_icon)
+					.col-xs-12
+						p.section-heading= product.item_six.title
+						p.section-content= product.item_six.content
+
+	.resources-container-products
+		.row
+			.col-xs-12
+				h3 RESOURCES
+		.row
+			.col-xs-12.col-md-6
+				a(href=product.resource_one.resource_link download=product.resource_one.resource_link target="_blank" title=product.resource_one.title).resource-download
+					.resource-icon.coxicon(class="coxicon_"+product.resource_one.svg_icon)
+					.resource-icon-divider: span
+					.resource-info
+						p.resource-title=product.resource_one.title
+						p.resource-description=product.resource_one.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_two.resource_link download=product.resource_two.resource_link target="_blank" title=product.resource_two.title).resource-download
+					.resource-icon.coxicon(class="coxicon_"+product.resource_two.svg_icon)
+					.resource-icon-divider: span
+					.resource-info
+						p.resource-title=product.resource_two.title
+						p.resource-description=product.resource_two.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_three.resource_link download=product.resource_three.resource_link target="_blank" title=product.resource_three.title).resource-download
+					.resource-icon.coxicon(class="coxicon_"+product.resource_three.svg_icon)
+					.resource-icon-divider: span
+					.resource-info
+						p.resource-title=product.resource_three.title
+						p.resource-description=product.resource_three.description
+			.col-xs-12.col-md-6
+				a(href=product.resource_four.resource_link download=product.resource_four.resource_link target="_blank" title=product.resource_four.title).resource-download
+					.resource-icon.coxicon(class="coxicon_"+product.resource_four.svg_icon)
+					.resource-icon-divider: span
+					.resource-info
+						p.resource-title=product.resource_four.title
+						p.resource-description=product.resource_four.description

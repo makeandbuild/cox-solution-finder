@@ -92,6 +92,40 @@
 			display:table-cell;
 		}
 	}
+	.hero-subtext-custom {
+		display: table;
+		font-size:1.15em;
+		width:90%;
+		margin:auto;
+		margin-bottom:1em;
+		.opensans-semibold();
+		.respond-md({
+			font-size:2em;
+			.opensans-regular();
+		});
+		span {
+			vertical-align: middle;
+			display:block;
+			text-align: center;
+			line-height: 1;
+		}
+	}
+	.hero-content {
+		font-size: 1.2em;
+		width: 90%;
+		margin: auto;
+		text-align:center;
+		.respond-md({
+			width:50%;
+		});
+	}
+	.hero-reset {
+		color:@white;
+		margin:auto;
+		display:block;
+		margin-top:2em;
+		.opensans-semibold();
+	}
 	.hero-video-cta {
 		display: inline-block;
 		cursor:pointer;

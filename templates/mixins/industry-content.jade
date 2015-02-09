@@ -1,7 +1,7 @@
 mixin industryContent(industry)
 	h1.industry-title= industry.title
 	ul.industry-attributes
-		li #{industry.attribute_one}
+		li #{industry.attribute_one} 
 		if industry.attribute_two && industry.attribute_two != ''
 			li  | #{industry.attribute_two}
 		if industry.attribute_three && industry.attribute_three != ''

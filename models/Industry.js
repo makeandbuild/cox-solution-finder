@@ -27,6 +27,15 @@ var resource = {
 Industry.add({
 	title: { type: String, required: true },
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
+	custom_ordered_services: {
+		type: Types.Relationship,
+		label: "Services",
+		ref: 'Service',
+		required: true,
+		many: true,
+		initial: false,
+		note: "Choose 3 only."
+	},
 	heading: { type: String, required: true, initial: false, label: "Industry Heading" },
 	attribute_one: { type: String, label: "Industry Attribute One" },
 	attribute_two: { type: String, label: "Industry Attribute Two" },

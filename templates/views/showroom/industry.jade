@@ -2,11 +2,16 @@ extends ../../layouts/default-showroom
 //- Use the Showroom Default Template
 
 block content
-	h1 Industry Page
-	if !data.industry
-		h2 Invalid Post.
-	else
-		h2 True! Now what?
-		div= data.industry.title
-		div= data.industry.heading
-		div= data.industry.content
+	.row.industry-top-row
+		.col-xs-6.industry-container
+			span.background-shadow.from-left
+			.row.header-space
+			.row
+				.col-xs-10.col-lg-8.col-xs-offset-1.content-container
+					+industryContent(data.industry)
+		.col-xs-6.industry-container
+			span.background-shadow.from-right
+			+mediaBuffet(data.industry.media_buffet)
+	.row.industry-bottom-row
+		.col-xs-12.industry-service-container
+			+service-list(data.navigation_services, true, data.industry)

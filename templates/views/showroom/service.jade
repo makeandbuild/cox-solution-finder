@@ -60,12 +60,6 @@ mixin product(product)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_five.title
 						p.section-content= product.item_five.content
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_six.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_six.title
-						p.section-content= product.item_six.content
 			
 
 block content
@@ -79,7 +73,7 @@ block content
 				span.background-shadow.from-left
 				.row.header-space
 				.row
-					.col-xs-10.col-lg-8.col-xs-offset-1(style="z-index:50")
+					.col-xs-10.col-lg-8.col-xs-offset-1.content-container
 						h1.service-title= data.service.title
 						section
 							- var current = 0

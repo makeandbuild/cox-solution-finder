@@ -44,7 +44,7 @@ block content
 	.row.home-menu
 		.col-xs-12
 			h3 Featured
-			section(role="navigation").media-buffet
+			section(role="navigation").media-buffet-home
 				ul.services-list
 					each item, index in data.navigation_services
 						li: a(href='/services/' + item.slug title=item.title).service-item

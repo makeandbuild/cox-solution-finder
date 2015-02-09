@@ -3,9 +3,18 @@
 	.showroom-screen({
 		background-color:@xsomewhatlightGray;
 	});
+	.content-container {
+		padding-left:1.2em;
+		z-index:50;
+		.showroom-screen({
+			padding-left:15px;
+		});
+	}
 }
+
 .service-title {
 	.opensans-light();
+	text-transform: uppercase;
 	.showroom-screen({
 		font-size: 3.2em;
 	});
@@ -86,9 +95,15 @@
 		bottom:10px;
 		color:@darkBlue;
 		font-size: 0.9em;
+		text-transform: none;
 		.opensans-regular();
 		.showroom-screen({
 			font-size:1.2em;
 		});
 	}
+}
+
+
+.industry-services-list {
+	.services-list();
 }

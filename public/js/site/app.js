@@ -251,18 +251,34 @@ function homeStageVideoOptions(){
 }
 
 
+function ieVersion() {
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("Trident/7.0") > 0)
+        return 11;
+    else if (ua.indexOf("Trident/6.0") > 0)
+        return 10;
+    else if (ua.indexOf("Trident/5.0") > 0)
+        return 9;
+    else
+        return 0;  // not IE9, 10 or 11
+} 
+
 // --------------------------------
 // Companion Site Functions
 function initCompanion(){
 	console.log('initCompanion Called');
 
-	var doc = document.documentElement;
-	doc.setAttribute('data-useragent', navigator.userAgent);
+	var ieVer = ieVersion();
+	if (ieVer != 0){
+		$('html').addClass('ie'+ieVer);
+	}
 
 	mobileNavigation();
 	setMobileNavHeight();
 	customHomeNameAdjust();
 }
+
+
 
 // Tablet Sidebar Navigation
 function mobileNavigation(){

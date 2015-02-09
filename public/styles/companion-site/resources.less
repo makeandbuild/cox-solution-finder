@@ -32,27 +32,31 @@
 .resource-icon {
 	display: table-cell;
 	vertical-align: middle;
-	width: 20%;
-	font-size: 4.8em;
+	width: 18%;
+	font-size: 4em;
 	text-align: center;
 	color: #888;
+	.respond-md({
+		width: 20%;
+	});
 }
 .resource-icon-divider {
 	display:table-cell;
 	vertical-align: middle;
+	height:80px;
 	span {
 		display:block;
 		width:2px;
 		background-color:#d4d4d4;
 		vertical-align: middle;
-		height:84px;
+		height:80%;
 	}
 }
 .resource-info {
 	display:table-cell;
 	vertical-align: middle;
 	width:75%;
-	padding: 0.5em 0.5em 0.5em 1.2em;
+	padding: 0.5em 0.5em 0.5em 0;
 }
 .resource-title {
 	color:@darkBlue;

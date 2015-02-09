@@ -14,7 +14,6 @@ html {
 		}
 		cursor:none !important; // Removes the cursor on the touchscreen.
 	});
-	.opensans-regular();
 	width:1024px;
 	height:748px;
 	overflow:hidden;
@@ -22,6 +21,10 @@ html {
 		width:1920px;
 		height:1080px;
 	});
+
+	h1, h2, h3 {
+		.opensans-light();
+	}
 
 	::selection {
 	  background: inherit;
@@ -103,6 +106,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 
+
 *[class^="col-"] {
     z-index:0;
 }
@@ -122,6 +126,7 @@ a {
 .container-fluid {
 	overflow: hidden;
 	padding:0;
+	position: relative;
 }
 .overflow-wrapper {
 	overflow:hidden;

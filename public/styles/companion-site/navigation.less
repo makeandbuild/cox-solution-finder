@@ -12,6 +12,7 @@
 		position: relative;
 		background-color:@darkGray;
 		height:96px;
+		.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.3));
 	});
 }
 
@@ -92,7 +93,7 @@
 	display: none;
 	top: 0;
 	right: 0;
-	padding:1.7em 0 1.7em 1.7em;
+	padding:1.7em 0 1.7em 2.5em;
 	background-color: @regularGray;
 	height: 96px;
 	z-index: 6;
@@ -106,7 +107,7 @@
 		vertical-align: top;
 		height:100%;
 		position:relative;
-		padding-right: 4em;
+		padding-right: 4.3em;
 		padding-left: 1.3em;
 	}
 	span {
@@ -172,7 +173,7 @@
 	text-align: center;
 	padding: 1em;
 	.opensans-regular();
-	.shadow-normal();
+	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.1));
 	span {
 		.opensans-semibold();
 	}
@@ -207,7 +208,7 @@
 		}
 		&:first-child {
 			a {
-				padding-left:2em;
+				padding-left: 50px;
 			}
 		}
 	}

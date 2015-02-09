@@ -255,6 +255,10 @@ function homeStageVideoOptions(){
 // Companion Site Functions
 function initCompanion(){
 	console.log('initCompanion Called');
+
+	var doc = document.documentElement;
+	doc.setAttribute('data-useragent', navigator.userAgent);
+
 	mobileNavigation();
 	setMobileNavHeight();
 	customHomeNameAdjust();

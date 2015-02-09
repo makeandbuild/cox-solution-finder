@@ -190,12 +190,18 @@
 
 .extend-products-background {
 	background: @xlightGray;
-	padding: 3em;
+	//padding: 2.5em;
 	position: absolute;
 	bottom:0;
 	width:100%;
 	height:auto;
 	z-index: -1;
+	.respond-md({
+		padding:0;
+	});
+	.respond-lg({
+		padding:2.5em;
+	});
 }
 .container-fluid-products-view {
 	padding-bottom:5em;
@@ -207,8 +213,14 @@
 .container-fluid-products-navigation {
 	position: relative;
 	background: @xlightGray;
-	padding-top: 1em;
-	padding-bottom: 1em;
+	padding-top: 0.2em;
+	padding-bottom: 1.5em;
+	.respond-md({
+		padding-top:2em;
+	});
+	.respond-lg({
+		padding-top:0.2em;
+	});
 }
 .product-container {
 	opacity:0;

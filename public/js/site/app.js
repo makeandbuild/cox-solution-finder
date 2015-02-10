@@ -12,9 +12,20 @@ var config = {
   }
 }
 
+// Example Use-Case for functions in using breakpoints
+// if(document.documentElement.clientWidth <= config.breakpoints.site.mobile) {
+//     myFunctionHere();
+// }
 
-// --------------------------------
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // Development Functions
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 function initDevelopment(){
 	console.log('initDevelopment Called');
 	// if(document.documentElement.clientWidth <= config.breakpoints.phone) {
@@ -22,17 +33,36 @@ function initDevelopment(){
 	// }
 }
 
-
-// --------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // Global Functions
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 function initGlobal(){
 	console.log('initGlobal Called');
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
-	videojs.options.flash.swf = "'/js/lib/videojs/video-js.swf";
+	
 	navigationModal();
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	videoClose();
 	videoPauseEvents();
+	videoModal();
+
+	// Removes dragging images.
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
+
+	//VideoJS inits.
+	videojs.options.flash.swf = "'/js/lib/videojs/video-js.swf";
+
+	// Sets the blur to work with modal's.
+	$('.modal').on('show.bs.modal', function (e) {
+		$('.the-looking-glass').addClass('active');
+	});
+	$('.modal').on('hide.bs.modal', function (e) {
+		$('.the-looking-glass').removeClass('active');
+		$('video').each(function(){
+			$(this).load();
+		})
+	});
 }
 
 /*  
@@ -55,6 +85,7 @@ function itemNavigation(navigationItem, item){
 	});
 }
 
+// Simple ScrollTo Function
 function scrollTo(toBeScrolled, whereToScroll, time){
 	if(typeof(time)==='undefined') time = 200;
 	toBeScrolled.animate({
@@ -62,6 +93,7 @@ function scrollTo(toBeScrolled, whereToScroll, time){
     }, time);
 }
 
+// Take a set of elements and euqal their heights.
 function equalHeights(selector){
 	if (selector[0]){
 		var newHeight = 0;
@@ -75,7 +107,7 @@ function equalHeights(selector){
 	}
 }
 
-
+// The main navigation function for showing the blocks and blurring background.
 function navigationModal(){
 
 	$('.navigation-item-list li.active').addClass('current');
@@ -127,12 +159,17 @@ function navigationModal(){
 	});
 }
 
-// Global Video Functions
+
+
+// Video Functions
+
+// Reload Video
 function reloadVideo(videoID){
 	var player = videojs(videoID);
 	player.load();
 }
 
+// Add this class for easy closing of videos.
 function videoClose(){
 	$('.video-close').on('click',function(){
 		var selector = $(this).data('video-close');
@@ -141,31 +178,55 @@ function videoClose(){
 	});
 }
 
+// Adds additional functionality for showing play/pause buttons.
 function videoPauseEvents(){
-	$('.video-js').on('mouseover',function(){
-		$('.vjs-big-play-button').addClass('csf-active');
-	});
-	$('.video-js').on('mouseout',function(){
-		$('.vjs-big-play-button').removeClass('csf-active');
-	});
-	$('.vjs-big-play-button').on('click',function(){
-		if($(this).parent().hasClass('vjs-playing')){
-			$(this).siblings('.vjs-control-bar').children('.vjs-play-control').trigger('click');
+	// $('.video-js').on('mouseover',function(){
+	// 	$('.vjs-big-play-button').addClass('csf-active');
+	// });
+	// $('.video-js').on('mouseout',function(){
+	// 	$('.vjs-big-play-button').removeClass('csf-active');
+	// });
+	// $('.vjs-big-play-button').on('click',function(){
+	// 	if($(this).parent().hasClass('vjs-playing')){
+	// 		$(this).siblings('.vjs-control-bar').children('.vjs-play-control').trigger('click');
+	// 	}
+	// });
+}
+
+// Initiate the link for the modal the normal bootstrap approach.
+// On the link add the data attribute: `data-video-data` and pass the keystone video array.
+function videoModal(){
+	$('.video-link').on('click',function(){
+		// Inits
+		var videoData = $(this).data('video-data');
+		var video = $('.modal.csf-video-modal video');
+		video.attr('poster', videoData.background.url);
+		video.attr('src', "http:"+videoData.video.url);
+		video.children('source').attr('src', "http:"+videoData.video.url);
+
+		if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
+		    if ($(window).scrollTop() == 0){
+		    	$('.video-close').css('top', '96px');
+		    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
+		    	$('.video-close').css('top', (96-$(window).scrollTop())+'px');
+		    } else {
+		    	$('.video-close').css('top', '0');
+		    }
+		} else {
+			$('.video-close').css('top', '0');
 		}
+		
 	});
 }
 
-// Blur on Modal
-$('.modal').on('show.bs.modal', function (e) {
-	$('.the-looking-glass').addClass('active');
-});
-$('.modal').on('hide.bs.modal', function (e) {
-	$('.the-looking-glass').removeClass('active');
-});
 
 
-// --------------------------------
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // Showroom Functions
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
@@ -240,17 +301,7 @@ function homeStageTransitions(){
 	});
 }
 
-function homeStageVideoOptions(){
-	if ($('#home_stage_default_video')[0]){
-		var player = videojs('home_stage_default_video', {
-		  controlBar: {
-		    muteToggle: false
-		  }
-		});
-	}
-}
-
-
+// Returns IE Version Number
 function ieVersion() {
     var ua = window.navigator.userAgent;
     if (ua.indexOf("Trident/7.0") > 0)
@@ -263,11 +314,15 @@ function ieVersion() {
         return 0;  // not IE9, 10 or 11
 } 
 
-// --------------------------------
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 // Companion Site Functions
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 function initCompanion(){
 	console.log('initCompanion Called');
 
+	// Yes, Yes, we are doing this.
 	var ieVer = ieVersion();
 	if (ieVer != 0){
 		$('html').addClass('ie'+ieVer);
@@ -275,7 +330,7 @@ function initCompanion(){
 
 	mobileNavigation();
 	setMobileNavHeight();
-	customHomeNameAdjust();
+	customHomeNameAdjust();	
 }
 
 
@@ -289,10 +344,8 @@ function mobileNavigation(){
 			$('.navigation-mobile ul').children().removeClass('viewing').children().removeClass('active');
 			$('.navigation-mobile ul').children().children('.navigation-mobile-sub-menu').slideUp();
 			$('.navigation-mobile-body-background').removeClass('active');
-			//$('#body').show();
 		} else {
 			$('.navigation-mobile-body-background').addClass('active');
-			//$('#body').hide();
 		}
 		$(this).toggleClass('active');
 		$('.navigation-mobile').toggleClass('active');
@@ -310,7 +363,6 @@ function mobileNavigation(){
 		$('.navigation-mobile ul').children().removeClass('viewing').children().removeClass('active');
 		$('.navigation-mobile ul').children().children('.navigation-mobile-sub-menu').slideUp();
 		$('.navigation-mobile-body-background').removeClass('active');
-		//$('#body').show();
 	});
 }
 
@@ -334,10 +386,16 @@ function customHomeNameAdjust(){
 	}
 }
 
+function adjustCloseButtonModal(){
+	
+}
 
 
-
-// Functions for Window Resizing
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// Window Resizing
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 $(window).resize(function(){
 	if($('body').hasClass('showroom')){
 
@@ -345,16 +403,21 @@ $(window).resize(function(){
 	if($('body').hasClass('companion-site')){
 		if(document.documentElement.clientWidth <= config.breakpoints.site.mobile) {
 			setMobileNavHeight();
-
 		}
 	}
-		
-	
 });
 
+$('html, body').on('scroll', function(){
+	adjustCloseButtonModal();
+});
 
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// Document Ready
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
 $(function() {
-	// --------------------------------
+
 	// Inits
 	initGlobal();
 	if($('body').hasClass('showroom'))
@@ -364,7 +427,5 @@ $(function() {
 
 	//Development Only
 	initDevelopment();
-
-
 
 });

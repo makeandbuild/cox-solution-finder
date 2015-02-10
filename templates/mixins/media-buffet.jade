@@ -1,30 +1,23 @@
 mixin mediaBuffet(media_buffet)
 	section.media-buffet
-	
 		.media-buffet-container-full
 			.video
-				a(data-video="test" data-toggle="modal" data-target="#myModal" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
+				a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
 					img(src="/icons/png/icon-play.png")
-
 		.media-buffet-container-full
 			.values
 				!= media_buffet.values.content
 				h4.media-title!=media_buffet.values.title
-
 		br
-
 		.media-buffet-container-half
 			.facts
 				- var isImage = false
 				if !media_buffet.content_choice
 					!= media_buffet.facts.content
-					//- span 1/3
-					//- p of all Americans encounter a Cox brand every day.
 				else
 					.fact-image
 						img(src=media_buffet.facts.featured_image.url)
 				h4.media-title!=media_buffet.facts.title
-
 		.media-buffet-container-half
 			.story
 				a(data-article="story-link" style= media_buffet.story.featured_image ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link

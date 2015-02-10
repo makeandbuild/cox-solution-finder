@@ -38,11 +38,24 @@ Homepage.add({
 	hero: {
 		business_count: { type: Types.Text, label: "Default Home Number of Business's Powered by COX Business", note: "The number that will appear on the default home page." },
 		video: {
-			type: Types.S3File,
-			label: 'Default Home: Hero Video',
-			note: 'MP4 Only',
-			allowedTypes: ['video/mp4'],
-			s3path: 'uploads/videos'
+			title: { type: Types.Html,
+				type: String,
+				label: "Hero Video: Title",
+				note: "No spaces or special characters besides '-' or '_'"
+			},
+			video: {
+				type: Types.S3File,
+				label: 'Hero Video: File',
+				note: 'MP4 Only',
+				allowedTypes: ['video/mp4'],
+				s3path: 'uploads/videos'
+			},
+			background: {
+				type: Types.S3File,
+				label: 'Hero Video: Preview Image',
+				note: "Upload a 2X Image to be preview image for the video.",
+				s3path: 'uploads/images'
+			}
 		},
 		background: {
 			type: Types.S3File,
@@ -58,10 +71,9 @@ Homepage.add({
 	media_buffet: {
 		video: {
 			title: { type: Types.Html,
-				wysiwyg: true,
-				height:40,
+				type: String,
 				label: "Media Video: Title",
-				note: "1-2 Words"
+				note: "No spaces or special characters besides '-' or '_'"
 			},
 			video: {
 				type: Types.S3File,

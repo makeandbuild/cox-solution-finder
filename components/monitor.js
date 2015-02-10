@@ -1,59 +1,54 @@
 'use strict';
 
-exports.Monitor = function(url, delay, cb) {
+exports = module.exports = {
 
-	var cb = cb || function() {},
-			dns = require('dns'),
-			events = require('events'),
-			emitter = new events.EventEmitter(),
-			intervalId = null;
-			url = url || 'www.google.com',
-			delay = delay || 5000;
+	dns: require('dns'),
 
-	return {
+	events: require('events'),
 
-		connected: false,
+	connected: false,
 
-		getEmitter: function() {
-			return emitter;
-		},
+	delay: 5000,
 
-		start: function() {
-			var self = this;
+	intervalId: null,
 
-			if (intervalId === null) {
-				intervalId = setInterval(function() {
-					dns.resolve(url, function(err) {
-						if (err) {
-							self.connected = false;
-							console.log(err);
-							cb({ 
-								status: 'Error! Unable to resolve DNS. Connection Unavailable.',
-								target: url
-							}, err);
-						} else {
-							self.connected = true;
-							emitter.emit('connectionAvailable', { target: url });
-							cb({
-								status: 'connectionAvailable',
-								target: url
-							}, err);
-						}
+	url: 'www.google.com',
 
-						intervalId = null;
-					});
-				}, delay);
-			}
-
-			return self;
-		},
-
-		stop: function() {
-			clearInterval(intervalId);
-			this.connected = false;
-
-			return this;
+	getEmitter: function() {
+		if (!this.emitter) {
+			this.emitter = new this.events.EventEmitter();
 		}
 
+		return this.emitter;
+	},
+
+	start: function() {
+		var self = this;
+
+		if (self.intervalId === null) {
+			self.intervalId = setInterval(function() {
+				self.dns.resolve(self.url, function(err) {
+					if (err) {
+						self.connected = false;
+						console.log(err);
+					} else {
+						self.connected = true;
+						self.emitter.emit('connectionAvailable', { target: self.url });
+					}
+
+					self.intervalId = null;
+				});
+			}, this.delay);
+		}
+
+		return self;
+	},
+
+	stop: function() {
+		clearInterval(this.intervalId);
+		this.connected = false;
+
+		return this;
 	}
+
 };

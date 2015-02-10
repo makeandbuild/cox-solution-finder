@@ -27,7 +27,7 @@ emitter.on('connectionAvailable', function(data) {
 			analyitcs.forEach(function(record) {
 				record.update({ archived: true }, function(err, numAffected) {
 					if (err) throw err;
-					console.log('Analytics: ' + numAffected);
+					// console.log('Analytics: ' + numAffected);
 				});
 			});
 		});

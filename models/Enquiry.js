@@ -23,6 +23,7 @@ Enquiry.add({
 		{ value: 'other', label: 'Something else...' }
 	] },
 	message: { type: Types.Markdown, required: true },
+	archived: { type: Boolean, default: false, required: true },
 	createdAt: { type: Date, default: Date.now }
 });
 

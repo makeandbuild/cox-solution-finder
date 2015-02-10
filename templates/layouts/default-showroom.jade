@@ -3,6 +3,7 @@ include ../mixins/navigation-modal
 include ../mixins/media-buffet
 include ../mixins/industry-content
 include ../mixins/service-list
+include ../mixins/video
 
 doctype html
 html.html-development
@@ -85,6 +86,10 @@ html.html-development
 			//- The content block should contain the body of your template's content
 			.container-fluid.the-looking-glass
 				block content
+
+			//- Add your modals here
+			block modals
+				+videoModal
 
 
 		//- JAVASCRIPT

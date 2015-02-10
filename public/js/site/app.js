@@ -154,8 +154,14 @@ function navigationModal(){
 		
 	
 	});
-	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(){
-		$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile').removeClass('active');
+	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
+		// console.log(e.target);
+		// console.log($(e.target));
+
+		// console.log(e.target.hasClass('.modal'));
+		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
+			$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile').removeClass('active');
+		}
 	});
 }
 
@@ -204,17 +210,20 @@ function videoModal(){
 		video.attr('src', "http:"+videoData.video.url);
 		video.children('source').attr('src', "http:"+videoData.video.url);
 
-		if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
-		    if ($(window).scrollTop() == 0){
-		    	$('.video-close').css('top', '96px');
-		    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
-		    	$('.video-close').css('top', (96-$(window).scrollTop())+'px');
-		    } else {
-		    	$('.video-close').css('top', '0');
-		    }
-		} else {
-			$('.video-close').css('top', '0');
+		if($('body').hasClass('companion-site')){
+			if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
+			    if ($(window).scrollTop() == 0){
+			    	$('.video-close').css('top', '96px');
+			    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
+			    	$('.video-close').css('top', (96-$(window).scrollTop())+'px');
+			    } else {
+			    	$('.video-close').css('top', '0');
+			    }
+			} else {
+				$('.video-close').css('top', '0');
+			}
 		}
+		
 		
 	});
 }
@@ -231,7 +240,6 @@ function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
 	homeStageTransitions();
-	homeStageVideoOptions();
 	
 
 	$('.product-showroom-scroll').on('mouseover',function(){

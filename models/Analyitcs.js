@@ -34,7 +34,6 @@ emitter.on('connectionAvailable', function(data) {
 });
 monitor.start();
 
-
 Analytics.defaultSort = '-createdAt';
 Analytics.defaultColumns = 'route, archived, createdAt';
 Analytics.register();

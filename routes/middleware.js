@@ -71,3 +71,23 @@ exports.requireUser = function(req, res, next) {
 	}
 	
 };
+
+
+/**
+  Logs pageviews to the db
+ */
+
+exports.logPageView = function(req, res, next) {
+
+	var keystone = require('keystone'),
+			Analytics = keystone.list('Analytics');
+
+	new Analytics.model({
+		route: req.path,
+		archived: false,
+		createdAt: Date.now()
+	}).save();
+
+	next();
+
+};

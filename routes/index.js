@@ -39,7 +39,7 @@ exports = module.exports = function(app) {
 	});
 
 	// Views
-	app.get('/', routes.views.index);
+	app.get('/', middleware.logPageView, routes.views.index);
 	app.all('/contact', routes.views.contact);
 
 	//app.get('/industries/', routes.views.industries);

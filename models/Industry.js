@@ -49,10 +49,22 @@ Industry.add({
 	},
 	media_buffet: {
 		video: {
+			title: { type: Types.Html,
+				wysiwyg: true,
+				height:40,
+				label: "Media Video: Title",
+				note: "1-2 Words"
+			},
+			video_choice: {
+				type: Types.Boolean,
+				label: "Enable Video?",
+				note: "If not checked, no video will show and the image associated will show without the play icon.",
+				default: "false"
+			},
 			video: {
 				type: Types.S3File,
 				label: 'Media Video: File',
-				note: 'MP4 Only',
+				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
 				allowedTypes: ['video/mp4'],
 				s3path: 'uploads/videos'
 			},

@@ -39,14 +39,21 @@ Homepage.add({
 		business_count: { type: Types.Text, label: "Default Home Number of Business's Powered by COX Business", note: "The number that will appear on the default home page." },
 		video: {
 			title: { type: Types.Html,
-				type: String,
+				wysiwyg: true,
+				height:40,
 				label: "Hero Video: Title",
-				note: "No spaces or special characters besides '-' or '_'"
+				note: "1-2 Words"
+			},
+			video_choice: {
+				type: Types.Boolean,
+				label: "Enable Video?",
+				note: "If not checked, the text for SEE WHY and the play icon will not show.",
+				default: "false"
 			},
 			video: {
 				type: Types.S3File,
 				label: 'Hero Video: File',
-				note: 'MP4 Only',
+				note: 'MP4 Only. IMPORTANT: This will be the default video for all all industries/partners if no video is chosen.',
 				allowedTypes: ['video/mp4'],
 				s3path: 'uploads/videos'
 			},
@@ -71,14 +78,21 @@ Homepage.add({
 	media_buffet: {
 		video: {
 			title: { type: Types.Html,
-				type: String,
-				label: "Media Video: Title",
-				note: "No spaces or special characters besides '-' or '_'"
+				wysiwyg: true,
+				height:40,
+				label: "Hero Video: Title",
+				note: "1-2 Words"
+			},
+			video_choice: {
+				type: Types.Boolean,
+				label: "Enable Video?",
+				note: "If not checked, no video will show and the image associated will show without the play icon.",
+				default: "false"
 			},
 			video: {
 				type: Types.S3File,
 				label: 'Media Video: File',
-				note: 'MP4 Only',
+				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
 				allowedTypes: ['video/mp4'],
 				s3path: 'uploads/videos'
 			},

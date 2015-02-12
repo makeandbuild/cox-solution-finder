@@ -80,7 +80,7 @@ Homepage.add({
 			title: { type: Types.Html,
 				wysiwyg: true,
 				height:40,
-				label: "Hero Video: Title",
+				label: "Media Video: Title",
 				note: "1-2 Words"
 			},
 			video_choice: {
@@ -124,10 +124,10 @@ Homepage.add({
 				label: "Media Story: Title",
 				note: "1-2 Words"
 			},
-			content: { type: Types.Html,
+			content: { type: Types.Markdown,
 				wysiwyg: true,
 				height:1000,
-				label: "Media Values: Content",
+				label: "Media Story: Content",
 				note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
 			},
 			featured_image: {

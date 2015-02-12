@@ -25,10 +25,10 @@ mixin scene(scene)
 				img(src="/images/close.png")
 		else
 			video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
-				source(src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4')
+				source(src=data.home.hero.video.video.url type='video/mp4')
 				p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
 					a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
-			button.btn.btn-default.act-close.video-close(type="button" data-video-close="home_stage_default_video")
+			button.btn.btn-default.act-close.csf-content-close(type="button" data-video-close="home_stage_default_video")
 				img(src="/images/close.png")
 	
 
@@ -53,22 +53,21 @@ block content
 						if index == 1
 							br
 				.story
-					a(data-article="story-link" style= data.home.media_buffet.story.featured_image.url ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
+					a(data-toggle="modal" data-target="#story_modal" data-story-data=data.home.media_buffet.story style= data.home.media_buffet.story.featured_image.url ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
 						img(src="/icons/png/icon-play.png")
 					h4.media-title!=data.home.media_buffet.story.title
 				.values
 					.values-container
 						!= data.home.media_buffet.values.content
 					h4.media-title!=data.home.media_buffet.values.title
-				if data.home.media_buffet.video.video_choice
-					.video
-						if data.home.media_buffet.video.video_choice
-							if data.home.media_buffet.video.video.url
-								a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
-									img(src="/icons/png/icon-play.png")
-							else
-								a(data-toggle="modal" data-target="#video_modal" data-video-data=global_data.default_video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
-									img(src="/icons/png/icon-play.png")
+				.video
+					if data.home.media_buffet.video.video_choice
+						if data.home.media_buffet.video.video.url
+							a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
+								img(src="/icons/png/icon-play.png")
 						else
-							a(style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").remove-pointer
+							a(data-toggle="modal" data-target="#video_modal" data-video-data=global_data.default_video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
+								img(src="/icons/png/icon-play.png")
+					else
+						a(style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").remove-pointer
 

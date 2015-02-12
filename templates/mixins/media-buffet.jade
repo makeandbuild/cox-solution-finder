@@ -27,6 +27,6 @@ mixin mediaBuffet(media_buffet)
 				h4.media-title!=media_buffet.facts.title
 		.media-buffet-container-half
 			.story
-				a(href="#" data-article="story-link" style= media_buffet.story.featured_image.url ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
+				a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
 					img(src="/icons/png/icon-play.png")
 				h4.media-title!=media_buffet.story.title

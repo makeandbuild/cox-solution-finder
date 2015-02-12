@@ -54,9 +54,9 @@
 		.opensans-regular();
 	}
 	.vjs-control-bar {
-		display:none;
+		//display:none;
 	}
-	.vjs-full-screen-control {
+	.vjs-fullscreen-control {
 		visibility: hidden;
 		width:2em;
 	}
@@ -104,9 +104,29 @@
 			max-width: 1200px;
 		});
 	}
+	.video-title {
+		color: #FFF;
+		position: absolute;
+		top: 100%;
+		right: 0;
+		text-transform: uppercase;
+		font-size: 2.5em;
+		display:none;
+		margin: 0.1em 0 0;
+		p {
+			.opensans-regular();
+			strong {
+				.opensans-bold();
+			}
+		}
+		.respond-md({
+			font-size:5em;
+			display:block;
+		});
+	}
 }
 .modal-backdrop {
-	background:transparent;
+	//background:transparent;
 }
 .global-close {
 	position:absolute;

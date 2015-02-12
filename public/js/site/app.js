@@ -44,8 +44,7 @@ function initGlobal(){
 	navigationModal();
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	videoClose();
-	videoPauseEvents();
-	videoModal();
+	modalContent();
 
 	// Removes dragging images.
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
@@ -155,10 +154,6 @@ function navigationModal(){
 	
 	});
 	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
-		// console.log(e.target);
-		// console.log($(e.target));
-
-		// console.log(e.target.hasClass('.modal'));
 		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
 			$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile').removeClass('active');
 		}
@@ -177,50 +172,54 @@ function reloadVideo(videoID){
 
 // Add this class for easy closing of videos.
 function videoClose(){
-	$('.video-close').on('click',function(){
-		var selector = $(this).data('video-close');
-		reloadVideo(selector);
-		$('.vjs-big-play-button').removeClass('csf-active');
+	$('.csf-content-close').on('click',function(){
+		if ($(this).parent().hasClass('csf-video-modal')){
+			var selector = $(this).data('video-close');
+			reloadVideo(selector);
+			$('.vjs-big-play-button').removeClass('csf-active');
+		}
+		
 	});
 }
 
-// Adds additional functionality for showing play/pause buttons.
-function videoPauseEvents(){
-	// $('.video-js').on('mouseover',function(){
-	// 	$('.vjs-big-play-button').addClass('csf-active');
-	// });
-	// $('.video-js').on('mouseout',function(){
-	// 	$('.vjs-big-play-button').removeClass('csf-active');
-	// });
-	// $('.vjs-big-play-button').on('click',function(){
-	// 	if($(this).parent().hasClass('vjs-playing')){
-	// 		$(this).siblings('.vjs-control-bar').children('.vjs-play-control').trigger('click');
-	// 	}
-	// });
-}
 
 // Initiate the link for the modal the normal bootstrap approach.
 // On the link add the data attribute: `data-video-data` and pass the keystone video array.
-function videoModal(){
-	$('.video-link').on('click',function(){
+function modalContent(){
+	$('.video-link, .story-link').on('click',function(){
 		// Inits
-		var videoData = $(this).data('video-data');
-		var video = $('.modal.csf-video-modal video');
-		video.attr('poster', videoData.background.url);
-		video.attr('src', "http:"+videoData.video.url);
-		video.children('source').attr('src', "http:"+videoData.video.url);
+		if ($(this).hasClass('video-link')){
+			var videoData = $(this).data('video-data');
+			var video = $('.modal.csf-video-modal video');
+			video.attr('poster', videoData.background.url);
+			video.attr('src', "http:"+videoData.video.url);
+			video.children('source').attr('src', "http:"+videoData.video.url);
+			$('.modal.csf-video-modal .video-title').html(videoData.title);
+			$('.modal.csf-video-modal .video-title').appendTo($('.modal.csf-video-modal .video-js'));
+		}
+		if ($(this).hasClass('story-link')){
+			var storyData = $(this).data('story-data');
+			var storyContent = storyData.content.html;
+			var storyTitle = storyData.title;
+			var storyImage = storyData.featured_image.url;
+
+			$('.modal .story-content').html(storyContent);
+			$('.modal .story-container .story-title').html(storyTitle);
+			$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
+		}
+	
 
 		if($('body').hasClass('companion-site')){
 			if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
 			    if ($(window).scrollTop() == 0){
-			    	$('.video-close').css('top', '96px');
+			    	$('.csf-content-close').css('top', '96px');
 			    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
-			    	$('.video-close').css('top', (96-$(window).scrollTop())+'px');
+			    	$('.csf-content-close').css('top', (96-$(window).scrollTop())+'px');
 			    } else {
-			    	$('.video-close').css('top', '0');
+			    	$('.csf-content-close').css('top', '0');
 			    }
 			} else {
-				$('.video-close').css('top', '0');
+				$('.csf-content-close').css('top', '0');
 			}
 		}
 		

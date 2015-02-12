@@ -6,7 +6,7 @@ include ../mixins/product
 include ../mixins/service-content
 include ../mixins/service-list
 include ../mixins/resources
-include ../mixins/video
+include ../mixins/modals
 
 
 //- Inits
@@ -29,7 +29,8 @@ html
 		script(src='/js/lib/videojs/video.js')
 
 		link(href="/styles/companion-site/fonts.css", rel="stylesheet")
-		link(href="/styles/site.min.css", rel="stylesheet")
+		//- link(href="/styles/site.min.css", rel="stylesheet")
+		link(href="/styles/companion-site.min.css", rel="stylesheet")
 
 		//- This file provides the default styling for the KeystoneJS Content Editor
 		if user && user.canAccessKeystone
@@ -158,6 +159,7 @@ html
 		//- Add your modals here
 		block modals
 			+videoModal
+			+storyModal
 
 		//- JAVASCRIPT
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')

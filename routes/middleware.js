@@ -9,7 +9,7 @@
  */
 
 var _ = require('underscore');
-
+var keystone = require('keystone');
 
 /**
 	Initialises the standard view locals
@@ -20,18 +20,42 @@ var _ = require('underscore');
 */
 
 exports.initLocals = function(req, res, next) {
-	
 	var locals = res.locals;
 	
 	locals.navLinks = [
 		{ label: 'Home',		key: 'home',		href: '/', type: 'page' },
-		{ label: 'Industries',	key: 'industries', 	href: 'industries', type: 'modal' },
+		{ label: 'Industries',	key: 'industries', 	href: '/industries', type: 'modal' },
 		//{ label: 'Contact',		key: 'contact',		href: '/contact' },
 		{ label: 'Services',	key: 'services',		href: '/services', type: 'modal' }
 	];
 	
 	locals.user = req.user;
 	locals.params = req.params
+	locals.global_data = {
+		services: [],
+		industries: [],
+		default_video: []
+	};
+
+	var serviceQuery = keystone.list('Service').model.find().where('state', 'published');
+	serviceQuery.exec(function(err, results) {
+		locals.global_data.services = results;
+	});
+	var industryQuery = keystone.list('Industry').model.find().where('state', 'published');
+	industryQuery.exec(function(err, results) {
+		locals.global_data.industries = results;
+	});
+	var homeQuery = keystone.list('Homepage').model.findOne({
+		slug: 'home'
+	});
+	homeQuery.exec(function(err, results) {
+		if (results.hero.video.video.url){
+			locals.global_data.default_video = results.hero.video;
+		} else {
+			locals.global_data.default_video = false;
+		}
+	})
+
 	next();
 	
 };

@@ -2,8 +2,15 @@ mixin mediaBuffet(media_buffet)
 	section.media-buffet
 		.media-buffet-container-full
 			.video
-				a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
-					img(src="/icons/png/icon-play.png")
+				if media_buffet.video.video_choice
+					if media_buffet.video.video.url
+						a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
+							img(src="/icons/png/icon-play.png")
+					else
+						a(data-toggle="modal" data-video-data=global_data.default_video data-target="#video_modal" style= global_data.default_video.background.url ? "background-image: url(" +global_data.default_video.background.url+");" : "").video-link
+							img(src="/icons/png/icon-play.png")
+				else
+					a(style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").remove-pointer
 		.media-buffet-container-full
 			.values
 				!= media_buffet.values.content
@@ -20,6 +27,6 @@ mixin mediaBuffet(media_buffet)
 				h4.media-title!=media_buffet.facts.title
 		.media-buffet-container-half
 			.story
-				a(data-article="story-link" style= media_buffet.story.featured_image ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
+				a(href="#" data-article="story-link" style= media_buffet.story.featured_image.url ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
 					img(src="/icons/png/icon-play.png")
 				h4.media-title!=media_buffet.story.title

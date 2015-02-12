@@ -46,20 +46,29 @@ block content
 			h3 Featured
 			section(role="navigation").media-buffet-home
 				ul.services-list
-					each item, index in data.navigation_services
+					each item, index in global_data.services
 						li: a(href='/services/' + item.slug title=item.title).service-item
 							.service-icon.coxicon(class="coxicon_"+item.svg_icon)
 							h4.service-title=item.title
 						if index == 1
 							br
 				.story
-					a(data-article="story-link" style= data.home.media_buffet.story.featured_image ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
+					a(data-article="story-link" style= data.home.media_buffet.story.featured_image.url ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
 						img(src="/icons/png/icon-play.png")
 					h4.media-title!=data.home.media_buffet.story.title
 				.values
 					.values-container
 						!= data.home.media_buffet.values.content
 					h4.media-title!=data.home.media_buffet.values.title
-				.video
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
-						img(src="/icons/png/icon-play.png")
+				if data.home.media_buffet.video.video_choice
+					.video
+						if data.home.media_buffet.video.video_choice
+							if data.home.media_buffet.video.video.url
+								a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
+									img(src="/icons/png/icon-play.png")
+							else
+								a(data-toggle="modal" data-target="#video_modal" data-video-data=global_data.default_video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
+									img(src="/icons/png/icon-play.png")
+						else
+							a(style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").remove-pointer
+

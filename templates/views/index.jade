@@ -29,11 +29,11 @@ block content
 		//- How about a little array building like in beginner's programming?
 
 		//- Setup the Custom Industries and Services
-		each industry in data.navigation_industries
+		each industry in global_data.industries
 			each customIndustry in customIndustries
 				if industry.slug == customIndustry
 					- personalizedIndustries.push(industry)
-		each service in data.navigation_services
+		each service in global_data.services
 			each customService in customServices
 				if service.slug == customService
 					- personalizedServices.push(service)
@@ -81,11 +81,10 @@ block content
 						span Businesses powered by
 						img(src="/images/logo.png")
 
-					if data.home.hero.video
-
-					a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link
-						span SEE WHY
-						img(src="/icons/png/icon-play.png").hero-video-icon
+					if data.home.hero.video.video_choice
+						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link
+							span SEE WHY
+							img(src="/icons/png/icon-play.png").hero-video-icon
 
 
 		article.container-fluid.home-content
@@ -109,7 +108,7 @@ block content
 					.col-xs-12
 						h3 INDUSTRIES
 				ul.industries-list.row
-					each item, index in data.navigation_industries
+					each item, index in global_data.industries
 						li.col-xs-6.col-md-2
 							span.industry-divider
 							a(href='/industries/'+item.slug title=item.title).industry-tile
@@ -125,7 +124,7 @@ block content
 				.row
 					.col-xs-12
 						h3 SERVICES
-				+service-list(data.navigation_services)
+				+service-list(global_data.services)
 
 				.row
 					.col-xs-12

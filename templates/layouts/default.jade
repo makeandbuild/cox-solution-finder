@@ -87,7 +87,7 @@ html
 									if link.key == 'services'
 										a.navigation-item.has-menu= link.label
 										ul.navigation-mobile-sub-menu.row
-											each item, index in data.navigation_services
+											each item, index in global_data.services
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
 														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
@@ -96,7 +96,7 @@ html
 									else if link.key == 'industries'
 										a.navigation-item.has-menu= link.label
 										ul.navigation-mobile-sub-menu.row
-											each item, index in data.navigation_industries
+											each item, index in global_data.industries
 												li.col-xs-6
 													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
 														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
@@ -115,9 +115,9 @@ html
 		each navigationModal in navigationLinks
 			if navigationModal.type == 'modal'
 				if navigationModal.key == 'services'
-					+tiles-companion(data.navigation_services, navigationModal.key)
+					+tiles-companion(global_data.services, navigationModal.key)
 				if navigationModal.key == 'industries'
-					+tiles-companion(data.navigation_industries, navigationModal.key)
+					+tiles-companion(global_data.industries, navigationModal.key)
 
 		.navigation-mobile-body-background
 
@@ -176,3 +176,4 @@ html
 
 		//- Include template-specific javascript files by extending the js block
 		block js
+

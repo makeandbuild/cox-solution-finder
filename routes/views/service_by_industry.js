@@ -12,7 +12,11 @@ exports = module.exports = function(req, res) {
 		service: req.params.service,
 		industry: req.params.industry
 	};
-	locals.data = {};
+	locals.data = {
+		service: [],
+		industry: '',
+		products: []
+	};
 
 	// Load the current service
 	view.on('init', function(next) {
@@ -29,17 +33,6 @@ exports = module.exports = function(req, res) {
 
 	});
 
-	// Load Products
-	view.on('init', function(next) {
-
-		var q = keystone.list('Product').model.find().where('state', 'published').populate('services');
-
-		q.exec(function(err, results) {
-			locals.data.products = results;
-			next(err);
-		});
-
-	});
 	// Load Industries
 	view.on('init', function(next) {
 
@@ -52,25 +45,19 @@ exports = module.exports = function(req, res) {
 
 	});
 
-
-
-	// ---------------
-	// Navigation Data
+	// Load Products
 	view.on('init', function(next) {
-		var q = keystone.list('Service').model.find().where('state', 'published');
+
+		var q = keystone.list('Product').model.find().where('state', 'published').where('services', locals.data.service.id).populate('services');
+
 		q.exec(function(err, results) {
-			locals.data.navigation_services = results;
+			locals.data.products = results;
 			next(err);
 		});
+
 	});
-	view.on('init', function(next) {
-		var q = keystone.list('Industry').model.find().where('state', 'published');
-		q.exec(function(err, results) {
-			locals.data.navigation_industries = results;
-			next(err);
-		});
-	});
-	// ---------------
+	
+
 
 	// Render the view
 	view.render('service');

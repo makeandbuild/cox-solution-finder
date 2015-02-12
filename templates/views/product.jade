@@ -34,8 +34,17 @@ block content
 				.row
 					span.product-gradient.product-gradient-companion: span
 					.col-xs-12
-						section.product-hero-container
-							img(src=data.product.hero.url alt="product-hero-image")
+						if data.product.video.video_choice
+							if data.product.video.video.url
+								a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video).video-link.product-hero-container
+									img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+									img(src="/icons/png/icon-play.png").product-play-icon
+							else
+								a.product-hero-container
+									img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+						else
+							a.product-hero-container
+								img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
 						section.product-item-container
 							.product-showroom-scroll
 							.col-md-6.col-lg-4
@@ -68,12 +77,6 @@ block content
 								.col-xs-12
 									p.section-heading= data.product.item_five.title
 									p.section-content= data.product.item_five.content
-							.col-md-6.col-lg-4
-								.col-xs-12
-									.product-item-icon.coxicon(class="coxicon_"+data.product.item_six.svg_icon)
-								.col-xs-12
-									p.section-heading= data.product.item_six.title
-									p.section-content= data.product.item_six.content
 
 
 				.row

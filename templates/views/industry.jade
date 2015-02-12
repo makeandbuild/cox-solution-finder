@@ -20,7 +20,7 @@ block content
 						h3 RESOURCES
 				.row
 					.col-xs-12.col-md-6
-						a(href=data.industry.resource_one.resource_link download=data.industry.resource_one.resource_link target="_blank" title=data.industry.resource_one.title).resource-download
+						a(href=data.industry.resource_one.resource_link).resource-download
 							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_one.svg_icon)
 							.resource-icon-divider: span
 							.resource-info
@@ -53,4 +53,4 @@ block content
 			.row
 				.col-xs-12
 					h3 SERVICES
-			+service-list(data.navigation_services)
+			+service-list(global_data.services)

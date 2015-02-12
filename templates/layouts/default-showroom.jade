@@ -27,6 +27,7 @@ html.html-development
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
 		//- link(href="/styles/site.min.css", rel="stylesheet")
+		link(href="/styles/companion-site/fonts.css", rel="stylesheet")
 		link(href="/styles/showroom.min.css", rel="stylesheet")
 
 		//- This file provides the default styling for the KeystoneJS Content Editor
@@ -88,10 +89,10 @@ html.html-development
 			.container-fluid.the-looking-glass
 				block content
 
-			//- Add your modals here
-			block modals
-				+videoModal
-				+storyModal
+		//- Add your modals here
+		block modals
+			+videoModal
+			+storyModal
 
 
 		//- JAVASCRIPT

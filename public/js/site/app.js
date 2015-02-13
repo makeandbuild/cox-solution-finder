@@ -239,6 +239,7 @@ function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
 	homeStageTransitions();
+	mySolutionsFavorites();
 	
 
 	$('.product-showroom-scroll').on('mouseover',function(){
@@ -308,18 +309,62 @@ function homeStageTransitions(){
 	});
 }
 
-// Returns IE Version Number
-function ieVersion() {
-    var ua = window.navigator.userAgent;
-    if (ua.indexOf("Trident/7.0") > 0)
-        return 11;
-    else if (ua.indexOf("Trident/6.0") > 0)
-        return 10;
-    else if (ua.indexOf("Trident/5.0") > 0)
-        return 9;
-    else
-        return 0;  // not IE9, 10 or 11
-} 
+
+// My Solutions Functions
+function mySolutionsFavorites(){
+	$('.can-favorite').on('click',function(){
+
+		//Inits
+		var isAddition = false;
+		var currentCount;
+		var countObject = $('.my-solutions-count-number');
+		var solutionsItem = $(this).data('solutions-slug');
+
+
+		// Which type of Item was clicked?
+		if($(this).hasClass('solution-page-title')){
+			var theStar = $(this).find('.coxicon');
+			if (theStar.hasClass('active')){
+				isAddition = false
+			} else {
+				isAddition = true;	
+			} 
+			theStar.toggleClass('active');
+		}
+		if($(this).hasClass('solution-service-item')){
+			var theStar = $(this).find('.coxicon');
+			if (theStar.hasClass('active')){
+				isAddition = false
+			} else {
+				isAddition = true;	
+			} 
+			theStar.toggleClass('active');
+		}
+
+
+		// Add or Subtract
+		currentCount = parseInt(countObject.html());
+		if (isAddition) {
+			currentCount++;
+		} else {
+			currentCount--;
+		}
+		countObject.html(currentCount);
+
+
+		// Update the Session
+		mySolutionsSessionUpdate(solutionsItem, isAddition);
+
+	});
+}
+
+function mySolutionsSessionUpdate(slug, isAddition){
+	if (isAddition){
+		console.log("Adding Item: "+slug);
+	} else {
+		console.log("Removing Item: "+slug);
+	}
+}
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -340,6 +385,18 @@ function initCompanion(){
 	customHomeNameAdjust();	
 }
 
+// Returns IE Version Number
+function ieVersion() {
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("Trident/7.0") > 0)
+        return 11;
+    else if (ua.indexOf("Trident/6.0") > 0)
+        return 10;
+    else if (ua.indexOf("Trident/5.0") > 0)
+        return 9;
+    else
+        return 0;  // not IE9, 10 or 11
+} 
 
 
 // Tablet Sidebar Navigation

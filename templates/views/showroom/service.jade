@@ -83,7 +83,8 @@ block content
 				.row.header-space
 				.row
 					.col-xs-10.col-lg-8.col-xs-offset-1.content-container
-						h1.service-title= data.service.title
+						h1.service-title.can-favorite.solution-page-title(data-solutions-slug=data.service.slug)= data.service.title
+							.coxicon.coxicon_favorites_star_after
 						section
 							- var current = 0
 							each industry in data.service.industries

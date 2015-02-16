@@ -23,8 +23,8 @@ Analytics.add({
 emitter.on('connectionAvailable', function(data) {
 	Analytics.model.find()
 		.where('archived', false)
-		.exec(function(err, analyitcs) {
-			analyitcs.forEach(function(record) {
+		.exec(function(err, analytics) {
+			analytics.forEach(function(record) {
 				record.update({ archived: true }, function(err, numAffected) {
 					if (err) throw err;
 					// console.log('Analytics: ' + numAffected);

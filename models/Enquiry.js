@@ -16,7 +16,7 @@ var Enquiry = new keystone.List('Enquiry', {
 Enquiry.add({
 	name: { type: Types.Name, required: true },
 	email: { type: Types.Email, required: true },
-	phone: { type: String },
+	zipcode: { type: String },
 	enquiryType: { type: Types.Select, options: [
 		{ value: 'message', label: 'Just leaving a message' },
 		{ value: 'question', label: 'I\'ve got a question' },
@@ -24,14 +24,16 @@ Enquiry.add({
 	] },
 	message: { type: Types.Markdown, required: true },
 	archived: { type: Boolean, default: false, required: true },
+	is_notified: { type: Boolean, default: false },
+	is_showroom: { type: Boolean, default: false },
 	createdAt: { type: Date, default: Date.now }
 });
 
 emitter.on('connectionAvailable', function(data) {
 	Enquiry.model.find()
 		.where('archived', false)
-		.exec(function(err, analyitcs) {
-			analyitcs.forEach(function(record) {
+		.exec(function(err, analytics) {
+			analytics.forEach(function(record) {
 				record.update({ archived: true }, function(err, numAffected) {
 					if (err) throw err;
 					// console.log('Enquiry: ' + numAffected);

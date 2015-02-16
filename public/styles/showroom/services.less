@@ -6,10 +6,22 @@
 	.content-container {
 		padding-left:1.2em;
 		z-index:50;
+		height:376px;
 		.showroom-screen({
 			padding-left:15px;
+			height: 517px;
 		});
 	}
+}
+
+.services-current-industry {
+	display: inline-block;
+	vertical-align: top;
+	padding: 6px 8px 6px 0;
+	.opensans-semibold();
+	font-size: 1.2em;
+	margin-bottom: 0.3em;
+	color:@lightGray;
 }
 
 .service-title {
@@ -105,5 +117,129 @@
 
 
 .industry-services-list {
-	.services-list();
+	height: 250px;
+	margin: 0 15px 0 50px;
+	vertical-align: top;
+	list-style-type: none;
+	padding:0;
+	.showroom-screen({
+		margin-left:75px;
+	});
+	li {
+		display:inline-block;
+		vertical-align: top;
+	}
+	.service-item {
+		height: 245px;
+		width: 255px;
+		background-color:@white;
+		position: relative;
+		display:block;
+		margin-right:10px;
+		.shadow-normal();
+		.showroom-screen({
+			width:290px;
+			height:305px;
+			margin-right:15px;
+		});
+	}
+	.service-info {
+		padding: 0 1em;
+		line-height: 1.2;
+		.showroom-screen({
+			line-height: 1.3;
+		});
+	}
+	.service-title {
+		.opensans-semibold();
+		color:@darkBlue;
+		margin: 0;
+		text-transform: none;
+		&:hover, &:active, &:visited {
+			color:@darkBlue;
+		}
+		.showroom-screen({
+			font-size:1.5em;
+		});
+	}
+	.service-description {
+		color:@lightGray;
+		font-size: 1.15em;
+		margin-top: 0.2em;
+		.showroom-screen({
+			font-size: 1.25em;
+		});
+	}
+	.service-icon {
+		display: block;
+		font-size: 4em;
+		height: 85px;
+		text-align: left;
+		padding-left: 5px;
+		padding-top: 10px;
+		color: @lightGray;
+		.showroom-screen({
+			font-size: 4.5em;
+			padding-left: 15px;
+			padding-top: 15px;
+			height: 100px;
+		});
+	}
+	.service-cta {
+		display:block;
+		position: absolute;
+		bottom: 1.3em;;
+		.opensans-regular();
+		color:@darkBlue;
+		img {
+			.transform(270deg);
+			height: 0.75em;
+			vertical-align: top;
+			margin-top: 0.3em;
+			margin-left: 0.3em;
+		}
+		.showroom-screen({
+			.opensans-semibold();
+		});
+	}
+}
+.industry-services-all-services {
+	background-color:@regularGray;
+	display:inline-block;
+	vertical-align: bottom;
+	height:115px;
+	width:105px;
+	position:relative;
+	p {
+		text-transform: uppercase;
+		position: absolute;
+		bottom:10px;
+		left:10px;
+		color:@white;
+		line-height: 1;
+		font-size: 1.2em;
+		margin: 0;
+	}
+	img {
+		.transform(270deg);
+		height: 1.5em;
+		vertical-align: top;
+		margin-top: 1em;
+		margin-left: 0.4em;
+	}
+	.showroom-screen({
+		height: 145px;
+		width: 200px;
+		p {
+			bottom: 20px;
+			left: 20px;
+			font-size:1.5em;
+		}
+		img {
+			height: 1.7em;
+			vertical-align: top;
+			margin-top: 1.5em;
+			margin-left: 1em;
+		}
+	});
 }

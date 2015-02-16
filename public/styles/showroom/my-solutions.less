@@ -26,6 +26,18 @@
 		margin-top: -1px;
 	}
 }
+.solution-service-item {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 100px;
+	.coxicon {
+		.star_template();
+		text-align: right;
+		font-size: 3em;
+	}
+}
 
 
 
@@ -39,11 +51,15 @@
 	color:@white;
 	padding: 0.7em 1em;
 	z-index: 5;
+	.remove-filter();
+	&.active {
+		.blur(20px);
+	}
 	.opensans-regular();
 	.showroom-screen({
-		bottom: 45px;
+		bottom: 37px;
 		top: initial;
-		right: 45px;
+		right: 37px;
 		height: 145px;
 		width: 145px;
 	});

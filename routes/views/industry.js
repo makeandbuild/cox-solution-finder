@@ -25,8 +25,6 @@ exports = module.exports = function(req, res) {
 
 		q.exec(function(err, result) {
 			locals.data.industry = result;
-			console.log(locals.filters.industry);
-			console.log('hello' + locals.data.industry);
 			next(err);
 		});
 

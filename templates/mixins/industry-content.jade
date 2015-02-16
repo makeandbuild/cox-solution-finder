@@ -1,5 +1,9 @@
-mixin industryContent(industry)
-	h1.industry-title= industry.title
+mixin industryContent(industry, isShowroom)
+	if isShowroom
+		h1.industry-title.can-favorite.solution-page-title(data-solutions-slug=industry.slug)= industry.title
+			.coxicon.coxicon_favorites_star_after
+	else
+		h1.industry-title= industry.title
 	ul.industry-attributes
 		li #{industry.attribute_one} 
 		if industry.attribute_two && industry.attribute_two != ''

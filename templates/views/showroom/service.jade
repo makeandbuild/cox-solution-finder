@@ -90,10 +90,13 @@ block content
 							each industry in data.service.industries
 								if data.industry == industry.slug
 									- current = industry.title
+
 							if current
-								+industryDropdown(data.service.industries, current, data.service)
+								.services-current-industry for #{current}
+								//- +industryDropdown(data.service.industries, current, data.service)
 							else
-								+industryDropdown(data.service.industries, 'All Industries', data.service)
+								.services-current-industry for All Industries
+								//- +industryDropdown(data.service.industries, 'All Industries', data.service)
 
 						p.section-heading= data.service.heading
 						p.section-content= data.service.content

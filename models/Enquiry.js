@@ -67,7 +67,7 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 		if (err) return callback(err);
 		
 		new keystone.Email('enquiry-notification').send({
-			to: admins,
+			to: 'nlambert@maxmedia.com',
 			from: {
 				name: 'Cox Solution Finder',
 				email: 'contact@cox-solution-finder.com'

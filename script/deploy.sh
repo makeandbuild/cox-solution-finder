@@ -1,7 +1,18 @@
 #!/bin/bash
 
+function usage () {
+  cat <<EOF
+Usage: $PROGNAME ENVIRONMENT
+Deploys the application to the given ENVIRONMENT
+  ENVIRONMENT   dev|staging
+EOF
+  exit $( [ $# -ne 0 ] && echo $1 || echo 0 )
+}
+
+[ -z "$1" ] && usage 1
+
 APP_NAME="sfv2"
-ENVIRONMENT="dev"
+ENVIRONMENT="$1" && shift 1 && [ "$1" ] && usage 1
 TARGET_HOST="$ENVIRONMENT.sfv2.cox.mxmcloud.com"
 APP_ROOT="/srv/$APP_NAME"
 

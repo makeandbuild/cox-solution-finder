@@ -113,9 +113,11 @@ function navigationModal(){
 
 	$('.navigation-modal-item').on('click',function(){
 
+
 		$scope = {};
 		$scope.$tiles = $('.navigation-modal-tiles');
 		$scope.$glass = $('.the-looking-glass');
+		$scope.$solutions = $('.my-solutions-link');
 		$scope.glassActive = $scope.$glass.hasClass('active');
 		$scope.$navItems = $('.navigation-modal-item');
 		$scope.$navItem = $(this);
@@ -128,11 +130,13 @@ function navigationModal(){
 
 		if(!$scope.$target.hasClass('active')){
 			$scope.$glass.removeClass('active');
+			$scope.$solutions.removeClass('active');
 			$scope.$tiles.removeClass('active');
 			$scope.$allTiles.removeClass('active');
 			$scope.$navItems.removeClass('viewing');
 
 			$scope.$glass.toggleClass('active');
+			$scope.$solutions.toggleClass('active');
 			setTimeout(function(){
 				$scope.$target.toggleClass('active');
 				$scope.$target.find('.navigation-modal-tile').toggleClass('active');
@@ -145,6 +149,7 @@ function navigationModal(){
 			},0);
 			setTimeout(function(){
 				$scope.$glass.toggleClass('active');
+				$scope.$solutions.toggleClass('active');
 			},150);
 			$scope.$target.toggleClass('active');
 			$scope.$navItem.toggleClass('viewing');
@@ -155,7 +160,7 @@ function navigationModal(){
 	});
 	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
 		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
-			$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile').removeClass('active');
+			$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile, .my-solutions-link').removeClass('active');
 		}
 	});
 }
@@ -205,7 +210,10 @@ function modalContent(){
 
 			$('.modal .story-content').html(storyContent);
 			$('.modal .story-container .story-title').html(storyTitle);
-			$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
+			if (storyImage){
+				$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
+			}
+			
 		}
 	
 
@@ -239,9 +247,11 @@ function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
 	homeStageTransitions();
-	mySolutionsFavorites();
+	mySolutionsFavoritesInteraction();
+	allServices();
 	
 
+	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
 	$('.product-showroom-scroll').on('mouseover',function(){
 		var parent = $(this).parent();
 		var target = $(this);
@@ -263,6 +273,46 @@ function initShowroom(){
 	});
 }
 
+
+// Used on Industries page to trigger the Services Navigation to Open
+function allServices(){
+	$('.industry-services-all-services').on('click',function(e){
+		e.stopPropagation();
+		$('.navigation-toggle').trigger('click');
+		$('.navigation-modal-item').filter("[data-navigation-modal-item='services']").trigger('click');
+	});
+}
+
+/*  
+	Adjusts the links on the navigation modals
+	using an onclick call. Readjusts them if the
+	normal navigation is used.
+*/
+var alteredLinks = false;
+function alterNavigationModalLinks(type, slug, remove){
+	if (remove == true && alteredLinks == true){
+		if (type == 'services'){
+			var tiles = $('.navigation-modal-tiles').filter("[data-navigation-modal='services']").find('.navigation-modal-tile').not('.fake-tile');
+			tiles.each(function(e){
+				$(this).attr('href', $(this).attr('href').substr(0, $(this).attr('href').lastIndexOf("/")));
+			});
+		}
+		alteredLinks = false;
+	} else if (remove == false) {
+		if (type == 'services'){
+			var tiles = $('.navigation-modal-tiles').filter("[data-navigation-modal='services']").find('.navigation-modal-tile').not('.fake-tile');
+			tiles.each(function(e){
+				$(this).attr('href', $(this).attr('href')+'/'+slug);
+			});
+			setTimeout(function(){
+				//Adjust for race conditions
+				alteredLinks = true;
+			},100)
+		}
+	}
+}
+
+
 // Tablet Sidebar Navigation
 function sidebarNavigation(){
 	$('.navigation-toggle').on('click', function(){
@@ -273,6 +323,7 @@ function sidebarNavigation(){
 	});
 }
 
+//Regular Transitions Functionality for Home Staging Area.
 function homeStageTransitions(){
 	$('.home-stage .scene').on('click',function(){
 		var clicked = $(this);
@@ -311,15 +362,15 @@ function homeStageTransitions(){
 
 
 // My Solutions Functions
-function mySolutionsFavorites(){
-	$('.can-favorite').on('click',function(){
+function mySolutionsFavoritesInteraction(){
+
+	$('.can-favorite').on('click',function(e){
 
 		//Inits
 		var isAddition = false;
-		var currentCount;
 		var countObject = $('.my-solutions-count-number');
+		var currentCount = parseInt(countObject.html());
 		var solutionsItem = $(this).data('solutions-slug');
-
 
 		// Which type of Item was clicked?
 		if($(this).hasClass('solution-page-title')){
@@ -332,6 +383,7 @@ function mySolutionsFavorites(){
 			theStar.toggleClass('active');
 		}
 		if($(this).hasClass('solution-service-item')){
+			e.preventDefault();
 			var theStar = $(this).find('.coxicon');
 			if (theStar.hasClass('active')){
 				isAddition = false
@@ -343,14 +395,13 @@ function mySolutionsFavorites(){
 
 
 		// Add or Subtract
-		currentCount = parseInt(countObject.html());
-		if (isAddition) {
-			currentCount++;
-		} else {
-			currentCount--;
-		}
+		if (isAddition) { currentCount++; } else { currentCount--; }
 		countObject.html(currentCount);
-
+		if (currentCount > 0) {
+			countObject.siblings('.coxicon').addClass('active');
+		} else {
+			countObject.siblings('.coxicon').removeClass('active');
+		}
 
 		// Update the Session
 		mySolutionsSessionUpdate(solutionsItem, isAddition);

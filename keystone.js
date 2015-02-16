@@ -2,14 +2,7 @@
 // customising the .env file in your project's root folder.
 require('dotenv').load();
 
-// Setup for Phusion Passenger
-if (typeof(PhusionPassenger) != 'undefined') {
-  PhusionPassenger.configure({ autoInstall: false });
-}
-var express = require('express'),
-    app = express(),
-    mongoose = require('mongoose'),
-    keystone = require('keystone').connect(mongoose, app);
+var keystone = require('keystone');
 
 require('./setup')(keystone, function() {
   if (process.env.SOLUTION_MODE == 'showroom') {

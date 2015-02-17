@@ -15,8 +15,11 @@
 1.5 If necessary, [install and mount an external usb drive](http://www.raspberrypi.org/forums/viewtopic.php?t=38429).
 
 1.6 Run `sudo raspi-config'.
+
   1.6.1 Select "Expand Filesystem".
+  
   1.6.2 Select "Overclock". Change to "Turbo".
+  
   1.6.3 Select "Advanced Options". Select "Memory Split". Change value to 16.
 
 

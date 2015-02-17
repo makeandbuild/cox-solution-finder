@@ -12,7 +12,7 @@ block content
 		else
 			.row: .col-sm-8.col-md-6
 				form(method='post')
-					input(type='hidden', name='action', value='contact')
+					input(type='hidden', name='action', value='connect')
 					.form-group(class=validationErrors.name ? 'has-error' : null)
 						label Name
 						input(type='text', name='name.full', value=formData['name.full']).form-control

@@ -3,7 +3,7 @@ var keystone = require('keystone'),
 		monitor = require('../components/monitor.js'),
 		emitter = monitor.getEmitter(),
 		nodeSES = require('node-ses'),
-		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET });
+		client = nodeSES.createClient({ key: process.env.S3_KEY, secret: process.env.S3_SECRET });
 
 /**
  * Enquiry Model

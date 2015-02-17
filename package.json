@@ -10,7 +10,8 @@
     "connect-mongo": "~0.6.0",
     "mongoose": "~3.8.21",
     "express": "~4.10.6",
-    "jade": "~1.8.2"
+    "jade": "~1.8.2",
+    "node-ses": "~1.0.0"
   },
   "engines": {
     "node": ">=0.10.22",

@@ -161,6 +161,9 @@ function navigationModal(){
 	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
 		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
 			$('.the-looking-glass, .navigation-modal-tiles, .navigation-modal-tile, .my-solutions-link').removeClass('active');
+			$('.navigation-modal-item').removeClass('active');
+			$('.navigation-modal-item').removeClass('viewing');
+			$('.navigation-item-list li.current').addClass('active');
 		}
 	});
 }

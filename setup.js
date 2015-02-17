@@ -108,14 +108,8 @@ module.exports = function(keystone, callback) {
 
   callback && callback();
 
-  // Start Keystone to connect to your database and initialise the web server
-  var port = keystone.get('listen') || keystone.get('port') || 3000;
-  keystone.httpServer = keystone.app.listen(port, function() {
-    if (keystone.get('logger')) {
-      console.log(keystone.get('name') + ' is ready on ' + port);
-    }
-  });
-  keystone.mount();
+  // Start Keystone
+  keystone.start();
 
   return keystone;
 }

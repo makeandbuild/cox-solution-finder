@@ -1,7 +1,9 @@
 var keystone = require('keystone'),
 		Types = keystone.Field.Types,
 		monitor = require('../components/monitor.js'),
-		emitter = monitor.getEmitter();
+		emitter = monitor.getEmitter(),
+		nodeSES = require('node-ses'),
+		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET });
 
 /**
  * Enquiry Model
@@ -50,7 +52,7 @@ Enquiry.schema.pre('save', function(next) {
 
 Enquiry.schema.post('save', function() {
 	if (this.wasNew) {
-		this.sendNotificationEmail();
+		this.sendNotificationEmailSes();
 	}
 });
 
@@ -79,6 +81,32 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 	});
 	
 };
+
+Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
+	
+	if ('function' !== typeof callback) {
+		callback = function() {};
+	}
+	console.log('SES Method');
+	var enquiry = this;
+	
+	client.sendemail({
+	   to: 'nlambert@maxmedia.com',
+	   from: 'nlambert@dev.sfv2.cox.mxmcloud.com',
+	   cc: '',
+	   bcc: '',
+	   subject: 'greetings',
+	   message: 'your <b>message</b> goes here',
+	   altText: 'plain text'
+	}, function (err, data, res) {
+		console.log('\x1b[36mData:\n\x1b[0m');
+		console.log(data);
+	 	console.log('\x1b[36mError:\n\x1b[0m');
+	 	console.log(err);
+	});
+	
+};
+
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';

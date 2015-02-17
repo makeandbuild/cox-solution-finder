@@ -36,7 +36,7 @@ emitter.on('connectionAvailable', function(data) {
 			analytics.forEach(function(record) {
 				record.update({ archived: true }, function(err, numAffected) {
 					if (err) throw err;
-					// console.log('Enquiry: ' + numAffected);
+					console.log('Enquiry: ' + numAffected);
 				});
 			});
 		});

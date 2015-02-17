@@ -15,6 +15,7 @@ module.exports = function(keystone, callback) {
     'emails': 'templates/emails',
 
     'auto update': true,
+    'compress': true,
     'session': true,
     'auth': true,
     'user model': 'User',

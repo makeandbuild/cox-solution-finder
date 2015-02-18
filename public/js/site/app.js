@@ -85,7 +85,7 @@ function itemNavigation(navigationItem, item){
 }
 
 // Simple ScrollTo Function
-function scrollTo(toBeScrolled, whereToScroll, time){
+function customScrollTo(toBeScrolled, whereToScroll, time){
 	if(typeof(time)==='undefined') time = 200;
 	toBeScrolled.animate({
         scrollTop: whereToScroll
@@ -252,6 +252,7 @@ function initShowroom(){
 	homeStageTransitions();
 	mySolutionsFavoritesInteraction();
 	allServices();
+	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
@@ -259,14 +260,14 @@ function initShowroom(){
 		var parent = $(this).parent();
 		var target = $(this);
 		if(parent.hasClass('scrolled')){
-			scrollTo(parent, 0, 1000);
+			customScrollTo(parent, 0, 1000);
 			
 			target.fadeOut('300', function(){
 				parent.removeClass('scrolled');
 				target.fadeIn('300');
 			});
 		} else {
-			scrollTo(parent, parent.children('.row').last().offset().top, 1000);
+			customScrollTo(parent, parent.children('.row').last().offset().top, 1000);
 			
 			target.fadeOut('300', function(){
 				parent.addClass('scrolled');

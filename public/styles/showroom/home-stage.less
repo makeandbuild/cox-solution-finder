@@ -235,14 +235,17 @@
 				font-size: 0.85em;
 			}
 			.dropdown-menu {
+				display:block !important;
 				li {
 					a {
 						padding: 8px 100px 8px 20px;
+						.transition(0.1s);
 						.showroom-screen({
 							padding:17px 175px 15px 20px;
 						});
 						&:hover {
 							background-color:@lightBlue;
+							.transition(0.1s);
 						}
 					}
 				}

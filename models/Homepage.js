@@ -17,11 +17,6 @@ var scene = {
 		type: Types.Text,
 		label: "Showroom Stage: Scene Name"
 	},
-	content_choice: {
-		type: Types.Boolean,
-		label: "Use the Business Count Box and Video using the data in the Companion Hero Section?",
-		default: false
-	},
 	featured_image: {
 		type: Types.S3File,
 		label: 'Featured Image',
@@ -29,7 +24,55 @@ var scene = {
 		s3path: 'uploads/images'
 	}
 }
+var scene_with_text = {
+	title: {
+		type: Types.Text,
+		label: "Showroom Stage: Scene Name",
+		note: "Scene will use text from the Companion Site Hero section, and the act displayed will be the Hero Video used globally."
+	},
+}
 
+var map = {
+	map_overlay_enable: {
+		type: Types.Boolean,
+		label: "Enable the following map overlay? If unchecked, map will not show.",
+		default: "false"
+	},
+	title: {
+		type: Types.Text,
+		label: "Map Overlay Name"
+	},
+	map: {
+		type: Types.S3File,
+		label: 'Media Video: Preview Image',
+		note: "Upload a 3400px by 1300px image to be the map overlay image. Image should be the map, with text and overlay, with a blurred white background.",
+		s3path: 'uploads/images/map_overlays'
+	}
+}
+
+var factoid = {
+	factoid_enable: {
+		type: Types.Boolean,
+		label: "Enable the following factoid? If unchecked, factoid will not show.",
+		default: "false"
+	},
+	title: {
+		type: Types.Text,
+		label: "Factoid Name"
+	},
+	front_image: {
+		type: Types.S3File,
+		label: 'Front factoid image',
+		note: "",
+		s3path: 'uploads/images/factoids'
+	},
+	back_image: {
+		type: Types.S3File,
+		label: 'Front factoid image',
+		note: "",
+		s3path: 'uploads/images/factoids'
+	}
+}
 
 Homepage.add({
 	name: { type: String, required: true, index: true, noedit: true },
@@ -180,8 +223,25 @@ Homepage.add({
 	},
 	stage: {
 		scene_one: scene,
-		scene_two: scene,
+		scene_two: scene_with_text,
 		scene_three: scene
+	},
+	act: {
+		act_one: {
+			factoid_one: factoid,
+			factoid_two: factoid,
+			factoid_three: factoid,
+			factoid_four: factoid,
+			factoid_five: factoid,
+		},
+		act_three: {
+			map_one: map,
+			map_two: map,
+			map_three: map,
+			map_four: map,
+			map_five: map,
+			map_six: map
+		},
 	}
 });
 

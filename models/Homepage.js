@@ -68,7 +68,7 @@ var factoid = {
 	},
 	back_image: {
 		type: Types.S3File,
-		label: 'Front factoid image',
+		label: 'Back factoid image',
 		note: "",
 		s3path: 'uploads/images/factoids'
 	}

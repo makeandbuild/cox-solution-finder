@@ -24,8 +24,17 @@ mixin scene_with_text(scene)
 //- Acts (Revealed when a Scene Item is clicked)
 mixin act_factoid(scene, act)
 	.act(data-act=scene.title)
+		each key, index in Object.keys(act).reverse()
+			- var factoid = act[key]
+			if factoid.factoid_enable
+				.factoid(class="factoid-position-"+index).inactive-factoid
+					.factoid-front(style="background-image: url("+factoid.front_image.url+");")
+					.factoid-back(style="background-image: url("+factoid.back_image.url+");")
 
-		button.btn.btn-default.act-close(type="button")
+
+
+
+		button.btn.btn-default.act-close.factoid-close(type="button")
 			img(src="/images/close.png")
 
 mixin act_video(scene)

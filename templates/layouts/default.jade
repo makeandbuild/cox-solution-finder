@@ -78,10 +78,10 @@ html
 							li(class=(section == link.key ? 'active' : null))
 								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
-				.navigation-phone-cta-desktop
+				a(href="/connect").navigation-phone-cta-desktop
 					img(src="/images/phone-cta-icon.png")
 					.cta-text-container
-						span Let's Talk.
+						span Let's Connect.
 						span 800-123-1234
 
 
@@ -125,7 +125,7 @@ html
 
 
 
-				a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+				a(href="/connect" title="Chat with Us").navigation-phone-cta
 
 
 		//- Generates the Navigation Modals for Services and Industries

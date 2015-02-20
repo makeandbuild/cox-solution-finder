@@ -160,7 +160,7 @@ block content
 			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
 			.row
 				.col-xs-12
-					h2.hero-header.hero-custom-name HI #{firstName},
+					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{firstName},
 					p.hero-subtext-custom
 						span Thanks for visiting us at
 						span= eventName

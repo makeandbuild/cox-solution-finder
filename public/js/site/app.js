@@ -47,7 +47,7 @@ function initGlobal(){
 	modalContent();
 
 	// Removes dragging images.
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
+	$('img, a, .coxicon, main, :active, :focus, :visited, :hover, div, p, li, section, ul, body').on('dragstart', function(event) { event.preventDefault(); });
 
 	//VideoJS inits.
 	videojs.options.flash.swf = "'/js/lib/videojs/video-js.swf";
@@ -55,12 +55,14 @@ function initGlobal(){
 	// Sets the blur to work with modal's.
 	$('.modal').on('show.bs.modal', function (e) {
 		$('.the-looking-glass').addClass('active');
+		$('.my-solutions-link').addClass('active');
 	});
 	$('.modal').on('hide.bs.modal', function (e) {
 		$('.the-looking-glass').removeClass('active');
+		$('.my-solutions-link').removeClass('active');
 		$('video').each(function(){
 			$(this).load();
-		})
+		});
 	});
 }
 

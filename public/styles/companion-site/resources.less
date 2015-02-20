@@ -39,6 +39,11 @@
 	.respond-md({
 		width: 20%;
 	});
+	.responsive-max(450px, {
+		display:block;
+		text-align: center;
+		width: 100%;
+	});
 }
 .resource-icon-divider {
 	display:table-cell;
@@ -51,12 +56,28 @@
 		vertical-align: middle;
 		height:80%;
 	}
+	.responsive-max(450px, {
+		display:block;
+		height: 2px;
+		margin: 0.5em 0 0.1em;
+		span {
+			width:80%;
+			height:2px;
+			margin:auto;
+		}
+	});
 }
 .resource-info {
 	display:table-cell;
 	vertical-align: middle;
-	width:75%;
-	padding: 0.5em 0.5em 0.5em 0;
+	width:100%;
+	padding: 0.5em 0.5em 0.5em 1.5em;
+	.responsive-max(450px, {
+		display:block;
+		width:80%;
+		padding: 0.5em 0;
+		margin: auto;
+	});
 }
 .resource-title {
 	color:@darkBlue;
@@ -76,7 +97,7 @@
 	padding-top:2em;
 	padding-bottom: 3em;
 	.resource-info {
-		padding-left:0.5em;
+		//padding-left:0.5em;
 	}
 	.resource-download {
 		background-color:@white;

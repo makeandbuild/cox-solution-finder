@@ -11,8 +11,13 @@
 .resource-header {
 	margin:0;
 	padding: 0.75em 0 0.75em 0;
-	background-color:@white;
-	.opensans-light();
+	// background-color:@white;
+	font-size: 1.15em;
+	
+	.respond-md({
+		font-size: 1.75em;
+		.opensans-light();
+	});
 
 }
 .resource-download {
@@ -71,7 +76,7 @@
 	display:table-cell;
 	vertical-align: middle;
 	width:100%;
-	padding: 0.5em 0.5em 0.5em 1.5em;
+	padding: 1em 0.5em 1.5em 1.5em;
 	.responsive-max(450px, {
 		display:block;
 		width:80%;
@@ -83,13 +88,20 @@
 	color:@darkBlue;
 	display:block;
 	margin:0;
-	font-size: 1.2em;
+	font-size: 1em;
 	.opensans-semibold();
+	.respond-md({
+		font-size:1.2em;
+	});
 }
 .resource-description {
 	display:block;
 	margin:0;
 	color:@black;
+	font-size: 0.875em;
+	.respond-md {
+		font-size:1em;
+	}
 }
 
 

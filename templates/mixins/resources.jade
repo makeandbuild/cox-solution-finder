@@ -1,25 +1,28 @@
 mixin resources(item)
 	.resource-subcontainer
 		h3.resource-header RESOURCES
-		a(href=item.resource_one.resource_link download=item.resource_one.resource_link target="_blank" title=item.resource_one.title).resource-download
+		if item.resource_one && item.resource_one.resource_link
+			a(href=item.resource_one.resource_link download=item.resource_one.resource_link target="_blank" title=item.resource_one.title).resource-download
 			.resource-icon.coxicon(class="coxicon_"+item.resource_one.svg_icon)
 			.resource-icon-divider: span
 			.resource-info
 				p.resource-title=item.resource_one.title
 				p.resource-description=item.resource_one.description
-		a(href=item.resource_two.resource_link download=item.resource_two.resource_link target="_blank" title=item.resource_two.title).resource-download
+		if item.resource_two && item.resource_two.resource_link
+			a(href=item.resource_two.resource_link download=item.resource_two.resource_link target="_blank" title=item.resource_two.title).resource-download
 			.resource-icon.coxicon(class="coxicon_"+item.resource_two.svg_icon)
 			.resource-icon-divider: span
 			.resource-info
 				p.resource-title=item.resource_two.title
 				p.resource-description=item.resource_two.description
-		a(href=item.resource_three.resource_link download=item.resource_three.resource_link target="_blank" title=item.resource_three.title).resource-download
+		if item.resource_three && item.resource_three.resource_link
+			a(href=item.resource_three.resource_link download=item.resource_three.resource_link target="_blank" title=item.resource_three.title).resource-download
 			.resource-icon.coxicon(class="coxicon_"+item.resource_three.svg_icon)
 			.resource-icon-divider: span
 			.resource-info
 				p.resource-title=item.resource_three.title
 				p.resource-description=item.resource_three.description
-		if item.resource_four
+		if item.resource_four && item.resource_four.resource_link
 			a(href=item.resource_four.resource_link download=item.resource_four.resource_link target="_blank" title=item.resource_four.title).resource-download
 				.resource-icon.coxicon(class="coxicon_"+item.resource_four.svg_icon)
 				.resource-icon-divider: span

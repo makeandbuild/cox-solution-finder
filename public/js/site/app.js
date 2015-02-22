@@ -95,16 +95,26 @@ function customScrollTo(toBeScrolled, whereToScroll, time){
 }
 
 // Take a set of elements and euqal their heights.
-function equalHeights(selector){
-	if (selector[0]){
-		var newHeight = 0;
-		selector.each(function(){
-			if ($(this).height() > newHeight){
-				newHeight = $(this).height()
-			} else {
-				$(this).css('height', newHeight+'px');
+function equalHeights(parent, selector){
+	if (selector[0] && parent[0]){
+		parent.each(function(parentI, parentE){
+			var parent = $(this);
+			var itemSet = $(this).find(selector);
+			var newHeight = 0;
+			var triggerHeightUpdate = false;
+			itemSet.each(function(i, e){
+				if ($(this).height() > newHeight){
+					newHeight = $(this).height();
+					if (i > 0){ triggerHeightUpdate = true; }
+				}
+			});
+			if (triggerHeightUpdate){
+				itemSet.each(function(e, i){
+					$(this).css('height', newHeight+'px');
+				});
 			}
 		})
+		
 	}
 }
 
@@ -552,6 +562,7 @@ function initCompanion(){
 	mobileNavigation();
 	setMobileNavHeight();
 	customHomeNameAdjust();	
+	equalHeights($('.contains-equal-heights'), $('.equal-heights'));
 }
 
 // Returns IE Version Number
@@ -636,6 +647,9 @@ $(window).resize(function(){
 	if($('body').hasClass('companion-site')){
 		if(document.documentElement.clientWidth <= config.breakpoints.site.mobile) {
 			setMobileNavHeight();
+		}
+		if(document.documentElement.clientWidth > config.breakpoints.site.mobile) {
+			equalHeights($('.contains-equal-heights'), $('.equal-heights'));
 		}
 	}
 });

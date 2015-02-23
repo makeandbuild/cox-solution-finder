@@ -2,6 +2,9 @@
 	.opensans-light();
 	margin-bottom: 0;
 	text-transform: uppercase;
+	.respond-md({
+		font-size: 3.2em;
+	});
 }
 .industry-home-title {
 	.opensans-regular();
@@ -14,13 +17,16 @@
 		display:inline-block;
 		color:@lightGray;
 		.opensans-regular();
+		.respond-md({
+			font-size: 1.15em;
+		});
 	}
 }
 .container-fluid-services-navigation {
 	position: relative;
 	background: @xlightGray;
 	padding-top: 1em;
-	padding-bottom: 1em;
+	padding-bottom: 2em;
 	h3 {
 		color: @darkBlue;
 	}
@@ -41,9 +47,12 @@
 		ul {
 			padding-left:30px;
 		}
+		.section-heading {
+			.respond-md({
+				font-size: 1.5em;
+			});
+		}
 	}
-	.section-content {
-		//font-size: 1.15em;
-	}
+	
 	
 }

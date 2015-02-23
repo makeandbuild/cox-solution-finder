@@ -7,14 +7,14 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	// Set locals
-	locals.section = 'contact';
+	locals.section = 'connect';
 	locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
 	locals.formData = req.body || {};
 	locals.validationErrors = {};
 	locals.enquirySubmitted = false;
 	
 	// On POST requests, add the Enquiry item to the database
-	view.on('post', { action: 'contact' }, function(next) {
+	view.on('post', { action: 'connect' }, function(next) {
 		
 		var newEnquiry = new Enquiry.model(),
 			updater = newEnquiry.getUpdateHandler(req);
@@ -37,6 +37,6 @@ exports = module.exports = function(req, res) {
 
 
 	
-	view.render('contact');
+	view.render('connect');
 	
 };

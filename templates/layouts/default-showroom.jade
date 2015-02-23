@@ -6,19 +6,36 @@ include ../mixins/service-list
 include ../mixins/modals
 
 doctype html
-html.html-development
+html
 	//- Use the `.html-development` class to make it easier to see the views for touch/tablet.
 
 	//- HTML HEADER
 	head
 		meta(charset="utf-8")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+		//- meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+		meta(name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge")
 		meta(name="apple-mobile-web-app-capable" content="yes")
 		meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
 		title= title || 'Cox Solution Finder'
-		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png")
+		link(rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png")
+		link(rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png")
+		link(rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png")
+		link(rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png")
+		link(rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png")
+		link(rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png")
+		link(rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png")
+		link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png")
+		link(rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32")
+		link(rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192")
+		link(rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96")
+		link(rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16")
+		link(rel="manifest" href="/manifest.json")
+		meta(name="msapplication-TileColor" content="#da532c")
+		meta(name="msapplication-TileImage" content="/mstile-144x144.png")
+		meta(name="theme-color" content="#ffffff")
 
 		//- VideoJS
 		link(href="/styles/videojs/video-js.min.css", rel="stylesheet")
@@ -104,11 +121,8 @@ html.html-development
 			+storyModal
 
 
-		//- JAVASCRIPT
+		//- Vendor JS
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
-
-		//- Customise which Bootstrap javascript files are served by including
-		//- them specifically here, instead of bootstrap-3.2.0.min.js
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 
 		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
@@ -116,8 +130,12 @@ html.html-development
 		if user && user.canAccessKeystone
 			script(src='/keystone/js/content/editor.js')
 
-		//- Add scripts that are globally required by your site here.
-		script(src='/js/site/app.js')
+		//- Site JS
+		script(src='/js/site/config.js')
+		script(src='/js/site/functions_global.js')
+		script(src='/js/site/functions_showroom.js')
+		script(src='/js/site/app_showroom.js')
+		script(src='/js/site/app_global.js')
 
 		//- Include template-specific javascript files by extending the js block
 		block js

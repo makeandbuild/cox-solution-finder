@@ -32,19 +32,21 @@ block content
 				h2 No Products!
 			else
 				.row
-					span.product-gradient.product-gradient-companion: span
+					if data.product.video.background.url
+						span.product-gradient.product-gradient-companion: span
 					.col-xs-12
-						if data.product.video.video_choice
-							if data.product.video.video.url
-								a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video).video-link.product-hero-container
-									img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
-									img(src="/icons/png/icon-play.png").product-play-icon
+						if data.product.video.background.url
+							if data.product.video.video_choice
+								if data.product.video.video.url
+									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video).video-link.product-hero-container
+										img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+										img(src="/icons/png/icon-play.png").product-play-icon
+								else
+									a.product-hero-container
+										img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
 							else
 								a.product-hero-container
 									img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
-						else
-							a.product-hero-container
-								img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
 						section.product-item-container
 							.product-showroom-scroll
 							.col-md-6.col-lg-4
@@ -78,7 +80,7 @@ block content
 									p.section-heading= data.product.item_five.title
 									p.section-content= data.product.item_five.content
 
-
-				.row
-					.col-xs-12.col-md-offset-3.col-md-6.resource-container.resource-container-products-view
-						+resources(data.product)
+				.visible-xs.visible-sm
+					+resources(data.product)
+				.visible-md.visible-lg
+					+resources-alternate(data.product)

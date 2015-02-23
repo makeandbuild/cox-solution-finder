@@ -4,50 +4,21 @@ extends ../layouts/default
 block content
 
 	article.container-fluid
-		//- span.background-shadow.from-right
+		span.background-shadow.from-right
 
 		.container
-			.row.header-space
 			if data.industry
 				article.row.industry-page-content
-					.col-xs-12.col-md-5
+					.col-xs-12.col-md-5.industry-content
 						+industryContent(data.industry, false)
 					.col-xs-12.col-md-7
 						+mediaBuffet(data.industry.media_buffet)
-			.resources-container-products
-				.row
-					.col-xs-12
-						h3 RESOURCES
-				.row
-					.col-xs-12.col-md-6
-						a(href=data.industry.resource_one.resource_link).resource-download
-							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_one.svg_icon)
-							.resource-icon-divider: span
-							.resource-info
-								p.resource-title=data.industry.resource_one.title
-								p.resource-description=data.industry.resource_one.description
-					.col-xs-12.col-md-6
-						a(href=data.industry.resource_two.resource_link download=data.industry.resource_two.resource_link target="_blank" title=data.industry.resource_two.title).resource-download
-							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_two.svg_icon)
-							.resource-icon-divider: span
-							.resource-info
-								p.resource-title=data.industry.resource_two.title
-								p.resource-description=data.industry.resource_two.description
-					.col-xs-12.col-md-6
-						a(href=data.industry.resource_three.resource_link download=data.industry.resource_three.resource_link target="_blank" title=data.industry.resource_three.title).resource-download
-							.resource-icon.coxicon(class="coxicon_"+data.industry.resource_three.svg_icon)
-							.resource-icon-divider: span
-							.resource-info
-								p.resource-title=data.industry.resource_three.title
-								p.resource-description=data.industry.resource_three.description
-					if data.industry.resource_four
-						.col-xs-12.col-md-6
-							a(href=data.industry.resource_four.resource_link download=data.industry.resource_four.resource_link target="_blank" title=data.industry.resource_four.title).resource-download
-								.resource-icon.coxicon(class="coxicon_"+data.industry.resource_four.svg_icon)
-								.resource-icon-divider: span
-								.resource-info
-									p.resource-title=data.industry.resource_four.title
-									p.resource-description=data.industry.resource_four.description
+					.visible-xs.visible-sm
+						.col-xs-12.resources-container-industry
+							+resources(data.industry)
+			.visible-md.visible-lg
+				.resources-alternate-container-industry
+					+resources-alternate(data.industry)
 	article.container-fluid.container-fluid-services-navigation
 		.container
 			.row

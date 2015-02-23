@@ -106,7 +106,7 @@ block content
 			.container
 				.row
 					.col-xs-12
-						h3 INDUSTRIES
+						h3.home-content-header INDUSTRIES
 				ul.industries-list.row
 					each item, index in global_data.industries
 						li.col-xs-6.col-md-2
@@ -160,7 +160,7 @@ block content
 			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
 			.row
 				.col-xs-12
-					h2.hero-header.hero-custom-name HI #{firstName},
+					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{firstName},
 					p.hero-subtext-custom
 						span Thanks for visiting us at
 						span= eventName
@@ -192,13 +192,13 @@ block content
 
 					.row
 						.col-xs-12
-							h3 SERVICES
+							h3.home-content-header SERVICES
 					each service in personalizedServices
 						.col-xs-12
 							section.row.service-row
 								.col-xs-12.col-md-6
 									+serviceContent(service)
-								.col-xs-12.col-md-6
+								.col-xs-12.col-md-6.resources-container-home-services
 									+resources(service)
 
 				else

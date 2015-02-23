@@ -4,8 +4,11 @@ extends ../layouts/default
 block content
 
 	article.container-fluid
-		span.background-shadow.from-right.lighter
-
+		.visible-xs.visible-sm
+			span.background-shadow.from-right.lighter
+		.visible-md.visible-lg
+			span.background-shadow.from-right
+		.row.header-space-industries
 		.container
 			if data.industry
 				article.row.industry-page-content

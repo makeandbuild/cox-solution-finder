@@ -79,6 +79,11 @@ Homepage.add({
 
 	//Hero Area
 	hero: {
+		greeting: {
+			type: Types.Text,
+			label: "Greeting",
+			note: "The word before the name of the customer when on the customized home view. For example you would enter 'Hi' and the text would read 'Hi Mark'."
+		},
 		business_count: { type: Types.Text, label: "Default Home Number of Business's Powered by COX Business", note: "The number that will appear on the default home page." },
 		video: {
 			title: { type: Types.Html,

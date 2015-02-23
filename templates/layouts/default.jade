@@ -78,10 +78,10 @@ html
 							li(class=(section == link.key ? 'active' : null))
 								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
-				.navigation-phone-cta-desktop
+				a(href="/connect").navigation-phone-cta-desktop
 					img(src="/images/phone-cta-icon.png")
 					.cta-text-container
-						span Let's Talk.
+						span Let's Connect.
 						span 800-123-1234
 
 
@@ -125,7 +125,7 @@ html
 
 
 
-				a(href="tel:18001231234" title="Chat with Us").navigation-phone-cta
+				a(href="/connect" title="Chat with Us").navigation-phone-cta
 
 
 		//- Generates the Navigation Modals for Services and Industries
@@ -177,11 +177,8 @@ html
 			+videoModal
 			+storyModal
 
-		//- JAVASCRIPT
+		//- Vendor JS
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
-
-		//- Customise which Bootstrap javascript files are served by including
-		//- them specifically here, instead of bootstrap-3.2.0.min.js
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 
 		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
@@ -189,8 +186,13 @@ html
 		if user && user.canAccessKeystone
 			script(src='/keystone/js/content/editor.js')
 
-		//- Add scripts that are globally required by your site here.
-		script(src='/js/site/app.js')
+		//- Site JS
+		script(src='/js/site/config.js')
+		script(src='/js/site/functions_global.js')
+		script(src='/js/site/functions_companion.js')
+		script(src='/js/site/app_companion.js')
+		script(src='/js/site/app_global.js')
+
 
 		//- Include template-specific javascript files by extending the js block
 		block js

@@ -9,15 +9,17 @@ html {
 }
 .showroom {
 	.showroom-screen-exact({
+		cursor:url(../images/cursor.png), crosshair !important;
 		* {
-			cursor:none !important; // Removes the cursor on the touchscreen.
+			cursor:url(../images/cursor.png), crosshair !important;
+			//cursor:none !important; // Removes the cursor on the touchscreen.
 		}
-		cursor:none !important; // Removes the cursor on the touchscreen.
 	});
 	width:1024px;
 	height:748px;
 	overflow:hidden;
 	position:relative;
+	
 	.showroom-screen({
 		width:1920px;
 		height:1080px;
@@ -110,6 +112,12 @@ html {
 			height: 7em;
 		});
 	}
+	h1 {
+		.respond-xs-sm-only({
+			font-size: 30px;
+		});
+		
+	}
 
 }
 
@@ -180,6 +188,7 @@ a {
 	top:0;
 	bottom:0;
 	vertical-align: middle;
+	z-index: -1;
 	&.from-left {
 		left:0;
 		.box-shadow(-210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));

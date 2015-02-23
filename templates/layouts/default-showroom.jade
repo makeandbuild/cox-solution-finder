@@ -121,11 +121,8 @@ html
 			+storyModal
 
 
-		//- JAVASCRIPT
+		//- Vendor JS
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
-
-		//- Customise which Bootstrap javascript files are served by including
-		//- them specifically here, instead of bootstrap-3.2.0.min.js
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 
 		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
@@ -133,8 +130,12 @@ html
 		if user && user.canAccessKeystone
 			script(src='/keystone/js/content/editor.js')
 
-		//- Add scripts that are globally required by your site here.
-		script(src='/js/site/app.js')
+		//- Site JS
+		script(src='/js/site/config.js')
+		script(src='/js/site/functions_global.js')
+		script(src='/js/site/functions_showroom.js')
+		script(src='/js/site/app_showroom.js')
+		script(src='/js/site/app_global.js')
 
 		//- Include template-specific javascript files by extending the js block
 		block js

@@ -38,8 +38,8 @@ block content
 						if data.product.video.background.url
 							if data.product.video.video_choice
 								if data.product.video.video.url
-									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video).video-link.product-hero-container
-										img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "").video-link.product-hero-container
+										//- img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
 										img(src="/icons/png/icon-play.png").product-play-icon
 								else
 									a.product-hero-container

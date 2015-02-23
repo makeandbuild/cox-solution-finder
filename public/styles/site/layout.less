@@ -112,6 +112,11 @@ html {
 			height: 7em;
 		});
 	}
+	.header-space-industries {
+		.respond-md({
+			height:5em;
+		});
+	}
 	h1 {
 		.respond-xs-sm-only({
 			font-size: 30px;
@@ -178,6 +183,9 @@ a {
 .shadow-normal {
 	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.3));
 }
+.shadow-light {
+	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.1));
+}
 .shadow-remove {
 	.box-shadow(0, 0, 0, 0, rgba(0, 0, 0, 0));
 }
@@ -199,6 +207,9 @@ a {
 	}
 	&.lighter {
 		.box-shadow(210px, 0, 320px, 315px, rgba(0, 0, 0, 0.15));
+	}
+	&.to-foreground {
+		z-index:0;
 	}	
 }
 .custom-dropdown {

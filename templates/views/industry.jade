@@ -4,8 +4,11 @@ extends ../layouts/default
 block content
 
 	article.container-fluid
-		span.background-shadow.from-right
-
+		.visible-xs.visible-sm
+			span.background-shadow.from-right.lighter
+		.visible-md.visible-lg
+			span.background-shadow.from-right
+		.row.header-space-industries
 		.container
 			if data.industry
 				article.row.industry-page-content
@@ -21,7 +24,9 @@ block content
 					+resources-alternate(data.industry)
 	article.container-fluid.container-fluid-services-navigation
 		.container
+			span.background-shadow.from-right.to-foreground
 			.row
 				.col-xs-12
-					h3 SERVICES
+
+					h3.services-list-title SERVICES
 			+service-list(global_data.services)

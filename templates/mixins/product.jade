@@ -3,18 +3,18 @@ mixin product(product)
 		.col-xs-10.col-xs-offset-1
 			h2.product-title= product.title
 		.col-xs-10.col-xs-offset-1
-			
-			if product.video.video_choice
-				if product.video.video.url
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video).video-link.product-hero-container
-						img(src=product.video.background.url alt="product-hero-image").product-hero-image
-						img(src="/icons/png/icon-play.png").product-play-icon
+			if product.video.background.url
+				if product.video.video_choice
+					if product.video.video.url
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container
+							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+							img(src="/icons/png/icon-play.png").product-play-icon
+					else
+						a.product-hero-container
+							img(src=product.video.background.url alt="product-hero-image").product-hero-image
 				else
 					a.product-hero-container
 						img(src=product.video.background.url alt="product-hero-image").product-hero-image
-			else
-				a.product-hero-container
-					img(src=product.video.background.url alt="product-hero-image").product-hero-image
 			section.product-item-container
 				.product-showroom-scroll
 				.col-md-6.col-lg-4

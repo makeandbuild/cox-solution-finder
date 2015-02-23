@@ -18,7 +18,7 @@
 
 }
 .resource-download {
-	background-color:@xlightGray;
+	background-color:@resource_bg;
 	display:block;
 	margin-bottom: 15px;
 	width:100%;
@@ -29,7 +29,7 @@
 	margin-right:auto;
 	position: relative;
 	.respond-md({
-		margin-bottom:1.5em;
+		margin-bottom: 30px;
 	});
 	.respond-lg({
 		width:85%;
@@ -57,7 +57,7 @@
 	height:inherit;
 	span {
 		display:block;
-		width:2px;
+		width:1px;
 		background-color:#d4d4d4;
 		vertical-align: middle;
 		height:80%;
@@ -66,11 +66,11 @@
 	}
 	.responsive-max(450px, {
 		display:block;
-		height: 2px;
+		height: 1px;
 		margin: 0.5em 0 0.1em;
 		span {
 			width:80%;
-			height:2px;
+			height:1px;
 			margin:auto;
 		}
 	});
@@ -146,7 +146,7 @@
 		width:48%;
 		display:inline-block;
 		background-color:@white;
-		.shadow-normal();
+		.shadow-light();
 		&:nth-child(odd) {
 			float:right;
 		}

@@ -171,7 +171,10 @@ block content
 
 
 		article.container-fluid.home-content
-			//- span.background-shadow.from-right
+			.visible-xs.visible-sm
+				span.background-shadow.from-right.lighter
+			.visible-md.visible-lg
+				span.background-shadow.from-right
 
 			.container
 				.row.header-space-home
@@ -211,12 +214,15 @@ block content
 
 
 				article.container-fluid.container-fluid-products-navigation
-					//- span.background-shadow.from-right
+					.visible-xs.visible-sm
+						span.background-shadow.from-right.lighter.to-foreground
+					.visible-md.visible-lg
+						span.background-shadow.from-right.to-foreground
 
 					.container
 
 						.row
-							.col-xs-12.products-md
+							.col-xs-12.products-md.home-products-navigation
 
 								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
 									article.product-navigation-title
@@ -246,7 +252,10 @@ block content
 
 
 				article.container-fluid.container-fluid-products.products-md
-					//- span.background-shadow.from-right
+					.visible-xs.visible-sm
+						span.background-shadow.from-right.lighter
+					.visible-md.visible-lg
+						span.background-shadow.from-right
 					span.product-gradient.product-gradient-companion-services: span
 					.container
 						

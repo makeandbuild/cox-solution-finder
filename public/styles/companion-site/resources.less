@@ -4,15 +4,11 @@
 
 .resource-section {
 	background-color:@white;
-	// padding-bottom: 3em;
-	// padding-left: 1em;
-	// padding-right: 1em;
 	padding: 1em 1.5em;
 }
 .resource-header {
 	margin:0;
 	padding: 0.75em 0 0.75em 0;
-	// background-color:@white;
 	font-size: 1.15em;
 	
 	.respond-md({
@@ -24,7 +20,7 @@
 .resource-download {
 	background-color:@xlightGray;
 	display:block;
-	margin-bottom: 1.5em;
+	margin-bottom: 15px;
 	width:100%;
 	padding:0.25em;
 	height: 100%;
@@ -32,6 +28,9 @@
 	margin-left:auto;
 	margin-right:auto;
 	position: relative;
+	.respond-md({
+		margin-bottom:1.5em;
+	});
 	.respond-lg({
 		width:85%;
 	});
@@ -109,6 +108,11 @@
 }
 
 .resources-container-industry {
+	.resource-section {
+		.shadow-normal();
+	}
+}
+.resources-alternate-container-industry {
 	padding-top:3em;
 }
 .resources-container-home-services {
@@ -126,9 +130,6 @@
 .resources-container-products {
 	padding-top:2em;
 	padding-bottom: 3em;
-	.resource-info {
-		//padding-left:0.5em;
-	}
 	.resource-download {
 		
 		.shadow-normal();
@@ -137,20 +138,7 @@
 		});
 	}
 }
-.resource-container-products-view {
-	margin-top: 5em;
-	// padding-bottom:2em;
-	// background-color: #FFF;
-	// .resource-header {
-	// 	padding-left:1em;
-	// }
-	// .resource-container {
-	// 	margin-bottom:0;
-	// }
-	.resource-download {
-		width:85%;
-	}
-}
+
 
 .resource-alternate {
 	background-color:transparent;

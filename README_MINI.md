@@ -18,8 +18,6 @@
 
   * Select "Expand Filesystem".
 
-  * Select "Overclock". Change to "Turbo".
-
   * Select "Advanced Options". Select "Memory Split". Change value to 16.
 
 
@@ -93,8 +91,26 @@ There is an installation script for installing MongoDB on the Raspberry Pi. Clon
 
 	          npm install
 
+* Write .env file. The following are the required, non-API keys that must be present for the app to perform correctly.
+
+            NODE_ENV=production
+            SOLUTION_MODE=showroom
+
 * Start the app:
 
 	          npm start
 
 * TODO: Install process manager (pm2) and use it to start the app
+
+
+
+## Repl
+
+If you want to play around, you can use the node repl.
+
+			cd <project root>
+			node
+      require('dotenv').load();
+			var keystone = require('keystone');
+			keystone.set('module root', path.resolve(path.dirname()));
+			require('./setup')(keystone)

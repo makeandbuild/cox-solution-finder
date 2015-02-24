@@ -117,23 +117,10 @@ Industry.add({
 				label: "Media Facts: Title",
 				note: "1-2 Words"
 			},
-			content_choice: {
-				type: Types.Boolean,
-				label: "Media Facts: Use an image instead of content?",
-				default: "false"
-			},
-			content: { type: Types.Html,
-				wysiwyg: true,
-				height:400,
-				// dependsOn: { content_choice: false },
-				label: "Media Facts: Content",
-				note: "1 Sentence. Bold content that will use large text, and it will change font size, color, and stay on its own line."
-			},
 			featured_image: {
 				type: Types.S3File,
-				// dependsOn: { content_choice: true },
-				label: 'Media Facts: Featured Image',
-				note: "Upload a 2X Image to be the featured image for a fact in place of content.",
+				label: 'Media Facts: Factoid Image',
+				note: "Upload a 2X Image.",
 				s3path: 'uploads/images'
 			}
 		}

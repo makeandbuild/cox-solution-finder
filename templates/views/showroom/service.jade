@@ -25,15 +25,15 @@ mixin product(product)
 			
 			if product.video.video_choice
 				if product.video.video.url
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video).video-link.product-hero-container
-						img(src=product.video.background.url alt="product-hero-image").product-hero-image
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container
+						//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 						img(src="/icons/png/icon-play.png").product-play-icon
 				else
-					a.product-hero-container
-						img(src=product.video.background.url alt="product-hero-image").product-hero-image
+					a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
+						//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 			else
-				a.product-hero-container
-					img(src=product.video.background.url alt="product-hero-image").product-hero-image
+				a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
+					//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 			.overflow-wrapper
 			section.product-item-container
 				span.product-fade-bottom

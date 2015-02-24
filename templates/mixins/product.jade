@@ -10,11 +10,11 @@ mixin product(product)
 							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 							img(src="/icons/png/icon-play.png").product-play-icon
 					else
-						a.product-hero-container
-							img(src=product.video.background.url alt="product-hero-image").product-hero-image
+						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 				else
-					a.product-hero-container
-						img(src=product.video.background.url alt="product-hero-image").product-hero-image
+					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+						//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
 			section.product-item-container
 				.product-showroom-scroll
 				.col-md-6.col-lg-4

@@ -149,6 +149,7 @@
 		line-height: 1.2;
 		.showroom-screen({
 			line-height: 1.3;
+			padding:0 20px;
 		});
 	}
 	.service-title {
@@ -181,7 +182,7 @@
 		color: @lightGray;
 		.showroom-screen({
 			font-size: 4.5em;
-			padding-left: 15px;
+			padding-left: 5px;
 			padding-top: 15px;
 			height: 100px;
 		});
@@ -194,13 +195,17 @@
 		color:@darkBlue;
 		img {
 			.transform(270deg);
-			height: 0.75em;
+			height: 0.55em;
+			
 			vertical-align: top;
 			margin-top: 0.3em;
 			margin-left: 0.3em;
 		}
 		.showroom-screen({
 			.opensans-semibold();
+			img {
+				height: 0.65em;
+			}
 		});
 	}
 }

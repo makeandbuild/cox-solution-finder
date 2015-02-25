@@ -108,7 +108,7 @@ function factoidTransition(set, toggledClass, type, numToCount){
 
 // Used on Industries page to trigger the Services Navigation to Open
 function allServices(){
-	$('.industry-services-all-services').on('click',function(e){
+	$('.industry-services-all-services, .map-overlay-all-services').on('click',function(e){
 		e.stopPropagation();
 		$('.navigation-toggle').trigger('click');
 		$('.navigation-modal-item').filter("[data-navigation-modal-item='services']").trigger('click');

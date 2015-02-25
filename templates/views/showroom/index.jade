@@ -53,6 +53,18 @@ mixin act_map_overlay(scene, act)
 			if map.map_overlay_enable
 				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= map.map.url ? "background-image: url(" + map.map.url+");" : "")
 					h1.map-overlay-title= map.title
+					.map-overlay-related
+						h3 Top Products
+						//- - console.log(map.products)
+						each product in map.products
+							.related-product-item
+								//- span Internet Gateway &amp; Guest Wifi
+								span= product.title
+						.map-overlay-all-services
+							img(src="/images/arrow_down_gray.png")
+							p See All
+								br
+								| Services
 		.dropdown.custom-dropdown.map-overlay-dropdown
 			button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 				.icon-arrow

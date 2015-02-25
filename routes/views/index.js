@@ -32,7 +32,12 @@ exports = module.exports = function(req, res) {
 
 	  var q = keystone.list('Homepage').model.findOne({
 	    slug: 'home'
-	  });
+	  }).populate('act.act_three.map_one.products')
+	  .populate('act.act_three.map_two.products')
+	  .populate('act.act_three.map_three.products')
+	  .populate('act.act_three.map_four.products')
+	  .populate('act.act_three.map_five.products')
+	  .populate('act.act_three.map_six.products');
 
 	  q.exec(function(err, result) {
 	    locals.data.home = result;

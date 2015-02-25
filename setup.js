@@ -104,7 +104,8 @@ module.exports = function(keystone, callback) {
     'users': 'users',
     'industries' : 'industries',
     'services' : 'services',
-    'products' : 'products'
+    'products' : 'products',
+    'Connect' : 'connects'
   });
 
   callback && callback();

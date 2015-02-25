@@ -10,6 +10,8 @@ function initGlobal(){
 	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	videoClose();
 	modalContent();
+	initCheckbox();
+	initDropdownSelect();
 
 	// Removes dragging images.
 	$('img, a, .coxicon, main, :active, :focus, :visited, :hover, div, p, li, section, ul, body').on('dragstart', function(event) { event.preventDefault(); });

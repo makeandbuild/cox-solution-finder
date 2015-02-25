@@ -2,39 +2,67 @@ extends ../layouts/default
 //- Use the Companion Site Default Template
 		
 block content
-	.container
-		if enquirySubmitted
-			h3 Thanks for getting in touch.
-		else
-			.row: .col-sm-8.col-md-6(style="padding-top:8em; padding-bottom:8em;")
-				form(method='post')
-					input(type='hidden', name='action', value='connect')
-					.form-group(class=validationErrors.name ? 'has-error' : null)
-						label.sr-only First Name
-						input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
+	article.container-fluid.connect-page
+		.container
+			//- if enquirySubmitted
+			//- 	h3 Thanks for getting in touch.
+			//- else
+			.row.header-space
+			.row
+				.connect-page-background-overlay
+				.connect-page-background
+				.col-xs-12.col-md-6.col-lg-7
+					h1.cox-business LET'S
+						strong CONNECT
+					p.section-heading= data.connect.heading
+					p.section-content= data.connect.content
 
-					.form-group(class=validationErrors.name ? 'has-error' : null)
-						label.sr-only Last Names
-						input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+				.col-xs-12.col-md-6.col-lg-5.connect-form-col
+					p Tell us about yourself
+					form(method='post')
+						input(type='hidden', name='action', value='connect')
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label.sr-only First Name
+							input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
 
-					.form-group(class=validationErrors.email ? 'has-error' : null)
-						label.sr-only Email
-						input(type='email', name='email', value=formData.email placeholder="Email").form-control
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label.sr-only Last Names
+							input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
 
-					.form-group(class=validationErrors.zipcode ? 'has-error' : null)
-						label.sr-only Zip Code
-						input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
-					
-					.form-group
-						label.sr-only Company Population
-						select(name='company_population').form-control
-							option(value='') Yo dawg, how many peeps where you work?
-							each type in company_population
-								option(value=type.value, selected=formData.company_population == type.value)= type.label
-					
-					.form-group
-						label.sr-only Are you a ???
-						input(type='checkbox', name='is_customer' value="Are you a current Cox Customer?")
-					
-					.form-actions
-						button(type='submit').btn.btn-primary SUBMIT
+						.form-group(class=validationErrors.email ? 'has-error' : null)
+							label.sr-only Email
+							input(type='email', name='email', value=formData.email placeholder="Email").form-control
+
+						.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+							label.sr-only Zip Code
+							input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+						
+						.form-group
+							label.sr-only Company Population
+							.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+								button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+									.icon-arrow
+										img(src="/images/arrow_down.png")
+									span.custom-dropdown-current.dropdown-select-current
+										.current-default Company Size 
+											em (select)
+								ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+									each key, index in Object.keys(company_population)
+										- var type = company_population[key]
+										li(role="presentation")
+											a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+							select(name='company_population').form-control.sr-only
+								option(value='') Company Size (select)
+								each type in company_population
+									option(value=type.value, selected=formData.company_population == type.value)= type.label
+						
+						.form-group
+							label.sr-only Current Cox Customer
+							.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+								.input-checkbox
+									img(src="/icons/png/icon-check.png")
+								.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+							input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
+						
+						.form-actions
+							button(type='submit').btn.btn-primary SUBMIT

@@ -115,6 +115,45 @@ function navigationModal(){
 }
 
 
+function initCheckbox(){
+	var checkboxSet = $('.input-checkbox-group');
+	if (checkboxSet[0]){
+		checkboxSet.each(function(){
+			var input = $('#'+$(this).data('checkbox-input'));
+			$(this).children('.input-checkbox-value').append('<span>'+input.attr('value')+'</span>');
+			if (input.attr('checked')){
+				$(this).addClass('active');
+			}
+		})
+	}
+	$('.input-checkbox-group').on('click',function(){
+		var input = $('#'+$(this).data('checkbox-input'));
+		if ($(this).hasClass('active')){
+			$(this).removeClass('active');
+			input.removeAttr('checked');
+		} else {
+			$(this).addClass('active');
+			input.attr('checked', 'checked');
+		}
+	})
+}
+
+function initDropdownSelect(){
+	$('.dropdown-select-item').on('click',function(){
+		var value = $(this).data('value');
+		var label = $(this).data('label');
+		var dropdown = $(this).parents('.dropdown-select');
+		
+		dropdown.find('.dropdown-select-current').html(label);
+		dropdown.siblings('select')
+		.children().filter("[value='" + value + "']")
+		.attr('selected', true)
+		.siblings()
+		.removeAttr('selected');
+	})
+}
+
+
 
 // Video Functions
 

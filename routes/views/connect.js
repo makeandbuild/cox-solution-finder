@@ -12,6 +12,7 @@ exports = module.exports = function(req, res) {
 	locals.formData = req.body || {};
 	locals.validationErrors = {};
 	locals.enquirySubmitted = false;
+	locals.data = {};
 	
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'connect' }, function(next) {
@@ -32,6 +33,19 @@ exports = module.exports = function(req, res) {
 			next();
 		});
 		
+	});
+
+	view.on('init', function(next) {
+
+	  var q = keystone.list('Connect').model.findOne({
+	    slug: 'connect'
+	  })
+
+	  q.exec(function(err, result) {
+	    locals.data.connect = result;
+	    next(err);
+	  });
+
 	});
 
 

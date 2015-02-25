@@ -1,35 +1,40 @@
 extends ../layouts/default
 //- Use the Companion Site Default Template
-
-block intro
-	.container
-		h1 Contact Us
 		
 block content
 	.container
 		if enquirySubmitted
 			h3 Thanks for getting in touch.
 		else
-			.row: .col-sm-8.col-md-6
+			.row: .col-sm-8.col-md-6(style="padding-top:8em; padding-bottom:8em;")
 				form(method='post')
 					input(type='hidden', name='action', value='connect')
 					.form-group(class=validationErrors.name ? 'has-error' : null)
-						label Name
-						input(type='text', name='name.full', value=formData['name.full']).form-control
+						label.sr-only First Name
+						input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
+
+					.form-group(class=validationErrors.name ? 'has-error' : null)
+						label.sr-only Last Names
+						input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+
 					.form-group(class=validationErrors.email ? 'has-error' : null)
-						label Email
-						input(type='email', name='email', value=formData.email).form-control
+						label.sr-only Email
+						input(type='email', name='email', value=formData.email placeholder="Email").form-control
+
+					.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+						label.sr-only Zip Code
+						input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+					
 					.form-group
-						label Phone
-						input(type='text', name='phone', value=formData.phone, placeholder='(optional)').form-control
-					.form-group(class=validationErrors.enquiryType ? 'has-error' : null)
-						label What are you contacting us about?
-						select(name='enquiryType').form-control
-							option(value='') (select one)
-							each type in enquiryTypes
-								option(value=type.value, selected=formData.enquiryType == type.value)= type.label
-					.form-group(class=validationErrors.message ? 'has-error' : null)
-						label Message
-						textarea(name='message', placeholder='Leave us a message...' rows=4).form-control= formData.message
+						label.sr-only Company Population
+						select(name='company_population').form-control
+							option(value='') Yo dawg, how many peeps where you work?
+							each type in company_population
+								option(value=type.value, selected=formData.company_population == type.value)= type.label
+					
+					.form-group
+						label.sr-only Are you a ???
+						input(type='checkbox', name='type_of_customer' value="Are you a ??? Employee?")
+					
 					.form-actions
-						button(type='submit').btn.btn-primary Send
+						button(type='submit').btn.btn-primary SUBMIT

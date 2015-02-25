@@ -24,7 +24,7 @@ Enquiry.add({
 		{ value: 2, label: '21-99' },
 		{ value: 3, label: '100+'}
 	] },
-	type_of_customer: { type: Types.Boolean, default: false, label: "Type of Customer" },
+	is_customer: { type: Types.Boolean, default: false, label: "Is Customer?" },
 	archived: { type: Boolean, default: false, required: true },
 	is_notified: { type: Boolean, default: false, label: "Is Notified?" },
 	is_showroom: { type: Boolean, default: false, label: "Created with Showroom?" },
@@ -56,6 +56,8 @@ Enquiry.schema.post('save', function() {
 	}
 });
 
+
+//This is not currently being used.
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 	
 	if ('function' !== typeof callback) {
@@ -90,8 +92,8 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	var enquiry = this;
 	
 	client.sendemail({
-	   to: 'nlambert@maxmedia.com',
-	   from: 'nlambert@dev.sfv2.cox.mxmcloud.com',
+	   to: enquiry.email,
+	   from: 'chikonez@dev.sfv2.cox.mxmcloud.com',
 	   cc: '',
 	   bcc: '',
 	   subject: 'greetings',

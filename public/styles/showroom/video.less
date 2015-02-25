@@ -24,11 +24,8 @@
 			border:0 !important;
 		}
 		&.csf-active {
-			//opacity:1;
 			.transition(0.3s, opacity);
 		}
-		
-		//background-image: url(../icons/png/icon-play.png) !important;
 		background-repeat: no-repeat !important;
 		background-position:center !important;
 		background-size:100% !important;
@@ -41,7 +38,6 @@
 	}
 	&.vjs-paused .vjs-big-play-button {
 		background-image: url(../icons/png/icon-play.png) !important;
-		//opacity:1 !important;
 	}
 	.vjs-current-time, .vjs-time-controls {
 		font-size: 1.5em;
@@ -54,7 +50,6 @@
 		.opensans-regular();
 	}
 	.vjs-control-bar {
-		//display:none;
 	}
 	.vjs-full-screen-control {
 		visibility: hidden;
@@ -68,7 +63,6 @@
 	.vjs-tech {
 			max-height: 100%;
 			background-color: #000;
-			//height:auto;
 			position:relative;
 
 	}
@@ -106,9 +100,8 @@
 	}
 	.video-title {
 		color: #FFF;
-		position: absolute;
-		top: 100%;
-		right: 0;
+		position: relative;
+		text-align: right;
 		text-transform: uppercase;
 		font-size: 4em;
 		margin: 0.1em 0 0;
@@ -123,20 +116,11 @@
 		});
 	}
 }
-.modal-backdrop {
-	.showroom-screen({
-		//background:transparent;
-		//display:none;
-	});
-	
-}
+
 .global-close {
 	position:absolute;
 	top:0;
 	z-index:1;
 	width:95px;
 	height:95px;
-	img {
-
-	}
 }

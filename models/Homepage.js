@@ -100,9 +100,16 @@ Homepage.add({
 			},
 			video: {
 				type: Types.S3File,
-				label: 'Hero Video: File',
+				label: 'Hero Video: MP4',
 				note: 'MP4 Only. IMPORTANT: This will be the default video for all all industries/partners if no video is chosen.',
 				allowedTypes: ['video/mp4'],
+				s3path: 'uploads/videos'
+			},
+			video_webm: {
+				type: Types.S3File,
+				label: 'Hero Video: WebM',
+				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
+				allowedTypes: ['video/webm'],
 				s3path: 'uploads/videos'
 			},
 			background: {
@@ -139,9 +146,16 @@ Homepage.add({
 			},
 			video: {
 				type: Types.S3File,
-				label: 'Media Video: File',
+				label: 'Media Video: File MP4',
 				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
 				allowedTypes: ['video/mp4'],
+				s3path: 'uploads/videos'
+			},
+			video_webm: {
+				type: Types.S3File,
+				label: 'Media Video: File WebM',
+				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
+				allowedTypes: ['video/webm'],
 				s3path: 'uploads/videos'
 			},
 			background: {

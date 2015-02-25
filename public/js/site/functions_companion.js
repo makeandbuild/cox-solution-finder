@@ -13,7 +13,10 @@ function ieVersion() {
         return 10;
     else if (ua.indexOf("Trident/5.0") > 0)
         return 9;
-    else
+   	else if (ua.indexOf("Firefox/34") > 0){
+   		console.log('FIREFOX!');
+   		return 50;
+   	} else
         return 0;  // not IE9, 10 or 11
 } 
 

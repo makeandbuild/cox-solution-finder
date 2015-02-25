@@ -253,6 +253,91 @@
 				}
 			}
 		}
+		.map-overlay-related {
+			display: block;
+			position: absolute;
+			right: 0;
+			top: 95px;
+			width: 147px;
+			.showroom-screen({
+				top: 130px;
+				width: 240px;
+			});
+			h3 {
+				font-size:1em;
+				color:@darkBlue;
+				margin:0 0 0.5em;
+				text-transform: uppercase;
+				.showroom-screen({
+					font-size:1.4em;
+				});
+			}
+			.related-product-item {
+				.shadow-light();
+				color:@darkBlue;
+				background-color:@white;
+				height: 50px;
+				width: 90%;
+				margin-bottom: 10px;
+				padding: 7px 9px;
+				position:relative;
+				.showroom-screen({
+					height: 95px;
+					margin-bottom:15px;
+					width:70%;
+				});
+				span {
+					font-size: 0.85em;
+					display: block;
+					vertical-align: bottom;
+					position: absolute;
+					bottom: 7px;
+					width: 85%;
+					line-height: 1.2;
+					.showroom-screen({
+						bottom: 10px;
+						left: 12px;
+						font-size: 1.3em;
+					});
+				}
+			}
+			.map-overlay-all-services {
+				background-color:@regularGray;
+				display:block;
+				vertical-align: bottom;
+				height:85px;
+				width: 90%;
+				position:relative;
+				.showroom-screen({
+					width:70%;
+					height: 110px;
+				});
+				p {
+					text-transform: uppercase;
+					position: absolute;
+					bottom:10px;
+					left:10px;
+					color:@white;
+					line-height: 1;
+					font-size: 1em;
+					margin: 0;
+					.showroom-screen({
+						font-size:1.2em;
+						line-height: 1.2;
+					});
+				}
+				img {
+					.transform(270deg);
+					height: 1em;
+					vertical-align: top;
+					margin-top: 1em;
+					margin-left: 0.4em;
+					.showroom-screen({
+						height:1.3em;
+					});
+				}
+			}
+		}
 		.factoid {
 			display:block;
 			width: 425px;

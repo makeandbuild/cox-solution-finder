@@ -41,7 +41,6 @@ mixin act_video(scene)
 	.act(data-act=scene.title)
 		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
 			source(src=data.home.hero.video.video.url type='video/mp4')
-			source(src=data.home.hero.video.video_webm.url type='video/webm')
 			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
 				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
 		button.btn.btn-default.act-close.csf-content-close(type="button" data-video-close="home_stage_default_video")
@@ -54,6 +53,18 @@ mixin act_map_overlay(scene, act)
 			if map.map_overlay_enable
 				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= map.map.url ? "background-image: url(" + map.map.url+");" : "")
 					h1.map-overlay-title= map.title
+					.map-overlay-related
+						h3 Top Products
+						//- - console.log(map.products)
+						each product in map.products
+							.related-product-item
+								//- span Internet Gateway &amp; Guest Wifi
+								span= product.title
+						.map-overlay-all-services
+							img(src="/images/arrow_down_gray.png")
+							p See All
+								br
+								| Services
 		.dropdown.custom-dropdown.map-overlay-dropdown
 			button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 				.icon-arrow

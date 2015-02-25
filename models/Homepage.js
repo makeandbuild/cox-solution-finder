@@ -100,9 +100,16 @@ Homepage.add({
 			},
 			video: {
 				type: Types.S3File,
-				label: 'Hero Video: File',
+				label: 'Hero Video: MP4',
 				note: 'MP4 Only. IMPORTANT: This will be the default video for all all industries/partners if no video is chosen.',
 				allowedTypes: ['video/mp4'],
+				s3path: 'uploads/videos'
+			},
+			video_webm: {
+				type: Types.S3File,
+				label: 'Hero Video: WebM',
+				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
+				allowedTypes: ['video/webm'],
 				s3path: 'uploads/videos'
 			},
 			background: {
@@ -139,9 +146,16 @@ Homepage.add({
 			},
 			video: {
 				type: Types.S3File,
-				label: 'Media Video: File',
+				label: 'Media Video: File MP4',
 				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
 				allowedTypes: ['video/mp4'],
+				s3path: 'uploads/videos'
+			},
+			video_webm: {
+				type: Types.S3File,
+				label: 'Media Video: File WebM',
+				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
+				allowedTypes: ['video/webm'],
 				s3path: 'uploads/videos'
 			},
 			background: {
@@ -193,23 +207,10 @@ Homepage.add({
 				label: "Media Facts: Title",
 				note: "1-2 Words"
 			},
-			content_choice: {
-				type: Types.Boolean,
-				label: "Media Facts: Use an image instead of content?",
-				default: "false"
-			},
-			content: { type: Types.Html,
-				wysiwyg: true,
-				height:400,
-				// dependsOn: { content_choice: false },
-				label: "Media Facts: Content",
-				note: "1 Sentence. Bold content that will use large text, and it will change font size, color, and stay on its own line."
-			},
 			featured_image: {
 				type: Types.S3File,
-				// dependsOn: { content_choice: true },
-				label: 'Media Facts: Featured Image',
-				note: "Upload a 2X Image to be the featured image for a fact in place of content.",
+				label: 'Media Facts: Factoid Image',
+				note: "Upload a 2X Image.",
 				s3path: 'uploads/images'
 			}
 		}

@@ -1,33 +1,28 @@
 mixin mediaBuffet(media_buffet)
 	section.media-buffet
-		.media-buffet-container-full
-			.video
-				if media_buffet.video.video_choice
-					if media_buffet.video.video.url
-						a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
-							img(src="/icons/png/icon-play.png")
+		.media-buffet-column-left
+			.media-buffet-top-block
+				.video
+					if media_buffet.video.video_choice
+						if media_buffet.video.video.url
+							a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").video-link
+								img(src="/icons/png/icon-play.png")
+						else
+							a(data-toggle="modal" data-video-data=global_data.default_video data-target="#video_modal" style= global_data.default_video.background.url ? "background-image: url(" +global_data.default_video.background.url+");" : "").video-link
+								img(src="/icons/png/icon-play.png")
 					else
-						a(data-toggle="modal" data-video-data=global_data.default_video data-target="#video_modal" style= global_data.default_video.background.url ? "background-image: url(" +global_data.default_video.background.url+");" : "").video-link
-							img(src="/icons/png/icon-play.png")
-				else
-					a(style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").remove-pointer
-				h4.media-title!=media_buffet.video.title
-		.media-buffet-container-full
-			.values
-				!= media_buffet.values.content
-				h4.media-title!=media_buffet.values.title
-		br
-		.media-buffet-container-half
-			.facts
-				- var isImage = false
-				if !media_buffet.content_choice
-					!= media_buffet.facts.content
-				else
-					.fact-image
-						img(src=media_buffet.facts.featured_image.url)
-				h4.media-title!=media_buffet.facts.title
-		.media-buffet-container-half
-			.story
-				a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
-					img(src="/icons/png/icon-plus.png")
-				h4.media-title!=media_buffet.story.title
+						a(style= media_buffet.video.background.url ? "background-image: url(" +media_buffet.video.background.url+");" : "").remove-pointer
+					h4.media-title!=media_buffet.video.title
+			.media-buffet-bottom-block
+				.values
+					!= media_buffet.values.content
+					h4.media-title!=media_buffet.values.title
+
+		.media-buffet-column-right
+			.media-buffet-top-block
+				.facts(style= media_buffet.facts.featured_image.url ? "background-image: url(" +media_buffet.facts.featured_image.url+");" : "")
+			.media-buffet-bottom-block
+				.story
+					a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + media_buffet.story.featured_image.url+");" : "").story-link
+						img(src="/icons/png/icon-plus.png")
+						h4.media-title!=media_buffet.story.title

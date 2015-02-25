@@ -33,4 +33,13 @@ function initShowroom(){
 			});
 		}
 	});
+
+	$('body').mousemove(function() {
+	    // clearTimeout(theAttractLoop);
+
+	    // theAttractLoop = setTimeout(function(){
+	        
+	    // }, 300000);
+
+	});
 }

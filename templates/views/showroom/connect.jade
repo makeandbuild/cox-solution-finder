@@ -1,0 +1,44 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+		
+block content
+	.col-xs-6.full-height-col.connect-page-my-solutions
+
+	.col-xs-6.full-height-col.connect-page-form-col
+		if enquirySubmitted
+			h3 Thanks for getting in touch.
+		else
+			.row: .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
+				.form-container
+					p Tell us about yourself
+					form(method='post')
+						input(type='hidden', name='action', value='connect')
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label.sr-only First Name
+							input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
+
+						.form-group(class=validationErrors.name ? 'has-error' : null)
+							label.sr-only Last Names
+							input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+
+						.form-group(class=validationErrors.email ? 'has-error' : null)
+							label.sr-only Email
+							input(type='email', name='email', value=formData.email placeholder="Email").form-control
+
+						.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+							label.sr-only Zip Code
+							input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+						
+						.form-group
+							label.sr-only Company Population
+							select(name='company_population').form-control
+								option(value='') Yo dawg, how many peeps where you work?
+								each type in company_population
+									option(value=type.value, selected=formData.company_population == type.value)= type.label
+						
+						.form-group
+							label.sr-only Are you a ???
+							input(type='checkbox', name='type_of_customer' value="Are you a ??? Employee?")
+						
+						.form-actions
+							button(type='submit').btn.btn-primary SUBMIT

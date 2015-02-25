@@ -4,6 +4,17 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+/*
+
+	The below functions are mainly used interchangably
+	for the DidYouKnow Section of the Showroom App. They
+	mainly toggle a series of classes back and forth to
+	create animations. These functions should be combined
+	with classes with transitions and transforms on them
+	for the animations to work. Though they've been built
+	to function more generically so they can be used elsewhere.
+
+*/
 function quickClassToggle(item, toggledClass, time){
 	item.addClass(toggledClass);
 	setTimeout(function(){
@@ -198,7 +209,7 @@ function homeStageTransitions(){
 		.removeClass('scene-inactive')
 		.removeClass('scene-in-focus')
 		.removeClass('active');
-		factoidTransition($('.factoid'), 'inactive-factoid');
+		factoidTransition($('.factoid'), 'inactive-factoid', 'unveil', 0);
 	});
 }
 

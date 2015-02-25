@@ -19,16 +19,16 @@ Enquiry.add({
 	name: { type: Types.Name, required: true },
 	email: { type: Types.Email, required: true },
 	zipcode: { type: String },
-	enquiryType: { type: Types.Select, options: [
-		{ value: 'message', label: 'Just leaving a message' },
-		{ value: 'question', label: 'I\'ve got a question' },
-		{ value: 'other', label: 'Something else...' }
+	company_population: { type: Types.Select, numeric: true, options: [
+		{ value: 1, label: '1-20' },
+		{ value: 2, label: '21-99' },
+		{ value: 3, label: '100+'}
 	] },
-	message: { type: Types.Markdown, required: true },
+	type_of_customer: { type: Types.Boolean, default: false, label: "Type of Customer" },
 	archived: { type: Boolean, default: false, required: true },
-	is_notified: { type: Boolean, default: false },
-	is_showroom: { type: Boolean, default: false },
-	createdAt: { type: Date, default: Date.now }
+	is_notified: { type: Boolean, default: false, label: "Is Notified?" },
+	is_showroom: { type: Boolean, default: false, label: "Created with Showroom?" },
+	createdAt: { type: Date, default: Date.now },
 });
 
 emitter.on('connectionAvailable', function(data) {
@@ -87,7 +87,6 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
-	console.log('SES Method');
 	var enquiry = this;
 	
 	client.sendemail({
@@ -99,15 +98,15 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	   message: 'your <b>message</b> goes here',
 	   altText: 'plain text'
 	}, function (err, data, res) {
-		console.log('\x1b[36mData:\n\x1b[0m');
-		console.log(data);
-	 	console.log('\x1b[36mError:\n\x1b[0m');
-	 	console.log(err);
+		// console.log('\x1b[36mData:\n\x1b[0m');
+		// console.log(data);
+	 // 	console.log('\x1b[36mError:\n\x1b[0m');
+	 // 	console.log(err);
 	});
 	
 };
 
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
+Enquiry.defaultColumns = 'name, email, createdAt';
 Enquiry.register();

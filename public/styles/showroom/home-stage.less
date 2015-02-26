@@ -12,6 +12,11 @@
 		z-index:1;
 		background-color:@white;
 		opacity:0.5;
+		.transition(0.3s);
+		&.inactive {
+			opacity:0;
+			.transition(0.3s);
+		}
 	}
 	.stage-background {
 		.stage-background-overlay();
@@ -33,7 +38,13 @@
 		vertical-align: middle;
 		width:0px;
 		height:0px;
+		opacity:1;
+		.transition(0.3s);
 		.box-shadow(0 0 340px 340px @white);
+		&.inactive {
+			opacity:0;
+			.transition(0.3s);
+		}
 	}
 	.showroom-screen({
 		height:650px;
@@ -165,6 +176,11 @@
 			opacity:1;
 			visibility: visible;
 			.transition(0.3s);
+		}
+		&.act-video {
+			.vjs-control-bar {
+				display:block !important;
+			}
 		}
 		.act-close {
 			.global-close();
@@ -349,12 +365,15 @@
 			z-index:1;
 			opacity:1;
 			.transition(1s transform);
+
+			// TABLET FACTOID POSITIONS
+
 			&.factoid-position-0 {
-				left: 0%;
-				bottom: 0%;
+				left: -8%;
+				bottom: -23%;
 				&.flipped {
-					left: 0%;
-					bottom: 0%;
+					left: -6%;
+					bottom: -15%;
 				}
 				transform: scale(0.35);
 				.transition(0.5s);
@@ -368,49 +387,49 @@
 				}
 			}
 			&.factoid-position-1 {
-				left: 18%;
-				bottom: 24%;
+				left: 9%;
+				bottom: 4%;
 				&.flipped {
-					left: 18%;
-					bottom: 24%
+					left: 10%;
+					bottom: 4%;
 				}
-				transform: scale(0.5);
+				transform: scale(0.35);
 				.transition(0.5s);
 				&.factoid-jiggle1 {
-					transform: scale(0.49);
+					transform: scale(0.34);
 					.transition(0.1s transform);
 				}
 				&.factoid-jiggle2 {
-					transform: scale(0.5);
+					transform: scale(0.35);
 					.transition(0.1s transform);
 				}
 			}
 			&.factoid-position-2 {
-				right: 18%;
-				bottom: 24%;
+				right: 9%;
+				bottom: 4%;
 				&.flipped {
-					right: 18%;
-					bottom: 24%;
+					right: 10%;
+					bottom: 4%;
 				}
 				.transition(0.5s);
-				transform: scale(0.5);
+				transform: scale(0.35);
 				&.factoid-jiggle1 {
-					transform: scale(0.49);
+					transform: scale(0.34);
 					.transition(0.1s transform);
 				}
 				&.factoid-jiggle2 {
-					transform: scale(0.5);
+					transform: scale(0.35);
 					.transition(0.1s transform);
 				}
 
 				
 			}
 			&.factoid-position-3 {
-				right: 0%;
-				bottom: 0%;
+				right: -8%;
+				bottom: -23%;
 				&.flipped {
-					right: 0%;
-					bottom: 0%;
+					right: -6%;
+					bottom: -15%;
 				}
 				.transition(0.5s);
 				transform: scale(0.35);
@@ -425,7 +444,7 @@
 				
 			}
 			&.factoid-position-4 {
-				top:0;
+				top: -17%;
 				left: 0;
 				right: 0;
 				margin: auto;
@@ -436,26 +455,142 @@
 					margin: auto;
 				}
 				.transition(0.5s);
-				transform: scale(0.5);
+				transform: scale(0.35);
 				&.factoid-jiggle1 {
-					transform: scale(0.49);
+					transform: scale(0.34);
 					.transition(0.1s transform);
 				}
 				&.factoid-jiggle2 {
-					transform: scale(0.5);
+					transform: scale(0.35);
 					.transition(0.1s transform);
 				}
 			}
 			&.flipped {
 				z-index:2;
 				.transition(1s);
-				transform: scale(1) rotateY( 180deg );
+				transform: scale(0.6) rotateY( 180deg );
 			}
 			&.inactive-factoid {
 				opacity:0;
-				transform: scale(1);
+				transform: scale(0.6);
 				.transition(1s);		
 			}
+
+
+
+
+			// TOUCHSCREEN FACTOID POSITIONS
+
+			.showroom-screen({
+				&.factoid-position-0 {
+					left: 0%;
+					bottom: 0%;
+					&.flipped {
+						left: 0%;
+						bottom: 0%;
+					}
+					transform: scale(0.35);
+					.transition(0.5s);
+					&.factoid-jiggle1 {
+						transform: scale(0.34);
+						.transition(0.1s transform);
+					}
+					&.factoid-jiggle2 {
+						transform: scale(0.35);
+						.transition(0.1s transform);
+					}
+				}
+				&.factoid-position-1 {
+					left: 18%;
+					bottom: 24%;
+					&.flipped {
+						left: 18%;
+						bottom: 24%
+					}
+					transform: scale(0.5);
+					.transition(0.5s);
+					&.factoid-jiggle1 {
+						transform: scale(0.49);
+						.transition(0.1s transform);
+					}
+					&.factoid-jiggle2 {
+						transform: scale(0.5);
+						.transition(0.1s transform);
+					}
+				}
+				&.factoid-position-2 {
+					right: 18%;
+					bottom: 24%;
+					&.flipped {
+						right: 18%;
+						bottom: 24%;
+					}
+					.transition(0.5s);
+					transform: scale(0.5);
+					&.factoid-jiggle1 {
+						transform: scale(0.49);
+						.transition(0.1s transform);
+					}
+					&.factoid-jiggle2 {
+						transform: scale(0.5);
+						.transition(0.1s transform);
+					}
+
+					
+				}
+				&.factoid-position-3 {
+					right: 0%;
+					bottom: 0%;
+					&.flipped {
+						right: 0%;
+						bottom: 0%;
+					}
+					.transition(0.5s);
+					transform: scale(0.35);
+					&.factoid-jiggle1 {
+						transform: scale(0.34);
+						.transition(0.1s transform);
+					}
+					&.factoid-jiggle2 {
+						transform: scale(0.35);
+						.transition(0.1s transform);
+					}
+					
+				}
+				&.factoid-position-4 {
+					top:0;
+					left: 0;
+					right: 0;
+					margin: auto;
+					&.flipped {
+						top:0;
+						left: 0;
+						right: 0;
+						margin: auto;
+					}
+					.transition(0.5s);
+					transform: scale(0.5);
+					&.factoid-jiggle1 {
+						transform: scale(0.49);
+						.transition(0.1s transform);
+					}
+					&.factoid-jiggle2 {
+						transform: scale(0.5);
+						.transition(0.1s transform);
+					}
+				}
+				&.flipped {
+					z-index:2;
+					.transition(1s);
+					transform: scale(1) rotateY( 180deg );
+				}
+				&.inactive-factoid {
+					opacity:0;
+					transform: scale(1);
+					.transition(1s);		
+				}
+			});
+			
 			
 			
 			> div {

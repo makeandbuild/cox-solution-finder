@@ -6,15 +6,14 @@ mixin product(product)
 			if product.video.background.url
 				if product.video.video_choice
 					if product.video.video.url
-						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container
-							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container					
 							img(src="/icons/png/icon-play.png").product-play-icon
+							if product.video.title_overlay
+								h2.product-video-title= product.title
 					else
-						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")					
 				else
-					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-						//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")				
 			section.product-item-container
 				.product-showroom-scroll
 				.col-md-6.col-lg-4

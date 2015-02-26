@@ -4,6 +4,9 @@ var keystone = require('keystone'),
 		emitter = monitor.getEmitter(),
 		nodeSES = require('node-ses'),
 		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET });
+		sender = process.env.SES_SENDER;
+		reciever = process.env.SES_RECIEVER;
+
 
 /**
  * Enquiry Model
@@ -93,7 +96,7 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	
 	client.sendemail({
 	   to: enquiry.email,
-	   from: 'chikonez@dev.sfv2.cox.mxmcloud.com',
+	   from: sender,
 	   cc: '',
 	   bcc: '',
 	   subject: 'greetings',

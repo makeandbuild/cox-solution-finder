@@ -3,28 +3,28 @@ mixin resources(item)
 		section.resource-section.contains-equal-heights
 			h3.resource-header RESOURCES
 			if item.resource_one && item.resource_one.resource_link
-				a(href=item.resource_one.resource_link download=item.resource_one.resource_link target="_blank" title=item.resource_one.title).resource-download.equal-heights
+				a(href=item.resource_one.resource_link download= item.resource_one.resource_type == false ? item.resource_one.resource_link : null target="_blank" title=item.resource_one.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_one.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_one.title
 						p.resource-description=item.resource_one.description
 			if item.resource_two && item.resource_two.resource_link
-				a(href=item.resource_two.resource_link download=item.resource_two.resource_link target="_blank" title=item.resource_two.title).resource-download.equal-heights
+				a(href=item.resource_two.resource_link download= item.resource_two.resource_type == false ? item.resource_two.resource_link : null target="_blank" title=item.resource_two.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_two.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_two.title
 						p.resource-description=item.resource_two.description
 			if item.resource_three && item.resource_three.resource_link
-				a(href=item.resource_three.resource_link download=item.resource_three.resource_link target="_blank" title=item.resource_three.title).resource-download.equal-heights
+				a(href=item.resource_three.resource_link download= item.resource_three.resource_type == false ? item.resource_three.resource_type : null target="_blank" title=item.resource_three.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_three.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_three.title
 						p.resource-description=item.resource_three.description
 			if item.resource_four && item.resource_four.resource_link
-				a(href=item.resource_four.resource_link download=item.resource_four.resource_link target="_blank" title=item.resource_four.title).resource-download.equal-heights
+				a(href=item.resource_four.resource_link download= item.resource_four.resource_type == false ? item.resource_four.resource_link : null target="_blank" title=item.resource_four.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_four.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
@@ -36,28 +36,28 @@ mixin resources-alternate(item)
 		section.resource-section.resource-alternate.contains-equal-heights
 			h3.resource-header RESOURCES	
 			if item.resource_one && item.resource_one.resource_link
-				a(href=item.resource_one.resource_link download=item.resource_one.resource_link target="_blank" title=item.resource_one.title).resource-download.equal-heights
+				a(href=item.resource_one.resource_link download= item.resource_one.resource_type == false ? item.resource_one.resource_link : null target="_blank" title=item.resource_one.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_one.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_one.title
 						p.resource-description=item.resource_one.description
 			if item.resource_two && item.resource_two.resource_link
-				a(href=item.resource_two.resource_link download=item.resource_two.resource_link target="_blank" title=item.resource_two.title).resource-download.equal-heights
+				a(href=item.resource_two.resource_link download= item.resource_two.resource_type == false ? item.resource_two.resource_link : null target="_blank" title=item.resource_two.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_two.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_two.title
 						p.resource-description=item.resource_two.description
 			if item.resource_three && item.resource_three.resource_link
-				a(href=item.resource_three.resource_link download=item.resource_three.resource_link target="_blank" title=item.resource_three.title).resource-download.equal-heights
+				a(href=item.resource_three.resource_link download= item.resource_three.resource_type == false ? item.resource_three.resource_link : null target="_blank" title=item.resource_three.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_three.svg_icon)
 					.resource-icon-divider: span
 					.resource-info
 						p.resource-title=item.resource_three.title
 						p.resource-description=item.resource_three.description
 			if item.resource_four && item.resource_four.resource_link
-				a(href=item.resource_four.resource_link download=item.resource_four.resource_link target="_blank" title=item.resource_four.title).resource-download.equal-heights
+				a(href=item.resource_four.resource_link download= item.resource_four.resource_type == false ? item.resource_four.resource_link : null target="_blank" title=item.resource_four.title).resource-download.equal-heights
 					.resource-icon.coxicon(class="coxicon_"+item.resource_four.svg_icon)
 					.resource-icon-divider: span
 					.resource-info

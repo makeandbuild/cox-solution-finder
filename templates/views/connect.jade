@@ -3,16 +3,20 @@ extends ../layouts/default
 		
 block content
 	article.container-fluid.connect-page
+		.visible-xs.visible-sm
+			span.background-shadow.from-right.lighter
+		.visible-md.visible-lg
+			.connect-page-background-overlay
+			.connect-page-background(style= data.connect.connect_background.url ? 'background-image: url('+data.connect.connect_background.url+');' : '')
 		.container
 			//- if enquirySubmitted
 			//- 	h3 Thanks for getting in touch.
 			//- else
-			.row.header-space
+			.row.header-space-small
 			.row
-				.connect-page-background-overlay
-				.connect-page-background
-				.col-xs-12.col-md-6.col-lg-7
-					h1.cox-business LET'S
+				
+				.col-xs-12.col-md-6.col-lg-7.connect-content
+					h1.lets-connect LET'S
 						strong CONNECT
 					p.section-heading= data.connect.heading
 					p.section-content= data.connect.content

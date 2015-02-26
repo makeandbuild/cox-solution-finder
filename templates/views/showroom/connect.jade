@@ -13,13 +13,10 @@ block content
 					p Tell us about yourself
 					form(method='post')
 						input(type='hidden', name='action', value='connect')
-						.form-group(class=validationErrors.name ? 'has-error' : null)
-							label.sr-only First Name
-							input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
 
 						.form-group(class=validationErrors.name ? 'has-error' : null)
-							label.sr-only Last Names
-							input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+							label.sr-only Full Name
+							input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 
 						.form-group(class=validationErrors.email ? 'has-error' : null)
 							label.sr-only Email

@@ -11,7 +11,8 @@ function initShowroom(){
 	allServices();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	factoidGeneral();
-	
+	jsKeyboard.init("virtualKeyboard");
+	connectKeyboard();
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
 	$('.product-showroom-scroll').on('mouseover',function(){

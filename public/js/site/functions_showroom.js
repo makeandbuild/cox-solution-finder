@@ -4,6 +4,22 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+
+//Connect Keyboard Functions
+function connectKeyboard(){
+	$('input').on('focus',function(){
+		if($(this).attr('type', 'text') || $(this).attr('type', 'email')){
+			jsKeyboard.currentElement = $(this);
+			jsKeyboard.currentElementCursorPosition = 0;
+		}
+	});
+	// var $firstInput = $('.form-group').first().find('input').focus();
+	// jsKeyboard.currentElement = $firstInput;
+	// jsKeyboard.currentElementCursorPosition = 0;
+	// jsKeyboard.changeToSmallLetter();
+}
+
+
 /*
 
 	The below functions are mainly used interchangably

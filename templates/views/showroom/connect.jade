@@ -64,9 +64,11 @@ block content
 							
 							.form-actions
 								button(type='submit').btn.btn-primary SUBMIT
-		.visible-lg
-			.row
-				.col-xs-12
-					.keyboard-container
-						.keyboard-background-shadow
-						.virtualKeyboard#virtualKeyboard
+
+		if !enquirySubmitted
+			.visible-lg
+				.row
+					.col-xs-12
+						.keyboard-container
+							.keyboard-background-shadow
+							.virtualKeyboard#virtualKeyboard

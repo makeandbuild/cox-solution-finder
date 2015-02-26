@@ -11,9 +11,13 @@ mixin product(product)
 							if product.video.title_overlay
 								h2.product-video-title= product.title
 					else
-						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")					
+						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+							if product.video.title_overlay
+								h2.product-video-title= product.title
 				else
-					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")				
+					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+						if product.video.title_overlay
+							h2.product-video-title= product.title
 			section.product-item-container
 				.product-showroom-scroll
 				.col-md-6.col-lg-4

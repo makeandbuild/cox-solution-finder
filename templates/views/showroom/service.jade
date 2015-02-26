@@ -30,9 +30,13 @@ mixin product(product)
 						if product.video.title_overlay
 							h2.product-video-title= product.title
 				else
-					a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container						
+					a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
+						if product.video.title_overlay
+							h2.product-video-title= product.title			
 			else
-				a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container					
+				a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
+					if product.video.title_overlay
+						h2.product-video-title= product.title
 			.overflow-wrapper
 			section.product-item-container
 				span.product-fade-bottom

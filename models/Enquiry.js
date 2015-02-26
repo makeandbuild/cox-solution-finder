@@ -95,7 +95,7 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	var enquiry = this;
 	
 	client.sendemail({
-	   to: enquiry.email,
+	   to: reciever,
 	   from: sender,
 	   cc: '',
 	   bcc: '',

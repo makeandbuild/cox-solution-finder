@@ -31,14 +31,30 @@ block content
 						
 						.form-group
 							label.sr-only Company Population
-							select(name='company_population').form-control
-								option(value='') Yo dawg, how many peeps where you work?
+							.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+								button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+									.icon-arrow
+										img(src="/images/arrow_down.png")
+									span.custom-dropdown-current.dropdown-select-current
+										.current-default Company Size 
+											em (select)
+								ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+									each key, index in Object.keys(company_population)
+										- var type = company_population[key]
+										li(role="presentation")
+											a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+							select(name='company_population').form-control.sr-only
+								option(value='') Company Size (select)
 								each type in company_population
 									option(value=type.value, selected=formData.company_population == type.value)= type.label
 						
 						.form-group
-							label.sr-only Are you a ???
-							input(type='checkbox', name='type_of_customer' value="Are you a ??? Employee?")
+							label.sr-only Current Cox Customer
+							.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+								.input-checkbox
+									img(src="/icons/png/icon-check.png")
+								.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+							input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
 						
 						.form-actions
 							button(type='submit').btn.btn-primary SUBMIT

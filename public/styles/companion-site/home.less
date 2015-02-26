@@ -186,6 +186,7 @@
 	background-repeat: no-repeat;
 	background-position: 15px center;
 	background-size: 100%;
+
 	.respond-md({
 		padding-right:0;
 	});
@@ -196,34 +197,6 @@
 	.respond-sm-only({
 		padding-bottom:3em;
 	});
-	p {
-		font-size:1.5em;
-		.opensans-regular();
-		margin-bottom:0.6em;
-		color:@white;
-		.respond-xs-sm-only({
-			text-align: center;
-		});
-	}
-	form {
-
-		button {
-			margin-top:1em;
-			width:100%;
-			.respond-md({
-				float:right;
-				width:auto;
-			});
-		}
-		input[type='number'] {
-		    -moz-appearance:textfield;
-		}
-
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-		    -webkit-appearance: none;
-		}
-	}
 }
 .home-connect-background-shadow {
 	height:0px;
@@ -239,11 +212,11 @@
 	});
 }
 .home-connect-form {
-	background-color:rgba(63, 197, 255, 1);
-	overflow: hidden;
+	.global-connect-form();
+	// background-color:rgba(63, 197, 255, 1);
+	// overflow: hidden;
 	padding: 1em 5% 2em;
 	.respond-md({
 		padding: 7em 5.2em;
-		background-color:rgba(63, 197, 255, 0.9);
 	});
 }

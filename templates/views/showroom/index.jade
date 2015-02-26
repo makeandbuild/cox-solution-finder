@@ -25,8 +25,6 @@ mixin scene_with_text(scene, scene_location)
 mixin act_factoid(scene, act)
 
 	.act(data-act=scene.title)
-		.stage-background-overlay
-		.stage-background-shadow
 		each key, index in Object.keys(act).reverse()
 			- var factoid = act[key]
 			if factoid.factoid_enable
@@ -34,16 +32,11 @@ mixin act_factoid(scene, act)
 					.factoid-front(style="background-image: url("+factoid.front_image.url+");")
 					.factoid-back(style="background-image: url("+factoid.back_image.url+");")
 
-
-
-
 		button.btn.btn-default.act-close.factoid-close(type="button")
 			img(src="/images/close.png")
 	
 mixin act_video(scene)
 	.act(data-act=scene.title)
-		.stage-background-overlay
-		.stage-background-shadow
 		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
 			source(src=data.home.hero.video.video.url type='video/mp4')
 			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that

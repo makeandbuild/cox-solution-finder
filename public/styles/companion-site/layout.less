@@ -137,6 +137,21 @@
 		.dropdown-menu {
 			width:100%;
 			cursor:pointer;
+			li {
+				&:first-child {
+					border-top: 1px solid @somewhatlightGray;
+				}
+			}
 		}
 	}
+}
+
+
+#flash-messages {
+	position: absolute;
+	width: 50%;
+	margin: auto;
+	left: 0;
+	z-index: 900;
+	right: 0;
 }

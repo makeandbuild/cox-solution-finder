@@ -37,7 +37,7 @@ mixin act_factoid(scene, act)
 	
 mixin act_video(scene)
 	.act(data-act=scene.title)
-		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
+		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.video.background.url data-setup="{}")
 			source(src=data.home.hero.video.video.url type='video/mp4')
 			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
 				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video

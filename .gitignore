@@ -33,6 +33,9 @@ node_modules
 # Ignore Uploads
 /public/uploads/*
 
+# Ignore Static Showroom
+/public/show/*
+
 /log/*
 /tmp/*
 !.gitkeep

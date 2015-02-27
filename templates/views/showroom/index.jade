@@ -23,7 +23,7 @@ mixin scene_with_text(scene, scene_location)
 
 //- Acts (Revealed when a Scene Item is clicked)
 mixin act_factoid(scene, act)
-	.act(data-act=scene.title)
+	.act(data-act=scene.title).act-factoid
 		each key, index in Object.keys(act).reverse()
 			- var factoid = act[key]
 			if factoid.factoid_enable
@@ -46,7 +46,7 @@ mixin act_video(scene)
 			img(src="/images/close.png")
 	
 mixin act_map_overlay(scene, act)
-	.act(data-act=scene.title)
+	.act(data-act=scene.title).act-map
 		each key, index in Object.keys(act).reverse()
 			- var map = act[key]
 			if map.map_overlay_enable
@@ -70,7 +70,7 @@ mixin act_map_overlay(scene, act)
 				.icon-arrow
 					img(src="/images/arrow_down.png")
 				span.custom-dropdown-current by Type
-			ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+			ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
 				each key, index in Object.keys(act).reverse()
 					- var map = act[key]
 					if map.map_overlay_enable

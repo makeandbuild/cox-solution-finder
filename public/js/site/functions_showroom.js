@@ -4,6 +4,22 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+
+//Connect Keyboard Functions
+function connectKeyboard(){
+	$('input').on('focus',function(){
+		if($(this).attr('type', 'text') || $(this).attr('type', 'email')){
+			jsKeyboard.currentElement = $(this);
+			jsKeyboard.currentElementCursorPosition = 0;
+		}
+	});
+	// var $firstInput = $('.form-group').first().find('input').focus();
+	// jsKeyboard.currentElement = $firstInput;
+	// jsKeyboard.currentElementCursorPosition = 0;
+	// jsKeyboard.changeToSmallLetter();
+}
+
+
 /*
 
 	The below functions are mainly used interchangably
@@ -91,29 +107,31 @@ function factoidGeneral(){
 
 function factoidTransition(set, toggledClass, type, numToCount){
 	//twoClassToggle(set.eq(currentCount), 'factoid-jiggle', 'factoid-jiggle2', 100, 10);
-	var currentCount = numToCount;
-	if(type == 'unveil'){
-		set.eq(currentCount).toggleClass(toggledClass);
-	} else if (type == 'jiggle') {
-		twoClassToggle(set.eq(currentCount), 'factoid-jiggle1', 'factoid-jiggle2', 80, 8, true);
-	}
-	
-	currentCount++;
-	if(currentCount >= set.length){
-		currentCount = 0;
-		return;
-	}
-	if(currentCount == set.length-1){
-		setTimeout(function(){
-			factoidTransition(set, toggledClass, type, currentCount);
-		},300);
+	if (type == 'remove') {
+		set.addClass(toggledClass);
 	} else {
-		setTimeout(function(){
-			factoidTransition(set, toggledClass, type, currentCount);
-		},200);
-	}
-	
-	
+		var currentCount = numToCount;
+		if(type == 'unveil'){
+			set.eq(currentCount).toggleClass(toggledClass);
+		} else if (type == 'jiggle') {
+			twoClassToggle(set.eq(currentCount), 'factoid-jiggle1', 'factoid-jiggle2', 80, 8, true);
+		}
+		
+		currentCount++;
+		if(currentCount >= set.length){
+			currentCount = 0;
+			return;
+		}
+		if(currentCount == set.length-1){
+			setTimeout(function(){
+				factoidTransition(set, toggledClass, type, currentCount);
+			},300);
+		} else {
+			setTimeout(function(){
+				factoidTransition(set, toggledClass, type, currentCount);
+			},200);
+		}
+	}	
 }
 
 
@@ -189,8 +207,14 @@ function homeStageTransitions(){
 				if (clicked.hasClass('scene-active')){
 					clicked.addClass('scene-in-focus');
 					target.addClass('active').siblings().removeClass('active');
-				}
+				}				
 			},1000);
+			setTimeout(function(){
+				if (selector == 'Coverage'){
+					$('.stage-background-overlay').addClass('inactive');
+					$('.stage-background-shadow').addClass('inactive');
+				}
+			},1100);
 			
 			if (selector == 'Did you know?'){
 				setTimeout(function(){
@@ -200,6 +224,7 @@ function homeStageTransitions(){
 					factoidTransition($('.factoid'), 'inactive-factoid', 'jiggle', 0);
 				},1400);
 			}
+			
 		}
 
 	});
@@ -209,7 +234,9 @@ function homeStageTransitions(){
 		.removeClass('scene-inactive')
 		.removeClass('scene-in-focus')
 		.removeClass('active');
-		factoidTransition($('.factoid'), 'inactive-factoid', 'unveil', 0);
+		factoidTransition($('.factoid'), 'inactive-factoid', 'remove', 0);
+		$('.stage-background-overlay').removeClass('inactive');
+		$('.stage-background-shadow').removeClass('inactive');
 	});
 }
 

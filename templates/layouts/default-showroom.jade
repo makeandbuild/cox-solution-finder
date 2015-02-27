@@ -63,13 +63,14 @@ html
 	body.showroom
 
 		//- My Solutions
-		a(href="/connect").my-solutions-link
-			span.my-solutions-count
-				.inline-star.coxicon.coxicon_favorites_star
-				span.my-solutions-count-number 0
-			span.my-solutions-title My 
-				br
-				| Solutions
+		unless section == 'connect'
+			a(href="/connect").my-solutions-link
+				span.my-solutions-count
+					.inline-star.coxicon.coxicon_favorites_star
+					span.my-solutions-count-number 0
+				span.my-solutions-title My 
+					br
+					| Solutions
 
 		//- HEADER
 		#side-navigation(role="navigation")

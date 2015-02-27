@@ -1,60 +1,74 @@
 extends ../../layouts/default-showroom
 //- Use the Showroom Default Template
-		
+
+block css
+	link(href="/styles/keyboard/keyboard.css", rel="stylesheet")
+	link(href="/styles/keyboard/jsKeyboard.css", rel="stylesheet")
+
+block js
+	script(src='/js/lib/jquery/jquery.keyboard.js')
+	script(src='/js/lib/jquery/jsKeyboard.js')
+
 block content
 	.col-xs-6.full-height-col.connect-page-my-solutions
 
 	.col-xs-6.full-height-col.connect-page-form-col
-		if enquirySubmitted
-			h3 Thanks for getting in touch.
-		else
-			.row: .col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
+		.row
+			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
 				.form-container
-					p Tell us about yourself
-					form(method='post')
-						input(type='hidden', name='action', value='connect')
-						.form-group(class=validationErrors.name ? 'has-error' : null)
-							label.sr-only First Name
-							input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
+					if enquirySubmitted
+						h3.connect-thanks Thanks for getting in touch!
+					else
+						p Tell us about yourself
+						form(method='post')
+							input(type='hidden', name='action', value='connect')
 
-						.form-group(class=validationErrors.name ? 'has-error' : null)
-							label.sr-only Last Names
-							input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+							.form-group(class=validationErrors.name ? 'has-error' : null)
+								label.sr-only Full Name
+								input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 
-						.form-group(class=validationErrors.email ? 'has-error' : null)
-							label.sr-only Email
-							input(type='email', name='email', value=formData.email placeholder="Email").form-control
+							.form-group(class=validationErrors.email ? 'has-error' : null)
+								label.sr-only Email
+								input(type='email', name='email', value=formData.email placeholder="Email").form-control
 
-						.form-group(class=validationErrors.zipcode ? 'has-error' : null)
-							label.sr-only Zip Code
-							input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
-						
-						.form-group
-							label.sr-only Company Population
-							.dropdown.custom-dropdown.dropdown-select.connect-dropdown
-								button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-									.icon-arrow
-										img(src="/images/arrow_down.png")
-									span.custom-dropdown-current.dropdown-select-current
-										.current-default Company Size 
-											em (select)
-								ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
-									each key, index in Object.keys(company_population)
-										- var type = company_population[key]
-										li(role="presentation")
-											a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
-							select(name='company_population').form-control.sr-only
-								option(value='') Company Size (select)
-								each type in company_population
-									option(value=type.value, selected=formData.company_population == type.value)= type.label
-						
-						.form-group
-							label.sr-only Current Cox Customer
-							.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
-								.input-checkbox
-									img(src="/icons/png/icon-check.png")
-								.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-							input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
-						
-						.form-actions
-							button(type='submit').btn.btn-primary SUBMIT
+							.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+								label.sr-only Zip Code
+								input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+							
+							.form-group
+								label.sr-only Company Population
+								.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+									button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+										.icon-arrow
+											img(src="/images/arrow_down.png")
+										span.custom-dropdown-current.dropdown-select-current
+											.current-default Company Size 
+												em (select)
+									ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+										each key, index in Object.keys(company_population)
+											- var type = company_population[key]
+											li(role="presentation")
+												a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+								select(name='company_population').form-control.sr-only
+									option(value='') Company Size (select)
+									each type in company_population
+										option(value=type.value, selected=formData.company_population == type.value)= type.label
+							
+							.form-group
+								label.sr-only Current Cox Customer
+								.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+									.input-checkbox
+										img(src="/icons/png/icon-check.png")
+									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
+							
+							.form-actions
+								button(type='submit').btn.btn-primary SUBMIT
+
+		if !enquirySubmitted
+			.visible-lg
+				.row
+					.col-xs-12
+						.keyboard-container
+							.keyboard-background-shadow
+							.virtualKeyboard#virtualKeyboard

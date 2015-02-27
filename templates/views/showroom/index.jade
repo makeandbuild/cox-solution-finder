@@ -23,7 +23,6 @@ mixin scene_with_text(scene, scene_location)
 
 //- Acts (Revealed when a Scene Item is clicked)
 mixin act_factoid(scene, act)
-
 	.act(data-act=scene.title)
 		each key, index in Object.keys(act).reverse()
 			- var factoid = act[key]
@@ -34,10 +33,12 @@ mixin act_factoid(scene, act)
 
 		button.btn.btn-default.act-close.factoid-close(type="button")
 			img(src="/images/close.png")
+
+
 	
 mixin act_video(scene)
-	.act(data-act=scene.title)
-		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
+	.act(data-act=scene.title).act-video
+		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.video.background.url data-setup="{}")
 			source(src=data.home.hero.video.video.url type='video/mp4')
 			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
 				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
@@ -98,7 +99,8 @@ block content
 		+act_map_overlay(data.home.stage.scene_three, data.home.act.act_three)
 
 		.stage-background(style= data.home.stage_background ? "background-image: url(" + data.home.stage_background.url+");" : "")
-		
+		.stage-background-overlay
+		.stage-background-shadow
 
 	.row.home-menu
 		.col-xs-12

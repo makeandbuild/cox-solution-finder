@@ -38,15 +38,18 @@ block content
 						if data.product.video.background.url
 							if data.product.video.video_choice
 								if data.product.video.video.url
-									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "").video-link.product-hero-container
-										//- img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "").video-link.product-hero-container										
 										img(src="/icons/png/icon-play.png").product-play-icon
+										if data.product.video.title_overlay
+											h2.product-video-title.product-page-video-title= data.product.title
 								else
 									a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-										//- img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+										if data.product.video.title_overlay
+											h2.product-video-title.product-page-video-title= data.product.title
 							else
 								a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-									//- img(src=data.product.video.background.url alt="product-hero-image").product-hero-image
+									if data.product.video.title_overlay
+										h2.product-video-title.product-page-video-title= data.product.title
 						section.product-item-container
 							.product-showroom-scroll
 							.col-md-6.col-lg-4

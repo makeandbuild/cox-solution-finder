@@ -9,7 +9,7 @@ var Product 	= keystone.list('Product').model
 	,	Industry	= keystone.list('Industry').model
 	,	Service		= keystone.list('Service').model
 
-var domain = 'http://showroom.staging.sfv2.cox.mxmcloud.com/'
+var domain = 'http://dev.coxsolutionfinder.com'
 	, urls = []
 
 exports.productURLs = function(callback) {
@@ -21,7 +21,7 @@ exports.productURLs = function(callback) {
 		}
 
 		_.each(products, function(product){
-				urls.push(domain + 'products/' + product.slug)
+				urls.push(domain + '/products/' + product.slug)
 		})
 
 		callback()
@@ -42,9 +42,9 @@ exports.serviceURLs = function(callback) {
 			}
 
 			_.each(services, function(service){
-				urls.push(domain + 'services/' + service.slug)
+				urls.push(domain + '/services/' + service.slug)
 				_.each(service.industries, function(industry){
-					urls.push(domain + 'services/' + service.slug + '/' + industry.slug)
+					urls.push(domain + '/services/' + service.slug + '/' + industry.slug)
 				})
 			})
 			callback()
@@ -52,6 +52,7 @@ exports.serviceURLs = function(callback) {
 }
 
 exports.generalURLs = function(callback) {
+	urls.push(domain + '/')
 	callback()
 }
 
@@ -69,6 +70,12 @@ exports.sitemap = function(req, res) {
 		if (err) {
 			res.apiError('error', err)
 		} else {
+
+			// Append static param
+			urls = _.map(urls, function(url){
+				return url = url + '?static=true'
+			})
+
 			res.apiResponse(urls)
 		}
 	})

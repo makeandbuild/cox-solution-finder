@@ -115,3 +115,14 @@ exports.logPageView = function(req, res, next) {
 	next();
 
 };
+
+
+exports.maybeStaticPath = function(req, res, next) {
+	var Types = keystone.Field.Types
+
+	if (req.query && req.query['static']){
+			var oldURL = Types.S3File;
+			// console.log(Types.S3File)
+	}
+	next()
+}

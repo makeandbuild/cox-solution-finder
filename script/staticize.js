@@ -1,5 +1,3 @@
-use 'strict'
-
 require('dotenv').load();
 
 var debug = require('debug')('staticize')

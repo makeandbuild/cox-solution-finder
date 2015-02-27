@@ -5,6 +5,61 @@
 // ------------------------------------------------------------------------------------------------
 
 
+var canStartLoop = false;
+
+//Attract Loop
+function attractLoop_theLoop(){
+	$('body').mousemove(function() {
+	    clearTimeout(theAttractLoop);
+	    canStartLoop = false;
+	    console.log('can start loop set to false: '+canStartLoop);
+	    
+	    var theAttractLoop = setTimeout(function(){
+	       	canStartLoop = true;
+	       	console.log('can start loop set to true: '+canStartLoop);
+	    }, 5000);
+
+	});
+}
+
+function attractLoop_inits() {
+	if ($('.home-stage')[0]) {
+		var  array, isHome, currentScene, currentAct, isFactoids, isVideo, isMap, selectors;
+
+		isHome = $('.scene-in-focus')[0] == null ? true : false;
+		currentScene = isHome ? false : $('.scene-in-focus');
+		currentAct = isHome ? false : $('.act.active');
+		if (currentAct) {
+			isFactoids = currentAct.hasClass('act-factoid') == true ? 'factoid' : false;
+			isVideo = currentAct.hasClass('act-video') == true ? 'video' : false;
+			isMap = currentAct.hasClass('act-map') == true ? 'map' : false;
+		}
+		if (isFactoids) {
+			selectors = currentAct.find('.factoid');
+		} else if (isVideo) {
+			selectors = currentAct.find('video')[0];
+		} else if (isMap) {
+			selectors = currentAct.find('.map-overlay-navitem');
+		}
+		
+		array = {
+			"isHome" : isHome,
+			"currentScene" : currentScene,
+			"currentAct" : isHome == true ? false : {
+				"act": currentAct,
+				"close" : currentAct ? currentAct.children('.act-close') : false,
+				"type" : isFactoids || isVideo || isMap || false,
+				"selectors" :  selectors
+			}
+		}
+		return array;
+	} else { return false; }
+}
+
+
+
+
+
 //Connect Keyboard Functions
 function connectKeyboard(){
 	$('input').on('focus',function(){
@@ -13,10 +68,6 @@ function connectKeyboard(){
 			jsKeyboard.currentElementCursorPosition = 0;
 		}
 	});
-	// var $firstInput = $('.form-group').first().find('input').focus();
-	// jsKeyboard.currentElement = $firstInput;
-	// jsKeyboard.currentElementCursorPosition = 0;
-	// jsKeyboard.changeToSmallLetter();
 }
 
 
@@ -207,6 +258,7 @@ function homeStageTransitions(){
 				if (clicked.hasClass('scene-active')){
 					clicked.addClass('scene-in-focus');
 					target.addClass('active').siblings().removeClass('active');
+					$('.my-solutions-link').addClass('inactive');
 				}				
 			},1000);
 			setTimeout(function(){
@@ -234,6 +286,7 @@ function homeStageTransitions(){
 		.removeClass('scene-inactive')
 		.removeClass('scene-in-focus')
 		.removeClass('active');
+		$('.my-solutions-link').removeClass('inactive');
 		factoidTransition($('.factoid'), 'inactive-factoid', 'remove', 0);
 		$('.stage-background-overlay').removeClass('inactive');
 		$('.stage-background-shadow').removeClass('inactive');

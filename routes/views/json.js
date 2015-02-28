@@ -70,12 +70,6 @@ exports.sitemap = function(req, res) {
 		if (err) {
 			res.apiError('error', err)
 		} else {
-
-			// Append static param
-			urls = _.map(urls, function(url){
-				return url = url + '?static=true'
-			})
-
 			res.apiResponse(urls)
 		}
 	})

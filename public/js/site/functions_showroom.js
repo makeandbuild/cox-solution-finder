@@ -5,27 +5,268 @@
 // ------------------------------------------------------------------------------------------------
 
 
-var canStartLoop = false;
+// The below inits are used in the Attract Loop Functions
 
-//Attract Loop
-function attractLoop_theLoop(){
+var time_Init,
+	attractLoopStarted,
+	timeToNextAction,
+	time_duration_very_long,
+	time_duration_long,
+	time_duration_medium,
+	time_duration_short,
+	factoid_order,
+	map_current,
+	video_muted,
+	video_playing,
+	video_ready_to_complete,
+	video_saved_volume,
+	attractLoopPause,
+	randomizedScenes,
+	sceneOrder,
+	lastSceneUsed;
+
+time_Init = new Date(); 	     // Init Time
+attractLoopStarted = false;      // Bool for allowing attractloop actions to be performed.
+timeToNextAction = 0;            // Init the countdown timer for each action.
+factoid_order = [0,1,2,3,4];     // Init Factoid order to be randomized.
+map_current = 0; 			     // Init Map order.
+video_muted = true;		         // Mute video if true.
+video_playing = false;		     // Used to check if Video is playing.
+video_ready_to_complete = false; // Used to check if Video is ok to finish on next action.
+attractLoopPause = false;         // Set to true to pause the Attract Loop.
+lastSceneUsed = false;		     // Var to hold last scene used, to prevent repeats.
+randomizedScenes = true;	     // Bool to set if scenes should be randomized.
+
+// The 3 Vars for Timing Events
+time_duration_very_long = 5;
+time_duration_long = 10;
+time_duration_medium = 10;
+time_duration_short = 5;
+time_duration_very_short = 1;
+
+function attractLoop_Init(){
+	console.log('`attractLoop_Init()` called');
+
+	// Every Second check for actions needed to be made. This is your ticker.
+	setInterval(function(){
+		if (!attractLoopPause){
+			var time_Now = new Date();
+
+			/*
+				On page load or after a mouse interaction,
+				start the countdown until the attract loop begins.
+			*/
+			if ( ( (time_Now - time_Init) > time_duration_very_long*1000 ) && !attractLoopStarted ) {
+				console.log('      Starting Attract Loop');
+
+				// The Attract loop has started. 
+				attractLoopStarted = true;
+			}
+
+			/*
+				The initial Attract Loop must have started to call
+				`attractLoop_Action()`. The var `timeToNextAction`
+				must be counted down to 0 and next action ready to begin.
+			*/
+			if (attractLoopStarted && ( timeToNextAction == 0 ) ) {
+
+				// Call the next Attract Loop Action, passing current state.
+				attractLoop_Action( attractLoop_data() );
+			}
+
+			// Count down the var `timeToNextAction` each tick of SetInterval until its at 0.
+			if (timeToNextAction > 0){
+				timeToNextAction--;
+				console.log('      '+timeToNextAction+' Sec To Next Action.');
+			}
+		}
+		
+
+	},1000);
+
+	// Clear Time Init on mouse move.
 	$('body').mousemove(function() {
-	    clearTimeout(theAttractLoop);
-	    canStartLoop = false;
-	    console.log('can start loop set to false: '+canStartLoop);
-	    
-	    var theAttractLoop = setTimeout(function(){
-	       	canStartLoop = true;
-	       	console.log('can start loop set to true: '+canStartLoop);
-	    }, 5000);
-
+	    time_Init = new Date();
+	    attractLoopStarted = false;
+	    factoid_order = [0,1,2,3,4];
 	});
 }
 
-function attractLoop_inits() {
+
+/*
+	When called, this function executes an action
+	based on the current location on the home view.
+	Current Location data is gathered by `attractLoop_data()`.
+
+	When an action occurs, it will reset the var `timeToNextAction`
+	to the specified amount and this function will not be called
+	until that var has counted down to zero.
+
+*/
+function attractLoop_Action(data){
+
+	// If at Home screen, go to the next ordered scene.
+	if(data.isHome){
+		console.log('LOCATION: HOME');
+
+		/*
+			Code below for randomized scenes could be
+			simpler, but in case of changes or future
+			requests for custom orders or anything else,
+			I left them as two independant paths.
+		*/
+
+		// Randomized Scenes
+		if (randomizedScenes){
+			console.log('randomized scenes');
+
+			//Randomize Scenes.
+			sceneOrder = shuffle([data.scene_1, data.scene_2, data.scene_3]);
+
+			// First Scene, set lastScene.
+			if (!lastSceneUsed){
+				console.log('no last scene, must be starting');
+				sceneOrder[0].trigger('click');
+				lastSceneUsed = sceneOrder[0];
+
+			// Don't use the same scene twice.
+			} else {
+				if(sceneOrder[0] == lastSceneUsed){
+					console.log('duplicate scene');
+					sceneOrder[1].trigger('click');
+				} else {
+					console.log('non duplicate scene');
+					sceneOrder[0].trigger('click');
+					lastSceneUsed = sceneOrder[0];
+				}
+			}
+
+		// Non-Randomized Scenes
+		} else {
+			console.log('not randomized');
+			sceneOrder = [data.scene_1, data.scene_2, data.scene_3];
+
+			// First Scene, set lastScene.
+			if (!lastSceneUsed){
+				console.log('no last scene, must be starting');
+				sceneOrder[0].trigger('click');
+				lastSceneUsed = 0;
+
+			// On to the next scene.
+			} else {
+				sceneOrder[lastSceneUsed].trigger('click');
+				lastSceneUsed++;
+				if (lastSceneUsed > 2){
+					lastSceneUsed = 0;
+				}
+			}
+		}
+		
+		// Set the counddown to the first action of the newly accessed scene.
+		timeToNextAction = time_duration_very_short;
+	}
+
+	// If inside an act, start custom actions for that act.
+	if(data.currentAct){
+
+		// Loops thru the Factoids before going onto the next scene.
+		if(data.currentAct.type == 'factoid'){
+			console.log('LOCATION: '+data.currentAct.type);
+			
+			if (factoid_order) {
+
+				// Randomize the Order.
+				factoid_order = shuffle(factoid_order);
+
+				// Next Factoid to be used is the first item in the array.
+				var nextFactoid = factoid_order[0];
+
+				// Remove the first item in the array so its not used again.
+				factoid_order.shift();
+
+				// Toggle the factoid.
+				data.currentAct.selectors.eq(nextFactoid).trigger('click');
+				
+				// If the last factoid was toggled extend the coundown before leaving the scene.
+				if (factoid_order.length <= 0) {
+					factoid_order = false;
+					timeToNextAction = time_duration_medium;
+				} else {
+
+					// Reset countdown till the next factoid.
+					timeToNextAction = time_duration_short;
+				}
+			} else {
+
+				// Leave the scene and reset the factoid order array.
+				data.currentAct.close.trigger('click');
+				factoid_order = [0,1,2,3,4];
+				timeToNextAction = time_duration_long;
+			}
+
+
+
+		// Plays thru the video before going onto the next scene.
+		} else if (data.currentAct.type == 'video') {
+			console.log('LOCATION: '+data.currentAct.type);
+
+			if (video_playing) {
+				timeToNextAction = Math.floor(data.currentAct.selectors.duration - data.currentAct.selectors.currentTime)+1;
+				video_ready_to_complete = true;
+				video_playing = false;
+			} else if (video_ready_to_complete) {
+				data.currentAct.close.trigger('click');
+				data.currentAct.selectors.volume = video_saved_volume ? video_saved_volume : 1;
+				data.currentAct.selectors.load();
+				timeToNextAction = time_duration_long;
+				video_ready_to_complete = false;
+			} else {
+				video_saved_volume = data.currentAct.selectors.volume;
+				data.currentAct.selectors.volume = 0;
+				data.currentAct.selectors.play();
+				video_playing = true;
+				timeToNextAction = 1;
+			}
+			
+
+
+
+		// Loops thru the Maps before going onto the next scene.
+		} else if (data.currentAct.type == 'map') {
+			console.log('LOCATION: '+data.currentAct.type);
+
+			if (map_current >= data.currentAct.selectors.length) {
+
+				// Leave the scene and reset the map number.
+				data.currentAct.close.trigger('click');
+				map_current = 0;
+				timeToNextAction = time_duration_long;
+			} else {
+				data.currentAct.selectors.eq(map_current).trigger('click');
+				map_current++;
+
+				// Reset countdown till the next map.
+				timeToNextAction = time_duration_short;
+			}
+
+		}
+	}
+}
+
+
+/*
+	This checks the current state of the Showroom
+	home screen and returns data to be used in the
+	`attractLoop_Action()` function.
+*/
+function attractLoop_data() {
 	if ($('.home-stage')[0]) {
 		var  array, isHome, currentScene, currentAct, isFactoids, isVideo, isMap, selectors;
 
+		/*
+			Init our objects to be added to the array.
+			Generally, set objects to false if no data.
+		*/
 		isHome = $('.scene-in-focus')[0] == null ? true : false;
 		currentScene = isHome ? false : $('.scene-in-focus');
 		currentAct = isHome ? false : $('.act.active');
@@ -37,26 +278,33 @@ function attractLoop_inits() {
 		if (isFactoids) {
 			selectors = currentAct.find('.factoid');
 		} else if (isVideo) {
-			selectors = currentAct.find('video')[0];
+			selectors = currentAct.find('video').first()[0];
 		} else if (isMap) {
 			selectors = currentAct.find('.map-overlay-navitem');
 		}
 		
+		// Create our data object to be used in actions.
 		array = {
 			"isHome" : isHome,
+			"scene_1" : isHome == true ? $('.scene_location_1') : false,
+			"scene_2" : isHome == true ? $('.scene_location_2') : false,
+			"scene_3" : isHome == true ? $('.scene_location_3') : false,
 			"currentScene" : currentScene,
 			"currentAct" : isHome == true ? false : {
 				"act": currentAct,
 				"close" : currentAct ? currentAct.children('.act-close') : false,
 				"type" : isFactoids || isVideo || isMap || false,
 				"selectors" :  selectors
+			},
+			"durations": {
+				"long": time_duration_long,
+				"medium": time_duration_medium,
+				"short": time_duration_short
 			}
 		}
 		return array;
 	} else { return false; }
 }
-
-
 
 
 
@@ -250,7 +498,6 @@ function homeStageTransitions(){
 			.removeClass('active');
 		}
 		else if (clicked.hasClass('scene-inactive')){
-			alert("you shouldn't see this lol, go slack Nick if you see this haha");
 		}
 		else {
 			clicked.addClass('scene-active').siblings().addClass('scene-inactive').removeClass('scene-active');
@@ -348,4 +595,26 @@ function mySolutionsSessionUpdate(slug, isAddition){
 	} else {
 		console.log("Removing Item: "+slug);
 	}
+}
+
+
+
+//Super Quick Copy'n'Paste Shuffle Array off Stack Overflow: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

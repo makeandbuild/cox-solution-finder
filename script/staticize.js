@@ -9,8 +9,7 @@ var debug = require('debug')('staticize')
 	, mkdirp = require('mkdirp')
 	,	_ = require('underscore')
 
-// domain = 'http://showroom.staging.sfv2.cox.mxmcloud.com/'
-var domain = 'http://dev.coxsolutionfinder.com/'
+var domain = process.env.STATIC_URI
 	,	sitemap = domain + 'sitemap.json'
 	,	rootPath = 'public'
 

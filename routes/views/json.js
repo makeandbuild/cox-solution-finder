@@ -1,5 +1,7 @@
 'use strict'
 
+require('dotenv').load();
+
 var async = require('async')
 	,	keystone = require('keystone')
 	,	_ = require('underscore')
@@ -9,7 +11,7 @@ var Product 	= keystone.list('Product').model
 	,	Industry	= keystone.list('Industry').model
 	,	Service		= keystone.list('Service').model
 
-var domain = 'http://showroom.staging.sfv2.cox.mxmcloud.com/'
+var domain = process.env.STATIC_URI
 	, urls = []
 
 exports.productURLs = function(callback) {
@@ -21,7 +23,7 @@ exports.productURLs = function(callback) {
 		}
 
 		_.each(products, function(product){
-				urls.push(domain + 'products/' + product.slug)
+				urls.push(domain + '/products/' + product.slug)
 		})
 
 		callback()
@@ -29,7 +31,19 @@ exports.productURLs = function(callback) {
 }
 
 exports.industryURLs = function(callback) {
-	callback()
+	var q = Industry.find().where('state', 'published')
+
+	q.exec(function(err, industries){
+		if (err){
+			return callback(err)
+		}
+
+		_.each(industries, function(industry){
+				urls.push(domain + '/industries/' + industry.slug)
+		})
+
+		callback()
+	})
 }
 
 exports.serviceURLs = function(callback) {
@@ -42,9 +56,9 @@ exports.serviceURLs = function(callback) {
 			}
 
 			_.each(services, function(service){
-				urls.push(domain + 'services/' + service.slug)
+				urls.push(domain + '/services/' + service.slug)
 				_.each(service.industries, function(industry){
-					urls.push(domain + 'services/' + service.slug + '/' + industry.slug)
+					urls.push(domain + '/services/' + service.slug + '/' + industry.slug)
 				})
 			})
 			callback()
@@ -52,6 +66,7 @@ exports.serviceURLs = function(callback) {
 }
 
 exports.generalURLs = function(callback) {
+	urls.push(domain + '/')
 	callback()
 }
 

@@ -9,10 +9,9 @@ var debug = require('debug')('staticize')
 	, mkdirp = require('mkdirp')
 	,	_ = require('underscore')
 
-// domain = 'http://showroom.staging.sfv2.cox.mxmcloud.com/'
-var domain = 'http://dev.coxsolutionfinder.com/'
+var domain = process.env.STATIC_URI
 	,	sitemap = domain + 'sitemap.json'
-	,	rootPath = 'public/show'
+	,	rootPath = 'public'
 
 
 function s3Download(callback){
@@ -52,6 +51,7 @@ function writeStaticHTML(json, callback){
 				, path = parsed.pathname.split('/')
 				, name = path.pop()
 
+			debug(response.statusCode)
 			// Rejoin to string
 			path = path.join('/')
 
@@ -65,8 +65,11 @@ function writeStaticHTML(json, callback){
 					callback(err)
 				}
 
+				if (!name){
+					name = "index"
+				}
+
 				debug(name)
-				debug(body)
 
 				// Write file
 				fs.writeFile(targetPath + '/' + name + '.html', body, function(err){

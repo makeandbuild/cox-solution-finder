@@ -1,5 +1,7 @@
 'use strict'
 
+require('dotenv').load();
+
 var async = require('async')
 	,	keystone = require('keystone')
 	,	_ = require('underscore')
@@ -9,7 +11,7 @@ var Product 	= keystone.list('Product').model
 	,	Industry	= keystone.list('Industry').model
 	,	Service		= keystone.list('Service').model
 
-var domain = 'http://dev.coxsolutionfinder.com'
+var domain = process.env.STATIC_URI
 	, urls = []
 
 exports.productURLs = function(callback) {
@@ -29,7 +31,19 @@ exports.productURLs = function(callback) {
 }
 
 exports.industryURLs = function(callback) {
-	callback()
+	var q = Industry.find().where('state', 'published')
+
+	q.exec(function(err, industries){
+		if (err){
+			return callback(err)
+		}
+
+		_.each(industries, function(industry){
+				urls.push(domain + '/industries/' + industry.slug)
+		})
+
+		callback()
+	})
 }
 
 exports.serviceURLs = function(callback) {

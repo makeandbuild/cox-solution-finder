@@ -44,7 +44,7 @@ var map = {
 	},
 	map: {
 		type: Types.S3File,
-		label: 'Media Video: Preview Image',
+		label: 'Map Image',
 		note: "Upload a 3400px by 1300px image to be the map overlay image. Image should be the map, with text and overlay, with a blurred white background.",
 		s3path: 'uploads/images/map_overlays'
 	},

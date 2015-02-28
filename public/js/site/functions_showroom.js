@@ -163,7 +163,7 @@ function attractLoop_Action(data){
 		}
 		
 		// Set the counddown to the first action of the newly accessed scene.
-		timeToNextAction = time_duration_very_short;
+		timeToNextAction = time_duration_short;
 	}
 
 	// If inside an act, start custom actions for that act.

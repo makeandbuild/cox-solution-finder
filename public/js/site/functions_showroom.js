@@ -33,9 +33,10 @@ map_current = 0; 			     // Init Map order.
 video_muted = true;		         // Mute video if true.
 video_playing = false;		     // Used to check if Video is playing.
 video_ready_to_complete = false; // Used to check if Video is ok to finish on next action.
-attractLoopPause = false;         // Set to true to pause the Attract Loop.
-lastSceneUsed = false;		     // Var to hold last scene used, to prevent repeats.
-randomizedScenes = true;	     // Bool to set if scenes should be randomized.
+attractLoopPause = true;        // Set to true to pause the Attract Loop.
+sceneOrder = true;				 // Scene order for inside the isHome action in the Attract Loop
+lastSceneUsed = 'undefined';     // Var to hold last scene used, to prevent repeats.
+randomizedScenes = false;	     // Bool to set if scenes should be randomized.
 
 // The 3 Vars for Timing Events
 time_duration_very_long = 5;
@@ -118,47 +119,40 @@ function attractLoop_Action(data){
 
 		// Randomized Scenes
 		if (randomizedScenes){
-			console.log('randomized scenes');
 
-			//Randomize Scenes.
-			sceneOrder = shuffle([data.scene_1, data.scene_2, data.scene_3]);
+			if (sceneOrder) {
 
-			// First Scene, set lastScene.
-			if (!lastSceneUsed){
-				console.log('no last scene, must be starting');
-				sceneOrder[0].trigger('click');
-				lastSceneUsed = sceneOrder[0];
+				//Randomize Scenes.
+				sceneOrder = shuffle([data.scene_1, data.scene_2, data.scene_3]);
 
-			// Don't use the same scene twice.
-			} else {
-				if(sceneOrder[0] == lastSceneUsed){
-					console.log('duplicate scene');
-					sceneOrder[1].trigger('click');
-				} else {
-					console.log('non duplicate scene');
-					sceneOrder[0].trigger('click');
-					lastSceneUsed = sceneOrder[0];
-				}
+				var rand = Math.random() * 3 | 0;
+
+				// Next Scene to be used is the first item in the array.
+				var nextScene = sceneOrder[rand];
+
+				// Toggle the scene.
+				nextScene.trigger('click');
+				
 			}
 
 		// Non-Randomized Scenes
 		} else {
-			console.log('not randomized');
 			sceneOrder = [data.scene_1, data.scene_2, data.scene_3];
 
 			// First Scene, set lastScene.
-			if (!lastSceneUsed){
-				console.log('no last scene, must be starting');
+			if (lastSceneUsed == 'undefined'){
 				sceneOrder[0].trigger('click');
 				lastSceneUsed = 0;
 
 			// On to the next scene.
 			} else {
-				sceneOrder[lastSceneUsed].trigger('click');
 				lastSceneUsed++;
 				if (lastSceneUsed > 2){
 					lastSceneUsed = 0;
 				}
+				sceneOrder[lastSceneUsed].trigger('click');
+				
+				
 			}
 		}
 		
@@ -211,7 +205,7 @@ function attractLoop_Action(data){
 			console.log('LOCATION: '+data.currentAct.type);
 
 			if (video_playing) {
-				timeToNextAction = Math.floor(data.currentAct.selectors.duration - data.currentAct.selectors.currentTime)+1;
+				timeToNextAction = Math.floor(data.currentAct.selectors.duration - data.currentAct.selectors.currentTime)+3;
 				video_ready_to_complete = true;
 				video_playing = false;
 			} else if (video_ready_to_complete) {
@@ -239,11 +233,13 @@ function attractLoop_Action(data){
 
 				// Leave the scene and reset the map number.
 				data.currentAct.close.trigger('click');
+				data.currentAct.selectors.eq(0).trigger('click');
 				map_current = 0;
 				timeToNextAction = time_duration_long;
 			} else {
-				data.currentAct.selectors.eq(map_current).trigger('click');
 				map_current++;
+				data.currentAct.selectors.eq(map_current).trigger('click');
+				
 
 				// Reset countdown till the next map.
 				timeToNextAction = time_duration_short;
@@ -533,6 +529,7 @@ function homeStageTransitions(){
 		.removeClass('scene-in-focus')
 		.removeClass('active');
 		$('.my-solutions-link').removeClass('inactive');
+		$('video').first()[0].load();
 		factoidTransition($('.factoid'), 'inactive-factoid', 'remove', 0);
 		$('.stage-background-overlay').removeClass('inactive');
 		$('.stage-background-shadow').removeClass('inactive');

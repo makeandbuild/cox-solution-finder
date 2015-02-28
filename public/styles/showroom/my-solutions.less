@@ -54,7 +54,10 @@
 	.transition(0.3s);
 	.remove-filter();
 	&.active {
-		.blur(20px);
+		z-index: 0;
+		.showroom-screen({
+			.blur(20px);
+		});
 	}
 	.opensans-regular();
 	.showroom-screen({

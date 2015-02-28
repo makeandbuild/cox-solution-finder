@@ -26,6 +26,38 @@ html {
 		
 	});
 
+	/*
+		The app was built to run in chrome/safari, with the notification bar,
+		and the heights of the app were reset to adjust it. The class below sets
+		everything to run fullscreen in a container that hides the notification bar.
+	*/
+	&.fullscreen {
+		height:768px;
+		.showroom-screen({
+			height:1080px;
+		});
+		.home-menu {
+			height:353px;
+			.showroom-screen({
+				height:430px;
+			});
+		}
+		.modal, .full-height-col, .the-looking-glass, #side-navigation {
+			height:768px;
+			.showroom-screen({
+				height:1080px;
+			});
+		}
+		.product-container {
+			&.active {
+				height:748px;
+				.showroom-screen({
+					height:1080px;
+				});
+			}
+		}
+	}
+
 	h1, h2, h3 {
 		//.opensans-light();
 	}
@@ -48,8 +80,8 @@ html {
 		z-index:1;
 
 		//For Factoids Animations
-		perspective: 2500px;
-		-webkit-perspective: 2500px;
+		perspective: 2000px;
+		-webkit-perspective: 2000px;
 		.opensans-regular();
 		.showroom-screen({
 			width:1700px;
@@ -57,6 +89,8 @@ html {
 			position:absolute;
 			right: 0;
 			top: 0;
+			perspective: 2500px;
+			-webkit-perspective: 2500px;
 		});
 	}
 	.modal {
@@ -306,4 +340,24 @@ a {
 	z-index:2;
 	background-color:rgba(255,255,255,0.9);
 }
-
+.showroom .the-looking-glass.active {
+	.responsive-max(1200px,{
+		-webkit-filter: none !important;
+		-moz-filter: none !important;
+		-o-filter: none !important;
+		-ms-filter: none !important;
+		filter: none !important;
+		.the-looking-glass-overlay {
+			display:block;
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			width:100%;
+			height:100%;
+			z-index:6;
+			background-color:rgba(255,255,255,0.9);
+		}
+	});
+}

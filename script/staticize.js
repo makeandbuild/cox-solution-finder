@@ -89,7 +89,7 @@ function writeStaticHTML(json, callback){
 }
 
 async.waterfall([
-	// s3Download,
+	s3Download,
 	getSitemap,
 	writeStaticHTML
 ], function (err){

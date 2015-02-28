@@ -307,7 +307,6 @@ function attractLoop_data() {
 }
 
 
-
 //Connect Keyboard Functions
 function connectKeyboard(){
 	$('input').on('focus',function(){

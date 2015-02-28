@@ -60,7 +60,7 @@ html
 		block head
 
 	//- HTML BODY
-	body.showroom
+	body.showroom.fullscreen
 
 		//- My Solutions
 		unless section == 'connect'
@@ -116,6 +116,7 @@ html
 
 			//- The content block should contain the body of your template's content
 			.container-fluid.the-looking-glass
+				.the-looking-glass-overlay
 				block content
 
 		//- Add your modals here

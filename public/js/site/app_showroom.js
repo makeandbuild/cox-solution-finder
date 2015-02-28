@@ -10,11 +10,15 @@ function initShowroom(){
 	mySolutionsFavoritesInteraction();
 	allServices();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
+	//attractLoop_theLoop();
 	factoidGeneral();
 	if ($('.keyboard-container')[0]){
 		jsKeyboard.init("virtualKeyboard");
 		connectKeyboard();
 	}
+
+	attractLoop_Init();
+
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
 	$('.product-showroom-scroll').on('mouseover',function(){
@@ -37,12 +41,5 @@ function initShowroom(){
 		}
 	});
 
-	$('body').mousemove(function() {
-	    // clearTimeout(theAttractLoop);
-
-	    // theAttractLoop = setTimeout(function(){
-	        
-	    // }, 300000);
-
-	});
+	
 }

@@ -50,6 +50,8 @@
 	color:@white;
 	padding: 0.7em 1em;
 	z-index: 5;
+	opacity:1;
+	.transition(0.3s);
 	.remove-filter();
 	&.active {
 		.blur(20px);
@@ -61,6 +63,19 @@
 		right: 37px;
 		height: 145px;
 		width: 145px;
+		.transition(0s);
+	});
+	&.inactive {
+		opacity:0;
+		visibility: hidden;
+		.transition(0.3s);
+	}
+	.showroom-screen({
+		&.inactive {
+			opacity:1;
+			visibility: visible;
+			.transition(0s);
+		}
 	});
 }
 .my-solutions-count, .my-solutions-title {

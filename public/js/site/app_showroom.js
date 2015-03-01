@@ -9,6 +9,7 @@ function initShowroom(){
 	homeStageTransitions();
 	mySolutionsFavoritesInteraction();
 	allServices();
+	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	//attractLoop_theLoop();
 	factoidGeneral();

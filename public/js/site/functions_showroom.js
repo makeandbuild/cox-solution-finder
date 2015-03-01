@@ -593,6 +593,38 @@ function mySolutionsSessionUpdate(slug, isAddition){
 	}
 }
 
+function mySolutionsScrolling(){
+	$('.solutions-navigation-arrow.arrow-up').on('click',function(){
+		$('.solutions-navigation-arrow.arrow-down').removeClass('active');
+		var clicked = $(this);
+		var container = $(this).parent().parent().parent();
+		var amountToScroll = container.scrollTop();
+		amountToScroll = amountToScroll - 300;
+		customScrollTo(container, amountToScroll, 500);
+		setTimeout(function(){
+			if (container.scrollTop() <= 0){
+				clicked.addClass('active');
+			}
+		},500)
+	});
+	$('.solutions-navigation-arrow.arrow-down').on('click',function(){
+		$('.solutions-navigation-arrow.arrow-up').removeClass('active');
+		var clicked = $(this);
+		var container = $(this).parent().parent().parent();
+		var amountToScroll = container.scrollTop();
+		amountToScroll = amountToScroll + 300;
+		customScrollTo(container, amountToScroll, 500);
+		console.log($('.solutions-favorites-container').height() - container.height());
+		console.log(container.scrollTop());
+		setTimeout(function(){
+			if ( ( $('.solutions-favorites-container').height() - container.height() ) <= container.scrollTop() ) {
+				clicked.addClass('active');
+				console.log('what');
+			}
+		},500)
+	});
+}
+
 
 
 //Super Quick Copy'n'Paste Shuffle Array off Stack Overflow: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array

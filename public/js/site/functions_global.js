@@ -130,10 +130,8 @@ function initCheckbox(){
 	if($('body').hasClass('showroom')){
 		var waitForMe = false;
 		$('.input-checkbox-group').on('mouseover',function(){
-			console.log('mouseover');
 			if(!waitForMe){
 				waitForMe = true;
-				console.log('set to true');
 				var input = $('#'+$(this).data('checkbox-input'));
 				if ($(this).hasClass('active')){
 					$(this).removeClass('active');
@@ -144,14 +142,12 @@ function initCheckbox(){
 				}
 				setTimeout(function(){
 					waitForMe = false;
-					console.log('set to false');
 				},1000);
 			}
 		});
 	}
 
 	$('.input-checkbox-group').on('click',function(){
-		console.log('click');
 		var input = $('#'+$(this).data('checkbox-input'));
 		if ($(this).hasClass('active')){
 			$(this).removeClass('active');

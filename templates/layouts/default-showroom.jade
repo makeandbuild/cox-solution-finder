@@ -49,9 +49,6 @@ html
 		link(href="/styles/companion-site/fonts.css", rel="stylesheet")
 		link(href="/styles/showroom.min.css", rel="stylesheet")
 
-		//- This file provides the default styling for the KeystoneJS Content Editor
-		if user && user.canAccessKeystone
-			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
 		//- Include template-specific stylesheets by extending the css block
 		block css
@@ -130,17 +127,13 @@ html
 		script(src='/js/lib/jquery/jquery.cookie.js')
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 
-		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
-		//- which generate links to edit content for users who can access Keystone
-		if user && user.canAccessKeystone
-			script(src='/keystone/js/content/editor.js')
-
 		//- Site JS
 		script(src='/js/site/config.js')
 		script(src='/js/site/functions_global.js')
 		script(src='/js/site/functions_showroom.js')
 		script(src='/js/site/app_showroom.js')
 		script(src='/js/site/app_global.js')
+		script(src='/js/site/analytics.js')
 
 		//- Include template-specific javascript files by extending the js block
 		block js

@@ -6,7 +6,7 @@
 function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
-	homeStageTransitions();
+	
 	allServices();
 	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
@@ -20,7 +20,12 @@ function initShowroom(){
 	mySolutionsFavoritesInits();
 	mySolutionsFavoritesInteraction();
 
-	attractLoop_Init();
+	mySolutionsFormSubmission();
+
+	if ($('.home-stage')[0]) {
+		homeStageTransitions();
+		attractLoop_Init();
+	}
 
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.

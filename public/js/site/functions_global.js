@@ -120,7 +120,7 @@ function initCheckbox(){
 	if (checkboxSet[0]){
 		checkboxSet.each(function(){
 			var input = $('#'+$(this).data('checkbox-input'));
-			$(this).children('.input-checkbox-value').append('<span>'+input.attr('value')+'</span>');
+			$(this).children('.input-checkbox-value').append('<span>'+input.data('checkbox-value')+'</span>');
 			if (input.attr('checked')){
 				$(this).addClass('active');
 			}
@@ -265,4 +265,21 @@ function modalContent(){
 		
 		
 	});
+
+	$.fn.serializeObject = function()
+	{
+	   var o = {};
+	   var a = this.serializeArray();
+	   $.each(a, function() {
+	       if (o[this.name]) {
+	           if (!o[this.name].push) {
+	               o[this.name] = [o[this.name]];
+	           }
+	           o[this.name].push(this.value || '');
+	       } else {
+	           o[this.name] = this.value || '';
+	       }
+	   });
+	   return o;
+	};
 }

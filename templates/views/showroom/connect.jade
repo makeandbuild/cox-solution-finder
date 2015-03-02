@@ -109,8 +109,7 @@ block content
 						h3.connect-thanks Thanks for getting in touch!
 					else
 						p Tell us about yourself
-						form(method='post')
-							input(type='hidden', name='action', value='connect')
+						form#showroom-form
 
 							.form-group(class=validationErrors.name ? 'has-error' : null)
 								label.sr-only Full Name
@@ -149,7 +148,7 @@ block content
 									.input-checkbox
 										img(src="/icons/png/icon-check.png")
 									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
+								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Customer")
 							
 							.form-actions
 								button(type='submit').btn.btn-primary SUBMIT

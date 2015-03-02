@@ -678,30 +678,28 @@ function mySolutionsFormSubmission(){
 		formData = $('#showroom-form').serializeObject();
 		if ($.cookie(solutions_cookieName) != undefined){
 			currentData = JSON.parse($.cookie(solutions_cookieName));
+			formData.industries = currentData.industries.toString();
+			formData.services = currentData.services.toString();
+			formData.products = currentData.products.toString();
+			formData.favorites_count = currentData.count;
 		} else {
 			currentData = false;
 		}
-		
-		formData.industries = currentData.industries.toString();
-		formData.services = currentData.services.toString();
-		formData.products = currentData.products.toString();
-		formData.favorites_count = currentData.count;
+		formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
 
-		console.log(formData);
-		console.log(currentData);
-		
+		console.log(formData);		
 
-		// var data = {
-		// 	type: 'enquiry',
-		// 	this.
-		// };
+		var data = {
+			type: 'enquiry',
+			formData: formData
+		};
 
-		// $.ajax({
-		//     type: "POST",
-		//     url: "/stats/record.json",
-		//     contentType: 'application/json',
-		//     data: JSON.stringify(data)
-		// });
+		$.ajax({
+		    type: "POST",
+		    url: "/stats/record.json",
+		    contentType: 'application/json',
+		    data: JSON.stringify(data)
+		});
 	});
 }
 

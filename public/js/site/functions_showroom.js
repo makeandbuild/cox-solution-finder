@@ -615,6 +615,18 @@ function mySolutionsFavoritesInits(){
 // My Solutions Functions
 function mySolutionsFavoritesInteraction(){
 
+	$('.solutions-favorite-close').on('click',function(e){
+		e.preventDefault();
+		var parent;
+		if ($(this).parent().hasClass('solutions-product-item')){
+			parent = $(this).parent().parent();
+		} else {
+			parent = $(this).parent();
+		}
+		mySolutionsSessionUpdate(parent.data('solutions-slug'), parent.data('solutions-type'), false);
+		parent.removeClass('active');
+	})
+
 	$('.solutions-clear_all, .navigation-restart').on('click',function(){
 		$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
 		if ($('.connect-page-my-solutions')[0]) {

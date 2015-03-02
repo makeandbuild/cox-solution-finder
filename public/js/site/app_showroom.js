@@ -7,7 +7,6 @@ function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
 	homeStageTransitions();
-	mySolutionsFavoritesInteraction();
 	allServices();
 	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
@@ -17,6 +16,9 @@ function initShowroom(){
 		jsKeyboard.init("virtualKeyboard");
 		connectKeyboard();
 	}
+
+	mySolutionsFavoritesInits();
+	mySolutionsFavoritesInteraction();
 
 	attractLoop_Init();
 

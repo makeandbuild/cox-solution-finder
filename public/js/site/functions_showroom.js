@@ -587,12 +587,19 @@ function mySolutionsFavoritesInits(){
 				}
 				$('.solutions-services-title').addClass('active');
 			}
+			if(currentData.partners.length) {
+				for (var i = 0; i < currentData.partners.length; i++) {
+					$('.solutions-partners').children().filter("[data-solutions-slug='"+currentData.partners[i]+"']").addClass('active');
+				}
+				$('.solutions-partners-title').addClass('active');
+			}
 			if(currentData.products.length) {
 				for (var i = 0; i < currentData.products.length; i++) {
 					$('.solutions-products').children().filter("[data-solutions-slug='"+currentData.products[i]+"']").addClass('active');
 				}
 				$('.solutions-products-title').addClass('active');
 			}
+			
 
 			
 		}
@@ -672,7 +679,7 @@ function mySolutionsSessionUpdate(slug, type, isAddition){
 		currentData,
 		currentType;
 
-	default_json_data = {'industries': [],'services': [],'products': [],'count': 0};
+	default_json_data = {'industries': [],'services': [],'products': [],'partners': [],'count': 0};
 	default_json_data = JSON.stringify(default_json_data);
 
 	/*
@@ -715,6 +722,7 @@ function mySolutionsFormSubmission(){
 			formData.industries = currentData.industries.toString();
 			formData.services = currentData.services.toString();
 			formData.products = currentData.products.toString();
+			formData.partners = currentData.partners.toString();
 			formData.favorites_count = currentData.count;
 		} else {
 			currentData = false;

@@ -35,6 +35,7 @@ Enquiry.add({
 	industries: { type: String },
 	services: { type: String },
 	products: { type: String },
+	partners: { type: String },
 	favorites_count: { type: String }
 });
 

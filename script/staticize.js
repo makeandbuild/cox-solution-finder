@@ -11,7 +11,7 @@ var debug = require('debug')('staticize')
 
 var domain = process.env.STATIC_URI
 	,	sitemap = domain + 'sitemap.json'
-	,	rootPath = 'tmp/public'
+	,	rootPath = 'public'
 
 
 function s3Download(callback){
@@ -23,10 +23,11 @@ function s3Download(callback){
   	},
 	})
 
+	var bucket = url.parse(process.env.S3_BUCKET)
 	var eventer = client.downloadDir({
 									localDir: rootPath + '/s3/',
 									s3Params: {
-										Bucket: process.env.S3_BUCKET,
+										Bucket: bucket.host,
 										Prefix: 'uploads'
 									}
 								})

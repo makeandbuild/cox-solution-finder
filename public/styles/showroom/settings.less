@@ -1,0 +1,61 @@
+.settings-page {
+	.header-space-settings {
+		height: 55px;
+		.showroom-screen({
+			height: 75px;
+		});
+	}
+	&.settings-page-selection {
+		background-color:@xlightGray;
+		.showroom-screen({
+			background-color:@xsomewhatlightGray;
+		});
+	}
+	&.settings-page-options {
+		display:block;
+		.showroom-screen({
+			display:none;
+		});
+		.header-space-settings {
+			height: 150px;
+		}
+	}
+	.settings-title {
+		.industry-title();
+	}
+	.settings-section-title {
+
+	}
+	.settings-section-title {
+		color:@darkBlue;
+		text-transform: uppercase;
+		font-size:1.3em;
+		display:block;
+		.opensans-regular();
+		.showroom-screen({
+			font-size:1.5em;
+			margin-bottom: 0.7em;
+		});
+		&.transfer-success {
+			color:@lightBlue;
+			display:none;
+			&.active {
+				display:block;
+			}
+		}
+		&.transfer-failure {
+			color:red;
+			display:none;
+			&.active {
+				display:block;
+			}
+		}
+	}
+	.settings-section-content {
+		margin-bottom:1em;
+	}
+	button {
+		padding:0.5em 1.5em;
+		font-size: 1.25em;
+	}
+}

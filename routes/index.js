@@ -42,10 +42,10 @@ exports = module.exports = function(app) {
 	app.all('/', routes.views.index);
 	app.all('/connect', routes.views.connect);
 
-	//app.get('/industries/', routes.views.industries);
+	app.all('/settings', routes.views.settings);
+
 	app.get('/industries/:industry', routes.views.industry);
 
-	//app.get('/services/', routes.views.services);
 	app.get('/services/:service', routes.views.service);
 
 	app.get('/services/:service/:industry', routes.views.service_by_industry);

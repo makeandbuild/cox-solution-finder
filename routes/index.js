@@ -39,7 +39,7 @@ exports = module.exports = function(app) {
 	});
 
 	// Views
-	app.all('/', middleware.logPageView, routes.views.index);
+	app.all('/', routes.views.index);
 	app.all('/connect', routes.views.connect);
 
 	//app.get('/industries/', routes.views.industries);

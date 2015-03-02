@@ -45,13 +45,13 @@ map_current = 0; 			     // Init Map order.
 video_muted = true;		         // Mute video if true.
 video_playing = false;		     // Used to check if Video is playing.
 video_ready_to_complete = false; // Used to check if Video is ok to finish on next action.
-attractLoopPause = true;        // Set to true to pause the Attract Loop.
+attractLoopPause = false;        // Set to true to pause the Attract Loop.
 sceneOrder = true;				 // Scene order for inside the isHome action in the Attract Loop
 lastSceneUsed = undefined;     // Var to hold last scene used, to prevent repeats.
 randomizedScenes = false;	     // Bool to set if scenes should be randomized.
 
 // The 3 Vars for Timing Events
-time_duration_very_long = 5;
+time_duration_very_long = 60;
 time_duration_long = 10;
 time_duration_medium = 10;
 time_duration_short = 5;

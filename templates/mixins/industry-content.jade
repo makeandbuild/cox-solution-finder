@@ -1,6 +1,6 @@
 mixin industryContent(industry, isShowroom)
 	if isShowroom
-		h1.industry-title.can-favorite.solution-page-title(data-solutions-slug=industry.slug)= industry.title
+		h1.industry-title.can-favorite.solution-page-title(data-solutions-slug=industry.slug data-solutions-type='industries')= industry.title
 			.coxicon.coxicon_favorites_star_after
 	else
 		h1.industry-title= industry.title

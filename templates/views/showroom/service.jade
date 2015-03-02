@@ -20,7 +20,8 @@ mixin industryDropdown(options, industry, service)
 mixin product(product)
 	.row
 		.col-xs-10.col-xs-offset-1.col-lg-12.col-lg-offset-0
-			h2.product-title= product.title
+			h2.product-title.can-favorite.solution-page-title(data-solutions-slug=product.slug data-solutions-type='products')= product.title
+				.coxicon.coxicon_favorites_star_after
 		.col-xs-10.col-xs-offset-1
 			
 			if product.video.video_choice
@@ -86,7 +87,7 @@ block content
 				.row.header-space
 				.row
 					.col-xs-10.col-lg-8.col-xs-offset-1.content-container
-						h1.service-title.can-favorite.solution-page-title(data-solutions-slug=data.service.slug)= data.service.title
+						h1.service-title.can-favorite.solution-page-title(data-solutions-slug=data.service.slug data-solutions-type='services')= data.service.title
 							.coxicon.coxicon_favorites_star_after
 						section
 							- var current = 0

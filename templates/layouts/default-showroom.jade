@@ -60,7 +60,7 @@ html
 	body.showroom
 
 		//- My Solutions
-		unless section == 'connect'
+		unless section == 'connect' || section == 'settings'
 			a(href="/connect").my-solutions-link
 				span.my-solutions-count
 					.inline-star.coxicon.coxicon_favorites_star
@@ -85,6 +85,9 @@ html
 						li(class=(section == link.key ? 'active' : null))
 							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key onclick= link.key == 'services' ? "alterNavigationModalLinks('services', '', true);" : "")= link.label
 								.arrow-right
+					if link.type == 'settings'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item.settings-item(href=link.href)= link.label
 			a.navigation-item.navigation-restart(href='/') Start Over
 
 		button.navigation-toggle

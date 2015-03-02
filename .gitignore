@@ -34,7 +34,10 @@ node_modules
 /public/uploads/*
 
 # Ignore Static Showroom
-public/showroom.tar*
+/public/index.html
+/public/s3
+/public/products
+/public/services
 
 /log/*
 /tmp/*

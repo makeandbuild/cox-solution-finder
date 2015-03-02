@@ -4,6 +4,18 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+// Showroom Cookie Inits
+
+var solutions_cookieName,
+	solutions_cookieExp,
+	solutions_cookiePath;
+
+solutions_cookieName = 'csf_showroom_favorites';
+solutions_cookieExp = 1;
+solutions_cookiePath = '/';
+
+
+
 
 // The below inits are used in the Attract Loop Functions
 
@@ -536,6 +548,36 @@ function homeStageTransitions(){
 	});
 }
 
+function mySolutionsFavoritesInits(){
+
+	var countObject,
+	currentData,
+	canFavoriteSet;
+
+	if ($.cookie(solutions_cookieName) != 'undefined'){
+
+		console.log($.cookie(solutions_cookieName));
+
+		countObject = $('.my-solutions-count-number');
+		currentData = JSON.parse($.cookie(solutions_cookieName));
+		canFavorite = $('.can-favorite');
+
+		canFavorite.each(function(i,e){
+			var slug = $(this).data('solutions-slug');
+			var type = $(this).data('solutions-type');
+			if ( currentData[type].indexOf(slug) != -1 ) {
+				$(this).find('.coxicon').addClass('active');
+			} 
+		});
+		if (currentData.count > 0) {
+			countObject.html(currentData.count);
+			countObject.siblings('.coxicon').addClass('active');
+		}
+
+	} else {
+		console.log('No Cookie');
+	}
+}
 
 // My Solutions Functions
 function mySolutionsFavoritesInteraction(){
@@ -546,7 +588,8 @@ function mySolutionsFavoritesInteraction(){
 		var isAddition = false;
 		var countObject = $('.my-solutions-count-number');
 		var currentCount = parseInt(countObject.html());
-		var solutionsItem = $(this).data('solutions-slug');
+		var slug = $(this).data('solutions-slug');
+		var type = $(this).data('solutions-type');
 
 		// Which type of Item was clicked?
 		if($(this).hasClass('solution-page-title')){
@@ -580,17 +623,88 @@ function mySolutionsFavoritesInteraction(){
 		}
 
 		// Update the Session
-		mySolutionsSessionUpdate(solutionsItem, isAddition);
+		mySolutionsSessionUpdate(slug, type, isAddition);
 
 	});
 }
 
-function mySolutionsSessionUpdate(slug, isAddition){
+/*
+	This function, which is called on the front end when
+	a favorite is clicked, alters or creates the cookie.
+*/
+function mySolutionsSessionUpdate(slug, type, isAddition){
+	var default_json_data,
+		currentData,
+		currentType;
+
+	default_json_data = {'industries': [],'services': [],'products': [],'count': 0};
+	default_json_data = JSON.stringify(default_json_data);
+
+	/*
+		Cookie Use
+		$.cookie(solutions_cookieName, default_json_string, { expires: solutions_cookieExp, path: solutions_cookiePath });
+		$.cookie('csf_showroom_favorites', '{"industries":[],"services":[],"products":[], "count":0}', { expires: 1, path: '/' });
+	*/
+	
+
+	if ($.cookie(solutions_cookieName) == 'undefined'){
+		$.cookie(solutions_cookieName, default_json_string, { expires: solutions_cookieExp, path: solutions_cookiePath });
+	} else { console.log($.cookie(solutions_cookieName)); }
+	currentData = JSON.parse($.cookie(solutions_cookieName));
+
 	if (isAddition){
-		console.log("Adding Item: "+slug);
+		if ( currentData[type].indexOf(slug) == -1 ){
+			currentData[type] == false ? currentData[type] = [slug] : currentData[type].push(slug);
+			currentData.count++;
+			$.cookie(solutions_cookieName, JSON.stringify(currentData), { expires: solutions_cookieExp, path: solutions_cookiePath });
+		} else {
+			console.log('        Duplicate Item Detected: '+slug);
+		}
 	} else {
-		console.log("Removing Item: "+slug);
+		console.log("Removing Item: "+slug + " in " + type);
+		if ( currentData[type].indexOf(slug) == -1 ){
+			console.log('        Item NOT Detected: '+slug);
+		} else {
+			currentData[type].splice(currentData[type].indexOf(slug), 1);
+			currentData.count--;
+			$.cookie(solutions_cookieName, JSON.stringify(currentData), { expires: solutions_cookieExp, path: solutions_cookiePath });
+		}
 	}
+
+	console.log(currentData.count);
+}
+
+
+
+
+function mySolutionsScrolling(){
+	$('.solutions-navigation-arrow.arrow-up').on('click',function(){
+		$('.solutions-navigation-arrow.arrow-down').removeClass('active');
+		var clicked = $(this);
+		var container = $(this).parent().parent().parent();
+		var amountToScroll = container.scrollTop();
+		amountToScroll = amountToScroll - 300;
+		customScrollTo(container, amountToScroll, 500);
+		setTimeout(function(){
+			if (container.scrollTop() <= 0){
+				clicked.addClass('active');
+			}
+		},500)
+	});
+	$('.solutions-navigation-arrow.arrow-down').on('click',function(){
+		$('.solutions-navigation-arrow.arrow-up').removeClass('active');
+		var clicked = $(this);
+		var container = $(this).parent().parent().parent();
+		var amountToScroll = container.scrollTop();
+		amountToScroll = amountToScroll + 300;
+		customScrollTo(container, amountToScroll, 500);
+		setTimeout(function(){
+			if ( ( $('.solutions-favorites-container').height() - container.height() ) <= container.scrollTop() ) {
+				clicked.addClass('active');
+				console.log('what');
+			}
+		},500)
+	});
 }
 
 

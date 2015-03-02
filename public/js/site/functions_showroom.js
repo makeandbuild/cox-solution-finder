@@ -47,7 +47,7 @@ video_playing = false;		     // Used to check if Video is playing.
 video_ready_to_complete = false; // Used to check if Video is ok to finish on next action.
 attractLoopPause = true;        // Set to true to pause the Attract Loop.
 sceneOrder = true;				 // Scene order for inside the isHome action in the Attract Loop
-lastSceneUsed = 'undefined';     // Var to hold last scene used, to prevent repeats.
+lastSceneUsed = undefined;     // Var to hold last scene used, to prevent repeats.
 randomizedScenes = false;	     // Bool to set if scenes should be randomized.
 
 // The 3 Vars for Timing Events
@@ -152,7 +152,7 @@ function attractLoop_Action(data){
 			sceneOrder = [data.scene_1, data.scene_2, data.scene_3];
 
 			// First Scene, set lastScene.
-			if (lastSceneUsed == 'undefined'){
+			if (lastSceneUsed == undefined){
 				sceneOrder[0].trigger('click');
 				lastSceneUsed = 0;
 
@@ -554,9 +554,8 @@ function mySolutionsFavoritesInits(){
 	currentData,
 	canFavoriteSet;
 
-	if ($.cookie(solutions_cookieName) != 'undefined'){
-
-		console.log($.cookie(solutions_cookieName));
+	if ($.cookie(solutions_cookieName) != undefined){
+		console.log('debug');
 
 		countObject = $('.my-solutions-count-number');
 		currentData = JSON.parse($.cookie(solutions_cookieName));
@@ -574,13 +573,15 @@ function mySolutionsFavoritesInits(){
 			countObject.siblings('.coxicon').addClass('active');
 		}
 
-	} else {
-		console.log('No Cookie');
 	}
 }
 
 // My Solutions Functions
 function mySolutionsFavoritesInteraction(){
+
+	// $('.solutions-clear_all, .navigation-restart').on('click',function(){
+	// 	$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
+	// });
 
 	$('.can-favorite').on('click',function(e){
 
@@ -647,9 +648,9 @@ function mySolutionsSessionUpdate(slug, type, isAddition){
 	*/
 	
 
-	if ($.cookie(solutions_cookieName) == 'undefined'){
-		$.cookie(solutions_cookieName, default_json_string, { expires: solutions_cookieExp, path: solutions_cookiePath });
-	} else { console.log($.cookie(solutions_cookieName)); }
+	if ($.cookie(solutions_cookieName) == undefined){
+		$.cookie(solutions_cookieName, default_json_data, { expires: solutions_cookieExp, path: solutions_cookiePath });
+	}
 	currentData = JSON.parse($.cookie(solutions_cookieName));
 
 	if (isAddition){
@@ -657,23 +658,52 @@ function mySolutionsSessionUpdate(slug, type, isAddition){
 			currentData[type] == false ? currentData[type] = [slug] : currentData[type].push(slug);
 			currentData.count++;
 			$.cookie(solutions_cookieName, JSON.stringify(currentData), { expires: solutions_cookieExp, path: solutions_cookiePath });
-		} else {
-			console.log('        Duplicate Item Detected: '+slug);
 		}
 	} else {
-		console.log("Removing Item: "+slug + " in " + type);
-		if ( currentData[type].indexOf(slug) == -1 ){
-			console.log('        Item NOT Detected: '+slug);
-		} else {
+		if ( currentData[type].indexOf(slug) != -1 ) {
 			currentData[type].splice(currentData[type].indexOf(slug), 1);
 			currentData.count--;
 			$.cookie(solutions_cookieName, JSON.stringify(currentData), { expires: solutions_cookieExp, path: solutions_cookiePath });
 		}
 	}
-
-	console.log(currentData.count);
 }
 
+
+function mySolutionsFormSubmission(){
+	$('#showroom-form').on('submit',function(e){
+		e.preventDefault();
+
+		var currentData, formData;
+
+		formData = $('#showroom-form').serializeObject();
+		if ($.cookie(solutions_cookieName) != undefined){
+			currentData = JSON.parse($.cookie(solutions_cookieName));
+		} else {
+			currentData = false;
+		}
+		
+		formData.industries = currentData.industries.toString();
+		formData.services = currentData.services.toString();
+		formData.products = currentData.products.toString();
+		formData.favorites_count = currentData.count;
+
+		console.log(formData);
+		console.log(currentData);
+		
+
+		// var data = {
+		// 	type: 'enquiry',
+		// 	this.
+		// };
+
+		// $.ajax({
+		//     type: "POST",
+		//     url: "/stats/record.json",
+		//     contentType: 'application/json',
+		//     data: JSON.stringify(data)
+		// });
+	});
+}
 
 
 
@@ -701,7 +731,6 @@ function mySolutionsScrolling(){
 		setTimeout(function(){
 			if ( ( $('.solutions-favorites-container').height() - container.height() ) <= container.scrollTop() ) {
 				clicked.addClass('active');
-				console.log('what');
 			}
 		},500)
 	});
@@ -728,3 +757,5 @@ function shuffle(array) {
 
   return array;
 }
+
+

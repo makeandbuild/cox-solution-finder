@@ -555,7 +555,6 @@ function mySolutionsFavoritesInits(){
 	canFavoriteSet;
 
 	if ($.cookie(solutions_cookieName) != undefined){
-		console.log('debug');
 
 		countObject = $('.my-solutions-count-number');
 		currentData = JSON.parse($.cookie(solutions_cookieName));
@@ -571,17 +570,52 @@ function mySolutionsFavoritesInits(){
 		if (currentData.count > 0) {
 			countObject.html(currentData.count);
 			countObject.siblings('.coxicon').addClass('active');
+		} else {
+			$('.solutions-no-solutions').addClass('active');
 		}
 
+		if ($('.connect-page-my-solutions')[0]) {
+			if(currentData.industries.length) {
+				for (var i = 0; i < currentData.industries.length; i++) {
+					$('.solutions-industries').children().filter("[data-solutions-slug='"+currentData.industries[i]+"']").addClass('active');
+				}
+				$('.solutions-industries-title').addClass('active');
+			}
+			if(currentData.services.length) {
+				for (var i = 0; i < currentData.services.length; i++) {
+					$('.solutions-services').children().filter("[data-solutions-slug='"+currentData.services[i]+"']").addClass('active');
+				}
+				$('.solutions-services-title').addClass('active');
+			}
+			if(currentData.products.length) {
+				for (var i = 0; i < currentData.products.length; i++) {
+					$('.solutions-products').children().filter("[data-solutions-slug='"+currentData.products[i]+"']").addClass('active');
+				}
+				$('.solutions-products-title').addClass('active');
+			}
+
+			
+		}
+
+	} else {
+		if ($('.connect-page-my-solutions')[0]) {
+			$('.solutions-no-solutions').addClass('active');
+		}
 	}
+	
 }
 
 // My Solutions Functions
 function mySolutionsFavoritesInteraction(){
 
-	// $('.solutions-clear_all, .navigation-restart').on('click',function(){
-	// 	$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
-	// });
+	$('.solutions-clear_all, .navigation-restart').on('click',function(){
+		$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
+		if ($('.connect-page-my-solutions')[0]) {
+			$('.solutions-container').children().removeClass('active');
+			$('.solutions-section-title').removeClass('active');
+			$('.solutions-no-solutions').addClass('active');
+		}
+	});
 
 	$('.can-favorite').on('click',function(e){
 
@@ -685,6 +719,8 @@ function mySolutionsFormSubmission(){
 		} else {
 			currentData = false;
 		}
+		formData.is_showroom = true;
+		formData.is_notified = false;
 		formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
 
 		console.log(formData);		
@@ -706,7 +742,7 @@ function mySolutionsFormSubmission(){
 
 
 function mySolutionsScrolling(){
-	$('.solutions-navigation-arrow.arrow-up').on('click',function(){
+	$('.solutions-navigation-arrow.arrow-up').on('mouseover',function(){
 		$('.solutions-navigation-arrow.arrow-down').removeClass('active');
 		var clicked = $(this);
 		var container = $(this).parent().parent().parent();
@@ -719,7 +755,7 @@ function mySolutionsScrolling(){
 			}
 		},500)
 	});
-	$('.solutions-navigation-arrow.arrow-down').on('click',function(){
+	$('.solutions-navigation-arrow.arrow-down').on('mouseover',function(){
 		$('.solutions-navigation-arrow.arrow-up').removeClass('active');
 		var clicked = $(this);
 		var container = $(this).parent().parent().parent();

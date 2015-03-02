@@ -48,6 +48,13 @@ exports = module.exports = function(req, res) {
 
 	});
 
+	if (process.env.SOLUTION_MODE == 'showroom') {
+		  var productQuery = keystone.list('Product').model.find().where('state', 'published');
+		  productQuery.exec(function(err, results) {
+		  	locals.global_data.products = results;
+		  });
+	}
+
 
 
 	

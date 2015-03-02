@@ -42,6 +42,7 @@ Industry.add({
 	attribute_two: { type: String, label: "Industry Attribute Two" },
 	attribute_three: { type: String, label: "Industry Attribute Three" },
 	content: { type: Types.Textarea, height: 400, required: true, initial: false, label: "Industry Content" },
+	description: { type: String, required: true, initial: false, label: "Industry Description", note: "Text will appear on other pages linking this industry, and not the industry page itself." },
 	svg_icon: {
 		type: Types.Select,
 		label: "Icon",

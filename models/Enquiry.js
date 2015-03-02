@@ -32,6 +32,10 @@ Enquiry.add({
 	is_notified: { type: Boolean, default: false, label: "Is Notified?" },
 	is_showroom: { type: Boolean, default: false, label: "Created with Showroom?" },
 	createdAt: { type: Date, default: Date.now },
+	industries: { type: String },
+	services: { type: String },
+	products: { type: String },
+	favorites_count: { type: String }
 });
 
 emitter.on('connectionAvailable', function(data) {

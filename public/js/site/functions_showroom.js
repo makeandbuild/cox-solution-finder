@@ -8,11 +8,17 @@
 
 var solutions_cookieName,
 	solutions_cookieExp,
-	solutions_cookiePath;
+	solutions_cookiePath,
+	settings_cookieName,
+	settings_cookieExp,
+	settings_cookiePath;
 
 solutions_cookieName = 'csf_showroom_favorites';
 solutions_cookieExp = 1;
 solutions_cookiePath = '/';
+settings_cookieName = 'csf_showroom_settings';
+settings_cookieExp = 1;
+settings_cookiePath = '/';
 
 
 
@@ -743,8 +749,6 @@ function mySolutionsFormSubmission(){
 		formData.is_notified = false;
 		formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
 
-		console.log(formData);		
-
 		var data = {
 			type: 'enquiry',
 			formData: formData
@@ -755,6 +759,8 @@ function mySolutionsFormSubmission(){
 		    url: "/stats/record.json",
 		    contentType: 'application/json',
 		    data: JSON.stringify(data)
+		}).fail(function() {
+		    console.log( "error" );
 		});
 	});
 }
@@ -788,6 +794,124 @@ function mySolutionsScrolling(){
 			}
 		},500)
 	});
+}
+
+function settingsActions(){
+	var currentData,
+		currentType,
+		slug;
+
+	$('.settings-filter-item-container').on('click',function(){
+		$(this).addClass('active').siblings().removeClass('active');
+		slug = $(this).data('settings-filter-slug');
+		type = $(this).data('settings-filter-type');
+
+		if ($.cookie(settings_cookieName) != undefined){
+			currentData = JSON.parse($.cookie(settings_cookieName));
+		} else {
+			currentData = {
+				'industry': '',
+				'partner': ''
+			}
+			
+		}
+		if(type = 'industry'){
+			currentData.industry = slug;
+		} else if (type = 'partner'){
+			currentData.partner = slug;
+		}		
+
+		$.cookie(settings_cookieName, JSON.stringify(currentData), { expires: settings_cookieExp, path: settings_cookiePath });
+
+		var data = {
+			type: 'settings',
+			formData: currentData
+		};
+
+		$.ajax({
+		    type: "POST",
+		    url: "/stats/settings.json",
+		    contentType: 'application/json',
+
+		    data: JSON.stringify(data)
+		}).fail(function() {
+		    console.log( "error" );
+		});
+
+	});
+
+}
+
+function settingsClearIt(){
+	$.removeCookie('csf_showroom_settings');
+	var currentData = {
+		'industry': '',
+		'partner': ''
+	}
+	var data = {
+		type: 'settings',
+		formData: currentData
+	};
+
+	$.ajax({
+	    type: "POST",
+	    url: "/stats/settings.json",
+	    contentType: 'application/json',
+
+	    data: JSON.stringify(data)
+	}).fail(function() {
+	    console.log( "error" );
+	});
+}
+
+function settingsPageInits(){
+	var currentData;
+
+	/*
+		Cookie Use
+		$.cookie(settings_cookieName, default_json_data, { expires: settings_cookieExp, path: settings_cookiePath });
+		$.cookie('csf_showroom_settings', "{'settings': ''}", { expires: 1, path: '/' });
+	*/
+
+	if ($.cookie(settings_cookieName) != undefined){
+		currentData = JSON.parse($.cookie(settings_cookieName));
+		$('.settings-filter-industry').filter("[data-settings-filter-slug='"+currentData.industry+"']").addClass('active');
+		$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
+	}
+}
+
+function settingsInits(){
+	var currentData, location;
+
+	location = "/stats/settings.json";
+
+	$.get( location, function( data ) {
+	  	currentData = JSON.parse(data.data);
+	}).fail(function() {
+	    console.log( "error" );
+	}).done(function() {
+		if (currentData) {
+			if (currentData.formData.industry != false && currentData.formData.industry != "" && currentData.formData.industry != undefined) {
+				console.log('settings exists, make the cookie');
+				$.cookie(settings_cookieName, JSON.stringify(currentData.formData), { expires: settings_cookieExp, path: settings_cookiePath });
+				$.cookie(settings_cookieName);
+			} else {
+				console.log('no settings set');
+				if ($('.settings-page')[0] == undefined || $('.settings-page')[0] == false){
+					window.location.replace("/settings");
+				}
+				
+			}
+		}
+	});
+
+
+	
+
+
+
+
+
 }
 
 

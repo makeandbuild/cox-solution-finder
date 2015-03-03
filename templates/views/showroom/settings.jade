@@ -4,17 +4,30 @@ extends ../../layouts/default-showroom
 block js
 
 block content
-	.col-xs-8.col-lg-12.full-height-col.settings-page.settings-page-selection
+	.col-xs-8.col-lg-6.full-height-col.settings-page.settings-page-selection
 		.row.header-space-settings
 		.row
-			.col-xs-11.col-xs-offset-1
-				h1.settings-title Settings				
+			.col-xs-10.col-xs-offset-1
+				h1.settings-title Settings		
+				.settings-filter-container
+					.col-xs-6.col-lg-4.settings-filter-title-container
+						article.settings-filter-title
+							span INDUSTRIES
+					each item, index in data.industries
+						.col-xs-6.col-lg-4.settings-filter-item-container.settings-filter-industry(data-settings-filter-slug=item.slug data-settings-filter-type='industry')
+							article.settings-filter-item
+								.settings-filter-icon.coxicon(class="coxicon_"+item.svg_icon)
+								span= item.title
+					.col-xs-6.col-lg-4.settings-filter-item-container.settings-filter-industry(data-settings-filter-slug='default' data-settings-filter-type='industry')
+						article.settings-filter-item
+							span Default
+							
 
-	.col-xs-4.hidden-md.hidden-lg.full-height-col.settings-page.settings-page-options
-		span.background-shadow.from-right
+	.col-xs-4.col-lg-6.full-height-col.settings-page.settings-page-options
+		span.background-shadow.from-right.hidden-md.hidden-lg
 		.row.header-space-settings
 		.row
-			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
+			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.settings-page-options-content
 				h3.settings-section-title Transfer Favorites
 				p.settings-section-content Transfer captured touchscreen favorites to this tablet.
 				button.btn.btn-primary#settings-transfer-start(onclick="") START

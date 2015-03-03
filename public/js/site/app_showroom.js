@@ -27,6 +27,14 @@ function initShowroom(){
 		attractLoop_Init();
 	}
 
+	settingsActions();
+	settingsInits();
+	settingsPageInits();
+
+	$( document ).ajaxSuccess(function( event, xhr, settings ) {
+	    console.log(xhr.responseText);
+	});
+
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
 	$('.product-showroom-scroll').on('mouseover',function(){

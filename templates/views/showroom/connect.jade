@@ -30,7 +30,7 @@ block content
 						.solutions-container.full-width-rows.solutions-industries
 
 							each item in global_data.industries
-								a(href="/industries/"+item.slug).solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="industries")
+								a(href="/industries/"+item.slug data-solutions-slug=item.slug data-solutions-type="industries").solutions-favorited-item
 									.solutions-favorite-close
 										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
@@ -43,7 +43,7 @@ block content
 						h3.solutions-section-title.solutions-services-title Services
 						.solutions-container.full-width-rows.solutions-services
 							each item in global_data.services
-								a(href="/services/"+item.slug).solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="services")
+								a(href="/services/"+item.slug data-solutions-slug=item.slug data-solutions-type="services").solutions-favorited-item
 									.solutions-favorite-close
 										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
@@ -68,16 +68,16 @@ block content
 			.col-xs-10.col-xs-offset-1
 				.two-button-container
 					button.btn.btn-primary.btn-black.solutions-clear_all CLEAR ALL
-					a(href=linkURI("/").btn.btn-primary.btn-black.solutions-continue_browsing CONTINUE BROWSING
+					a(href=linkURI("/")).btn.btn-primary.btn-black.solutions-continue_browsing CONTINUE BROWSING
 				
 
 	.col-xs-6.full-height-col.connect-page-form-col
 		.row
 			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
 				.form-container
-					if enquirySubmitted
+					.connect-thanks-container
 						h3.connect-thanks Thanks for getting in touch!
-					else
+					.connect-form-ready
 						p Tell us about yourself
 						form#showroom-form
 
@@ -123,7 +123,7 @@ block content
 							.form-actions
 								button(type='submit').btn.btn-primary SUBMIT
 
-		if !enquirySubmitted
+		.connect-form-ready
 			.visible-lg
 				.row
 					.col-xs-12

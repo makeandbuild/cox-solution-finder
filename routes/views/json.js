@@ -1,7 +1,3 @@
-'use strict'
-
-require('dotenv').load();
-
 var async = require('async')
 	,	keystone = require('keystone')
 	,	_ = require('underscore')

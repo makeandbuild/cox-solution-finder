@@ -761,6 +761,15 @@ function mySolutionsFormSubmission(){
 		    data: JSON.stringify(data)
 		}).fail(function() {
 		    console.log( "error" );
+		}).success(function() {
+			$('.connect-thanks-container').addClass('active');
+			$('.connect-form-ready').addClass('inactive');
+			$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
+			if ($('.connect-page-my-solutions')[0]) {
+				$('.solutions-container').children().removeClass('active');
+				$('.solutions-section-title').removeClass('active');
+				$('.solutions-no-solutions').addClass('active');
+			}
 		});
 	});
 }

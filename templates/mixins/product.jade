@@ -6,16 +6,16 @@ mixin product(product)
 			if product.video.background.url
 				if product.video.video_choice
 					if product.video.video.url
-						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container					
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container
 							img(src="/icons/png/icon-play.png").product-play-icon
 							if product.video.title_overlay
 								h2.product-video-title= product.title
 					else
-						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "")
 							if product.video.title_overlay
 								h2.product-video-title= product.title
 				else
-					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "")
 						if product.video.title_overlay
 							h2.product-video-title= product.title
 			section.product-item-container

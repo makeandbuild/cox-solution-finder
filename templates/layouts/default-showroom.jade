@@ -73,14 +73,14 @@ html
 		#side-navigation(role="navigation")
 
 			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
-			a.navigation-item.navigation-logo(href='/')
-			a.navigation-item.navigation-solution-finder(href='/') Solution
+			a.navigation-item.navigation-logo(href=linkURI('/'))
+			a.navigation-item.navigation-solution-finder(href=linkURI('/')) Solution
 				span Finder
 			ul.navigation-item-list
 				each link in navLinks
 					if link.type == 'page'
 						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item(href=link.href)= link.label
+							a.navigation-item(href=linkURI(link.href))= link.label
 					if link.type == 'modal'
 						li(class=(section == link.key ? 'active' : null))
 							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key onclick= link.key == 'services' ? "alterNavigationModalLinks('services', '', true);" : "")= link.label
@@ -136,7 +136,8 @@ html
 		script(src='/js/site/functions_showroom.js')
 		script(src='/js/site/app_showroom.js')
 		script(src='/js/site/app_global.js')
-		script(src='/js/site/analytics.js')
+		if gohtml
+			script(src='/js/site/analytics.js')
 
 		//- Include template-specific javascript files by extending the js block
 		block js

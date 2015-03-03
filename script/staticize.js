@@ -45,7 +45,7 @@ function getSitemap(callback){
 
 function writeStaticHTML(json, callback){
 	_.each(json, function(loc){
-		req({url: loc}, function(err, response, body){
+		req({url: loc + '?html=true'}, function(err, response, body){
 			var parsed = url.parse(loc)
 				, path = parsed.pathname.split('/')
 				, name = path.pop()

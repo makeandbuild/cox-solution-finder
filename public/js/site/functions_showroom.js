@@ -877,6 +877,11 @@ function settingsPageInits(){
 		currentData = JSON.parse($.cookie(settings_cookieName));
 		$('.settings-filter-industry').filter("[data-settings-filter-slug='"+currentData.industry+"']").addClass('active');
 		$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
+
+		if($('.home-menu')[0]){
+			console.log(currentData.industry);
+			$('.media_buffet_home_section').filter("[data-home-media-buffet='"+currentData.industry+"']").addClass('active');
+		}
 	}
 }
 
@@ -904,14 +909,6 @@ function settingsInits(){
 			}
 		}
 	});
-
-
-	
-
-
-
-
-
 }
 
 

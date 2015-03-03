@@ -30,6 +30,18 @@ exports = module.exports = function(req, res) {
 
 	});
 
+	// Load Industries
+	view.on('init', function(next) {
+
+		var q = keystone.list('Industry').model.find().where('state', 'published').populate('services');
+
+		q.exec(function(err, results) {
+			locals.data.industries = results;
+			next(err);
+		});
+
+	});
+
 	// Render the view
 	view.render('settings');
 };

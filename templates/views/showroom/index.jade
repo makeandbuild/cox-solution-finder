@@ -78,9 +78,26 @@ mixin act_map_overlay(scene, act)
 							a(role="menuitem" tabindex="-1" data-navigationitem=map.title class="map-overlay-navitem")= map.title
 		button.btn.btn-default.act-close(type="button")
 			img(src="/images/close.png")
-	
-	
-
+mixin media_buffet_home_section(item, type)
+	span.media_buffet_home_section(data-home-media-buffet=type)
+		.story
+			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetURI(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
+				img(src="/icons/png/icon-plus.png")
+			h4.media-title!=assetURI(item.media_buffet.story.title)
+		.values
+			.values-container
+				!= assetURI(item.media_buffet.values.content)
+			h4.media-title!=assetURI(item.media_buffet.values.title)
+		.video
+			if assetURI(item.media_buffet.video.video_choice)
+				if assetURI(item.media_buffet.video.video.url)
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(item.media_buffet.video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
+						img(src="/icons/png/icon-play.png")
+				else
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(global_data.default_video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
+						img(src="/icons/png/icon-play.png")
+			else
+				a(style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").remove-pointer
 block content
 	.home-stage
 
@@ -107,7 +124,6 @@ block content
 			h3 Featured
 			section(role="navigation").media-buffet-home
 				ul.services-list
-					//- - console.log("Media Buffet Length: "+ data.home.media_buffet.length)
 					each item, index in global_data.services
 
 						li: a(href=linkURI('/services/' + item.slug) title=item.title).service-item
@@ -115,22 +131,6 @@ block content
 							h4.service-title=item.title
 						if index == 1
 							br
-				.story
-					a(data-toggle="modal" data-target="#story_modal" data-story-data=data.home.media_buffet.story style= data.home.media_buffet.story.featured_image.url ? "background-image: url(" + assetURI(data.home.media_buffet.story.featured_image.url)+");" : "").story-link
-						img(src="/icons/png/icon-plus.png")
-					h4.media-title!=data.home.media_buffet.story.title
-				.values
-					.values-container
-						!= data.home.media_buffet.values.content
-					h4.media-title!=data.home.media_buffet.values.title
-				.video
-					if data.home.media_buffet.video.video_choice
-						if data.home.media_buffet.video.video.url
-							a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background.url ? "background-image: url(" +assetURI(data.home.media_buffet.video.background.url)+");" : "").video-link
-								img(src="/icons/png/icon-play.png")
-						else
-							a(data-toggle="modal" data-target="#video_modal" data-video-data=global_data.default_video style= data.home.media_buffet.video.background.url ? "background-image: url(" +assetURI(data.home.media_buffet.video.background.url)+");" : "").video-link
-								img(src="/icons/png/icon-play.png")
-					else
-						a(style= data.home.media_buffet.video.background.url ? "background-image: url(" +assetURI(data.home.media_buffet.video.background.url)+");" : "").remove-pointer
-
+				+media_buffet_home_section(data.home, 'default')
+				each industry, index in global_data.industries
+					+media_buffet_home_section(industry, industry.slug)

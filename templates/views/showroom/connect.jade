@@ -30,7 +30,9 @@ block content
 						.solutions-container.full-width-rows.solutions-industries
 
 							each item in global_data.industries
-								a.solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="industries")
+								a(href="/industries/"+item.slug).solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="industries")
+									.solutions-favorite-close
+										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
 									.solutions-favorite-divider: span
 									.solutions-favorite-info
@@ -41,7 +43,9 @@ block content
 						h3.solutions-section-title.solutions-services-title Services
 						.solutions-container.full-width-rows.solutions-services
 							each item in global_data.services
-								a.solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="services")
+								a(href="/services/"+item.slug).solutions-favorited-item(data-solutions-slug=item.slug data-solutions-type="services")
+									.solutions-favorite-close
+										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
 									.solutions-favorite-divider: span
 									.solutions-favorite-info
@@ -54,6 +58,8 @@ block content
 							each item in global_data.products
 								.col-xs-6.col-lg-4.solutions-favorited-product(data-solutions-slug=item.slug data-solutions-type="products")
 									.solutions-product-item
+										.solutions-favorite-close
+											img(src="/icons/png/icon-close.png")
 										span= item.title
 
 		.row

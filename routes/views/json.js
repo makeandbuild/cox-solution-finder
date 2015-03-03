@@ -1,6 +1,8 @@
 var async = require('async')
 	,	keystone = require('keystone')
 	,	_ = require('underscore')
+	, mkdirp = require('mkdirp')
+	, fs = require('fs')
 
 
 var Product 	= keystone.list('Product').model
@@ -84,3 +86,27 @@ exports.sitemap = function(req, res) {
 		}
 	})
 }
+
+exports.showroom_sync = function(req, res) {
+	var json = req.body
+		, name = (new Date).getTime()
+		, dataDir = 'tmp/showroom-sync/'
+
+	mkdirp(dataDir, function(err){
+		if (err) {
+			return res.json({ status: 'error', message: err })
+		}
+
+		fs.writeFile(dataDir + name + '.json', JSON.stringify(json), function(err){
+			if (err) {
+				res.json({ status: 'error', message: err })
+			} else {
+				res.json({ status: 'success', data: json })
+			}
+		})
+ 	})
+}
+
+
+
+

@@ -55,6 +55,7 @@ exports = module.exports = function(app) {
 
 	app.get('/sitemap.json', keystone.middleware.api, routes.views.json.sitemap);
 
+	app.post('/showroom-sync', routes.views.json.showroom_sync);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

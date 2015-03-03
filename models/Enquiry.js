@@ -3,9 +3,10 @@ var keystone = require('keystone'),
 		monitor = require('../components/monitor.js'),
 		emitter = monitor.getEmitter(),
 		nodeSES = require('node-ses'),
-		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET });
-		sender = process.env.SES_SENDER;
-		reciever = process.env.SES_RECIEVER;
+		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET }),
+		sender = process.env.SES_SENDER,
+		reciever = process.env.SES_RECIEVER
+
 
 
 /**

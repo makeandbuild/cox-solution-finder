@@ -11,10 +11,10 @@ mixin industryDropdown(options, industry, service)
 				= industry
 		ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
 			li(role="presentation")
-				a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/") All
+				a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/")) All
 			each option in options
 				li(role="presentation")
-					a(role="menuitem" tabindex="-1" href="/services/"+service.slug+"/"+option.slug)= option.title
+					a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/"+option.slug))= option.title
 
 
 mixin product(product)

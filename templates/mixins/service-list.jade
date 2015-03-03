@@ -7,7 +7,7 @@ mixin service-list(services, custom_ordering, industry)
 						each item, index in services
 							if custom_ordered_service == item.id
 								li
-									a(href='/services/'+item.slug+'/'+industry.slug title=item.title).service-item
+									a(href=linkURI('/services/'+item.slug+'/'+industry.slug) title=item.title).service-item
 										.service-icon.coxicon(class="coxicon_"+item.svg_icon)
 										.solution-service-item.can-favorite(data-solutions-slug=item.slug data-solutions-type='services')
 											.coxicon.coxicon.coxicon_favorites_star_after
@@ -27,7 +27,7 @@ mixin service-list(services, custom_ordering, industry)
 		ul.services-list.row
 			each item, index in services
 				li.col-xs-12.col-md-3
-					a(href='/services/' + item.slug title=item.title).service-item
+					a(href=linkURI('/services/' + item.slug) title=item.title).service-item
 						.service-icon.coxicon(class="coxicon_"+item.svg_icon)
 						section.service-info
 							h4.service-title=item.title

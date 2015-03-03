@@ -11,6 +11,29 @@
 var _ = require('underscore');
 var keystone = require('keystone');
 
+exports.setState = function(req,res,next){
+	var locals = res.locals;
+
+	locals.gohtml = req.query.html;
+
+	locals.linkURI = function(uri) {
+		if (locals.gohtml){
+			if (uri === '/') { uri = '/index' }
+			uri = uri + '.html'
+		}
+		return uri;
+	}
+
+	locals.assetURI = function(uri) {
+		if (locals.gohtml){
+			uri = uri.slice(uri.indexOf('/uploads/'), uri.length).replace('/uploads/','/s3/')
+		}
+		return uri;
+	}
+
+	next();
+}
+
 /**
 	Initialises the standard view locals
 

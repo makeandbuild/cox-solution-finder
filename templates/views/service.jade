@@ -13,15 +13,16 @@ block content
 			if !data.service
 				h2 Service Invalid Post.
 			else
-				.row.header-space
+				.row.header-space-medium
 				.row
-					.col-xs-12.col-md-6.service-container
-						section.service-icon.coxicon(class="coxicon_"+data.service.svg_icon)
-						h1.service-title= data.service.title					
-						p.section-heading= data.service.heading
-						p.section-content= data.service.content
+					.col-xs-12.col-md-6.col-lg-5.service-container
+						.service-content
+							section.service-icon.coxicon(class="coxicon_"+data.service.svg_icon)
+							h1.service-title= data.service.title					
+							p.section-heading= data.service.heading
+							p.section-content= data.service.content
 							
-					.col-xs-12.col-md-6.col-lg-offset-1.col-lg-5.resource-container
+					.col-xs-12.col-md-6.col-lg-offset-1.resource-container
 						+resources(data.service)
 		.extend-products-background
 

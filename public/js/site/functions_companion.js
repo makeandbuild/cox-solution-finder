@@ -71,3 +71,19 @@ function customHomeNameAdjust(){
 		}
 	}
 }
+
+function compensateForFooter(toChange, elementArray, totalHeightElement){
+	if(toChange[0]){
+		var height = 0;
+		for (var i = 0; i < elementArray.length; i++){
+			height += parseInt(elementArray[i].height());
+			console.log(elementArray[i].height());
+		}
+		if (parseInt(totalHeightElement.height()) >= height){
+			height = (parseInt(totalHeightElement.height()) - height) + toChange.height();
+			toChange.css('height',height+'px');
+			console.log(height);
+		}
+		
+	}
+}

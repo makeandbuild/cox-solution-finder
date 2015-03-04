@@ -886,7 +886,7 @@ function settingsClearIt(){
 
 function settingsPageInits(){
 	var currentData;
-
+console.log(1);
 	/*
 		Cookie Use
 		$.cookie(settings_cookieName, default_json_data, { expires: settings_cookieExp, path: settings_cookiePath });

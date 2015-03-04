@@ -28,9 +28,9 @@ function initShowroom(){
 		attractLoop_Init();
 	}
 
-	settingsActions();
-	settingsInits();
-	settingsPageInits();
+	// settingsActions();
+	// settingsInits();
+	// settingsPageInits();
 
 	$( document ).ajaxSuccess(function( event, xhr, settings ) {
 	    console.log(xhr.responseText);

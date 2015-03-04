@@ -1,12 +1,12 @@
 .header-space-home {
-	height: 3em;
+	height: 1em;
 	border-top:0;
 	.respond-md({
 		height: 3em;
 	});
 }
 .industry-row {
-	padding-bottom:3em;
+	padding-bottom: 1em;
 	.home-industry-content {
 		padding:0 2em;
 		.respond-md({
@@ -36,7 +36,9 @@
 	overflow:visible;
 	.home-content-header {
 		color:@darkBlue;
-		padding-top:2em;
+		.respond-md({
+			padding-top:2em;
+		});
 		.opensans-regular();
 	}
 }

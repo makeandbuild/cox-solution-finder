@@ -886,7 +886,7 @@ function settingsClearIt(){
 
 function settingsPageInits(){
 	var currentData;
-console.log(1);
+
 	/*
 		Cookie Use
 		$.cookie(settings_cookieName, default_json_data, { expires: settings_cookieExp, path: settings_cookiePath });
@@ -911,7 +911,12 @@ function settingsInits(){
 	location = "/stats/settings.json";
 
 	$.get( location, function( data ) {
-	  	currentData = JSON.parse(data.data);
+		if(data.status != "error") {
+  			currentData = data;
+  		} else {
+  			console.log('ERROR');
+  		}
+  		
 	}).fail(function() {
 	    console.log( "error" );
 	}).done(function() {

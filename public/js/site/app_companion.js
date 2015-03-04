@@ -16,4 +16,10 @@ function initCompanion(){
 	setMobileNavHeight();
 	customHomeNameAdjust();	
 	equalHeights($('.contains-equal-heights'), $('.equal-heights'));
+
+	$('.product-navigation-item-container').on('click',function(){
+		console.log('hey');
+		customScrollTo($('body, html'), $('.product-container').offset().top, 1000);
+	});
+	
 }

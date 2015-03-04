@@ -97,6 +97,13 @@
 	background-color: @regularGray;
 	height: 96px;
 	z-index: 6;
+	&.shorten {
+		padding-left:1.8em;
+		.cta-text-container {
+			padding-right:1.7em;
+			padding-left:1em;
+		}
+	}
 	img {
 		display:inline-block;
 		height:100%;
@@ -208,7 +215,10 @@
 		}
 		&:first-child {
 			a {
-				padding-left: 50px;
+				padding-left: 25px;
+				.respond-lg({
+					padding-left:50px;
+				});
 			}
 		}
 	}

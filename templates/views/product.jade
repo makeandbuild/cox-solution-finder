@@ -43,11 +43,11 @@ block content
 										if data.product.video.title_overlay
 											h2.product-video-title.product-page-video-title= data.product.title
 								else
-									a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+									a.product-hero-container(style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "")
 										if data.product.video.title_overlay
 											h2.product-video-title.product-page-video-title= data.product.title
 							else
-								a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
+								a.product-hero-container(style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "")
 									if data.product.video.title_overlay
 										h2.product-video-title.product-page-video-title= data.product.title
 						section.product-item-container

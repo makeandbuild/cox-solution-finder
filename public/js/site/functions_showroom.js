@@ -958,4 +958,32 @@ function shuffle(array) {
   return array;
 }
 
+function tvTabletTransferInit() {
+    var socket = io();
+    var requester = false;
+
+	if(document.documentElement.clientWidth <= config.breakpoints.showroom.touch) {
+    	socket.on('request', function(msg){
+	    	var response = {"content" : $('.content').text()};
+	    	console.log("REQUESTED");
+	    	socket.emit('chat response', response);
+	    	console.log("REPLY SENT");
+	    });
+    }
+
+    $('#settings-transfer-start').on('click', function(e) {
+    	socket.emit('request');
+    	requester = true;
+    });
+
+    socket.on('response', function(data) {
+    	console.log("RECIEVED");
+    	if(requester) {
+    		$('.reply').text(JSON.stringify(data));
+    		requester = false;
+    	}
+    	
+    });
+
+}
 

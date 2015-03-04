@@ -51,7 +51,7 @@ mixin act_map_overlay(scene, act)
 			- var map = act[key]
 			if map.map_overlay_enable
 				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= map.map.url ? "background-image: url(" + assetURI(map.map.url)+");" : "")
-					h1.map-overlay-title= map.title
+					h1.map-overlay-title= scene.title
 					.map-overlay-related
 						h3 Top Products
 						- var productCount = 0;
@@ -74,8 +74,12 @@ mixin act_map_overlay(scene, act)
 				each key, index in Object.keys(act).reverse()
 					- var map = act[key]
 					if map.map_overlay_enable
-						li(role="presentation")
-							a(role="menuitem" tabindex="-1" data-navigationitem=map.title class="map-overlay-navitem")= map.title
+						if index == 0
+							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem").active
+								a(role="menuitem" tabindex="-1")= map.title
+						else
+							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
+								a(role="menuitem" tabindex="-1")= map.title
 		button.btn.btn-default.act-close(type="button")
 			img(src="/images/close.png")
 mixin media_buffet_home_section(item, type)

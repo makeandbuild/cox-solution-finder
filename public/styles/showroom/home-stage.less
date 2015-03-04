@@ -255,19 +255,28 @@
 			}
 			.dropdown-menu {
 				display:block !important;
-				min-width: 100px;
+				width: 180px;
+				.showroom-screen({
+					width: 250px;
+				});
+				.active {
+					a {
+						background-color:@lightBlue;
+					}
+				}
 				li {
 					a {
+						white-space: normal;
 						padding: 8px 20px 8px 20px;
 						.transition(0.1s);
 						.showroom-screen({
-							padding:17px 175px 15px 20px;
+							padding:17px 20px 15px 20px;
 						});
 						&:hover, &:focus {
 							background-color:@lightBlue;
-							.transition(0.1s);
-							outline: 0;
-							color:@white;
+							// .transition(0.1s);
+							// outline: 0;
+							// color:@white;
 						}
 					}
 				}

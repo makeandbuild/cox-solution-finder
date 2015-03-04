@@ -17,6 +17,7 @@ function initShowroom(){
 		connectKeyboard();
 	}
 
+	mySolutionsSessionInit();
 	mySolutionsFavoritesInits();
 	mySolutionsFavoritesInteraction();
 

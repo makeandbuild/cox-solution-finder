@@ -727,6 +727,17 @@ function mySolutionsSessionUpdate(slug, type, isAddition){
 	}
 }
 
+function mySolutionsSessionInit(){
+	var default_json_data;
+
+	default_json_data = {'industries': [],'services': [],'products': [],'partners': [],'count': 0};
+	default_json_data = JSON.stringify(default_json_data);
+
+	if ($.cookie(solutions_cookieName) == undefined){
+		$.cookie(solutions_cookieName, default_json_data, { expires: solutions_cookieExp, path: solutions_cookiePath });
+	}
+}
+
 
 function mySolutionsFormSubmission(){
 	$('#showroom-form').on('submit',function(e){

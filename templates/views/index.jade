@@ -82,7 +82,7 @@ block content
 						img(src="/images/logo.png")
 
 					if data.home.hero.video.video_choice
-						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link
+						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link.pi-video
 							span SEE WHY
 							img(src="/icons/png/icon-play.png").hero-video-icon
 
@@ -111,7 +111,7 @@ block content
 					each item, index in global_data.industries
 						li.col-xs-6.col-md-2
 							span.industry-divider
-							a(href='/industries/'+item.slug title=item.title).industry-tile
+							a(href='/industries/'+item.slug title=item.title).industry-tile.pi-industry
 								.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
 								.industry-home-title
 									span= item.title
@@ -198,7 +198,7 @@ block content
 						span= eventName
 					.hero-content!=data.home.hero.content
 
-					a.hero-reset(href="/" title="Reset Personalization") (not #{firstName}?)
+					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{firstName}?)
 
 
 
@@ -261,11 +261,11 @@ block content
 										span PRODUCTS
 								each product, index in selectedProducts
 									if index == 0
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id).active
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id).active
 											article.product-navigation-item
 												span= product.title
 									else
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container(data-navigationitem=product.id)
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id)
 											article.product-navigation-item
 												span= product.title
 
@@ -279,7 +279,7 @@ block content
 										article.product-navigation-title
 								each product, index in selectedProducts
 									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
-										a(href="/products/#{product.slug}").product-navigation-item
+										a(href="/products/#{product.slug}").product-navigation-item.pi-products
 											span= product.title
 
 

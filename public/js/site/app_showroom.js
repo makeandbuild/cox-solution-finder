@@ -58,5 +58,6 @@ function initShowroom(){
 		}
 	});
 
-	
+	// TV TABLE TRANSFER INIT CALL
+	tvTabletTransferInit();
 }

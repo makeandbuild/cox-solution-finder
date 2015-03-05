@@ -911,11 +911,18 @@ function settingsInits(){
 	location = "/stats/settings.json";
 
 	$.get( location, function( data ) {
-	  	currentData = JSON.parse(data.data);
+		if(data.status != "error") {
+  			currentData = JSON.parse(data.data);
+  		} else {
+  			console.log(data);
+  		}
+  		
 	}).fail(function() {
 	    console.log( "error" );
 	}).done(function() {
-		if (currentData) {
+
+		if (currentData != undefined) {
+
 			if (currentData.formData.industry != false && currentData.formData.industry != "" && currentData.formData.industry != undefined) {
 				console.log('settings exists, make the cookie');
 				$.cookie(settings_cookieName, JSON.stringify(currentData.formData), { expires: settings_cookieExp, path: settings_cookiePath });
@@ -953,4 +960,46 @@ function shuffle(array) {
   return array;
 }
 
+// TV TABLET TRANSFER CODE
+function tvTabletTransferInit() {
+    var socket = io();
+    var requester = false;
+    socket.emit('TEST!');
+	if(document.documentElement.clientWidth >= config.breakpoints.showroom.touch) {
+    	socket.on('request', function(msg){
+    		var response;
+	    	var cookie = $.cookie(solutions_cookieName);
+	    	var currentPage = window.location.href;
+
+	    	response = {"cookie" : cookie, "currentPage" : currentPage};
+	    	console.log("REQUESTED");
+	    	socket.emit('response', response);
+			$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
+	    	console.log("REPLY SENT");
+	    	if(!requester) {
+	    		window.location.href = '/';
+	    	}
+	    });
+    }
+
+    $('#settings-transfer-start').on('click', function(e) {
+    	console.log('CLICK!');
+    	socket.emit('request');
+    	requester = true;
+    });
+
+    socket.on('response', function(data) {
+    	console.log("RECIEVED");
+    	if(requester) {
+			$.cookie(solutions_cookieName, data.cookie, { expires: solutions_cookieExp, path: solutions_cookiePath });
+			requester = false;
+			$('.settings-section-title.transfer-success').fadeIn();
+			setTimeout(function() {
+				window.location.href = data.currentPage;
+			}, 1000)
+    	}
+    	
+    });
+
+}
 

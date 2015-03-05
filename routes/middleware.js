@@ -17,7 +17,7 @@ exports.setState = function(req,res,next){
 	locals.gohtml = req.query.html;
 
 	locals.linkURI = function(uri) {
-		if (locals.gohtml){
+		if (typeof(uri) == 'string' && locals.gohtml) {
 			if (uri === '/') { uri = '/index' }
 			uri = uri + '.html'
 		}
@@ -25,7 +25,7 @@ exports.setState = function(req,res,next){
 	}
 
 	locals.assetURI = function(uri) {
-		if (locals.gohtml){
+		if (typeof(uri) == 'string' && locals.gohtml) {
 			uri = uri.slice(uri.indexOf('/uploads/'), uri.length).replace('/uploads/','/s3/')
 		}
 		return uri;

@@ -501,6 +501,7 @@ function homeStageTransitions(){
 	$('.home-stage .scene').on('click',function(){
 		var clicked = $(this);
 		var selector = clicked.data('scene');
+		var selectorLocation = clicked.data('scene-location');
 		var target = $('.home-stage .act').filter("[data-act='"+selector+"']");
 
 		if (clicked.hasClass('scene-active')){
@@ -522,19 +523,19 @@ function homeStageTransitions(){
 				}				
 			},1000);
 			setTimeout(function(){
-				if (selector == 'Coverage'){
+				if (selectorLocation == 'scene_location_3'){
 					$('.stage-background-overlay').addClass('inactive');
 					$('.stage-background-shadow').addClass('inactive');
 				}
 			},1100);
 			
-			if (selector == 'Did you know?'){
+			if (selectorLocation == 'scene_location_1'){
 				setTimeout(function(){
 					factoidTransition($('.factoid'), 'inactive-factoid', 'unveil', 0);
 				},1000);
-				setTimeout(function(){
-					factoidTransition($('.factoid'), 'inactive-factoid', 'jiggle', 0);
-				},1400);
+				// setTimeout(function(){
+				// 	factoidTransition($('.factoid'), 'inactive-factoid', 'jiggle', 0);
+				// },1400);
 			}
 			
 		}
@@ -651,27 +652,15 @@ function mySolutionsFavoritesInteraction(){
 		var slug = $(this).data('solutions-slug');
 		var type = $(this).data('solutions-type');
 
-		// Which type of Item was clicked?
-		if($(this).hasClass('solution-page-title')){
-			var theStar = $(this).find('.coxicon');
-			if (theStar.hasClass('active')){
-				isAddition = false
-			} else {
-				isAddition = true;	
-			} 
-			theStar.toggleClass('active');
-		}
-		if($(this).hasClass('solution-service-item')){
-			e.preventDefault();
-			var theStar = $(this).find('.coxicon');
-			if (theStar.hasClass('active')){
-				isAddition = false
-			} else {
-				isAddition = true;	
-			} 
-			theStar.toggleClass('active');
-		}
-
+		e.preventDefault();
+		var theStar = $(this).find('.coxicon');
+		if (theStar.hasClass('active')){
+			isAddition = false;
+		} else {
+			isAddition = true;	
+		} 
+		//theStar.toggleClass('active');
+		$('.can-favorite').filter("[data-solutions-type='"+type+"']").filter("[data-solutions-slug='"+slug+"']").find('.coxicon').toggleClass('active');
 
 		// Add or Subtract
 		if (isAddition) { currentCount++; } else { currentCount--; }

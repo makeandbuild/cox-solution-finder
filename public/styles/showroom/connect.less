@@ -24,6 +24,27 @@
 		
 	}
 	form {
+		.form-group {
+			position: relative;
+			&.has-form-empty {
+				.form-empty {
+					display:block;
+				}
+			}
+		}
+		.form-empty {
+			display:none;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			padding: 5px;
+			height: 50px;
+			width: 50px;
+			background: @darkBlue;
+			img {
+				width:100%;
+			}
+		}
 
 		.btn-primary {
 			margin-top:1em;
@@ -105,6 +126,12 @@
 				float:right;
 				padding-right: 15px;
 				padding-top:2px;
+				.showroom-screen({
+					padding-top: 8px;
+					img {
+						width:35px;
+					}
+				});
 			}
 			.custom-dropdown-current {
 				text-align: left;
@@ -228,6 +255,7 @@
 	}
 
 	.button_custom_done {
+		display:none;
 	  background: #0F6AA1 !important;
 	  color: #FFF !important;
 	  width: 129px !important;

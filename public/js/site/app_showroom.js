@@ -11,12 +11,12 @@ function initShowroom(){
 	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
-	//attractLoop_theLoop();
 	factoidGeneral();
 	if ($('.keyboard-container')[0]){
 		jsKeyboard.init("virtualKeyboard");
 		connectKeyboard();
 	}
+	inputClear();
 
 	mySolutionsSessionInit();
 	mySolutionsFavoritesInits();

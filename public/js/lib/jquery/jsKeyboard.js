@@ -25,7 +25,7 @@ var jsKeyboard = {
          if (keyboard == "numberPad") {
          };
          //var myThings = $(elem + '> :input').not('[type="reset"]').not('[type="submit"]');
-         var myThings = $('.customer-info-input form input').not('[type="reset"]').not('[type="submit"]');
+         var myThings = $('form input').not('[type="reset"]').not('[type="submit"]');
          myThings.on('focus, click', function(e)
          {
             jsKeyboard.currentElement = $(this);

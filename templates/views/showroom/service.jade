@@ -124,16 +124,22 @@ block content
 											if !activeSwitch
 												.col-xs-6.col-lg-4.product-navigation-item-container
 													article.product-navigation-item(data-navigationitem=product.id).active
+														.solution-product-item.can-favorite(data-solutions-slug=product.slug data-solutions-type='products')
+															.coxicon.coxicon.coxicon_favorites_star_after
 														span= product.title
 												- activeSwitch = true;
 											else
 												.col-xs-6.col-lg-4.product-navigation-item-container
 													article.product-navigation-item(data-navigationitem=product.id)
+														.solution-product-item.can-favorite(data-solutions-slug=product.slug data-solutions-type='products')
+															.coxicon.coxicon.coxicon_favorites_star_after
 														span= product.title
 									
 								else
 									.col-xs-6.col-lg-4.product-navigation-item-container
 										article.product-navigation-item(data-navigationitem=product.id class=(index == 0 ? 'active' : null))
+											.solution-product-item.can-favorite(data-solutions-slug=product.slug data-solutions-type='products')
+												.coxicon.coxicon.coxicon_favorites_star_after
 											span= product.title
 
 			.col-xs-6.full-height-col

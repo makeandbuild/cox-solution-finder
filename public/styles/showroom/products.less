@@ -1,12 +1,12 @@
 .product-navigation-item-container {
 	padding:0;
-	&.active {
-		.product-navigation-item {
-			.transition(0.1s);
-			background-color:@lightBlue;
-			color:@white;
-		}
-	}
+	// &.active {
+	// 	.product-navigation-item {
+	// 		.transition(0.1s);
+	// 		background-color:@lightBlue !important;
+	// 		color:@white;
+	// 	}
+	// }
 }
 .product-navigation-item {
 	color:@darkBlue;
@@ -24,6 +24,11 @@
 		margin-bottom: 20px;
 		.transition(0.1s);
 	});
+	&.active {
+		.transition(0.1s);
+		background-color:@lightBlue !important;
+		color:@white;
+	}
 	span {
 		
 		.showroom-screen({

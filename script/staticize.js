@@ -10,7 +10,7 @@ var debug = require('debug')('staticize')
 	,	_ = require('underscore')
 
 var domain = process.env.STATIC_URI
-	,	sitemap = domain + 'sitemap.json'
+	,	sitemap = domain + '/sitemap.json'
 	,	rootPath = 'tmp/public'
 
 

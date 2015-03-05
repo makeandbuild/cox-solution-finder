@@ -38,6 +38,32 @@
 	}
 }
 
+.solution-product-item {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 45px;
+  	height: 45px;
+  	z-index:5;
+  	.showroom-screen({
+
+  	});
+	.coxicon {
+		.star_template();
+		text-align: right;
+		font-size: 2.5em;
+	}
+}
+.product-navigation-item.active {
+	.solution-product-item { 
+		.coxicon {
+			color:@somewhatlightGray;
+			&.active {
+				color:@yellow;
+			}
+		}
+	}
+}
 
 
 //My Solutions Block

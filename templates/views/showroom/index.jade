@@ -4,13 +4,13 @@ extends ../../layouts/default-showroom
 
 //- Scenes (Navigation for Acts)
 mixin scene(scene, scene_location)
-	.scene(data-scene=scene.title class=scene_location)
+	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
 		img(src=assetURI(scene.featured_image.url)).scene-preview-featured-image
 		h2.scene-preview-title= scene.title
 			img(src="/images/arrow_down.png")
 
 mixin scene_with_text(scene, scene_location)
-	.scene(data-scene=scene.title class=scene_location)
+	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
 		.scene-preview-text
 			h2.scene-preview-text-header= data.home.hero.business_count
 			p.scene-preview-text-subtext

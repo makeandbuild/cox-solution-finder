@@ -61,6 +61,23 @@ function equalHeights(parent, selector){
 	}
 }
 
+function inputClear(){
+	$('.form-group').on('click',function(){
+		if ($(this).children('input').attr('type', 'text')){
+			$('.has-form-empty').removeClass('has-form-empty');
+			$(this).addClass('has-form-empty');
+		}
+	});
+	$('.form-empty').on('click',function(){
+		$(this).siblings('input').val('').focus();
+	});
+	$('#body').not($('input')).on('click',function(e){
+		if (!$(e.target).hasClass('form-control') && !$(e.target).parents('.has-form-empty')[0] && !$(e.target).parents('.keyboard-container')[0]){
+			$('.has-form-empty').removeClass('has-form-empty');
+		}
+	});
+}
+
 // The main navigation function for showing the blocks and blurring background.
 function navigationModal(){
 
@@ -138,7 +155,7 @@ function initCheckbox(){
 
 	if($('body').hasClass('showroom')){
 		var waitForMe = false;
-		$('.input-checkbox-group').on('mouseover',function(){
+		$('.input-checkbox-group').on('mouseover',function(e){
 			if(!waitForMe){
 				waitForMe = true;
 				var input = $('#'+$(this).data('checkbox-input'));
@@ -151,6 +168,7 @@ function initCheckbox(){
 				}
 				setTimeout(function(){
 					waitForMe = false;
+					e.stopPropagation();
 				},1000);
 			}
 		});

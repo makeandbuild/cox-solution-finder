@@ -131,6 +131,9 @@ html
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 		script(src="/socket.io/socket.io.js")
 
+		//- Include template-specific javascript files by extending the js block
+		block js
+
 		//- Site JS
 		script(src='/js/site/config.js')
 		script(src='/js/site/functions_global.js')
@@ -141,5 +144,4 @@ html
 		if gohtml
 			script(src='/js/site/analytics.js')
 
-		//- Include template-specific javascript files by extending the js block
-		block js
+		

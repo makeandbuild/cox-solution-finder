@@ -12,6 +12,7 @@ function initCompanion(){
 		$('html').addClass('ie'+ieVer);
 	}
 
+	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	mobileNavigation();
 	setMobileNavHeight();
 	customHomeNameAdjust();	

@@ -10,6 +10,7 @@ function initShowroom(){
 	allServices();
 	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
+	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
 	//attractLoop_theLoop();
 	factoidGeneral();
 	if ($('.keyboard-container')[0]){

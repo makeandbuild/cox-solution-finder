@@ -7,7 +7,7 @@ function initGlobal(){
 	console.log('initGlobal Called');
 	
 	navigationModal();
-	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
+	
 	videoClose();
 	modalContent();
 	initCheckbox();

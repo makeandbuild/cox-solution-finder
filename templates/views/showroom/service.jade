@@ -23,20 +23,19 @@ mixin product(product)
 			h2.product-title.can-favorite.solution-page-title(data-solutions-slug=product.slug data-solutions-type='products')= product.title
 				.coxicon.coxicon_favorites_star_after
 		.col-xs-10.col-xs-offset-1
-			
 			if product.video.video_choice
 				if product.video.video.url
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container						
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(product.video) style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container						
 						img(src="/icons/png/icon-play.png").product-play-icon
-						if product.video.title_overlay
+						if assetURI(product.video.title_overlay)
 							h2.product-video-title= product.title
 				else
-					a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
-						if product.video.title_overlay
+					a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
+						if assetURI(product.video.title_overlay)
 							h2.product-video-title= product.title			
 			else
-				a(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").product-hero-container
-					if product.video.title_overlay
+				a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
+					if assetURI(product.video.title_overlay)
 						h2.product-video-title= product.title
 			.overflow-wrapper
 			section.product-item-container
@@ -45,34 +44,34 @@ mixin product(product)
 					img(src="/images/arrow_down.png")
 				.row
 					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_one.svg_icon)
+						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_one.svg_icon))
 					.col-xs-9.col-lg-7
-						p.section-heading= product.item_one.title
-						p.section-content= product.item_one.content
+						p.section-heading= assetURI(product.item_one.title)
+						p.section-content= assetURI(product.item_one.content)
 				.row
 					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_two.svg_icon)
+						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_two.svg_icon))
 					.col-xs-9.col-lg-7
-						p.section-heading= product.item_two.title
-						p.section-content= product.item_two.content
+						p.section-heading= assetURI(product.item_two.title)
+						p.section-content= assetURI(product.item_two.content)
 				.row
 					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_three.svg_icon)
+						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_three.svg_icon))
 					.col-xs-9.col-lg-7
-						p.section-heading= product.item_three.title
-						p.section-content= product.item_three.content
+						p.section-heading= assetURI(product.item_three.title)
+						p.section-content= assetURI(product.item_three.content)
 				.row
 					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_four.svg_icon)
+						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_four.svg_icon))
 					.col-xs-9.col-lg-7
-						p.section-heading= product.item_four.title
-						p.section-content= product.item_four.content
+						p.section-heading= assetURI(product.item_four.title)
+						p.section-content= assetURI(product.item_four.content)
 				.row
 					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_five.svg_icon)
+						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_five.svg_icon))
 					.col-xs-9.col-lg-7
-						p.section-heading= product.item_five.title
-						p.section-content= product.item_five.content
+						p.section-heading= assetURI(product.item_five.title)
+						p.section-content= assetURI(product.item_five.content)
 			
 
 block content
@@ -123,18 +122,18 @@ block content
 									each productIndustry in product.industries
 										if productIndustry == currentIndustry.id
 											if !activeSwitch
-												.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id).active
-													article.product-navigation-item
+												.col-xs-6.col-lg-4.product-navigation-item-container
+													article.product-navigation-item(data-navigationitem=product.id).active
 														span= product.title
 												- activeSwitch = true;
 											else
-												.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id)
-													article.product-navigation-item
+												.col-xs-6.col-lg-4.product-navigation-item-container
+													article.product-navigation-item(data-navigationitem=product.id)
 														span= product.title
 									
 								else
-									.col-xs-6.col-lg-4.product-navigation-item-container(data-navigationitem=product.id class=(index == 0 ? 'active' : null))
-										article.product-navigation-item
+									.col-xs-6.col-lg-4.product-navigation-item-container
+										article.product-navigation-item(data-navigationitem=product.id class=(index == 0 ? 'active' : null))
 											span= product.title
 
 			.col-xs-6.full-height-col

@@ -23,6 +23,15 @@ function itemNavigation(navigationItem, item){
 		theItem.addClass('active').siblings().removeClass('active');
 	});
 }
+function itemNavigationAlternate(navigationItem, item){
+	navigationItem.on('click',function(){
+		var keystone_id = $(this).data('navigationitem');
+		var theItem = item.filter("[data-item='" + keystone_id + "']");
+		navigationItem.removeClass('active');
+		$(this).addClass('active');
+		theItem.addClass('active').siblings().removeClass('active');
+	});
+}
 
 // Simple ScrollTo Function
 function customScrollTo(toBeScrolled, whereToScroll, time){

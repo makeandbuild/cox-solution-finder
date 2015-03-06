@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
-	Enquiry = keystone.list('Enquiry');
+	Enquiry = keystone.list('Enquiry'),
+	security = require('../../components/security.js');
 
 exports = module.exports = function(req, res) {
 	
@@ -30,8 +31,7 @@ exports = module.exports = function(req, res) {
 
 	
 	if (encrypted_uid) { //IS COOKIE THERE?
-		var sec = require('../../components/security.js');
-		var uid = sec.decrypt(encrypted_uid);
+		var uid = security.decrypt(encrypted_uid);
 	 
 	 	var mongoose = require('mongoose');
 		var objid = new mongoose.Types.ObjectId(uid);
@@ -51,29 +51,29 @@ exports = module.exports = function(req, res) {
 			locals.data.custom_data.favorites = {};
 
 			if(user.industries != undefined) { 
-				user.industriesarray = user.industries.split(",");
+				user.industries_array = user.industries.split(",");
 			} else {
-				user.industries = false;
+				user.industries_array = false;
 			}
 
 			if(user.services != undefined) { 
-				user.servicesarray = user.services.split(",");
+				user.services_array = user.services.split(",");
 			} else {
-				user.services = false;
+				user.services_array = false;
 			}
 
 			if(user.products != undefined) { 
-				user.productsarray = user.products.split(",");
+				user.products_array = user.products.split(",");
 			} else {
-				user.products = false;
+				user.products_array = false;
 			}
 
-			console.log(user.industriesarray);
-			console.log(user.servicesarray);
-			console.log(user.productsarray);
-			locals.data.custom_data.favorites.industries = user.industriesarray;
-			locals.data.custom_data.favorites.services = user.servicesarray;
-			locals.data.custom_data.favorites.products = user.productsarray;
+			console.log(user.industries_array);
+			console.log(user.services_array);
+			console.log(user.products_array);
+			locals.data.custom_data.favorites.industries = user.industries_array;
+			locals.data.custom_data.favorites.services = user.services_array;
+			locals.data.custom_data.favorites.products = user.products_array;
 
 		});
 

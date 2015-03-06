@@ -6,8 +6,8 @@ var keystone = require('keystone'),
 		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET }),
 		sender = process.env.SES_SENDER,
 		reciever = process.env.SES_RECIEVER,
-		EJS = require('ejs');
-
+		EJS = require('ejs'),
+		security = require('../components/security.js');
 
 /**
  * Enquiry Model
@@ -110,10 +110,9 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 	   	console.log(err);
 	   	 callback(err);
 	   } else {
-   		var sec = require('../components/security.js');
    		var uid = enquiry._id.toString();
    		console.log(uid);
-	   	var custom_url = process.env.PDOMAIN + '/personalized/' + sec.encrypt(uid);
+	   	var custom_url = process.env.PDOMAIN + '/personalized/' + security.encrypt(uid);
 
 		var html = EJS.render(data, {url: custom_url});
 

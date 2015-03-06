@@ -132,6 +132,5 @@ exports.personalized = function(req, res, next) {
 
 	res.cookie('UID', uid);
 
-	console.log('MIDDLEWARE');
 	next();
 };

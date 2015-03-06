@@ -5,8 +5,8 @@ var keystone = require('keystone'),
 		nodeSES = require('node-ses'),
 		client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET }),
 		sender = process.env.SES_SENDER,
-		reciever = process.env.SES_RECIEVER
-
+		reciever = process.env.SES_RECIEVER,
+		EJS = require('ejs');
 
 
 /**
@@ -100,22 +100,46 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 		callback = function() {};
 	}
 	var enquiry = this;
-	
-	client.sendemail({
-	   to: reciever,
-	   from: sender,
-	   cc: '',
-	   bcc: '',
-	   subject: 'greetings',
-	   message: 'your <b>message</b> goes here',
-	   altText: 'plain text'
-	}, function (err, data, res) {
-		// console.log('\x1b[36mData:\n\x1b[0m');
-		// console.log(data);
-	 // 	console.log('\x1b[36mError:\n\x1b[0m');
-	 // 	console.log(err);
+	console.log(enquiry);
+
+	var fs = require('fs');
+
+	//Render HTML template from EJS and send to User
+	fs.readFile('templates/emails/custom-email.ejs', 'utf-8', function(err, data) {
+	   if(err) {
+	   	console.log(err);
+	   	 callback(err);
+	   } else {
+   		var sec = require('../components/security.js');
+   		var uid = enquiry._id.toString();
+   		console.log(uid);
+	   	var custom_url = process.env.PDOMAIN + '/personalized/' + sec.encrypt(uid);
+
+		var html = EJS.render(data, {url: custom_url});
+
+			client.sendemail({
+				to: enquiry.email,
+		   		from: sender,
+		   		cc: '',
+				bcc: '',
+				subject: 'Thank you for your interest in Cox Business Solutions',
+				message: html
+			}, function (err, data, res) {
+				if(err) {
+					console.log(err);
+					callback(err);
+				} else {
+					console.log('SUCCESS!');
+					callback();
+				}
+				// console.log('\x1b[36mData:\n\x1b[0m');
+				// console.log(data);
+			 	// 	console.log('\x1b[36mError:\n\x1b[0m');
+			 	// 	console.log(err);
+			});
+	   }
 	});
-	
+
 };
 
 

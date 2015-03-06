@@ -11,7 +11,8 @@ var solutions_cookieName,
 	solutions_cookiePath,
 	settings_cookieName,
 	settings_cookieExp,
-	settings_cookiePath;
+	settings_cookiePath,
+	settings_post_location;
 
 solutions_cookieName = 'csf_showroom_favorites';
 solutions_cookieExp = 1;
@@ -19,6 +20,8 @@ solutions_cookiePath = '/';
 settings_cookieName = 'csf_showroom_settings';
 settings_cookieExp = 1;
 settings_cookiePath = '/';
+
+settings_post_location = "/stats/settings.json";
 
 
 
@@ -760,7 +763,7 @@ function mySolutionsFormSubmission(){
 		    contentType: 'application/json',
 		    data: JSON.stringify(data)
 		}).fail(function() {
-		    console.log( "error" );
+		    console.log( "mySolutionsFormSubmission Fail" );
 		}).success(function() {
 			$('.connect-thanks-container').addClass('active');
 			$('.connect-form-ready').addClass('inactive');
@@ -805,57 +808,168 @@ function mySolutionsScrolling(){
 	});
 }
 
+
+
+/*
+	This is called on form submission on Settings page.
+
+	It checks that an industry is chosen, and then saves
+	the fields and the industry to /stats/settings.json
+	for Network wide use, and it also creates a cookie for
+	the local session.
+
+	Currently Partners is not part of settings, however should it be added,
+	there is some partial functionality below. However it is not complete.
+
+*/
+
 function settingsActions(){
+	// init vars
 	var currentData,
 		currentType,
-		slug;
+		slug,
+		formData,
+		type,
+		settings_filter;
 
 	$('.settings-filter-item-container').on('click',function(){
 		$(this).addClass('active').siblings().removeClass('active');
-		slug = $(this).data('settings-filter-slug');
-		type = $(this).data('settings-filter-type');
-
-		if ($.cookie(settings_cookieName) != undefined){
-			currentData = JSON.parse($.cookie(settings_cookieName));
-		} else {
-			currentData = {
-				'industry': '',
-				'partner': ''
-			}
-			
-		}
-		if(type = 'industry'){
-			currentData.industry = slug;
-		} else if (type = 'partner'){
-			currentData.partner = slug;
-		}		
-
-		$.cookie(settings_cookieName, JSON.stringify(currentData), { expires: settings_cookieExp, path: settings_cookiePath });
-
-		var data = {
-			type: 'settings',
-			formData: currentData
-		};
-
-		$.ajax({
-		    type: "POST",
-		    url: "/stats/settings.json",
-		    contentType: 'application/json',
-
-		    data: JSON.stringify(data)
-		}).fail(function() {
-		    console.log( "error" );
-		});
-
 	});
 
+	// On Submit, Set Settings, and Create the Cookie or Override it.
+	$('#settings-form').on('submit',function(e){
+		e.preventDefault();
+		$('.settings-warning-text').removeClass('active');
+		$('.settings-success-text').removeClass('active');
+
+		// Check that a setting has been selected
+		if (!$('.settings-filter-item-container.active')[0] || $('.sync-email-input').val() == '' || $('.trade-show-name').val() == '' ){
+			$('.settings-warning-text').addClass('active');
+			return;
+		} else {
+			
+			// Current Selected Setting
+			settings_filter = $('.settings-filter-item-container.active').first();
+			slug = settings_filter.data('settings-filter-slug');
+			type = settings_filter.data('settings-filter-type');
+
+			// Build or Get currentData from Cookie
+			if ($.cookie(settings_cookieName) != undefined){
+				currentData = JSON.parse($.cookie(settings_cookieName));
+			} else {
+				currentData = {
+					'industry': '',
+					'partner': '',
+					'sync_notification_email': '',
+					'showname': ''
+				}
+			}
+			if(type = 'industry'){
+				currentData.industry = slug;
+			} else if (type = 'partner'){
+				currentData.partner = slug;
+			}
+
+
+			// Set formData and add to currentData.
+			formData = $('#settings-form').serializeObject();
+			currentData.sync_notification_email = formData.sync_notification_email;
+			currentData.showname = formData.showname;
+
+			// Create the Cookie
+			$.cookie(settings_cookieName, JSON.stringify(currentData), { expires: settings_cookieExp, path: settings_cookiePath });
+
+			// Add Settings to formData
+			formData.industry = currentData.industry;
+			formData.partner = currentData.partner;
+
+			// Setup the Ajax Post Request
+			var data = {
+				type: 'settings',
+				formData: formData
+			};
+
+			$.ajax({
+			    type: "POST",
+			    url: settings_post_location,
+			    contentType: 'application/json',
+			    data: JSON.stringify(data)
+			}).fail(function() {
+			    console.log( "Settings Action Error" );
+			}).success(function() {
+				console.log( "Settings Action Success!" );
+				$('.settings-success-text').addClass('active');
+			});
+
+		}
+	});
 }
 
+// Solely used to setup current cookie/settings data when on the settings page, or if on the home screen.
+function settingsPageInits(){
+	var currentData;
+
+	if ($.cookie(settings_cookieName) != undefined){
+		currentData = JSON.parse($.cookie(settings_cookieName));
+		if($('.settings-page')[0]){
+			$('.settings-filter-industry').filter("[data-settings-filter-slug='"+currentData.industry+"']").addClass('active');
+			$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
+
+			$('.sync-email-input').val(currentData.sync_notification_email);
+			$('.trade-show-name').val(currentData.showname);
+		}
+		
+		if($('.home-menu')[0]){
+			$('.media_buffet_home_section').filter("[data-home-media-buffet='"+currentData.industry+"']").addClass('active');
+		}
+
+		if($('.connect-showname')[0]){
+			$('.connect-showname').val(currentData.showname);
+		}
+	}
+}
+
+
+// Checks that Settings have been configured. If not take them to the Settings page.
+function settingsInits(){
+	var currentData;
+	console.log('SettingsInits Called');
+	$.get( settings_post_location, function( data ) {
+		if(data.status != "error") {
+  			currentData = JSON.parse(data.data);
+
+  			console.log(currentData);
+
+  			if (currentData.formData.industry == '' || currentData.formData.sync_notification_email == '' || currentData.formData.showroom == ''){
+  				if (!$('.settings-page')[0]){
+  					window.location.replace("/settings.html");
+  				}
+  			} else {
+  				// Override the cookie with latest data in case it changes on another device.
+  				$.cookie(settings_cookieName, JSON.stringify(currentData.formData), { expires: settings_cookieExp, path: settings_cookiePath });
+  			}
+  		} else {
+  			console.log('data.status == "error"');
+  			console.log(data);
+  		}
+  		
+	}).fail(function() {
+	    console.log( "SettingsInit Failure!" );
+	}).success(function(){
+		console.log( "SettingsInit Get Success! ");
+	});
+}
+
+
+// Manual clearing of settings for development purposes.
 function settingsClearIt(){
 	$.removeCookie('csf_showroom_settings');
 	var currentData = {
 		'industry': '',
-		'partner': ''
+		'partner': '',
+		'sync_notification_email': '',
+		'showname': ''
+
 	}
 	var data = {
 		type: 'settings',
@@ -864,90 +978,19 @@ function settingsClearIt(){
 
 	$.ajax({
 	    type: "POST",
-	    url: "/stats/settings.json",
+	    url: settings_post_location,
 	    contentType: 'application/json',
 
 	    data: JSON.stringify(data)
 	}).fail(function() {
-	    console.log( "error" );
-	});
-}
-
-function settingsPageInits(){
-	var currentData;
-
-	/*
-		Cookie Use
-		$.cookie(settings_cookieName, default_json_data, { expires: settings_cookieExp, path: settings_cookiePath });
-		$.cookie('csf_showroom_settings', "{'settings': ''}", { expires: 1, path: '/' });
-	*/
-
-	if ($.cookie(settings_cookieName) != undefined){
-		currentData = JSON.parse($.cookie(settings_cookieName));
-		$('.settings-filter-industry').filter("[data-settings-filter-slug='"+currentData.industry+"']").addClass('active');
-		$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
-
-		if($('.home-menu')[0]){
-			console.log(currentData.industry);
-			$('.media_buffet_home_section').filter("[data-home-media-buffet='"+currentData.industry+"']").addClass('active');
-		}
-	}
-}
-
-function settingsInits(){
-	var currentData, location;
-
-	location = "/stats/settings.json";
-
-	$.get( location, function( data ) {
-		if(data.status != "error") {
-  			currentData = JSON.parse(data.data);
-  		} else {
-  			console.log(data);
-  		}
-  		
-	}).fail(function() {
-	    console.log( "error" );
-	}).done(function() {
-
-		if (currentData != undefined) {
-
-			if (currentData.formData.industry != false && currentData.formData.industry != "" && currentData.formData.industry != undefined) {
-				console.log('settings exists, make the cookie');
-				$.cookie(settings_cookieName, JSON.stringify(currentData.formData), { expires: settings_cookieExp, path: settings_cookiePath });
-				$.cookie(settings_cookieName);
-			} else {
-				console.log('no settings set');
-				if ($('.settings-page')[0] == undefined || $('.settings-page')[0] == false){
-					window.location.replace("/settings");
-				}
-				
-			}
-		}
+	    console.log( "settingsClearIt Fail" );
+	}).success(function(){
+		console.log( "settingsClearIt Success");
 	});
 }
 
 
 
-//Super Quick Copy'n'Paste Shuffle Array off Stack Overflow: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex ;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
 
 // TV TABLET TRANSFER CODE
 function tvTabletTransferInit() {
@@ -992,3 +1035,24 @@ function tvTabletTransferInit() {
 
 }
 
+
+
+//Super Quick Copy'n'Paste Shuffle Array off Stack Overflow: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}

@@ -28,13 +28,13 @@ function initShowroom(){
 		homeStageTransitions();
 		attractLoop_Init();
 	}
-
-	settingsActions();
+	
 	settingsInits();
+	settingsActions();
 	settingsPageInits();
 
 	$( document ).ajaxSuccess(function( event, xhr, settings ) {
-	    console.log(xhr.responseText);
+	    //console.log(xhr.responseText);
 	});
 
 

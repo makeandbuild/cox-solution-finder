@@ -71,3 +71,41 @@ function customHomeNameAdjust(){
 		}
 	}
 }
+
+function compensateForFooter(toChange, elementArray, totalHeightElement){
+	if(toChange[0]){
+		var height = 0;
+		for (var i = 0; i < elementArray.length; i++){
+			height += parseInt(elementArray[i].height());
+		}
+		if (parseInt(totalHeightElement.height()) >= height){
+			height = (parseInt(totalHeightElement.height()) - height) + toChange.height();
+			toChange.css('height',height+'px');
+		}
+	
+	}
+}
+
+function piwikCompanionActions() {
+	if(_paq) {
+
+		$('.pi-switch').on('click', function(e) {
+			_paq.push(['trackEvent', 'User', 'Switch User']);
+		});
+
+		$('.pi-resource').on('click', function(e) {
+			_paq.push(['trackEvent', 'Resource', 'Click', $(e.currentTarget).attr('href')]);
+		});
+
+		$('.pi-products').on('click', function(e) {
+			var label = 'unknown';
+			if($(e.currentTarget).is('a.product-navigation-item')) {
+				label = $(e.currentTarget).find('span').text();
+			}
+			if($(e.currentTarget).is('.product-navigation-item-container')) {
+				label = $(e.currentTarget).find('article > span').text();
+			}
+			_paq.push(['trackEvent', 'Product', 'Click', label]);
+		});
+	}
+}

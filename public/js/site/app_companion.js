@@ -12,8 +12,16 @@ function initCompanion(){
 		$('html').addClass('ie'+ieVer);
 	}
 
+	itemNavigation($('.product-navigation-item-container'), $('.product-container'));
 	mobileNavigation();
 	setMobileNavHeight();
-	customHomeNameAdjust();	
+	customHomeNameAdjust();
+	piwikCompanionActions();	
 	equalHeights($('.contains-equal-heights'), $('.equal-heights'));
+	compensateForFooter($('.connect-page'), [$('header'), $('main')], $('html'));
+
+	$('.product-navigation-item-container').on('click',function(){
+		customScrollTo($('body, html'), $('.product-container').offset().top, 1000);
+	});
+	
 }

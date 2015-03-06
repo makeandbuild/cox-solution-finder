@@ -6,12 +6,37 @@
 function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
-	homeStageTransitions();
-	mySolutionsFavoritesInteraction();
-	allServices();
-	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
-	factoidGeneral();
 	
+	allServices();
+	mySolutionsScrolling();
+	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
+	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
+	factoidGeneral();
+	if ($('.keyboard-container')[0]){
+		jsKeyboard.init("virtualKeyboard");
+		connectKeyboard();
+	}
+	inputClear();
+
+	mySolutionsSessionInit();
+	mySolutionsFavoritesInits();
+	mySolutionsFavoritesInteraction();
+
+	mySolutionsFormSubmission();
+
+	if ($('.home-stage')[0]) {
+		homeStageTransitions();
+		attractLoop_Init();
+	}
+	
+	settingsInits();
+	settingsActions();
+	settingsPageInits();
+
+	$( document ).ajaxSuccess(function( event, xhr, settings ) {
+	    //console.log(xhr.responseText);
+	});
+
 
 	// Allows for Touchscreen Scrolling on Hover for the Products area of Services Views.
 	$('.product-showroom-scroll').on('mouseover',function(){
@@ -34,12 +59,6 @@ function initShowroom(){
 		}
 	});
 
-	$('body').mousemove(function() {
-	    // clearTimeout(theAttractLoop);
-
-	    // theAttractLoop = setTimeout(function(){
-	        
-	    // }, 300000);
-
-	});
+	// TV TABLE TRANSFER INIT CALL
+	tvTabletTransferInit();
 }

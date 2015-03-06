@@ -1,12 +1,12 @@
 .header-space-home {
-	height: 3em;
+	height: 1em;
 	border-top:0;
 	.respond-md({
 		height: 3em;
 	});
 }
 .industry-row {
-	padding-bottom:3em;
+	padding-bottom: 1em;
 	.home-industry-content {
 		padding:0 2em;
 		.respond-md({
@@ -36,9 +36,22 @@
 	overflow:visible;
 	.home-content-header {
 		color:@darkBlue;
-		padding-top:2em;
+		.respond-md({
+			padding-top:2em;
+		});
 		.opensans-regular();
 	}
+}
+.home-default-content {
+	h1,p {
+		padding-left:30px;
+		padding-right:15px;
+		.respond-md({
+				padding-left:0;
+				padding-right:0;
+		});
+	}
+	
 }
 .cox-business {
 	.opensans-light();
@@ -59,6 +72,10 @@
 	.respond-md({
 		background-color:@darkBlue;
 		z-index: -1;
+		padding-bottom: 1em;
+	});
+	.respond-lg({
+		margin-top: -70px;
 	});
 	h3 {
 		color:@darkBlue;
@@ -166,12 +183,14 @@
 	
 	h3 {
 		color:@darkBlue;
-		padding-top:2em;
 		.opensans-regular();
 	}
 	
 	.respond-md({
 		padding-bottom:5em;
+		h3 {
+			padding-top:2em;
+		}
 	});
 }
 .home-custom-services {
@@ -181,7 +200,12 @@
 		.opensans-regular();
 	}
 }
-
+.home-lets-connect-label {
+	display:none;
+	.respond-md({
+		display:block;
+	});
+}
 .home-connect {
 	background-repeat: no-repeat;
 	background-position: 15px center;
@@ -219,4 +243,21 @@
 	.respond-md({
 		padding: 7em 5.2em;
 	});
+	.connect-thanks {
+		color:@white;
+		padding:0;
+		margin: 2em 0;
+		font-size: 2em;
+		text-align: center;
+		.opensans-light();
+		.respond-md({
+			margin: 3.5em 0;
+			text-align: left;
+		});
+		.respond-lg({
+			margin: 4em 0;
+			font-size: 2.5em;
+		});
+		
+	}
 }

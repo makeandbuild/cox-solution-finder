@@ -57,7 +57,7 @@ Product.add({
 		video: {
 			type: Types.S3File,
 			label: 'Product Video: File MP4',
-			note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
+			note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video. Note: If no image is uploaded, no video will show up!',
 			allowedTypes: ['video/mp4'],
 			s3path: 'uploads/videos'
 		},
@@ -68,10 +68,13 @@ Product.add({
 			allowedTypes: ['video/webm'],
 			s3path: 'uploads/videos'
 		},
+		title_overlay: {
+			type: Types.Boolean, default: false, label: "Use title overlay over the image?", note:"This should be used when there is no image content available for this product and the blue generic image is used."
+		},
 		background: {
 			type: Types.S3File,
 			label: 'Product Video: Hero Image',
-			note: "Upload a 2X Image to be preview image for the video.",
+			note: "Upload a 2X Image to be preview image for the video. This image must be uploaded for the video to be displayed.",
 			s3path: 'uploads/images'
 		}
 	},

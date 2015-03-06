@@ -24,6 +24,7 @@ var keystone = require('keystone'),
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
+keystone.pre('render', middleware.setState);
 keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
@@ -39,13 +40,15 @@ exports = module.exports = function(app) {
 	});
 
 	// Views
-	app.get('/', middleware.logPageView, routes.views.index);
+	app.all('/', routes.views.index);
 	app.all('/connect', routes.views.connect);
 
-	//app.get('/industries/', routes.views.industries);
+	app.all('/personalized/:enquiry', middleware.personalized, routes.views.index); // DO SOMETHING IN MIDDLE WARE TO SET THE COOKIE
+
+	app.all('/settings', routes.views.settings);
+
 	app.get('/industries/:industry', routes.views.industry);
 
-	//app.get('/services/', routes.views.services);
 	app.get('/services/:service', routes.views.service);
 
 	app.get('/services/:service/:industry', routes.views.service_by_industry);
@@ -54,6 +57,7 @@ exports = module.exports = function(app) {
 
 	app.get('/sitemap.json', keystone.middleware.api, routes.views.json.sitemap);
 
+	app.post('/showroom-sync', routes.views.json.showroom_sync);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

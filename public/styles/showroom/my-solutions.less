@@ -38,6 +38,32 @@
 	}
 }
 
+.solution-product-item {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 45px;
+  	height: 45px;
+  	z-index:5;
+  	.showroom-screen({
+
+  	});
+	.coxicon {
+		.star_template();
+		text-align: right;
+		font-size: 2.5em;
+	}
+}
+.product-navigation-item.active {
+	.solution-product-item { 
+		.coxicon {
+			color:@somewhatlightGray;
+			&.active {
+				color:@yellow;
+			}
+		}
+	}
+}
 
 
 //My Solutions Block
@@ -50,9 +76,14 @@
 	color:@white;
 	padding: 0.7em 1em;
 	z-index: 5;
+	opacity:1;
+	.transition(0.3s);
 	.remove-filter();
 	&.active {
-		.blur(20px);
+		z-index: 0;
+		.showroom-screen({
+			.blur(20px);
+		});
 	}
 	.opensans-regular();
 	.showroom-screen({
@@ -61,6 +92,19 @@
 		right: 37px;
 		height: 145px;
 		width: 145px;
+		.transition(0s);
+	});
+	&.inactive {
+		opacity:0;
+		visibility: hidden;
+		.transition(0.3s);
+	}
+	.showroom-screen({
+		&.inactive {
+			opacity:1;
+			visibility: visible;
+			.transition(0s);
+		}
 	});
 }
 .my-solutions-count, .my-solutions-title {
@@ -87,4 +131,279 @@
 			display:block;
 		}
 	});
+}
+
+.connect-page-my-solutions {
+	background-color:@xlightGray;
+	.showroom-screen({
+		background-color:@xsomewhatlightGray;
+	});
+	.solutions-title {
+		.opensans-light();
+		text-transform: uppercase;
+		.showroom-screen({
+			font-size: 3.2em;
+		});
+	}
+	.solutions-favorites-scroll-wrapper {
+		height: 550px;
+		overflow-x:hidden;
+		overflow-y:scroll;
+		.showroom-screen({
+			height: 705px;
+		});
+	}
+	.solutions-favorites-scroll-wrapper::-webkit-scrollbar { 
+	    display: none; 
+	}
+	.solutions-favorites-container {
+		
+		padding-right:8.33333333%;
+		
+	}
+	.solutions-favorites-container::-webkit-scrollbar { 
+	    display: none; 
+	}
+	.solutions-section-title {
+		color:@darkBlue;
+		text-transform: uppercase;
+		font-size:1.3em;
+		display:none;
+		&.active {
+			display:block;
+		}
+		.opensans-regular();
+		.showroom-screen({
+			font-size:1.5em;
+			margin-bottom: 0.7em;
+		});
+	}
+	.solutions-container {
+		&.full-width-rows {
+			margin-right:2%;
+			.showroom-screen({
+				margin-right:3%;
+			});
+		}
+		.showroom-screen({
+			margin-bottom: 2em;
+		});
+		&.solutions-container-products {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+	.solutions-favorite-close {
+		position:absolute;
+		top: 0px;
+		right: 0px;
+		width: 40px;
+		height: 40px;
+		display:block;
+		z-index: 5;
+		img {
+			width: 15px;
+			position:absolute;
+			right: 11px;
+			top: 11px;
+			margin:auto;
+			text-align: center;
+		}
+	}
+	.solutions-favorited-item {
+		background-color:@white;
+		display:none;
+		margin-bottom: 15px;
+		width:100%;
+		height: 100%;
+		.shadow-normal();
+		margin-left:auto;
+		margin-right:auto;
+		position: relative;
+		.showroom-screen({
+			margin-bottom: 20px;
+		});
+		.transition(0.3s);
+		&.active {
+			display:block;
+			.transition(0.3s);
+		}
+		.solutions-favorite-icon {
+			display: table-cell;
+			vertical-align: middle;
+			width: 12%;
+			font-size: 2.5em;
+			text-align: center;
+			color: #888;
+			.showroom-screen({
+				width: 16%;
+				font-size:5em;
+			});
+		}
+		.solutions-favorite-divider {
+			display:table-cell;
+			vertical-align: middle;
+			height:inherit;
+			span {
+				display:block;
+				width:1px;
+				background-color:#d4d4d4;
+				vertical-align: middle;
+				position:relative;
+				height: 50px;
+				.showroom-screen({
+					height: 70px;
+				});
+			}
+		}
+		.solutions-favorite-info {
+			display:table-cell;
+			vertical-align: middle;
+			width:100%;
+			padding: 0.5em 2em 0.8em 0.5em;
+			line-height: 1.2;
+			.showroom-screen({
+				padding:0.8em 2em 1em 1em;
+				line-height: 1.4;
+			});
+		}
+		.solutions-favorite-title {
+			color:@darkBlue;
+			display:block;
+			margin:0;
+			font-size: 1em;
+			.opensans-semibold();
+			.showroom-screen({
+				font-size:1.2em;
+			});
+		}
+		.solutions-favorite-description {
+			display:block;
+			margin:0;
+			color:@black;
+			font-size: 0.875em;
+			.showroom-screen ({
+				font-size: 1.3em;
+				width: 80%;
+			});
+		}
+	}
+	.solutions-favorited-product {
+		padding:0;
+		display:none;
+		.transition(0.3s);
+		&.active {
+			display:block;
+			.transition(0.3s);
+		}
+		.solutions-product-item {
+			color:@darkBlue;
+			background-color:@white;
+			height:65px;
+			width: 95%;
+			margin-bottom: 11px;
+			padding: 14px 0 12px 13px;
+			font-size: 1em;
+			line-height: 1.2;
+			position:relative;
+			.shadow-normal();
+			.showroom-screen({
+				height: 105px;
+				font-size: 1.4em;
+				width: 90%;
+				margin-bottom: 20px;
+			});
+			span {
+				width: 80%;
+				display: block;
+				.showroom-screen({
+					vertical-align: top;
+					position: absolute;
+					bottom: 12px;
+					line-height: 1.2;
+					width: 65%;
+					left: 15px;
+				});
+			}
+		}
+	}
+	.row-divider {
+		display:block;
+		border-top:1px solid #ABABAB;
+		margin:auto;
+		position:relative;
+		width:90%;
+	}
+	.two-button-container {
+		display:block;
+		padding-top:15px;
+		.showroom-screen({
+			padding-top:45px;
+		});
+	}
+	.solutions-clear_all, .solutions-continue_browsing {
+		float:left;
+		vertical-align: top;
+		height:50px;
+		font-size:1.15em;
+		padding: 0.6em 1.3em;
+		.showroom-screen({
+			height:65px;
+			font-size: 1.6em;
+			padding: 0.5em 1.5em;
+		});
+	}
+	.solutions-continue_browsing {
+		float:right;
+		.showroom-screen({
+			margin-right: 15px;
+		});
+	}
+	.solutions-navigation {
+		display:none;
+		position: absolute;
+		bottom:0;
+		right:0;
+		width: 12%;
+		height: 34%;
+		.showroom-screen({
+			display:block;
+		});
+	}
+	.solutions-navigation-arrow {
+		display:block;
+		height: 44%;
+		width:100%;
+		position: relative;
+		.transition(0.3s);
+		&.active {
+			opacity:0.5;
+			.transition(0.3s);
+		}
+		img {
+			display:block;
+			position:absolute;
+			margin:auto;
+			right:0;
+			left:0;
+			top:0;
+			bottom:0;
+			text-align: center;
+			width: 50%;
+		}
+		&.arrow-up {
+			.transform(540deg, 1, 0deg, 0px);
+		}
+		&.arrow-down {
+			
+		}
+	}
+	.solutions-no-solutions {
+		.opensans-light();
+		display:none;
+		&.active {
+			display:block;
+		}
+	}
+	
 }

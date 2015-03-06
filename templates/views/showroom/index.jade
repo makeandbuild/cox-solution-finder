@@ -3,56 +3,53 @@ extends ../../layouts/default-showroom
 
 
 //- Scenes (Navigation for Acts)
-mixin scene(scene)
-	.scene(data-scene=scene.title)
-		img(src=scene.featured_image.url).scene-preview-featured-image
+mixin scene(scene, scene_location)
+	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
+		img(src=assetURI(scene.featured_image.url)).scene-preview-featured-image
 		h2.scene-preview-title= scene.title
-			img(src="/images/arrow_down.png")
+			img(src=assetURI("/images/arrow_down.png"))
 
-mixin scene_with_text(scene)
-	.scene(data-scene=scene.title)
+mixin scene_with_text(scene, scene_location)
+	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
 		.scene-preview-text
 			h2.scene-preview-text-header= data.home.hero.business_count
 			p.scene-preview-text-subtext
 				span Businesses powered by
-				img(src="/images/logo_blue.png")
+				img(src=assetURI("/images/logo_blue.png"))
 
 		h2.scene-preview-title= scene.title
-			img(src="/images/arrow_down.png")
+			img(src=assetURI("/images/arrow_down.png"))
 
 
 //- Acts (Revealed when a Scene Item is clicked)
 mixin act_factoid(scene, act)
-	.act(data-act=scene.title)
+	.act(data-act=scene.title).act-factoid
 		each key, index in Object.keys(act).reverse()
 			- var factoid = act[key]
 			if factoid.factoid_enable
 				.factoid(class="factoid-position-"+index).inactive-factoid
-					.factoid-front(style="background-image: url("+factoid.front_image.url+");")
-					.factoid-back(style="background-image: url("+factoid.back_image.url+");")
-
-
-
+					.factoid-front(style="background-image: url("+assetURI(factoid.front_image.url)+");")
+					.factoid-back(style="background-image: url("+assetURI(factoid.back_image.url)+");")
 
 		button.btn.btn-default.act-close.factoid-close(type="button")
-			img(src="/images/close.png")
+			img(src=assetURI("/images/close.png"))
 
+
+	
 mixin act_video(scene)
-	.act(data-act=scene.title)
-		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=data.home.hero.background.url data-setup="{}")
-			source(src=data.home.hero.video.video.url type='video/mp4')
-			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
-				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
+	.act(data-act=scene.title).act-video
+		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=assetURI(data.home.hero.video.background.url) data-setup="{}")
+			source(src=assetURI(data.home.hero.video.video.url) type='video/mp4')
 		button.btn.btn-default.act-close.csf-content-close(type="button" data-video-close="home_stage_default_video")
-			img(src="/images/close.png")
-
+			img(src=assetURI("/images/close.png"))
+	
 mixin act_map_overlay(scene, act)
-	.act(data-act=scene.title)
+	.act(data-act=scene.title).act-map
 		each key, index in Object.keys(act).reverse()
 			- var map = act[key]
 			if map.map_overlay_enable
-				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= map.map.url ? "background-image: url(" + map.map.url+");" : "")
-					h1.map-overlay-title= map.title
+				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= map.map.url ? "background-image: url(" + assetURI(map.map.url)+");" : "")
+					h1.map-overlay-title= scene.title
 					.map-overlay-related
 						h3 Top Products
 						- var productCount = 0;
@@ -62,44 +59,65 @@ mixin act_map_overlay(scene, act)
 									span= product.title
 								- productCount++
 						.map-overlay-all-services
-							img(src="/images/arrow_down_gray.png")
+							img(src=assetURI("/images/arrow_down_gray.png"))
 							p See All
 								br
 								| Services
 		.dropdown.custom-dropdown.map-overlay-dropdown
 			button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 				.icon-arrow
-					img(src="/images/arrow_down.png")
+					img(src=assetURI("/images/arrow_down.png"))
 				span.custom-dropdown-current by Type
-			ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+			ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
 				each key, index in Object.keys(act).reverse()
 					- var map = act[key]
 					if map.map_overlay_enable
-						li(role="presentation")
-							a(role="menuitem" tabindex="-1" data-navigationitem=map.title class="map-overlay-navitem")= map.title
+						if index == 0
+							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem").active
+								a(role="menuitem" tabindex="-1")= map.title
+						else
+							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
+								a(role="menuitem" tabindex="-1")= map.title
 		button.btn.btn-default.act-close(type="button")
-			img(src="/images/close.png")
-		
-	
-
+			img(src=assetURI("/images/close.png"))
+mixin media_buffet_home_section(item, type)
+	span.media_buffet_home_section(data-home-media-buffet=type)
+		.story
+			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetURI(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
+				img(src=assetURI("/icons/png/icon-plus.png"))
+			h4.media-title!=assetURI(item.media_buffet.story.title)
+		.values
+			.values-container
+				!= assetURI(item.media_buffet.values.content)
+			h4.media-title!=assetURI(item.media_buffet.values.title)
+		.video
+			if assetURI(item.media_buffet.video.video_choice)
+				if assetURI(item.media_buffet.video.video.url)
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(item.media_buffet.video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
+						img(src=assetURI("/icons/png/icon-play.png"))
+				else
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(global_data.default_video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
+						img(src=assetURI("/icons/png/icon-play.png"))
+			else
+				a(style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").remove-pointer
 block content
 	.home-stage
 
 		//- Factoids
-		+scene(data.home.stage.scene_one)
+		+scene(data.home.stage.scene_one, 'scene_location_1')
 		+act_factoid(data.home.stage.scene_one, data.home.act.act_one)
 
 		//- Video
-		+scene_with_text(data.home.stage.scene_two)
+		+scene_with_text(data.home.stage.scene_two, 'scene_location_2')
 		+act_video(data.home.stage.scene_two)
 
 		//- Map Overlay
-		+scene(data.home.stage.scene_three)
+		+scene(data.home.stage.scene_three, 'scene_location_3')
 		//- - console.log(data.home.act.act_three.map_one)
 
 		+act_map_overlay(data.home.stage.scene_three, data.home.act.act_three)
 
-		.stage-background(style= data.home.stage_background ? "background-image: url(" + data.home.stage_background.url+");" : "")
+		.stage-background(style= data.home.stage_background ? "background-image: url(" + assetURI(data.home.stage_background.url)+");" : "")
 		.stage-background-overlay
 		.stage-background-shadow
 
@@ -108,30 +126,13 @@ block content
 			h3 Featured
 			section(role="navigation").media-buffet-home
 				ul.services-list
-					//- - console.log("Media Buffet Length: "+ data.home.media_buffet.length)
 					each item, index in global_data.services
 
-						li: a(href='/services/' + item.slug title=item.title).service-item
+						li: a(href=linkURI('/services/' + item.slug) title=item.title).service-item
 							.service-icon.coxicon(class="coxicon_"+item.svg_icon)
 							h4.service-title=item.title
 						if index == 1
 							br
-				.story
-					a(data-toggle="modal" data-target="#story_modal" data-story-data=data.home.media_buffet.story style= data.home.media_buffet.story.featured_image.url ? "background-image: url(" + data.home.media_buffet.story.featured_image.url+");" : "").story-link
-						img(src="/icons/png/icon-plus.png")
-					h4.media-title!=data.home.media_buffet.story.title
-				.values
-					.values-container
-						!= data.home.media_buffet.values.content
-					h4.media-title!=data.home.media_buffet.values.title
-				.video
-					if data.home.media_buffet.video.video_choice
-						if data.home.media_buffet.video.video.url
-							a(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.media_buffet.video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
-								img(src="/icons/png/icon-play.png")
-						else
-							a(data-toggle="modal" data-target="#video_modal" data-video-data=global_data.default_video style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").video-link
-								img(src="/icons/png/icon-play.png")
-					else
-						a(style= data.home.media_buffet.video.background.url ? "background-image: url(" +data.home.media_buffet.video.background.url+");" : "").remove-pointer
-
+				+media_buffet_home_section(data.home, 'default')
+				each industry, index in global_data.industries
+					+media_buffet_home_section(industry, industry.slug)

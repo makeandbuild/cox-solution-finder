@@ -5,20 +5,21 @@ html {
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 	-moz-osx-font-smoothing: grayscale;
+	height:100%;
 
 }
 .showroom {
 	.showroom-screen-exact({
-		cursor:url(../images/cursor.png), crosshair !important;
+		cursor:none !important; // Removes the cursor on the touchscreen.
 		* {
-			cursor:url(../images/cursor.png), crosshair !important;
-			//cursor:none !important; // Removes the cursor on the touchscreen.
+			cursor:none !important; // Removes the cursor on the touchscreen.
 		}
 	});
 	width:1024px;
-	height:748px;
+	height:768px;
 	overflow:hidden;
 	position:relative;
+	.opensans-regular();
 	
 	.showroom-screen({
 		width:1920px;
@@ -48,8 +49,8 @@ html {
 		z-index:1;
 
 		//For Factoids Animations
-		perspective: 2500px;
-		-webkit-perspective: 2500px;
+		perspective: 2000px;
+		-webkit-perspective: 2000px;
 		.opensans-regular();
 		.showroom-screen({
 			width:1700px;
@@ -57,11 +58,13 @@ html {
 			position:absolute;
 			right: 0;
 			top: 0;
+			perspective: 2500px;
+			-webkit-perspective: 2500px;
 		});
 	}
 	.modal {
 		width:1024px;
-		height:748px;
+		height:768px;
 		.showroom-screen({
 			width:1700px;
 			height:1080px;
@@ -70,7 +73,7 @@ html {
 	}
 	
 	.full-height-col {
-		height: 748px;
+		height: 768px;
 		overflow: hidden;
 		.showroom-screen({
 			height:1080px;
@@ -101,13 +104,18 @@ html {
 		margin-top:50px;
 		.respond-md({
 			margin-top:0px;
-			min-height: 100vh;
 		});
 		.opensans-regular();
 	}
 	
 	.header-space {
 		height: 7em;
+		.respond-md({
+			height: 7em;
+		});
+	}
+	.header-space-medium {
+		height: 2.5em;
 		.respond-md({
 			height: 7em;
 		});
@@ -254,11 +262,9 @@ a {
 		padding-top: 0;
 		padding-bottom:0;
 		.box-shadow(0,0,0,0);
+		.shadow-light();
 		li {
 			border-bottom:1px solid @somewhatlightGray;
-			&:first-child {
-				border-top: 1px solid @somewhatlightGray;
-			}
 			&:last-child {
 				border-bottom:0;
 			}
@@ -308,4 +314,24 @@ a {
 	z-index:2;
 	background-color:rgba(255,255,255,0.9);
 }
-
+.showroom .the-looking-glass.active {
+	.responsive-max(1200px,{
+		-webkit-filter: none !important;
+		-moz-filter: none !important;
+		-o-filter: none !important;
+		-ms-filter: none !important;
+		filter: none !important;
+		.the-looking-glass-overlay {
+			display:block;
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			width:100%;
+			height:100%;
+			z-index:6;
+			background-color:rgba(255,255,255,0.9);
+		}
+	});
+}

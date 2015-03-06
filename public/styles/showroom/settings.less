@@ -1,0 +1,160 @@
+.settings-page {
+	.header-space-settings {
+		height: 55px;
+		.showroom-screen({
+			height: 75px;
+		});
+	}
+	&.settings-page-selection {
+		background-color:@xlightGray;
+		.showroom-screen({
+			background-color:@xsomewhatlightGray;
+		});
+	}
+	&.settings-page-options {
+		.showroom-screen({
+			background-color:@xsomewhatlightGray;
+		});
+		.header-space-settings {
+			height: 150px;
+		}
+		.settings-page-options-content {
+			display:block;
+			.showroom-screen({
+				display:none;
+			});
+		}
+	}
+	.settings-title {
+		.industry-title();
+	}
+	.settings-section-title {
+		color:@darkBlue;
+		text-transform: uppercase;
+		font-size:1.3em;
+		display:block;
+		.opensans-regular();
+		.showroom-screen({
+			font-size:1.5em;
+			margin-bottom: 0.7em;
+		});
+		&.transfer-success {
+			color:@lightBlue;
+			display:none;
+			&.active {
+				display:block;
+			}
+		}
+		&.transfer-failure {
+			color:red;
+			display:none;
+			&.active {
+				display:block;
+			}
+		}
+	}
+	.settings-section-content {
+		margin-bottom:1em;
+	}
+	button {
+		padding:0.5em 1.5em;
+		font-size: 1.25em;
+	}
+	.settings-filter-container {
+		position: absolute;
+		bottom:-600px;
+		width: 100%;
+		height:304px;
+		.showroom-screen({
+			bottom: -880px;
+			height: 420px;
+		});
+		.settings-filter-item-container {
+			padding:0;
+			&.active {
+				.settings-filter-item {
+					.transition(0.1s);
+					background-color:@lightBlue;
+					color:@white;
+				}
+			}
+		}
+		.settings-filter-item {
+			color:@white;
+			background-color:@darkBlue;
+			height:65px;
+			width: 95%;
+			margin-bottom: 11px;
+			padding: 7px 9px;
+			position:relative;
+			font-size: 1.15em;
+			.shadow-normal();
+			.showroom-screen({
+				height:120px;
+				width: 90%;
+				margin-bottom: 20px;
+				font-size: 1em;
+				.transition(0.1s);
+			});
+			.settings-filter-icon {
+				position: absolute;
+				top: 0;
+				left: 0;
+				font-size: 3.5em;
+				padding-left: 0.1em;
+				padding-top: 0.1em;
+				display:none;
+				.showroom-screen({
+					display:block;
+				});
+			}
+			span {
+				width: 70%;
+				display: block;
+				line-height: 1.2;
+				
+				.showroom-screen({
+					.transition(0.1s);
+					font-size: 1.5em;
+					display: block;
+					vertical-align: bottom;
+					position: absolute;
+					bottom: 7px;
+					width: 55%;
+					line-height: 1.2;
+				});
+			}
+		}
+		.settings-filter-title-container {
+			padding:0;
+		}
+		.settings-filter-title {
+			.settings-filter-item();
+		 	background-color:transparent;
+		 	padding: 7px 9px 7px 0;
+		 	color:@darkBlue;
+		 	font-size: 1.8em;
+		 	.shadow-remove();
+		 	span {
+		 		.showroom-screen({
+		 			bottom: 40px;
+		 			font-size: 1.8em;
+		 		});
+		 	}
+		}
+	}
+	.settings-warning {
+		width: 50%;
+	}
+	.settings-fields {
+		position: absolute;
+		width: 97%;
+		top: 80px;
+		.showroom-screen({
+			top:100px;
+		});
+		button {
+			float:right;
+		}
+	}
+}

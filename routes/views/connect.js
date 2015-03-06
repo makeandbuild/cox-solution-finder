@@ -48,6 +48,19 @@ exports = module.exports = function(req, res) {
 
 	});
 
+	view.on('init', function(next) {
+
+	  var productQuery = keystone.list('Product').model.find().where('state', 'published');
+	  productQuery.exec(function(err, results) {
+	  	locals.global_data.products = results;
+	  	next(err);
+	  });
+
+	});
+
+
+	
+
 
 
 	

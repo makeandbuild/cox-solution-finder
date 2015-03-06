@@ -20,18 +20,15 @@ block content
 
 				.col-xs-12.col-md-6.col-lg-5.connect-form-col
 					if enquirySubmitted
-						h3.connect-thanks Thanks for getting in touch!
+						h3.connect-thanks Thanks for your interest. We'll be in touch!
 					else
 						p Tell us about yourself
 						form(method='post')
 							input(type='hidden', name='action', value='connect')
-							.form-group(class=validationErrors.name ? 'has-error' : null)
-								label.sr-only First Name
-								input(type='text', name='name.first', value=formData['name.first'] placeholder="First").form-control
 
 							.form-group(class=validationErrors.name ? 'has-error' : null)
-								label.sr-only Last Names
-								input(type='text', name='name.last', value=formData['name.last'] placeholder="Last").form-control
+								label.sr-only Full Name
+								input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 
 							.form-group(class=validationErrors.email ? 'has-error' : null)
 								label.sr-only Email
@@ -61,12 +58,12 @@ block content
 										option(value=type.value, selected=formData.company_population == type.value)= type.label
 							
 							.form-group
-								label.sr-only Current Cox Customer
+								label.sr-only Current Cox Business Customer
 								.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
 									.input-checkbox
 										img(src="/icons/png/icon-check.png")
 									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Current Cox Customer")
+								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
 							
 							.form-actions
 								button(type='submit').btn.btn-primary SUBMIT

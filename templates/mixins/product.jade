@@ -6,42 +6,45 @@ mixin product(product)
 			if product.video.background.url
 				if product.video.video_choice
 					if product.video.video.url
-						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "").video-link.product-hero-container
-							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=product.video style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container
 							img(src="/icons/png/icon-play.png").product-play-icon
+							if product.video.title_overlay
+								h2.product-video-title= product.title
 					else
-						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-							//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
+						a.product-hero-container(style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "")
+							if product.video.title_overlay
+								h2.product-video-title= product.title
 				else
-					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + product.video.background.url+");" : "")
-						//- img(src=product.video.background.url alt="product-hero-image").product-hero-image
-			section.product-item-container
+					a.product-hero-container(style= product.video.background.url ? "background-image: url(" + assetURI(product.video.background.url)+");" : "")
+						if product.video.title_overlay
+							h2.product-video-title= product.title
+			section.product-item-container.contains-equal-heights
 				.product-showroom-scroll
-				.col-md-6.col-lg-4
+				.col-md-6.col-lg-4.equal-heights
 					.col-xs-12
 						.product-item-icon.coxicon(class="coxicon_"+product.item_one.svg_icon)
 					.col-xs-12
 						p.section-heading= product.item_one.title
 						p.section-content= product.item_one.content
-				.col-md-6.col-lg-4
+				.col-md-6.col-lg-4.equal-heights
 					.col-xs-12
 						.product-item-icon.coxicon(class="coxicon_"+product.item_two.svg_icon)
 					.col-xs-12
 						p.section-heading= product.item_two.title
 						p.section-content= product.item_two.content
-				.col-md-6.col-lg-4
+				.col-md-6.col-lg-4.equal-heights
 					.col-xs-12
 						.product-item-icon.coxicon(class="coxicon_"+product.item_three.svg_icon)
 					.col-xs-12
 						p.section-heading= product.item_three.title
 						p.section-content= product.item_three.content
-				.col-md-6.col-lg-4
+				.col-md-6.col-lg-4.equal-heights
 					.col-xs-12
 						.product-item-icon.coxicon(class="coxicon_"+product.item_four.svg_icon)
 					.col-xs-12
 						p.section-heading= product.item_four.title
 						p.section-content= product.item_four.content
-				.col-md-6.col-lg-4
+				.col-md-6.col-lg-4.equal-heights
 					.col-xs-12
 						.product-item-icon.coxicon(class="coxicon_"+product.item_five.svg_icon)
 					.col-xs-12

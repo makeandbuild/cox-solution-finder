@@ -1,31 +1,47 @@
-var async = require('async'),
-		keystone = require('keystone'),
-		_ = require('underscore');
+var async = require('async')
+	,	keystone = require('keystone')
+	,	_ = require('underscore')
+	, mkdirp = require('mkdirp')
+	, fs = require('fs')
 
 
-var Product 	= keystone.list('Product').model,
-		Industry	= keystone.list('Industry').model,
-		Service		= keystone.list('Service').model;
+var Product 	= keystone.list('Product').model
+	,	Industry	= keystone.list('Industry').model
+	,	Service		= keystone.list('Service').model
 
-var domain = 'http://showroom.staging.sfv2.cox.mxmcloud.com/';
-var urls = [];
+var domain = process.env.STATIC_URI
+	, urls = []
 
 exports.productURLs = function(callback) {
-	var q = Product.find().where('state', 'published');
+	var q = Product.find().where('state', 'published')
 
 	q.exec(function(err, products){
-		if (err) return callback(err) ;
+		if (err){
+			return callback(err)
+		}
 
 		_.each(products, function(product){
-				urls.push(domain + 'products/' + product.slug);
-		});
+				urls.push(domain + '/products/' + product.slug)
+		})
 
-		callback();
-	});
+		callback()
+	})
 }
 
 exports.industryURLs = function(callback) {
-	callback();
+	var q = Industry.find().where('state', 'published')
+
+	q.exec(function(err, industries){
+		if (err){
+			return callback(err)
+		}
+
+		_.each(industries, function(industry){
+				urls.push(domain + '/industries/' + industry.slug)
+		})
+
+		callback()
+	})
 }
 
 exports.serviceURLs = function(callback) {
@@ -33,26 +49,31 @@ exports.serviceURLs = function(callback) {
 		.where('state', 'published')
 		.populate('industries')
 		.exec( function(err, services){
-			if (err) { callback(err);}
+			if (err) {
+				return callback(err)
+			}
 
 			_.each(services, function(service){
-				urls.push(domain + 'services/' + service.slug)
+				urls.push(domain + '/services/' + service.slug)
 				_.each(service.industries, function(industry){
-					urls.push(domain + 'services/' + service.slug + '/' + industry.slug);
-				});
-			});
-			callback();
+					urls.push(domain + '/services/' + service.slug + '/' + industry.slug)
+				})
+			})
+			callback()
 		})
 }
 
 exports.generalURLs = function(callback) {
-	callback();
+	urls.push(domain + '/')
+	urls.push(domain + '/connect')
+	urls.push(domain + '/settings')
+	callback()
 }
 
 
 exports.sitemap = function(req, res) {
 	// Reset urls otherwise the data is appended on each request.
-	urls = [];
+	urls = []
 
 	async.series([
 		exports.productURLs,
@@ -67,3 +88,27 @@ exports.sitemap = function(req, res) {
 		}
 	})
 }
+
+exports.showroom_sync = function(req, res) {
+	var json = req.body
+		, name = (new Date).getTime()
+		, dataDir = 'tmp/showroom-sync/'
+
+	mkdirp(dataDir, function(err){
+		if (err) {
+			return res.json({ status: 'error', message: err })
+		}
+
+		fs.writeFile(dataDir + name + '.json', JSON.stringify(json), function(err){
+			if (err) {
+				res.json({ status: 'error', message: err })
+			} else {
+				res.json({ status: 'success', data: json })
+			}
+		})
+ 	})
+}
+
+
+
+

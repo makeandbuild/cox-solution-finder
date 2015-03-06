@@ -43,6 +43,8 @@ exports = module.exports = function(app) {
 	app.all('/', routes.views.index);
 	app.all('/connect', routes.views.connect);
 
+	app.all('/personalized/:enquiry', middleware.personalized, routes.views.index); // DO SOMETHING IN MIDDLE WARE TO SET THE COOKIE
+
 	app.all('/settings', routes.views.settings);
 
 	app.get('/industries/:industry', routes.views.industry);

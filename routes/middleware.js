@@ -87,7 +87,6 @@ exports.initLocals = function(req, res, next) {
 
 };
 
-
 /**
 	Fetches and clears the flashMessages before a view is rendered
 */
@@ -121,4 +120,18 @@ exports.requireUser = function(req, res, next) {
 		next();
 	}
 
+};
+
+
+/** 
+	If user has a personalized email they hit /personalized/:enquiry and we decrypt and forward them to their custom home page.
+*/
+exports.personalized = function(req, res, next) {
+	var uid = req.params.enquiry;
+	res.locals.uid = uid;
+
+	res.cookie('UID', uid);
+
+	console.log('MIDDLEWARE');
+	next();
 };

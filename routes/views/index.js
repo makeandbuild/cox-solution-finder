@@ -16,20 +16,67 @@ exports = module.exports = function(req, res) {
 	locals.data = {};
 
 	var isPersonal = true;
+	
+	var encrypted_uid;
 
-	if (isPersonal) {
-		locals.data.custom_data = {};
 
-		//Fake Data
-		locals.data.custom_data.name = {};
-		locals.data.custom_data.name.first = "Mark";
-		locals.data.custom_data.name.last = "Cunningham";
-		locals.data.custom_data.eventName = "LA Hospitality Convention";
+	if(locals.uid != undefined) {
+		encrypted_uid = locals.uid;
+	} else if(req.cookies.UID != undefined) {
+		encrypted_uid = req.cookies.UID;
+	} else {
+		encrypted_uid = false;
+	}
 
-		locals.data.custom_data.favorites = {};
-		locals.data.custom_data.favorites.industries = ['hospitality', 'government'];
-		locals.data.custom_data.favorites.services = ['internet', 'tv', 'voice'];
-		locals.data.custom_data.favorites.products = ['optical-internet', 'telecoms'];
+	
+	if (encrypted_uid) { //IS COOKIE THERE?
+		var sec = require('../../components/security.js');
+		var uid = sec.decrypt(encrypted_uid);
+	 
+	 	var mongoose = require('mongoose');
+		var objid = new mongoose.Types.ObjectId(uid);
+
+		var q = keystone.list('Enquiry').model.findOne({'_id': objid});
+		var user;
+		q.exec(function(err, results) {
+			locals.data.custom_data = {};
+			user = results;
+			//PUT ENQUIRY IN THERE
+			console.log(user);
+			//Fake Data
+			locals.data.custom_data.name = {};
+			locals.data.custom_data.name.first = user.name.first;
+			locals.data.custom_data.eventName = user.showroom;
+
+			locals.data.custom_data.favorites = {};
+
+			if(user.industries != undefined) { 
+				user.industriesarray = user.industries.split(",");
+			} else {
+				user.industries = false;
+			}
+
+			if(user.services != undefined) { 
+				user.servicesarray = user.services.split(",");
+			} else {
+				user.services = false;
+			}
+
+			if(user.products != undefined) { 
+				user.productsarray = user.products.split(",");
+			} else {
+				user.products = false;
+			}
+
+			console.log(user.industriesarray);
+			console.log(user.servicesarray);
+			console.log(user.productsarray);
+			locals.data.custom_data.favorites.industries = user.industriesarray;
+			locals.data.custom_data.favorites.services = user.servicesarray;
+			locals.data.custom_data.favorites.products = user.productsarray;
+
+		});
+
 	}
 
 	view.on('init', function(next) {

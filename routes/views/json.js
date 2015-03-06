@@ -65,6 +65,8 @@ exports.serviceURLs = function(callback) {
 
 exports.generalURLs = function(callback) {
 	urls.push(domain + '/')
+	urls.push(domain + '/connect')
+	urls.push(domain + '/settings')
 	callback()
 }
 

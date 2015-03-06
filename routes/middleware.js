@@ -18,15 +18,17 @@ exports.setState = function(req,res,next){
 
 	locals.linkURI = function(uri) {
 		if (typeof(uri) == 'string' && locals.gohtml) {
-			if (uri === '/') { uri = '/index' }
-			uri = uri + '.html'
+			if (uri === '/') {
+				uri = '/index';
+			}
+			uri = uri + '.html';
 		}
 		return uri;
 	}
 
 	locals.assetURI = function(uri) {
 		if (typeof(uri) == 'string' && locals.gohtml) {
-			uri = uri.slice(uri.indexOf('/uploads/'), uri.length).replace('/uploads/','/s3/')
+			uri = uri.slice(uri.indexOf('/uploads/'), uri.length).replace('/uploads/','/s3/');
 		}
 		return uri;
 	}

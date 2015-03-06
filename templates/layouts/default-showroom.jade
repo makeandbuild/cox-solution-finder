@@ -19,34 +19,34 @@ html
 		meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
 		title= title || 'Cox Solution Finder'
-		link(rel="shortcut icon" type="image/x-icon" href=linkURI("/favicons/favicon.ico"))
-		link(rel="apple-touch-icon" sizes="57x57" href=linkURI("/favicons/apple-touch-icon-57x57.png"))
-		link(rel="apple-touch-icon" sizes="60x60" href=linkURI("/favicons/apple-touch-icon-60x60.png"))
-		link(rel="apple-touch-icon" sizes="72x72" href=linkURI("/favicons/apple-touch-icon-72x72.png"))
-		link(rel="apple-touch-icon" sizes="76x76" href=linkURI("/favicons/apple-touch-icon-76x76.png"))
-		link(rel="apple-touch-icon" sizes="114x114" href=linkURI("/favicons/apple-touch-icon-114x114.png"))
-		link(rel="apple-touch-icon" sizes="120x120" href=linkURI("/favicons/apple-touch-icon-120x120.png"))
-		link(rel="apple-touch-icon" sizes="144x144" href=linkURI("/favicons/apple-touch-icon-144x144.png"))
-		link(rel="apple-touch-icon" sizes="152x152" href=linkURI("/favicons/apple-touch-icon-152x152.png"))
-		link(rel="apple-touch-icon" sizes="180x180" href=linkURI("/favicons/apple-touch-icon-180x180.png"))
-		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-32x32.png") sizes="32x32")
-		link(rel="icon" type="image/png" href=linkURI("/favicons/android-chrome-192x192.png") sizes="192x192")
-		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-96x96.png") sizes="96x96")
-		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-16x16.png") sizes="16x16")
-		link(rel="manifest" href=linkURI("/favicons/manifest.json"))
-		meta(name="msapplication-config" content=linkURI("/favicons/browserconfig.xml"))
+		link(rel="shortcut icon" type="image/x-icon" href=assetURI("/favicons/favicon.ico"))
+		link(rel="apple-touch-icon" sizes="57x57" href=assetURI("/favicons/apple-touch-icon-57x57.png"))
+		link(rel="apple-touch-icon" sizes="60x60" href=assetURI("/favicons/apple-touch-icon-60x60.png"))
+		link(rel="apple-touch-icon" sizes="72x72" href=assetURI("/favicons/apple-touch-icon-72x72.png"))
+		link(rel="apple-touch-icon" sizes="76x76" href=assetURI("/favicons/apple-touch-icon-76x76.png"))
+		link(rel="apple-touch-icon" sizes="114x114" href=assetURI("/favicons/apple-touch-icon-114x114.png"))
+		link(rel="apple-touch-icon" sizes="120x120" href=assetURI("/favicons/apple-touch-icon-120x120.png"))
+		link(rel="apple-touch-icon" sizes="144x144" href=assetURI("/favicons/apple-touch-icon-144x144.png"))
+		link(rel="apple-touch-icon" sizes="152x152" href=assetURI("/favicons/apple-touch-icon-152x152.png"))
+		link(rel="apple-touch-icon" sizes="180x180" href=assetURI("/favicons/apple-touch-icon-180x180.png"))
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-32x32.png") sizes="32x32")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/android-chrome-192x192.png") sizes="192x192")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-96x96.png") sizes="96x96")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-16x16.png") sizes="16x16")
+		link(rel="manifest" href=assetURI("/favicons/manifest.json"))
+		meta(name="msapplication-config" content=assetURI("/favicons/browserconfig.xml"))
 		meta(name="msapplication-TileColor" content="#da532c")
-		meta(name="msapplication-TileImage" content=linkURI("/favicons/mstile-144x144.png"))
+		meta(name="msapplication-TileImage" content=assetURI("/favicons/mstile-144x144.png"))
 		meta(name="theme-color" content="#ffffff")
 
 		//- VideoJS
-		link(href=linkURI("/styles/videojs/video-js.min.css", rel="stylesheet"))
-		script(src=linkURI('/js/lib/videojs/video.js'))
+		link(href=assetURI("/styles/videojs/video-js.min.css", rel="stylesheet"))
+		script(src=assetURI('/js/lib/videojs/video.js'))
 
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
 		//- link(href="/styles/site.min.css", rel="stylesheet")
-		link(href=linkURI("/styles/showroom.min.css"), rel="stylesheet")
+		link(href=assetURI("/styles/showroom.min.css"), rel="stylesheet")
 
 		//- Include template-specific stylesheets by extending the css block
 		block css
@@ -63,7 +63,7 @@ html
 				span.my-solutions-count
 					.inline-star.coxicon.coxicon_favorites_star
 					span.my-solutions-count-number 0
-				span.my-solutions-title My 
+				span.my-solutions-title My
 					br
 					| Solutions
 
@@ -95,7 +95,7 @@ html
 
 		//- BODY
 		main#body
-			
+
 			//- Generates the Navigation Modals for Services and Industries
 			each navigationModal in navLinks
 				if navigationModal.type == 'modal'
@@ -124,22 +124,20 @@ html
 
 
 		//- Vendor JS
-		script(src=linkURI('/js/lib/jquery/jquery-2.1.1.min.js'))
-		script(src=linkURI('/js/lib/jquery/jquery.cookie.js'))
-		script(src=linkURI('/js/lib/bootstrap/bootstrap-3.2.0.min.js'))
-		script(src=linkURI("/socket.io/socket.io.js"))
+		script(src=assetURI('/js/lib/jquery/jquery-2.1.1.min.js'))
+		script(src=assetURI('/js/lib/jquery/jquery.cookie.js'))
+		script(src=assetURI('/js/lib/bootstrap/bootstrap-3.2.0.min.js'))
+		script(src=assetURI("/socket.io/socket.io.js"))
 
 		//- Include template-specific javascript files by extending the js block
 		block js
 
 		//- Site JS
-		script(src=linkURI('/js/site/config.js'))
-		script(src=linkURI('/js/site/functions_global.js'))
-		script(src=linkURI('/js/site/functions_showroom.js'))
-		script(src=linkURI('/js/site/app_showroom.js'))
-		script(src=linkURI('/js/site/app_global.js'))
+		script(src=assetURI('/js/site/config.js'))
+		script(src=assetURI('/js/site/functions_global.js'))
+		script(src=assetURI('/js/site/functions_showroom.js'))
+		script(src=assetURI('/js/site/app_showroom.js'))
+		script(src=assetURI('/js/site/app_global.js'))
 
 		if gohtml
-			script(src=linkURI('/js/site/analytics.js'))
-
-		
+			script(src=assetURI('/js/site/analytics.js'))

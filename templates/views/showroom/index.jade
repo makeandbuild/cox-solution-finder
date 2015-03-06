@@ -7,7 +7,7 @@ mixin scene(scene, scene_location)
 	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
 		img(src=assetURI(scene.featured_image.url)).scene-preview-featured-image
 		h2.scene-preview-title= scene.title
-			img(src="/images/arrow_down.png")
+			img(src=linkURI("/images/arrow_down.png"))
 
 mixin scene_with_text(scene, scene_location)
 	.scene(data-scene=scene.title class=scene_location data-scene-location=scene_location)
@@ -15,10 +15,10 @@ mixin scene_with_text(scene, scene_location)
 			h2.scene-preview-text-header= data.home.hero.business_count
 			p.scene-preview-text-subtext
 				span Businesses powered by
-				img(src="/images/logo_blue.png")
+				img(src=linkURI("/images/logo_blue.png"))
 
 		h2.scene-preview-title= scene.title
-			img(src="/images/arrow_down.png")
+			img(src=linkURI("/images/arrow_down.png"))
 
 
 //- Acts (Revealed when a Scene Item is clicked)
@@ -32,7 +32,7 @@ mixin act_factoid(scene, act)
 					.factoid-back(style="background-image: url("+assetURI(factoid.back_image.url)+");")
 
 		button.btn.btn-default.act-close.factoid-close(type="button")
-			img(src="/images/close.png")
+			img(src=linkURI("/images/close.png"))
 
 
 	
@@ -40,10 +40,8 @@ mixin act_video(scene)
 	.act(data-act=scene.title).act-video
 		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster=assetURI(data.home.hero.video.background.url) data-setup="{}")
 			source(src=assetURI(data.home.hero.video.video.url) type='video/mp4')
-			p(class="vjs-no-js") To view this video please enable JavaScript, and consider upgrading to a web browser that
-				a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
 		button.btn.btn-default.act-close.csf-content-close(type="button" data-video-close="home_stage_default_video")
-			img(src="/images/close.png")
+			img(src=linkURI("/images/close.png"))
 	
 mixin act_map_overlay(scene, act)
 	.act(data-act=scene.title).act-map
@@ -61,14 +59,14 @@ mixin act_map_overlay(scene, act)
 									span= product.title
 								- productCount++
 						.map-overlay-all-services
-							img(src="/images/arrow_down_gray.png")
+							img(src=linkURI("/images/arrow_down_gray.png"))
 							p See All
 								br
 								| Services
 		.dropdown.custom-dropdown.map-overlay-dropdown
 			button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 				.icon-arrow
-					img(src="/images/arrow_down.png")
+					img(src=linkURI("/images/arrow_down.png"))
 				span.custom-dropdown-current by Type
 			ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
 				each key, index in Object.keys(act).reverse()
@@ -81,12 +79,12 @@ mixin act_map_overlay(scene, act)
 							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
 								a(role="menuitem" tabindex="-1")= map.title
 		button.btn.btn-default.act-close(type="button")
-			img(src="/images/close.png")
+			img(src=linkURI("/images/close.png"))
 mixin media_buffet_home_section(item, type)
 	span.media_buffet_home_section(data-home-media-buffet=type)
 		.story
 			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetURI(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
-				img(src="/icons/png/icon-plus.png")
+				img(src=linkURI("/icons/png/icon-plus.png"))
 			h4.media-title!=assetURI(item.media_buffet.story.title)
 		.values
 			.values-container
@@ -96,10 +94,10 @@ mixin media_buffet_home_section(item, type)
 			if assetURI(item.media_buffet.video.video_choice)
 				if assetURI(item.media_buffet.video.video.url)
 					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(item.media_buffet.video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
-						img(src="/icons/png/icon-play.png")
+						img(src=linkURI("/icons/png/icon-play.png"))
 				else
 					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(global_data.default_video) style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").video-link
-						img(src="/icons/png/icon-play.png")
+						img(src=linkURI("/icons/png/icon-play.png"))
 			else
 				a(style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").remove-pointer
 block content

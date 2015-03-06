@@ -6,10 +6,10 @@ mixin industryDropdown(options, industry, service)
 	.dropdown.custom-dropdown
 		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 			.icon-arrow
-				img(src="/images/arrow_down.png")
+				img(src=linkURI("/images/arrow_down.png"))
 			span.custom-dropdown-current for 
 				= industry
-		ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+		ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
 			li(role="presentation")
 				a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/")) All
 			each option in options
@@ -26,7 +26,7 @@ mixin product(product)
 			if product.video.video_choice
 				if product.video.video.url
 					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetURI(product.video) style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container						
-						img(src="/icons/png/icon-play.png").product-play-icon
+						img(src=linkURI("/icons/png/icon-play.png")).product-play-icon
 						if assetURI(product.video.title_overlay)
 							h2.product-video-title= product.title
 				else
@@ -41,7 +41,7 @@ mixin product(product)
 			section.product-item-container
 				span.product-fade-bottom
 				.product-showroom-scroll
-					img(src="/images/arrow_down.png")
+					img(src=linkURI("/images/arrow_down.png"))
 				.row
 					.col-xs-2.product-icon-container
 						.product-item-icon.coxicon(class="coxicon_"+assetURI(product.item_one.svg_icon))

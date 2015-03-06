@@ -19,36 +19,34 @@ html
 		meta(name="apple-mobile-web-app-status-bar-style" content="black")
 
 		title= title || 'Cox Solution Finder'
-		link(rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico")
-		link(rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png")
-		link(rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png")
-		link(rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png")
-		link(rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png")
-		link(rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png")
-		link(rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png")
-		link(rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png")
-		link(rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png")
-		link(rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png")
-		link(rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32")
-		link(rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192")
-		link(rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96")
-		link(rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16")
-		link(rel="manifest" href="/favicons/manifest.json")
-		meta(name="msapplication-config" content="/favicons/browserconfig.xml")
+		link(rel="shortcut icon" type="image/x-icon" href=linkURI("/favicons/favicon.ico"))
+		link(rel="apple-touch-icon" sizes="57x57" href=linkURI("/favicons/apple-touch-icon-57x57.png"))
+		link(rel="apple-touch-icon" sizes="60x60" href=linkURI("/favicons/apple-touch-icon-60x60.png"))
+		link(rel="apple-touch-icon" sizes="72x72" href=linkURI("/favicons/apple-touch-icon-72x72.png"))
+		link(rel="apple-touch-icon" sizes="76x76" href=linkURI("/favicons/apple-touch-icon-76x76.png"))
+		link(rel="apple-touch-icon" sizes="114x114" href=linkURI("/favicons/apple-touch-icon-114x114.png"))
+		link(rel="apple-touch-icon" sizes="120x120" href=linkURI("/favicons/apple-touch-icon-120x120.png"))
+		link(rel="apple-touch-icon" sizes="144x144" href=linkURI("/favicons/apple-touch-icon-144x144.png"))
+		link(rel="apple-touch-icon" sizes="152x152" href=linkURI("/favicons/apple-touch-icon-152x152.png"))
+		link(rel="apple-touch-icon" sizes="180x180" href=linkURI("/favicons/apple-touch-icon-180x180.png"))
+		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-32x32.png") sizes="32x32")
+		link(rel="icon" type="image/png" href=linkURI("/favicons/android-chrome-192x192.png") sizes="192x192")
+		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-96x96.png") sizes="96x96")
+		link(rel="icon" type="image/png" href=linkURI("/favicons/favicon-16x16.png") sizes="16x16")
+		link(rel="manifest" href=linkURI("/favicons/manifest.json"))
+		meta(name="msapplication-config" content=linkURI("/favicons/browserconfig.xml"))
 		meta(name="msapplication-TileColor" content="#da532c")
-		meta(name="msapplication-TileImage" content="/favicons/mstile-144x144.png")
+		meta(name="msapplication-TileImage" content=linkURI("/favicons/mstile-144x144.png"))
 		meta(name="theme-color" content="#ffffff")
 
 		//- VideoJS
-		link(href="/styles/videojs/video-js.min.css", rel="stylesheet")
-		script(src='/js/lib/videojs/video.js')
+		link(href=linkURI("/styles/videojs/video-js.min.css", rel="stylesheet"))
+		script(src=linkURI('/js/lib/videojs/video.js'))
 
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
 		//- link(href="/styles/site.min.css", rel="stylesheet")
-		link(href="/styles/companion-site/fonts.css", rel="stylesheet")
-		link(href="/styles/showroom.min.css", rel="stylesheet")
-
+		link(href=linkURI("/styles/showroom.min.css"), rel="stylesheet")
 
 		//- Include template-specific stylesheets by extending the css block
 		block css
@@ -61,7 +59,7 @@ html
 
 		//- My Solutions
 		unless section == 'connect' || section == 'settings'
-			a(href="/connect").my-solutions-link
+			a(href=linkURI("/connect")).my-solutions-link
 				span.my-solutions-count
 					.inline-star.coxicon.coxicon_favorites_star
 					span.my-solutions-count-number 0
@@ -87,8 +85,8 @@ html
 								.arrow-right
 					if link.type == 'settings'
 						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item.settings-item(href=link.href)= link.label
-			a.navigation-item.navigation-restart(href='/') Start Over
+							a.navigation-item.settings-item(href=linkURI(link.href))= link.label
+			a.navigation-item.navigation-restart(href=linkURI('/')) Start Over
 
 		button.navigation-toggle
 			span.icon-bar
@@ -126,22 +124,22 @@ html
 
 
 		//- Vendor JS
-		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
-		script(src='/js/lib/jquery/jquery.cookie.js')
-		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
-		script(src="/socket.io/socket.io.js")
+		script(src=linkURI('/js/lib/jquery/jquery-2.1.1.min.js'))
+		script(src=linkURI('/js/lib/jquery/jquery.cookie.js'))
+		script(src=linkURI('/js/lib/bootstrap/bootstrap-3.2.0.min.js'))
+		script(src=linkURI("/socket.io/socket.io.js"))
 
 		//- Include template-specific javascript files by extending the js block
 		block js
 
 		//- Site JS
-		script(src='/js/site/config.js')
-		script(src='/js/site/functions_global.js')
-		script(src='/js/site/functions_showroom.js')
-		script(src='/js/site/app_showroom.js')
-		script(src='/js/site/app_global.js')
+		script(src=linkURI('/js/site/config.js'))
+		script(src=linkURI('/js/site/functions_global.js'))
+		script(src=linkURI('/js/site/functions_showroom.js'))
+		script(src=linkURI('/js/site/app_showroom.js'))
+		script(src=linkURI('/js/site/app_global.js'))
 
 		if gohtml
-			script(src='/js/site/analytics.js')
+			script(src=linkURI('/js/site/analytics.js'))
 
 		

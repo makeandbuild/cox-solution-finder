@@ -16,12 +16,11 @@ exports = module.exports = function(req, res) {
 	locals.validationErrors = {};
 	locals.enquirySubmitted = false;
 	locals.data = {};
+	locals.data.custom_data = {};
+	locals.data.custom_data.is_custom = false;
+	locals.data.custom_data.has_favorites = false
 
-	var isPersonal = true;
-	
 	var encrypted_uid;
-
-
 	if(locals.uid != undefined) {
 		encrypted_uid = locals.uid;
 	} else if(req.cookies.UID != undefined) {
@@ -45,12 +44,16 @@ exports = module.exports = function(req, res) {
 		var q = keystone.list('Enquiry').model.findOne({'_id': objid});
 		var user;
 		q.exec(function(err, results) {
+
 			if(results !== null) {
-				locals.data.custom_data = {};
 				user = results;
 
+				var has_favorites = false;
 				//PUT ENQUIRY IN THERE
+				console.log(user);
+
 				//Fake Data
+				locals.data.custom_data.is_custom = true;
 				locals.data.custom_data.name = {};
 				locals.data.custom_data.name.first = user.name.first;
 				locals.data.custom_data.eventName = user.showroom;
@@ -59,26 +62,36 @@ exports = module.exports = function(req, res) {
 
 				if(user.industries != undefined) { 
 					user.industries_array = user.industries.split(",");
+					has_favorites = true;
 				} else {
 					user.industries_array = false;
 				}
 
 				if(user.services != undefined) { 
 					user.services_array = user.services.split(",");
+					has_favorites = true;
 				} else {
 					user.services_array = false;
 				}
 
 				if(user.products != undefined) { 
 					user.products_array = user.products.split(",");
+					has_favorites = true;
 				} else {
 					user.products_array = false;
 				}
 
+				if(has_favorites == true){
+					locals.data.custom_data.has_favorites = true;
+				}
+				console.log(user.industries_array);
+				console.log(user.services_array);
+				console.log(user.products_array);
 				locals.data.custom_data.favorites.industries = user.industries_array;
 				locals.data.custom_data.favorites.services = user.services_array;
 				locals.data.custom_data.favorites.products = user.products_array;
 			}
+
 		});
 
 	}

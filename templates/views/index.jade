@@ -3,15 +3,7 @@ extends ../layouts/default
 
 block content
 
-	- var isPersonal = false
-
-	if data.custom_data
-		- isPersonal = true
-
-		//- Personal Info
-		- var firstName = data.custom_data.name.first
-		- var lastName = data.custom_data.name.last
-		- var eventName = data.custom_data.eventName
+	if data.custom_data.is_custom
 
 		//- Chosen Industry Slugs and Empty Array
 		- var customIndustries = data.custom_data.favorites.industries
@@ -67,8 +59,13 @@ block content
 						- productCount++
 						if productCount > 1
 							- selectedProducts.splice(p_index, 1)
-			
-	if !isPersonal
+
+
+
+
+
+
+	if !data.custom_data.is_custom
 		article.container-fluid.home-hero
 			.hero-background-overlay
 			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
@@ -85,7 +82,22 @@ block content
 						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link.pi-video
 							span SEE WHY
 							img(src="/icons/png/icon-play.png").hero-video-icon
+	else
+		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
+			.row
+				.col-xs-12
+					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{data.custom_data.name.first},
+					p.hero-subtext-custom
+						span Thank you for your interest 
+						span in Cox Business Solutions
+					.hero-content!=data.home.hero.content
 
+					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{data.custom_data.name.first}?)
+
+	//- Generic Home Page
+	if !data.custom_data.is_custom && !data.custom_data.has_favorites
 
 		article.container-fluid.home-content
 			span.background-shadow.from-right
@@ -180,27 +192,7 @@ block content
 									
 									.form-actions
 										button(type='submit').btn.btn-primary SUBMIT
-
-
-
 	else
-		//- /////////////////
-		//- Personalized Home
-		//- /////////////////
-		article.container-fluid.home-hero
-			.hero-background-overlay
-			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
-			.row
-				.col-xs-12
-					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{firstName},
-					p.hero-subtext-custom
-						span Thanks for visiting us at
-						span= eventName
-					.hero-content!=data.home.hero.content
-
-					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{firstName}?)
-
-
 
 		article.container-fluid.home-content
 			.visible-xs.visible-sm
@@ -210,7 +202,7 @@ block content
 
 			.container
 				.row.header-space-home
-				if personalizedIndustries
+				if data.custom_data.favorites.industries
 					each industry, index in personalizedIndustries
 						article.row.industry-row
 							unless index == 0
@@ -219,12 +211,7 @@ block content
 								+industryContent(industry, false)
 							.col-xs-12.col-md-7
 								+mediaBuffet(industry.media_buffet)
-
-				else
-					h1 No Industries!
-
-				if personalizedServices
-
+				if data.custom_data.favorites.services
 					.row
 						.col-xs-12
 							h3.home-content-header SERVICES
@@ -235,16 +222,8 @@ block content
 									+serviceContent(service)
 								.col-xs-12.col-md-6.resources-container-home-services
 									+resources(service)
-
-				else
-					h1 No Services!
-
-		if personalizedIndustries || personalizedServices
-
-
-			if selectedProducts
-
-
+		if data.custom_data.favorites.industries || data.custom_data.favorites.services
+			if data.custom_data.favorites.products
 				article.container-fluid.container-fluid-products-navigation
 					.visible-xs.visible-sm
 						span.background-shadow.from-right.lighter.to-foreground

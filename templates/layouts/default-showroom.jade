@@ -40,12 +40,12 @@ html
 		meta(name="theme-color" content="#ffffff")
 
 		//- VideoJS
-		link(href=assetURI("/styles/videojs/video-js.min.css", rel="stylesheet"))
+		link(href=assetURI("/styles/videojs/video-js.min.css"), rel="stylesheet")
 		script(src=assetURI('/js/lib/videojs/video.js'))
 
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
-		link(href="/styles/showroom/fonts.css", rel="stylesheet")
+		link(href=assetURI("/styles/showroom_fonts.min.css"), rel="stylesheet")
 		link(href=assetURI("/styles/showroom.min.css"), rel="stylesheet")
 
 		//- Include template-specific stylesheets by extending the css block

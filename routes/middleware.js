@@ -28,7 +28,7 @@ exports.setState = function(req,res,next){
 
 	locals.assetURI = function(uri) {
 		if (typeof(uri) == 'string' && locals.gohtml && /\/uploads\//.test(uri)) {
-			uri.replace(/^.*\/uploads\//, "/s3/");
+			uri = uri.replace(/^.*\/uploads\//, "/s3/");
 		}
 		return uri;
 	}

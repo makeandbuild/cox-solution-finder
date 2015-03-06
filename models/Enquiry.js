@@ -37,7 +37,8 @@ Enquiry.add({
 	services: { type: String },
 	products: { type: String },
 	partners: { type: String },
-	favorites_count: { type: String }
+	favorites_count: { type: String },
+	showname: {type: String }
 });
 
 emitter.on('connectionAvailable', function(data) {

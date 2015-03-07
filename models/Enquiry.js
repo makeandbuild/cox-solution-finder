@@ -61,7 +61,10 @@ Enquiry.schema.pre('save', function(next) {
 });
 
 Enquiry.schema.post('save', function() {
-	if (this.wasNew) {
+	if (this.wasNew && this.is_showroom) {
+		this.sendNotificationEmailSes();
+	}
+	if (!this.is_showroom){
 		this.sendNotificationEmailSes();
 	}
 });

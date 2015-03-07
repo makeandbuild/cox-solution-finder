@@ -18,7 +18,7 @@ exports = module.exports = function(req, res) {
 	locals.data = {};
 	locals.data.custom_data = {};
 	locals.data.custom_data.is_custom = false;
-	locals.data.custom_data.has_favorites = false
+	locals.data.custom_data.has_favorites = false;
 
 	var encrypted_uid;
 	if(locals.uid != undefined) {
@@ -92,7 +92,11 @@ exports = module.exports = function(req, res) {
 				locals.data.custom_data.favorites.products = user.products_array;
 			}
 
+			
+
 		});
+
+		
 
 	}
 
@@ -140,11 +144,30 @@ exports = module.exports = function(req, res) {
 	});
 
 	view.on('init', function(next) {
-		var q = keystone.list('Product').model.find().where('state', 'published');
-		q.exec(function(err, results) {
-			locals.data.products = results;
-			next(err);
-		});
+		if (locals.data.custom_data.has_favorites){
+			var qu = keystone.list('Product').model.find()
+			.populate('industries')
+			.populate('services')
+			.where('state', 'published')
+			.where('slug').in(locals.data.custom_data.favorites.products);
+			qu.exec(function(err, results) {
+				//var selectedProducts = [];
+				locals.data.products = results;
+				console.log(results);
+
+				// if (locals.data.custom_data.favorites.products){
+				// 	for (var product in allProducts){
+
+				// 	}
+				// }
+				
+
+				next(err);
+
+				
+			});
+		}
+		console.log(locals.data.products);
 	});
 
 

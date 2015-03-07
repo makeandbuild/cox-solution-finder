@@ -144,6 +144,27 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 
 };
 
+Enquiry.schema.methods.toCSV = function() {
+	var row = []
+
+	row.push(this.name.full);
+	row.push(this.email);
+	row.push(this.zipcode);
+	row.push(this.company_population);
+	row.push(this.company.is_customer ? "YES" : "NO");
+	row.push(this.industries);
+	row.push(this.services);
+	row.push(this.products);
+	row.push(this.partners);
+	row.push(this._.createdAt.format());
+
+	return row.map(function(val) {
+		return '"' + val + '"';
+	}).join(",");
+};
+
+Enquiry.CSV_HEADER = '"Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
+                     '"Services","Products","Partners","Created At"';
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, createdAt';

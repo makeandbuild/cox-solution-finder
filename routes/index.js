@@ -43,7 +43,9 @@ exports = module.exports = function(app) {
 	app.all('/', routes.views.index);
 	app.all('/connect', routes.views.connect);
 
-	app.all('/personalized/:enquiry', middleware.personalized, routes.views.index); // DO SOMETHING IN MIDDLE WARE TO SET THE COOKIE
+	app.all('/personalized/:enquiry', middleware.personalized, function(req, res) { res.redirect('/'); });
+
+	app.all('/personalized', function(req, res) { res.redirect('/'); });
 
 	app.all('/settings', routes.views.settings);
 

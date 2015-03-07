@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry'),
-	security = require('../../components/security.js');
+	security = require('../../components/security.js'),
+	mongoose = require('mongoose');
 
 exports = module.exports = function(req, res) {
 	
@@ -29,52 +30,55 @@ exports = module.exports = function(req, res) {
 		encrypted_uid = false;
 	}
 
-	
-	if (encrypted_uid) { //IS COOKIE THERE?
-		var uid = security.decrypt(encrypted_uid);
-	 
-	 	var mongoose = require('mongoose');
-		var objid = new mongoose.Types.ObjectId(uid);
+	// if (encrypted_uid && req.params.enquiry) { //IS COOKIE THERE?
+	// 	console.log(111);
+	// 	res.redirect('/');
+	// } 
+	var uid = security.decrypt(encrypted_uid);
+	var objid = null;
+ 	if(uid.length == 12 || uid.length == 24) {
+ 		objid = new mongoose.Types.ObjectId(uid);
+ 	}
+
+	if (objid !== null) {
 
 		var q = keystone.list('Enquiry').model.findOne({'_id': objid});
 		var user;
 		q.exec(function(err, results) {
-			locals.data.custom_data = {};
-			user = results;
-			//PUT ENQUIRY IN THERE
-			console.log(user);
-			//Fake Data
-			locals.data.custom_data.name = {};
-			locals.data.custom_data.name.first = user.name.first;
-			locals.data.custom_data.eventName = user.showroom;
+			if(results !== null) {
+				locals.data.custom_data = {};
+				user = results;
 
-			locals.data.custom_data.favorites = {};
+				//PUT ENQUIRY IN THERE
+				//Fake Data
+				locals.data.custom_data.name = {};
+				locals.data.custom_data.name.first = user.name.first;
+				locals.data.custom_data.eventName = user.showroom;
 
-			if(user.industries != undefined) { 
-				user.industries_array = user.industries.split(",");
-			} else {
-				user.industries_array = false;
+				locals.data.custom_data.favorites = {};
+
+				if(user.industries != undefined) { 
+					user.industries_array = user.industries.split(",");
+				} else {
+					user.industries_array = false;
+				}
+
+				if(user.services != undefined) { 
+					user.services_array = user.services.split(",");
+				} else {
+					user.services_array = false;
+				}
+
+				if(user.products != undefined) { 
+					user.products_array = user.products.split(",");
+				} else {
+					user.products_array = false;
+				}
+
+				locals.data.custom_data.favorites.industries = user.industries_array;
+				locals.data.custom_data.favorites.services = user.services_array;
+				locals.data.custom_data.favorites.products = user.products_array;
 			}
-
-			if(user.services != undefined) { 
-				user.services_array = user.services.split(",");
-			} else {
-				user.services_array = false;
-			}
-
-			if(user.products != undefined) { 
-				user.products_array = user.products.split(",");
-			} else {
-				user.products_array = false;
-			}
-
-			console.log(user.industries_array);
-			console.log(user.services_array);
-			console.log(user.products_array);
-			locals.data.custom_data.favorites.industries = user.industries_array;
-			locals.data.custom_data.favorites.services = user.services_array;
-			locals.data.custom_data.favorites.products = user.products_array;
-
 		});
 
 	}

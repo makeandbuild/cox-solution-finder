@@ -131,6 +131,8 @@ exports.personalized = function(req, res, next) {
 	res.locals.uid = uid;
 
 	res.cookie('UID', uid);
+	// res.redirect('/');
+
 
 	next();
 };

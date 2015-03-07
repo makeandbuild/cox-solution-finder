@@ -9,16 +9,19 @@ exports = module.exports = {
   salt: process.env.SALT,
   
   encrypt: function(text) {
-    var cipher = crypto.createCipher(this.algorithm, this.salt);
-    var crypted = cipher.update(text, 'utf8', 'base64') + cipher.final('base64')
-    console.log('CRYPTED ' + crypted);
-    return crypted;
+    return text;
+    // var cipher = crypto.createCipher(this.algorithm, this.salt);
+    // var crypted = cipher.update(text, 'utf8', 'base64') + cipher.final('base64')
+    // console.log('CRYPTED ' + crypted);
+    // return encodeURIComponent(crypted);
   },
 
-  decrypt: function(text) {
-    var decipher = crypto.createDecipher(this.algorithm, this.salt);
-    var decrypted = decipher.update(text, 'base64', 'utf8') + decipher.final('utf8');
-    return decrypted;
+  decrypt: function(encrypted) {
+    return encrypted;
+    // var text = decodeURIComponent(encrypted);
+    // var decipher = crypto.createDecipher(this.algorithm, this.salt);
+    // var decrypted = decipher.update(text, 'base64', 'utf8') + decipher.final('utf8');
+    // return decrypted;
   }
 
 };

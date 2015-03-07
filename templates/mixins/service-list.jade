@@ -1,0 +1,34 @@
+mixin service-list(services, custom_ordering, industry)
+	if custom_ordering
+		if industry
+			ul.industry-services-list.row
+				each custom_ordered_service, c_index in industry.custom_ordered_services
+					if c_index < 3
+						each item, index in services
+							if custom_ordered_service == item.id
+								li
+									a(href=linkURI('/services/'+item.slug+'/'+industry.slug) title=item.title).service-item
+										.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+										.solution-service-item.can-favorite(data-solutions-slug=item.slug data-solutions-type='services')
+											.coxicon.coxicon.coxicon_favorites_star_after
+										section.service-info
+											h4.service-title=item.title
+											p.service-description=item.description
+											span.service-cta LEARN MORE
+												img(src=assetURI("/images/arrow_down.png"))
+				.industry-services-all-services(onclick="alterNavigationModalLinks('services', '"+industry.slug+"', false)")
+					img(src=assetURI("/images/arrow_down_gray.png"))
+					p See All
+						br
+						| Services
+	else
+		ul.services-list.row
+			each item, index in services
+				li.col-xs-12.col-md-3
+					a(href=linkURI('/services/' + item.slug) title=item.title).service-item
+						.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+						section.service-info
+							h4.service-title=item.title
+							p.service-description=item.description
+							span.service-cta LEARN MORE
+								img(src=assetURI("/images/arrow_down.png"))

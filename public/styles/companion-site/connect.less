@@ -1,0 +1,49 @@
+.connect-page {
+	.connect-page-background-overlay {
+		background-color:rgba(255,255,255,0.85);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index:0;
+	}
+	.connect-page-background {
+		background-repeat: no-repeat;
+		background-size:cover;
+		background-position:center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index:-1;
+	}
+	.connect-form-col {
+		.global-connect-form();
+	}
+	.connect-content {
+		h1, p {
+			padding-left: 30px;
+			padding-right: 15px;
+		}
+		.lets-connect {
+			.cox-business();
+			margin-top: 50px;
+			font-size: 2em;
+			.respond-md({
+				margin-top:1.5em;
+				font-size: 3.2em;
+			});
+		}
+	}
+	.connect-thanks {
+		color:@white;
+		.opensans-light();
+		.respond-md({
+			margin-top:5em;
+			margin-bottom:5em;
+		});
+		
+	}
+}

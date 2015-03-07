@@ -1,0 +1,263 @@
+.header-space-home {
+	height: 1em;
+	border-top:0;
+	.respond-md({
+		height: 3em;
+	});
+}
+.industry-row {
+	padding-bottom: 1em;
+	.home-industry-content {
+		padding:0 2em;
+		.respond-md({
+			padding-left: 15px;
+			padding-right: 15px;
+		});
+	}
+}
+.industry-divider {
+	hr {
+		margin-top: 0;
+		margin-bottom: 0;
+		border: inherit;
+		border-top: 1px solid #CACACA;
+	}
+}
+.service-row {
+	background-color:@white;
+	padding:3em 1em 2em;
+	margin-bottom:2em;
+	.shadow-light();
+	.respond-md({
+		padding: 4.5em 2em 2em 3em;
+	});
+}
+.home-content {
+	overflow:visible;
+	.home-content-header {
+		color:@darkBlue;
+		.respond-md({
+			padding-top:2em;
+		});
+		.opensans-regular();
+	}
+}
+.home-default-content {
+	h1,p {
+		padding-left:30px;
+		padding-right:15px;
+		.respond-md({
+				padding-left:0;
+				padding-right:0;
+		});
+	}
+	
+}
+.cox-business {
+	.opensans-light();
+	line-height: 0.9;
+	margin-bottom: 0.85em;
+	.respond-md({
+		margin-top:2em;
+	});
+	strong {
+		display:block;
+		color:@darkBlue;
+		.opensans-regular();
+	}
+}
+
+.home-industries {
+	padding-top:1em;
+	.respond-md({
+		background-color:@darkBlue;
+		z-index: -1;
+		padding-bottom: 1em;
+	});
+	.respond-lg({
+		margin-top: -70px;
+	});
+	h3 {
+		color:@darkBlue;
+		margin-bottom: 0;
+		.opensans-regular();
+		.respond-md({
+			color:@white;
+		});
+	}
+}
+.industries-list {
+	list-style-type: none;
+	padding: 1em 0 0.6em;
+	margin:0;
+	li {
+		padding:0;
+		margin-bottom:0.6em;
+		.industry-tile {
+			background:@darkBlue;
+			display:table;
+			padding: 1.5em;
+			color:@white;
+			width: 100%;
+			height: 6em;
+			.responsive-max(500px, {
+				height:12em;
+			});
+			font-size: 0.875em;
+			.opensans-semibold();
+			.industry-icon {
+				display: block;
+				height: 65%;
+				text-align: center;
+				font-size: 6em;
+			}
+			.industry-custom-icon {
+				display:block;
+				height:65%;
+				margin:auto;
+				max-width: 70px;
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+			}
+			.industry-home-title {
+				display:block;
+				height:35%;
+				line-height: 1.2;
+				text-align: center;
+				.respond-md({
+					margin-top: 1em;
+				});
+			}
+
+		}
+		&:nth-child(odd) {
+			padding-right:0.35em;
+			padding-left:0;
+			.industry-tile {
+				float:right;
+			}
+		}
+		&:nth-child(even) {
+			padding-left:0.35em;
+			padding-right:0;
+			.industry-tile {
+				float:right;
+			}
+		}
+		.respond-md({
+			padding:0 !important;
+			vertical-align: top;
+			.industry-tile {
+				clear:both;
+			}
+		});
+		&:last-child {
+			.industry-divider {
+				display:none;
+			}
+		}
+	}
+	.industry-divider {
+		display:none;
+		width:1px;
+		right: 3px;
+		position: absolute;
+		top:0;
+		bottom:0;
+		height:142px;
+		-webkit-box-shadow: -1px 0 0px 0px #045988, 1px 0 0px 0px #1e77aa;
+		-moz-box-shadow:    -1px 0 0px 0px #045988, 1px 0 0px 0px #1e77aa;
+		box-shadow:         -1px 0 0px 0px #045988, 1px 0 0px 0px #1e77aa;
+		vertical-align: top;
+		.respond-md({
+			display:inline-block;
+		});
+		
+	}
+}
+
+.home-services {
+	background: @xlightGray;
+	
+	h3 {
+		color:@darkBlue;
+		.opensans-regular();
+	}
+	
+	.respond-md({
+		padding-bottom:5em;
+		h3 {
+			padding-top:2em;
+		}
+	});
+}
+.home-custom-services {
+	h3 {
+		color:@darkBlue;
+		padding-top:2em;
+		.opensans-regular();
+	}
+}
+.home-lets-connect-label {
+	display:none;
+	.respond-md({
+		display:block;
+	});
+}
+.home-connect {
+	background-repeat: no-repeat;
+	background-position: 15px center;
+	background-size: 100%;
+
+	.respond-md({
+		padding-right:0;
+	});
+	.respond-xs-only({
+		background-image: none !important;
+		padding:0;
+	});
+	.respond-sm-only({
+		padding-bottom:3em;
+	});
+}
+.home-connect-background-shadow {
+	height:0px;
+	width:0px;
+	position: relative;
+	margin:auto;
+	display:none;
+	text-align: center;
+	z-index:-1;
+	.box-shadow(0 0 260px 160px rgb(63, 197, 255));
+	.respond-md({
+		display:block;
+	});
+}
+.home-connect-form {
+	.global-connect-form();
+	// background-color:rgba(63, 197, 255, 1);
+	// overflow: hidden;
+	padding: 1em 5% 2em;
+	.respond-md({
+		padding: 7em 5.2em;
+	});
+	.connect-thanks {
+		color:@white;
+		padding:0;
+		margin: 2em 0;
+		font-size: 2em;
+		text-align: center;
+		.opensans-light();
+		.respond-md({
+			margin: 3.5em 0;
+			text-align: left;
+		});
+		.respond-lg({
+			margin: 4em 0;
+			font-size: 2.5em;
+		});
+		
+	}
+}

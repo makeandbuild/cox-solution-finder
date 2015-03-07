@@ -1,0 +1,89 @@
+extends ../layouts/default
+//- Use the Companion Site Default Template
+
+block content
+
+	article.container-fluid
+		span.background-shadow.from-right.lighter
+		.container
+			if !data.product
+				h2 No Products!
+			else
+				if data.referer
+					.row
+						.col-xs-12
+							h4: a(href=data.referer.link).referer-link Back to 
+								span= data.referer.parent 
+								|  > 
+								span= data.referer.slug 
+								if data.referer.category != '' && data.referer.category
+									|  > 
+									span= data.referer.category
+				else
+					.row(style="margin-top:5em;")
+				.row
+					.col-xs-12
+						h1.product-page-title= data.product.title
+
+	article.container-fluid.container-fluid-products.container-fluid-products-view
+		span.background-shadow.from-right.lighter
+		.container
+			if !data.product
+				h2 No Products!
+			else
+				.row
+					if data.product.video.background.url
+						span.product-gradient.product-gradient-companion: span
+					.col-xs-12
+						if data.product.video.background.url
+							if data.product.video.video_choice
+								if data.product.video.video.url
+									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "").video-link.product-hero-container										
+										img(src="/icons/png/icon-play.png").product-play-icon
+										if data.product.video.title_overlay
+											h2.product-video-title.product-page-video-title= data.product.title
+								else
+									a.product-hero-container(style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "")
+										if data.product.video.title_overlay
+											h2.product-video-title.product-page-video-title= data.product.title
+							else
+								a.product-hero-container(style= data.product.video.background.url ? "background-image: url(" + data.product.video.background.url+");" : "")
+									if data.product.video.title_overlay
+										h2.product-video-title.product-page-video-title= data.product.title
+						section.product-item-container
+							.product-showroom-scroll
+							.col-md-6.col-lg-4
+								.col-xs-12
+									.product-item-icon.coxicon(class="coxicon_"+data.product.item_one.svg_icon)
+								.col-xs-12
+									p.section-heading= data.product.item_one.title
+									p.section-content= data.product.item_one.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									.product-item-icon.coxicon(class="coxicon_"+data.product.item_two.svg_icon)
+								.col-xs-12
+									p.section-heading= data.product.item_two.title
+									p.section-content= data.product.item_two.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									.product-item-icon.coxicon(class="coxicon_"+data.product.item_three.svg_icon)
+								.col-xs-12
+									p.section-heading= data.product.item_three.title
+									p.section-content= data.product.item_three.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									.product-item-icon.coxicon(class="coxicon_"+data.product.item_four.svg_icon)
+								.col-xs-12
+									p.section-heading= data.product.item_four.title
+									p.section-content= data.product.item_four.content
+							.col-md-6.col-lg-4
+								.col-xs-12
+									.product-item-icon.coxicon(class="coxicon_"+data.product.item_five.svg_icon)
+								.col-xs-12
+									p.section-heading= data.product.item_five.title
+									p.section-content= data.product.item_five.content
+
+				.visible-xs.visible-sm
+					+resources(data.product)
+				.visible-md.visible-lg
+					+resources-alternate(data.product)

@@ -1,0 +1,89 @@
+extends ../layouts/default
+//- Use the Companion Site Default Template
+
+
+block content
+
+	article.container-fluid
+		span.background-shadow.from-right
+
+		.container
+
+			//- Check the Service exists
+			if !data.service
+				h2 Service Invalid Post.
+			else
+				.row.header-space-medium
+				.row
+					.col-xs-12.col-md-6.col-lg-5.service-container
+						.service-content
+							section.service-icon.coxicon(class="coxicon_"+data.service.svg_icon)
+							h1.service-title= data.service.title					
+							p.section-heading= data.service.heading
+							p.section-content= data.service.content
+							
+					.col-xs-12.col-md-6.col-lg-offset-1.resource-container
+						+resources(data.service)
+		.extend-products-background
+
+	if !data.products
+		h2 No Products!
+	else
+
+		article.container-fluid.container-fluid-products-navigation
+			span.background-shadow.from-right
+
+			.container
+
+				.row
+					.col-xs-12.products-md
+
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+							article.product-navigation-title
+								span PRODUCTS
+						each product, index in data.products
+							if index == 0
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id).active
+									article.product-navigation-item
+										span= product.title
+							else
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id)
+									article.product-navigation-item
+										span= product.title
+
+					.col-xs-12.products-xs
+
+						.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+							article.product-navigation-title
+								span PRODUCTS
+						if data.products.length == 2
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+								article.product-navigation-title
+						each product, index in data.products
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+								a(href="/products/#{product.slug}").product-navigation-item.pi-products
+									span= product.title
+
+
+	if !data.products
+		h2 No Products!
+	else
+		article.container-fluid.container-fluid-products.products-md
+			span.background-shadow.from-right
+			span.product-gradient.product-gradient-companion-services: span
+			.container
+				
+				.row
+					each product, index in data.products
+						if index == 0
+							.col-xs-12.product-container(data-item=product.id).active
+								+product(product)
+						else
+							.col-xs-12.product-container(data-item=product.id)
+								+product(product)
+
+
+
+
+
+

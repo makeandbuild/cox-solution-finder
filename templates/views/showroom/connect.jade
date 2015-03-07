@@ -1,0 +1,140 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+block css
+	link(href="/styles/keyboard/keyboard.css", rel="stylesheet")
+	link(href="/styles/keyboard/jsKeyboard.css", rel="stylesheet")
+
+block js
+	script(src='/js/lib/jquery/jquery.keyboard.js')
+	script(src='/js/lib/jquery/jsKeyboard.js')
+
+block content
+	.col-xs-6.full-height-col.connect-page-my-solutions
+		span.background-shadow.from-left
+		.row.header-space
+		.row
+			.col-xs-11.col-xs-offset-1
+				h1.solutions-title My Solutions
+				.solutions-favorites-scroll-wrapper
+					.solutions-favorites-container
+						.solutions-navigation
+							.solutions-navigation-arrow.arrow-up.active
+								img(src="/images/arrow_down_gray.png")
+							.solutions-navigation-arrow.arrow-down
+								img(src="/images/arrow_down_gray.png")
+
+						h2.solutions-no-solutions No Favorites Chosen
+
+						h3.solutions-section-title.solutions-industries-title Industries
+						.solutions-container.full-width-rows.solutions-industries
+
+							each item in global_data.industries
+								a(href="/industries/"+item.slug data-solutions-slug=item.slug data-solutions-type="industries").solutions-favorited-item
+									.solutions-favorite-close
+										img(src="/icons/png/icon-close.png")
+									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
+									.solutions-favorite-divider: span
+									.solutions-favorite-info
+										p.solutions-favorite-title= item.title
+										p.solutions-favorite-description= item.description
+
+
+						h3.solutions-section-title.solutions-services-title Services
+						.solutions-container.full-width-rows.solutions-services
+							each item in global_data.services
+								a(href="/services/"+item.slug data-solutions-slug=item.slug data-solutions-type="services").solutions-favorited-item
+									.solutions-favorite-close
+										img(src="/icons/png/icon-close.png")
+									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
+									.solutions-favorite-divider: span
+									.solutions-favorite-info
+										p.solutions-favorite-title= item.title
+										p.solutions-favorite-description= item.description
+
+						h3.solutions-section-title.solutions-products-title Products
+						.solutions-container.solutions-container-products.solutions-products.row
+
+							each item in global_data.products
+								.col-xs-6.col-lg-4.solutions-favorited-product(data-solutions-slug=item.slug data-solutions-type="products")
+									.solutions-product-item
+										.solutions-favorite-close
+											img(src="/icons/png/icon-close.png")
+										span= item.title
+
+		.row
+			.col-xs-12
+				.row-divider
+			.col-xs-10.col-xs-offset-1
+				.two-button-container
+					button.btn.btn-primary.btn-black.solutions-clear_all CLEAR ALL
+					a(href=linkURI("/")).btn.btn-primary.btn-black.solutions-continue_browsing CONTINUE BROWSING
+				
+
+	.col-xs-6.full-height-col.connect-page-form-col
+		.row
+			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2
+				.form-container
+					.connect-thanks-container
+						h3.connect-thanks Thanks for getting in touch!
+					.connect-form-ready
+						p Tell us about yourself
+						form#showroom-form
+
+							input(type="hidden" name='showname' value='').connect-showname
+
+							.form-group(class=validationErrors.name ? 'has-error' : null)
+								label.sr-only Full Name
+								input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
+								.form-empty
+									img(src="/images/close.png")
+
+							.form-group(class=validationErrors.email ? 'has-error' : null)
+								label.sr-only Email
+								input(type='email', name='email', value=formData.email placeholder="Email").form-control
+								.form-empty
+									img(src="/images/close.png")
+
+							.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+								label.sr-only Zip Code
+								input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+								.form-empty
+									img(src="/images/close.png")
+							
+							.form-group
+								label.sr-only Company Population
+								.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+									button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+										.icon-arrow
+											img(src="/images/arrow_down.png")
+										span.custom-dropdown-current.dropdown-select-current
+											.current-default Company Size 
+												em (select)
+									ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+										each key, index in Object.keys(company_population)
+											- var type = company_population[key]
+											li(role="presentation")
+												a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+								select(name='company_population').form-control.sr-only
+									option(value='') Company Size (select)
+									each type in company_population
+										option(value=type.value, selected=formData.company_population == type.value)= type.label
+							
+							.form-group
+								label.sr-only Current Cox Business Customer
+								.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+									.input-checkbox
+										img(src="/icons/png/icon-check.png")
+									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
+							
+							.form-actions
+								button(type='submit').btn.btn-primary SUBMIT
+
+		.connect-form-ready
+			.visible-lg
+				.row
+					.col-xs-12
+						.keyboard-container
+							.keyboard-background-shadow
+							.virtualKeyboard#virtualKeyboard

@@ -1,0 +1,102 @@
+.the-looking-glass {
+	.remove-filter();
+	.respond-md({
+		&.active {
+			.blur(20px);
+		}
+	});
+}
+.the-looking-glass-overlay {
+	display:none;
+}
+
+.navigation-modal-tiles {
+	position: absolute;
+	left:0;
+	right:0;
+	top: 96px;
+	visibility: hidden;
+	height:0;
+	z-index: 15;
+	width: 95%;
+	margin: auto;
+
+	.respond-xs-sm-only({
+		display:none;
+		visibility:hidden;
+		height:0;
+	});
+	&.active {
+		height:auto;
+		visibility: visible;
+	}
+}
+.navigation-modal-tile-row {
+	padding-top: 7em;
+	text-align: center;
+}
+.navigation-modal-tile {
+	position: relative;
+	z-index:5;
+	display:inline-block;
+	width: 165px;
+	height: 165px;
+	margin-right: 30px;
+	margin-bottom: 30px;
+	background-color:@darkBlue;
+	color:@white;
+	vertical-align: top;
+	opacity:0;
+	.transition(0.2s);
+	.opensans-regular();
+	&.active {
+		opacity:1;
+		.transition(0.2s);
+	}
+	&.fake-tile {
+		visibility: hidden;
+		opacity:0;
+	}
+	&:first-child {
+	}
+	&:hover, &.active {
+		color:@white;
+	}
+	.tile-icon {
+		display:block;
+		height:65%;
+		position:relative;
+		text-align: center;
+		padding: 0.3em 0;
+		font-size: 5em;
+	}
+	.tile-title {
+		height:35%;
+		display:block;
+		text-align: center;
+		font-size: 1.2em;
+		line-height: 1;
+	}
+}
+.tiles-companion {
+	.tiles-companion-subcontainer {
+		margin:auto;
+		display:block;
+		width:auto;
+	}
+	.go-left {
+		//float:left;
+	}
+	.go-right {
+		//float:left;
+	}
+	br {
+		clear:both;
+	}
+	.fake-tile {
+		display:none;
+		.responsive(1250px, {
+			display:inline-block;
+		});
+	}
+}

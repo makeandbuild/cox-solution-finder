@@ -1,23 +1,305 @@
 extends ../layouts/default
+//- Use the Companion Site Default Template
 
 block content
-	.container: .jumbotron
-		img(src='/images/logo.svg', width='160')
-		h1 Welcome
-		p This is your new <a href='http://keystonejs.com', target='_blank'>KeystoneJS</a> website.
-		p It includes the latest versions of
-			| <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
-			| and <a href='http://www.jquery.com/' target='_blank'>jQuery</a>.
-		p Visit the <a href='http://keystonejs.com/guide' target='_blank'>Getting Started</a> guide to learn how to customise it.
-		hr
-		if user && user.canAccessKeystone
-			p
-				a(href='/keystone/signin').btn.btn-lg.btn-primary Open the Admin UI
-		else
-			p We have created a default Admin user for you with the email <strong>cox@maxmedia.com</strong> and the password <strong>S0LF1ND</strong>.
-			p
-				a(href='/keystone/signin', style='margin-right: 10px').btn.btn-lg.btn-primary Sign in
-				|  to use the Admin UI.
-		hr
-		p Remember to <a href='https://github.com/keystonejs/keystone' target='_blank'>Star KeystoneJS on GitHub</a> and
-			| <a href='https://twitter.com/keystonejs' target='_blank'>follow @keystonejs</a> on twitter for updates.
+
+	- var isPersonal = false
+
+	if data.custom_data
+		- isPersonal = true
+
+		//- Personal Info
+		- var firstName = data.custom_data.name.first
+		- var lastName = data.custom_data.name.last
+		- var eventName = data.custom_data.eventName
+
+		//- Chosen Industry Slugs and Empty Array
+		- var customIndustries = data.custom_data.favorites.industries
+		- var personalizedIndustries = [];
+
+		//- Chosen Service Slugs and Empty Array
+		- var customServices = data.custom_data.favorites.services
+		- var personalizedServices = [];
+
+		//- Chosen Product Slugs and Empty Array, and Complete Product Selection Array
+		- var customProducts = data.custom_data.favorites.products
+		- var personalizedProducts = [];
+		- var selectedProducts = [];
+
+		//- How about a little array building like in beginner's programming?
+
+		//- Setup the Custom Industries and Services
+		each industry in global_data.industries
+			each customIndustry in customIndustries
+				if industry.slug == customIndustry
+					- personalizedIndustries.push(industry)
+		each service in global_data.services
+			each customService in customServices
+				if service.slug == customService
+					- personalizedServices.push(service)
+		each product in data.products
+			each customProduct in customProducts
+				if product.slug == customProduct
+					- personalizedProducts.push(product)
+
+		//- Go ahead and add the chosen Products
+		each product in personalizedProducts
+			- selectedProducts.push(product)
+		
+		//- Gather all products in selected industries in services, including duplicates.
+		each product in data.products
+			each product_industry in product.industries
+				each industry in personalizedIndustries
+					if industry.id == product_industry
+						- selectedProducts.push(product)
+			each product_service in product.services
+				each service in personalizedServices
+					if service.id == product_service
+						- selectedProducts.push(product)
+
+		//- Now remove the duplicates
+		- var tempProducts = selectedProducts
+		each product, p_index in selectedProducts
+			- var productCount = 0
+			each tempProduct, t_index in tempProducts
+				if product && tempProduct
+					if product.id == tempProduct.id
+						- productCount++
+						if productCount > 1
+							- selectedProducts.splice(p_index, 1)
+			
+	if !isPersonal
+		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
+			.row
+
+				.col-xs-12
+					h2.hero-header= data.home.hero.business_count
+					.hero-box-shadow
+					p.hero-subtext
+						span Businesses powered by
+						img(src="/images/logo.png")
+
+					if data.home.hero.video.video_choice
+						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link.pi-video
+							span SEE WHY
+							img(src="/icons/png/icon-play.png").hero-video-icon
+
+
+		article.container-fluid.home-content
+			span.background-shadow.from-right
+
+			.container
+				.row.header-space-home
+				.row
+					.col-xs-12.col-md-5.home-default-content
+						h1.cox-business COX
+							strong BUSINESS				
+						p.section-heading= data.home.default_heading
+						p.section-content= data.home.default_content
+					.col-xs-12.col-md-7
+						+mediaBuffet(data.home.media_buffet)
+
+		article.container-fluid.home-industries
+
+			.container
+				.row
+					.col-xs-12
+						h3.home-content-header INDUSTRIES
+				ul.industries-list.row
+					each item, index in global_data.industries
+						li.col-xs-6.col-md-2
+							span.industry-divider
+							a(href='/industries/'+item.slug title=item.title).industry-tile.pi-industry
+								.industry-icon.coxicon(class="coxicon_"+item.svg_icon)
+								.industry-home-title
+									span= item.title
+
+
+		article.container-fluid.home-services
+			span.background-shadow.from-right
+
+			.container
+				.row
+					.col-xs-12
+						h3 SERVICES
+				+service-list(global_data.services)
+
+				.row
+					.col-xs-12
+						h3.home-lets-connect-label LET'S CONNECT
+				.row
+					.col-xs-12.home-connect(style= data.home.connect_background ? "background-image: url(" + data.home.connect_background.url + ");" : "")
+						.col-xs-12.col-md-offset-7.col-md-5.home-connect-form
+							if enquirySubmitted
+								h3.connect-thanks Thanks for getting in touch!
+							else
+								p Tell us about yourself
+								form(method='post')
+									input(type='hidden', name='action', value='home-connect')
+
+									.form-group(class=validationErrors.name ? 'has-error' : null)
+										label.sr-only Full Name
+										input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
+
+									.form-group(class=validationErrors.email ? 'has-error' : null)
+										label.sr-only Email
+										input(type='email', name='email', value=formData.email placeholder="Email").form-control
+
+									.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+										label.sr-only Zip Code
+										input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+									
+									.form-group
+										label.sr-only Company Population
+										.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+											button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+												.icon-arrow
+													img(src="/images/arrow_down.png")
+												span.custom-dropdown-current.dropdown-select-current
+													.current-default Company Size 
+														em (select)
+											ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+												each key, index in Object.keys(company_population)
+													- var type = company_population[key]
+													li(role="presentation")
+														a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+										select(name='company_population').form-control.sr-only
+											option(value='') Company Size (select)
+											each type in company_population
+												option(value=type.value, selected=formData.company_population == type.value)= type.label
+									
+									.form-group
+										label.sr-only Current Cox Business Customer
+										.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+											.input-checkbox
+												img(src="/icons/png/icon-check.png")
+											.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+										input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
+									
+									.form-actions
+										button(type='submit').btn.btn-primary SUBMIT
+
+
+
+	else
+		//- /////////////////
+		//- Personalized Home
+		//- /////////////////
+		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
+			.row
+				.col-xs-12
+					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{firstName},
+					p.hero-subtext-custom
+						span Thanks for visiting us at
+						span= eventName
+					.hero-content!=data.home.hero.content
+
+					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{firstName}?)
+
+
+
+		article.container-fluid.home-content
+			.visible-xs.visible-sm
+				span.background-shadow.from-right.lighter
+			.visible-md.visible-lg
+				span.background-shadow.from-right
+
+			.container
+				.row.header-space-home
+				if personalizedIndustries
+					each industry, index in personalizedIndustries
+						article.row.industry-row
+							unless index == 0
+								.col-xs-12.industry-divider: hr
+							.col-xs-12.col-md-5.home-industry-content
+								+industryContent(industry, false)
+							.col-xs-12.col-md-7
+								+mediaBuffet(industry.media_buffet)
+
+				else
+					h1 No Industries!
+
+				if personalizedServices
+
+					.row
+						.col-xs-12
+							h3.home-content-header SERVICES
+					each service in personalizedServices
+						.col-xs-12
+							section.row.service-row
+								.col-xs-12.col-md-6
+									+serviceContent(service)
+								.col-xs-12.col-md-6.resources-container-home-services
+									+resources(service)
+
+				else
+					h1 No Services!
+
+		if personalizedIndustries || personalizedServices
+
+
+			if selectedProducts
+
+
+				article.container-fluid.container-fluid-products-navigation
+					.visible-xs.visible-sm
+						span.background-shadow.from-right.lighter.to-foreground
+					.visible-md.visible-lg
+						span.background-shadow.from-right.to-foreground
+
+					.container
+
+						.row
+							.col-xs-12.products-md.home-products-navigation
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								each product, index in selectedProducts
+									if index == 0
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id).active
+											article.product-navigation-item
+												span= product.title
+									else
+										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id)
+											article.product-navigation-item
+												span= product.title
+
+							.col-xs-12.products-xs
+
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+										span PRODUCTS
+								if selectedProducts.length == 2
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+										article.product-navigation-title
+								each product, index in selectedProducts
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+										a(href="/products/#{product.slug}").product-navigation-item.pi-products
+											span= product.title
+
+
+				article.container-fluid.container-fluid-products.products-md
+					.visible-xs.visible-sm
+						span.background-shadow.from-right.lighter
+					.visible-md.visible-lg
+						span.background-shadow.from-right
+					span.product-gradient.product-gradient-companion-services: span
+					.container
+						
+						.row
+							each item, index in selectedProducts
+								if index == 0
+									.col-xs-12.product-container(data-item=item.id).active
+										+product(item)
+								else
+									.col-xs-12.product-container(data-item=item.id)
+										+product(item)
+
+
+
+

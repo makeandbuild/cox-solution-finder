@@ -1,0 +1,251 @@
+.service-container {
+	background-color:@xlightGray;
+	.showroom-screen({
+		background-color:@xsomewhatlightGray;
+	});
+	.content-container {
+		padding-left:1.2em;
+		z-index:50;
+		height: 379px;
+		overflow:hidden;
+		.showroom-screen({
+			padding-left:15px;
+			height: 525px;
+		});
+	}
+}
+
+.services-current-industry {
+	display: inline-block;
+	vertical-align: top;
+	padding: 6px 8px 6px 0;
+	.opensans-semibold();
+	font-size: 1.2em;
+	margin-bottom: 0.3em;
+	color:@lightGray;
+}
+
+.service-title {
+	.opensans-light();
+	text-transform: uppercase;
+	.showroom-screen({
+		font-size: 3.2em;
+	});
+}
+.service-icon {
+	display:block;
+	img {
+		width: 4em;
+	}
+}
+.services-list {
+	display:inline-block;
+	vertical-align: top;
+	list-style-type: none;
+	margin:0 15px 0 50px;
+	padding:0;
+	white-space: nowrap;
+	width: 250px;
+	height: 245px;
+
+	.showroom-screen({
+		width:335px;
+		height:305px;
+		margin:0 15px 0 80px;
+	});
+	li {
+		display:inline-block;
+		width:47.5%;
+		height:47.5%;
+		&:nth-child(1), &:nth-child(2) {
+			margin-bottom:5%;
+		}
+		&:nth-child(1), &:nth-child(4) {
+			margin-right:5%;
+		}
+		&:nth-child(2), &:nth-child(5) {
+			margin-left:-4px;
+		}
+		.showroom-screen({
+			width: 48%;
+			height: 48%;
+			margin-bottom: 4%;
+			&:nth-child(1), &:nth-child(2) {
+				margin-bottom:4%;
+			}
+			&:nth-child(1), &:nth-child(4) {
+				margin-right:4%;
+			}
+		});
+	}
+	.service-item {
+		white-space: normal;
+		display:block;
+		width:100%;
+		height:100%;
+		background-color:@white;
+		position: relative;
+		.showroom-screen({
+			.shadow-normal();
+		});
+	}
+	.service-icon {
+		display: block;
+		font-size: 4.5em;
+		padding: 0.15em 0.2em 0;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		color: @lightGray;
+		.showroom-screen({
+			font-size: 6.5em;
+		});
+	}
+	.service-title {
+		margin:0;
+		position: absolute;
+		left:10px;
+		bottom:10px;
+		color:@darkBlue;
+		font-size: 0.9em;
+		text-transform: none;
+		.opensans-regular();
+		.showroom-screen({
+			font-size:1.2em;
+		});
+	}
+}
+
+
+.industry-services-list {
+	height: 250px;
+	margin: 0 15px 0 50px;
+	vertical-align: top;
+	list-style-type: none;
+	padding:0;
+	.showroom-screen({
+		margin-left:75px;
+	});
+	li {
+		display:inline-block;
+		vertical-align: top;
+	}
+	.service-item {
+		height: 245px;
+		width: 255px;
+		background-color:@white;
+		position: relative;
+		display:block;
+		margin-right:10px;
+		.shadow-normal();
+		.showroom-screen({
+			width:290px;
+			height:305px;
+			margin-right:15px;
+		});
+	}
+	.service-info {
+		padding: 0 1em;
+		line-height: 1.2;
+		.showroom-screen({
+			line-height: 1.3;
+			padding:0 20px;
+		});
+	}
+	.service-title {
+		.opensans-semibold();
+		color:@darkBlue;
+		margin: 0;
+		text-transform: none;
+		&:hover, &:active, &:visited {
+			color:@darkBlue;
+		}
+		.showroom-screen({
+			font-size:1.5em;
+		});
+	}
+	.service-description {
+		color:@lightGray;
+		font-size: 1.15em;
+		margin-top: 0.2em;
+		.showroom-screen({
+			font-size: 1.25em;
+		});
+	}
+	.service-icon {
+		display: block;
+		font-size: 4em;
+		height: 85px;
+		text-align: left;
+		padding-left: 5px;
+		padding-top: 10px;
+		color: @lightGray;
+		.showroom-screen({
+			font-size: 4.5em;
+			padding-left: 5px;
+			padding-top: 15px;
+			height: 100px;
+		});
+	}
+	.service-cta {
+		display:block;
+		position: absolute;
+		bottom: 1.3em;;
+		.opensans-regular();
+		color:@darkBlue;
+		img {
+			.transform(270deg);
+			height: 0.55em;
+			
+			vertical-align: top;
+			margin-top: 0.3em;
+			margin-left: 0.3em;
+		}
+		.showroom-screen({
+			.opensans-semibold();
+			img {
+				height: 0.65em;
+			}
+		});
+	}
+}
+.industry-services-all-services {
+	background-color:@regularGray;
+	display:inline-block;
+	vertical-align: bottom;
+	height:115px;
+	width: 120px;
+	position:relative;
+	p {
+		text-transform: uppercase;
+		position: absolute;
+		bottom:10px;
+		left:10px;
+		color:@white;
+		line-height: 1;
+		font-size: 1.2em;
+		margin: 0;
+	}
+	img {
+		.transform(270deg);
+		height: 1.5em;
+		vertical-align: top;
+		margin-top: 1em;
+		margin-left: 0.4em;
+	}
+	.showroom-screen({
+		height: 145px;
+		width: 200px;
+		p {
+			bottom: 20px;
+			left: 20px;
+			font-size:1.5em;
+		}
+		img {
+			height: 1.7em;
+			vertical-align: top;
+			margin-top: 1.5em;
+			margin-left: 1em;
+		}
+	});
+}

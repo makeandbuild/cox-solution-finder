@@ -1,0 +1,143 @@
+include ../mixins/flash-messages
+include ../mixins/navigation-modal
+include ../mixins/media-buffet
+include ../mixins/industry-content
+include ../mixins/service-list
+include ../mixins/modals
+
+doctype html
+html
+	//- Use the `.html-development` class to make it easier to see the views for touch/tablet.
+
+	//- HTML HEADER
+	head
+		meta(charset="utf-8")
+		//- meta(name="viewport", content="width=device-width, initial-scale=1.0, user-scalable=no")
+		meta(name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		meta(name="apple-mobile-web-app-status-bar-style" content="black")
+
+		title= title || 'Cox Solution Finder'
+		link(rel="shortcut icon" type="image/x-icon" href=assetURI("/favicons/favicon.ico"))
+		link(rel="apple-touch-icon" sizes="57x57" href=assetURI("/favicons/apple-touch-icon-57x57.png"))
+		link(rel="apple-touch-icon" sizes="60x60" href=assetURI("/favicons/apple-touch-icon-60x60.png"))
+		link(rel="apple-touch-icon" sizes="72x72" href=assetURI("/favicons/apple-touch-icon-72x72.png"))
+		link(rel="apple-touch-icon" sizes="76x76" href=assetURI("/favicons/apple-touch-icon-76x76.png"))
+		link(rel="apple-touch-icon" sizes="114x114" href=assetURI("/favicons/apple-touch-icon-114x114.png"))
+		link(rel="apple-touch-icon" sizes="120x120" href=assetURI("/favicons/apple-touch-icon-120x120.png"))
+		link(rel="apple-touch-icon" sizes="144x144" href=assetURI("/favicons/apple-touch-icon-144x144.png"))
+		link(rel="apple-touch-icon" sizes="152x152" href=assetURI("/favicons/apple-touch-icon-152x152.png"))
+		link(rel="apple-touch-icon" sizes="180x180" href=assetURI("/favicons/apple-touch-icon-180x180.png"))
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-32x32.png") sizes="32x32")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/android-chrome-192x192.png") sizes="192x192")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-96x96.png") sizes="96x96")
+		link(rel="icon" type="image/png" href=assetURI("/favicons/favicon-16x16.png") sizes="16x16")
+		link(rel="manifest" href=assetURI("/favicons/manifest.json"))
+		meta(name="msapplication-config" content=assetURI("/favicons/browserconfig.xml"))
+		meta(name="msapplication-TileColor" content="#da532c")
+		meta(name="msapplication-TileImage" content=assetURI("/favicons/mstile-144x144.png"))
+		meta(name="theme-color" content="#ffffff")
+
+		//- VideoJS
+		link(href=assetURI("/styles/videojs/video-js.min.css"), rel="stylesheet")
+		script(src=assetURI('/js/lib/videojs/video.js'))
+
+		//- Customise the stylesheet for your site by editing /public/styles/site.less
+		//- All .less files will be automatically compiled and minified in production.
+		link(href=assetURI("/styles/showroom_fonts.min.css"), rel="stylesheet")
+		link(href=assetURI("/styles/showroom.min.css"), rel="stylesheet")
+
+		//- Include template-specific stylesheets by extending the css block
+		block css
+
+		//- Add any other template-specific HEAD tags by extending the head block
+		block head
+
+	//- HTML BODY
+	body.showroom
+
+		//- My Solutions
+		unless section == 'connect' || section == 'settings'
+			a(href=linkURI("/connect")).my-solutions-link
+				span.my-solutions-count
+					.inline-star.coxicon.coxicon_favorites_star
+					span.my-solutions-count-number 0
+				span.my-solutions-title My
+					br
+					| Solutions
+
+		//- HEADER
+		#side-navigation(role="navigation")
+
+			//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
+			a.navigation-item.navigation-logo(href=linkURI('/'))
+			a.navigation-item.navigation-solution-finder(href=linkURI('/')) Solution
+				span Finder
+			ul.navigation-item-list
+				each link in navLinks
+					if link.type == 'page'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item(href=linkURI(link.href))= link.label
+					if link.type == 'modal'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key onclick= link.key == 'services' ? "alterNavigationModalLinks('services', '', true);" : "")= link.label
+								.arrow-right
+					if link.type == 'settings'
+						li(class=(section == link.key ? 'active' : null))
+							a.navigation-item.settings-item(href=linkURI(link.href))= link.label
+			a.navigation-item.navigation-restart(href=linkURI('/')) Start Over
+
+		button.navigation-toggle
+			span.icon-bar
+			span.icon-bar
+			span.icon-bar
+
+		//- BODY
+		main#body
+
+			//- Generates the Navigation Modals for Services and Industries
+			each navigationModal in navLinks
+				if navigationModal.type == 'modal'
+					if navigationModal.key == 'services'
+						+tiles-showroom(global_data.services, navigationModal.key)
+					if navigationModal.key == 'industries'
+						+tiles-showroom(global_data.industries, navigationModal.key)
+
+
+			//- The Intro block appears above flash messages (used for temporary information display)
+			block intro
+
+			//- Flash messages allow you to display once-off status messages to users, e.g. form
+			//- validation errors, success messages, etc.
+			+flash-messages(messages)
+
+			//- The content block should contain the body of your template's content
+			.container-fluid.the-looking-glass
+				.the-looking-glass-overlay
+				block content
+
+		//- Add your modals here
+		block modals
+			+videoModal
+			+storyModal
+
+
+		//- Vendor JS
+		script(src=assetURI('/js/lib/jquery/jquery-2.1.1.min.js'))
+		script(src=assetURI('/js/lib/jquery/jquery.cookie.js'))
+		script(src=assetURI('/js/lib/bootstrap/bootstrap-3.2.0.min.js'))
+		script(src=assetURI("/socket.io/socket.io.js"))
+
+		//- Include template-specific javascript files by extending the js block
+		block js
+
+		//- Site JS
+		script(src=assetURI('/js/site/config.js'))
+		script(src=assetURI('/js/site/functions_global.js'))
+		script(src=assetURI('/js/site/functions_showroom.js'))
+		script(src=assetURI('/js/site/app_showroom.js'))
+		script(src=assetURI('/js/site/app_global.js'))
+
+		if gohtml
+			script(src=assetURI('/js/site/analytics.js'))

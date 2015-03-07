@@ -1,16 +1,337 @@
-#header {
-	margin-top: 30px;
+//Styles attributed to the structure and overall layout
+
+html {
+	.opensans-regular();
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
+	height:100%;
+
+}
+.showroom {
+	.showroom-screen-exact({
+		cursor:none !important; // Removes the cursor on the touchscreen.
+		* {
+			cursor:none !important; // Removes the cursor on the touchscreen.
+		}
+	});
+	width:1024px;
+	height:768px;
+	overflow:hidden;
+	position:relative;
+	.opensans-regular();
+	
+	.showroom-screen({
+		width:1920px;
+		height:1080px;
+		
+	});
+
+	h1, h2, h3 {
+		//.opensans-light();
+	}
+
+	::selection {
+	  background: inherit;
+	  color: inherit;
+	}
+	::-moz-selection {
+	  background: inherit;
+	  color: inherit;
+	}
+
+	#body {
+		width:1024px;
+		background:@xxlightGray;
+		vertical-align: top;
+		display:block;
+		height:100%;
+		z-index:1;
+
+		//For Factoids Animations
+		perspective: 2000px;
+		-webkit-perspective: 2000px;
+		.opensans-regular();
+		.showroom-screen({
+			width:1700px;
+			display:inline-block;
+			position:absolute;
+			right: 0;
+			top: 0;
+			perspective: 2500px;
+			-webkit-perspective: 2500px;
+		});
+	}
+	.modal {
+		width:1024px;
+		height:768px;
+		.showroom-screen({
+			width:1700px;
+			height:1080px;
+			margin-left:220px;
+		});
+	}
+	
+	.full-height-col {
+		height: 768px;
+		overflow: hidden;
+		.showroom-screen({
+			height:1080px;
+		});
+	}
+	.header-space {
+		height: 55px;
+		.showroom-screen({
+			height: 125px;
+		});
+	}
+}
+.companion-site {
+	::selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+	::-moz-selection {
+	  background: @lightBlue;
+	  color: @white;
+	}
+
+	#body {
+		background:@xxlightGray;
+		z-index:1;
+		position: relative;
+		overflow: hidden;
+		margin-top:50px;
+		.respond-md({
+			margin-top:0px;
+		});
+		.opensans-regular();
+	}
+	
+	.header-space {
+		height: 7em;
+		.respond-md({
+			height: 7em;
+		});
+	}
+	.header-space-medium {
+		height: 2.5em;
+		.respond-md({
+			height: 7em;
+		});
+	}
+	.header-space-small {
+		.respond-md({
+			height:5em;
+		});
+	}
+	h1 {
+		.respond-xs-sm-only({
+			font-size: 30px;
+		});
+		
+	}
+
 }
 
-#footer {
-	margin-top: 30px;
-	border-top: 1px solid @gray-lighter;
-	padding-top: 30px;
-	color: @gray-light;
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	-webkit-font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+	-moz-osx-font-smoothing: grayscale;
 }
 
-.gallery-image img{
-    display: block;
-    max-width: 100%;
-    height: auto;
+
+
+*[class^="col-"] {
+    z-index:0;
+}
+
+
+button {
+	&:focus {
+		outline:0 !important;
+	}
+}
+a {
+	&:hover, &.active, &:focus, &:visited {
+		text-decoration: none;
+	}
+}
+
+.container-fluid {
+	overflow: hidden;
+	padding:0;
+	position: relative;
+}
+.overflow-wrapper {
+	overflow:hidden;
+}
+
+// If you need 5 columns..
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+.col-sm-15 {
+    width: 20%;
+    float: left;
+}
+.col-md-15 {
+    width: 20%;
+    float: left;
+}
+.col-lg-15 {
+	width: 20%;
+	float: left;
+}
+
+
+
+.shadow-normal {
+	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.3));
+}
+.shadow-light {
+	.box-shadow(2px, 2px, 5px, 0, rgba(50, 50, 50, 0.1));
+}
+.shadow-remove {
+	.box-shadow(0, 0, 0, 0, rgba(0, 0, 0, 0));
+}
+.background-shadow {
+	width:0px;
+	height:100%;
+	position: absolute;
+	top:0;
+	bottom:0;
+	vertical-align: middle;
+	z-index: -1;
+	&.from-left {
+		left:0;
+		.box-shadow(-210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+	}
+	&.from-right {
+		right:0;
+		.box-shadow(210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+	}
+	&.lighter {
+		.box-shadow(210px, 0, 320px, 315px, rgba(0, 0, 0, 0.15));
+	}
+	&.to-foreground {
+		z-index:0;
+	}	
+}
+.custom-dropdown {
+	margin-bottom: 1.5em;
+	z-index:50;
+	button {
+		border: 0;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		background:transparent !important;
+		background:blue;
+		vertical-align: middle;
+		margin-left: -12px;
+		padding: 0 12px;
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+		.icon-arrow {
+			background:@white;
+			display:inline-block;
+			padding: 6px 8px;
+			img {
+				width: 23px;
+				vertical-align: middle;
+			}
+		}
+		.custom-dropdown-current {
+			margin-left: 5px;
+			display:inline-block;
+			vertical-align: top;
+			padding: 6px 8px;
+			color:@lightGray;
+			.opensans-semibold();
+		}
+	}
+	
+	ul {
+		border: 0;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		border-radius: 0px;
+		margin: 0;
+		padding-top: 0;
+		padding-bottom:0;
+		.box-shadow(0,0,0,0);
+		.shadow-light();
+		li {
+			border-bottom:1px solid @somewhatlightGray;
+			&:last-child {
+				border-bottom:0;
+			}
+			&:active, &:focus {
+				outline:0;
+			}
+			a {
+				padding: 10px 42px 10px 42px;
+				.transition(0);
+			}
+			&:hover {
+				a {
+					background: @darkBlue;
+					color: @white;
+					.transition(0);
+				}
+			}
+		}
+	}
+}
+.remove-pointer {
+	cursor:default !important;
+}
+
+
+.global-close {
+	position:absolute;
+	top:0;
+	right:0;
+	height: 95px;
+	width: 95px;
+	img {
+		height:70%;
+	}
+}
+
+// For ie10/11 ie50 is actually Firefox 34
+.ie10 .companion-site .the-looking-glass.active .the-looking-glass-overlay, .ie11 .companion-site .the-looking-glass.active .the-looking-glass-overlay, .ie50 .companion-site .the-looking-glass.active .the-looking-glass-overlay {
+	display:block;
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	width:100%;
+	height:100%;
+	z-index:2;
+	background-color:rgba(255,255,255,0.9);
+}
+.showroom .the-looking-glass.active {
+	.responsive-max(1200px,{
+		-webkit-filter: none !important;
+		-moz-filter: none !important;
+		-o-filter: none !important;
+		-ms-filter: none !important;
+		filter: none !important;
+		.the-looking-glass-overlay {
+			display:block;
+			position: absolute;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			width:100%;
+			height:100%;
+			z-index:6;
+			background-color:rgba(255,255,255,0.9);
+		}
+	});
 }

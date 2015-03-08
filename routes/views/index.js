@@ -3,6 +3,27 @@ var keystone = require('keystone'),
 	security = require('../../components/security.js'),
 	mongoose = require('mongoose');
 
+function removeDuplicates(data_products){
+	var seen = {};
+	var out = [];
+	var len = data_products.length;
+	var j = 0;
+	for(var i = 0; i < len; i++) {
+		var item = data_products[i];
+		if(item != undefined){
+			if(seen[item.slug] !== 1) {
+				seen[item.slug] = 1;
+				out[j] = item;
+				j++;
+				console.log('    item');
+				// console.log(item);
+			}
+		}
+	}
+	console.log('end of remove duplicates');
+	return out;
+}
+
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
@@ -19,6 +40,8 @@ exports = module.exports = function(req, res) {
 	locals.data.custom_data = {};
 	locals.data.custom_data.is_custom = false;
 	locals.data.custom_data.has_favorites = false;
+	locals.data.products = [];
+	var product_in_industries, product_in_services, product_selected, allProducts = [];
 
 	var encrypted_uid;
 	if(locals.uid != undefined) {
@@ -144,30 +167,104 @@ exports = module.exports = function(req, res) {
 	});
 
 	view.on('init', function(next) {
+		if (locals.data.custom_data.has_favorites && locals.data.custom_data.favorites.services){
+			var qu = keystone.list('Service').model.find()
+			.where('state', 'published')
+			.where('slug').in(locals.data.custom_data.favorites.services);
+			qu.exec(function(err, results) {
+				locals.data.services = results;
+				next(err);
+			});
+		} else {
+			next();
+		}
+	});
+
+	view.on('init', function(next) {
+		if (locals.data.custom_data.has_favorites && locals.data.custom_data.favorites.industries){
+			var qu = keystone.list('Industry').model.find()
+			.where('state', 'published')
+			.where('slug').in(locals.data.custom_data.favorites.industries);
+			qu.exec(function(err, results) {
+				locals.data.industries = results;
+				next(err);
+			});
+		} else {
+			next();
+		}
+	});
+
+	
+	view.on('init', function(next) {
 		if (locals.data.custom_data.has_favorites){
-			var qu = keystone.list('Product').model.find()
+
+			/* 
+				Get all 3 types of ways to show products,
+				then go thru the queries, call a function
+				to remove duplicates, and set the data.
+
+				The reason there are so many promises is that
+				by the time the queries were all done, if you set
+				the data it would occur too late because everything
+				is asynchronous and the queries took too long.
+
+				There is also a case where an undefined object slips
+				in, so my future self, or you, should find that and fix it.
+				I've checked for the undefined object at the function at the
+				top of the page.
+			*/
+
+			var productIndustryQuery = keystone.list('Product').model.find()
 			.populate('industries')
+			.where('state', 'published')
+			.where('industries').in(locals.data.industries);
+
+			var productServicesQuery = keystone.list('Product').model.find()
 			.populate('services')
 			.where('state', 'published')
+			.where('services').in(locals.data.services);
+
+			var productSelected = keystone.list('Product').model.find()
+			.where('state', 'published')
 			.where('slug').in(locals.data.custom_data.favorites.products);
-			qu.exec(function(err, results) {
-				//var selectedProducts = [];
-				locals.data.products = results;
-				console.log(results);
 
-				// if (locals.data.custom_data.favorites.products){
-				// 	for (var product in allProducts){
-
-				// 	}
-				// }
-				
-
-				next(err);
-
-				
+			productIndustryQuery.exec(function(err, results) {
+				allProducts = allProducts.concat(results);
+			}).then(function(){
+		        productServicesQuery.exec(function(err, results) {
+					allProducts = allProducts.concat(results);
+				}).then(function(){
+			        productSelected.exec(function(err, results) {
+        	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	
+        	        	next();
+        			});
+				}, function(err){
+			       productSelected.exec(function(err, results) {
+	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));	      	       	        	
+	       	        	next();
+	       			});
+				});
+			}, function(err){
+		        productServicesQuery.exec(function(err, results) {
+					allProducts = allProducts.concat(results);
+				}).then(function(){
+			        productSelected.exec(function(err, results) {
+        	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	
+        	        	next();
+        			});
+				}, function(err){
+			       productSelected.exec(function(err, results) {       	    
+	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));	      	       	        	
+	       	        	next();
+	       			});
+				});
 			});
+
+		} else {
+			next();
 		}
-		console.log(locals.data.products);
+		
+
 	});
 
 

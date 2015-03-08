@@ -72,17 +72,17 @@ Enquiry.schema.post('save', function() {
 
 //This is not currently being used.
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
-	
+
 	var enquiry = this;
-	
+
 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
-		
+
 		if (err) return callback(err);
-		
+
 		new keystone.Email('enquiry-notification').send({
 			to: 'nlambert@maxmedia.com',
 			from: {
@@ -92,13 +92,13 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 			subject: 'New Enquiry for Cox Solution Finder',
 			enquiry: enquiry
 		}, callback);
-		
+
 	});
-	
+
 };
 
 Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}

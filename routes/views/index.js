@@ -15,12 +15,9 @@ function removeDuplicates(data_products){
 				seen[item.slug] = 1;
 				out[j] = item;
 				j++;
-				console.log('    item');
-				// console.log(item);
 			}
 		}
 	}
-	console.log('end of remove duplicates');
 	return out;
 }
 
@@ -107,19 +104,13 @@ exports = module.exports = function(req, res) {
 				if(has_favorites == true){
 					locals.data.custom_data.has_favorites = true;
 				}
-				console.log(user.industries_array);
-				console.log(user.services_array);
-				console.log(user.products_array);
+
 				locals.data.custom_data.favorites.industries = user.industries_array;
 				locals.data.custom_data.favorites.services = user.services_array;
 				locals.data.custom_data.favorites.products = user.products_array;
 			}
 
-			
-
 		});
-
-		
 
 	}
 

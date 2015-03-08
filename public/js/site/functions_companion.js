@@ -97,6 +97,19 @@ function piwikCompanionActions() {
 			_paq.push(['trackEvent', 'Resource', 'Click', $(e.currentTarget).attr('href')]);
 		});
 
+		$('.pi-success-story').on('click', function(e) {
+			_paq.push(['trackEvent', 'Industry Success Story', 'Click', 'Success Story']);
+		});
+
+		$('.pi-home-services').on('click', function(e) {
+			var label = console.log($(e.currentTarget).find('.service-title').text());
+			_paq.push(['trackEvent', 'Industry Success Story', 'Click', label]);
+		});
+
+		$('.connect-page form').on('submit', function(e) {
+			_paq.push(['trackEvent', 'Contact Form', 'Submit']);
+		});
+
 		$('.pi-products').on('click', function(e) {
 			var label = 'unknown';
 			if($(e.currentTarget).is('a.product-navigation-item')) {

@@ -129,8 +129,10 @@ exports.requireUser = function(req, res, next) {
 exports.personalized = function(req, res, next) {
 	var uid = req.params.enquiry;
 	res.locals.uid = uid;
-
-	res.cookie('UID', uid);
+	if(!req.cookies.UID) {
+		res.cookie('UID', uid);	
+	}
+	
 	// res.redirect('/');
 
 

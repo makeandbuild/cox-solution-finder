@@ -23,6 +23,6 @@ mixin mediaBuffet(media_buffet)
 				.facts(style= media_buffet.facts.featured_image.url ? "background-image: url(" +assetURI(media_buffet.facts.featured_image.url)+");" : "")
 			.media-buffet-bottom-block
 				.story
-					a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link
+					a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link.pi-success-story
 						img(src="/icons/png/icon-plus.png")
 						h4.media-title!=media_buffet.story.title

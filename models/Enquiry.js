@@ -150,8 +150,8 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.name.full);
 	row.push(this.email);
 	row.push(this.zipcode);
-	row.push(this.company_population);
-	row.push(this.company.is_customer ? "YES" : "NO");
+	row.push(this.company_populationLabel);
+	row.push(this.is_customer ? "YES" : "NO");
 	row.push(this.industries);
 	row.push(this.services);
 	row.push(this.products);

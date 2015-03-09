@@ -21,6 +21,8 @@ function initShowroom(){
 	mySolutionsSessionInit();
 	mySolutionsFavoritesInits();
 	mySolutionsFavoritesInteraction();
+	
+	mapRelatedProducts();
 
 	mySolutionsFormSubmission();
 

@@ -558,6 +558,34 @@ function homeStageTransitions(){
 	});
 }
 
+function mapRelatedProducts(){
+	if ($('.home-stage')[0]){
+		var services = $('.navigation-modal-tiles').filter("[data-navigation-modal='services']").find('.navigation-modal-tile').not('.fake-tile');
+		$('.related-product-item').each(function(e){
+			var relatedProduct = $(this);
+			if ($(this).data('related-service')[0]){
+				var relatedProductService = $(this).data('related-service').split('"')[1];
+				services.each(function(){
+					if (relatedProductService == $(this).data('tile-id')){
+						relatedProduct.attr('href', $(this).attr('href'));
+					}
+				});
+			}
+		});
+	}
+	$('.related-product-item').on('click',function(e){
+		var productId = $(this).data('product-id');
+		$.cookie('tmp_rel_prod', JSON.stringify({related_service_id: productId}), { expires: solutions_cookieExp, path: solutions_cookiePath });
+	});
+	if ($.cookie('tmp_rel_prod') && $('.service-container')[0]){
+		var productId = JSON.parse($.cookie('tmp_rel_prod'));
+		var selectedProduct = $('.product-navigation-item').filter("[data-navigationitem='"+productId.related_service_id+"']");
+		selectedProduct.trigger('click');
+		$.removeCookie('tmp_rel_prod', { expires: solutions_cookieExp, path: solutions_cookiePath });
+	
+	}
+}
+
 function mySolutionsFavoritesInits(){
 
 	var countObject,

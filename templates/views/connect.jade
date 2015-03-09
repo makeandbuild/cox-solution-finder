@@ -3,68 +3,71 @@ extends ../layouts/default
 		
 block content
 	article.container-fluid.connect-page
-		.visible-xs.visible-sm
-			span.background-shadow.from-right.lighter
-		.visible-md.visible-lg
-			.connect-page-background-overlay
-			.connect-page-background(style= data.connect.connect_background.url ? 'background-image: url('+data.connect.connect_background.url+');' : '')
-		.container
-			.row.header-space-small
-			.row
-				
-				.col-xs-12.col-md-6.col-lg-7.connect-content
-					h1.lets-connect LET'S
-						strong CONNECT
-					p.section-heading= data.connect.heading
-					p.section-content= data.connect.content
+		span.background-shadow.from-right.lighter
+		//- .visible-xs.visible-sm
+		//- 	span.background-shadow.from-right.lighter
+		
+		.container-fluid
+			.visible-md.visible-lg
+				.connect-page-background-overlay
+				.connect-page-background(style= data.connect.connect_background.url ? 'background-image: url('+data.connect.connect_background.url+');' : '')
+			.container
+				.row.header-space-small
+				.row
+					
+					.col-xs-12.col-md-6.col-lg-7.connect-content
+						h1.lets-connect LET'S
+							strong CONNECT
+						p.section-heading= data.connect.heading
+						p.section-content= data.connect.content
 
-				.col-xs-12.col-md-6.col-lg-5.connect-form-col
-					if enquirySubmitted
-						h3.connect-thanks Thanks for your interest. We'll be in touch!
-					else
-						p Tell us about yourself
-						form(method='post')
-							input(type='hidden', name='action', value='connect')
-							input(type="hidden" name='showname' value='Companion Site').connect-showname
+					.col-xs-12.col-md-6.col-lg-5.connect-form-col
+						if enquirySubmitted
+							h3.connect-thanks Thanks for your interest. We'll be in touch!
+						else
+							p Tell us about yourself
+							form(method='post')
+								input(type='hidden', name='action', value='connect')
+								input(type="hidden" name='showname' value='Companion Site').connect-showname
 
-							.form-group(class=validationErrors.name ? 'has-error' : null)
-								label.sr-only Full Name
-								input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
+								.form-group(class=validationErrors.name ? 'has-error' : null)
+									label.sr-only Full Name
+									input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 
-							.form-group(class=validationErrors.email ? 'has-error' : null)
-								label.sr-only Email
-								input(type='email', name='email', value=formData.email placeholder="Email").form-control
+								.form-group(class=validationErrors.email ? 'has-error' : null)
+									label.sr-only Email
+									input(type='email', name='email', value=formData.email placeholder="Email").form-control
 
-							.form-group(class=validationErrors.zipcode ? 'has-error' : null)
-								label.sr-only Zip Code
-								input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
-							
-							.form-group
-								label.sr-only Company Population
-								.dropdown.custom-dropdown.dropdown-select.connect-dropdown
-									button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-										.icon-arrow
-											img(src="/images/arrow_down.png")
-										span.custom-dropdown-current.dropdown-select-current
-											.current-default Company Size 
-												em (select)
-									ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
-										each key, index in Object.keys(company_population)
-											- var type = company_population[key]
-											li(role="presentation")
-												a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
-								select(name='company_population').form-control.sr-only
-									option(value='') Company Size (select)
-									each type in company_population
-										option(value=type.value, selected=formData.company_population == type.value)= type.label
-							
-							.form-group
-								label.sr-only Current Cox Business Customer
-								.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
-									.input-checkbox
-										img(src="/icons/png/icon-check.png")
-									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
-							
-							.form-actions
-								button(type='submit').btn.btn-primary.pi-contact-submit SUBMIT
+								.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+									label.sr-only Zip Code
+									input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+								
+								.form-group
+									label.sr-only Company Population
+									.dropdown.custom-dropdown.dropdown-select.connect-dropdown
+										button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+											.icon-arrow
+												img(src="/images/arrow_down.png")
+											span.custom-dropdown-current.dropdown-select-current
+												.current-default Company Size 
+													em (select)
+										ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
+											each key, index in Object.keys(company_population)
+												- var type = company_population[key]
+												li(role="presentation")
+													a(role="menuitem" data-value=type.value data-label=type.label tabindex="-1").dropdown-select-item= type.label
+									select(name='company_population').form-control.sr-only
+										option(value='') Company Size (select)
+										each type in company_population
+											option(value=type.value, selected=formData.company_population == type.value)= type.label
+								
+								.form-group
+									label.sr-only Current Cox Business Customer
+									.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
+										.input-checkbox
+											img(src="/icons/png/icon-check.png")
+										.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
+									input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
+								
+								.form-actions
+									button(type='submit').btn.btn-primary.pi-contact-submit SUBMIT

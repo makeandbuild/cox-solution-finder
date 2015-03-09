@@ -7,7 +7,9 @@ var keystone = require('keystone'),
 		sender = process.env.SES_SENDER,
 		reciever = process.env.SES_RECIEVER,
 		EJS = require('ejs'),
-		security = require('../components/security.js');
+		security = require('../components/security.js'),
+		fs = require('fs'),
+		util = require('util');
 
 /**
  * Enquiry Model
@@ -61,13 +63,46 @@ Enquiry.schema.pre('save', function(next) {
 });
 
 Enquiry.schema.post('save', function() {
+	
+	// IF SYNCED FROM SHOWROOM
 	if (this.wasNew && this.is_showroom) {
 		this.sendNotificationEmailSes();
 	}
-	if (!this.is_showroom){
-		var enquiriesCSV = Enquiry.CSV_HEADER + "\n" + this.toCSV();
 
-		console.log('SEND EMAIL');
+	// IF GENERATED FROM COMPANION SITE
+	if (!this.is_showroom){
+		console.log('COMPANION SITE');
+		var enquiry = this;
+		var enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiry.toCSV();
+
+		var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv";
+		var enquiriesCSVuri = "http://dev.sfv2.cox.mxmcloud.com"+enquiriesCSVfn;
+
+
+		fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {
+			if (err) {
+				console.error("Error writing file %s: %s", err);
+			}
+
+			nodeSES.createClient({
+				key: process.env.SES_KEY,	secret: process.env.SES_SECRET
+			}).sendemail({
+				to: process.env.SES_DISTRO_LIST,
+				from: process.env.SES_SENDER,
+				cc: 'cox-sfv2@maxmedia.com',
+				subject: util.format('[%s] %s', enquiry.showname, "Lead Information"),
+				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
+					enquiriesCSVuri, enquiriesCSVuri),
+				altText: util.format("Lead information:.\n\n%s", enquiriesCSVuri)
+			}, function (err, data, res) {
+				if (err) {
+					console.error("Error sending lead information: %s", err);
+				}
+			});
+		});
+		enquiry.getUpdateHandler({is_notified : true});
+
+
 	}
 });
 
@@ -105,7 +140,6 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 		callback = function() {};
 	}
 	var enquiry = this;
-	console.log(enquiry);
 
 	var fs = require('fs');
 
@@ -134,6 +168,7 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 					callback(err);
 				} else {
 					console.log('SUCCESS!');
+					enquiry.is_notified = true;
 					callback();
 				}
 				// console.log('\x1b[36mData:\n\x1b[0m');

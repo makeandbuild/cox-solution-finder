@@ -156,7 +156,7 @@ function processSyncData(fn) {
 				nodeSES.createClient({
 					key: process.env.SES_KEY,	secret: process.env.SES_SECRET
 				}).sendemail({
-					to: settings.sync_notification_email,
+					to: [settings.sync_notification_email, process.env.SES_DISTRO_LIST],
 					from: process.env.SES_SENDER,
 					cc: 'cox-sfv2@maxmedia.com',
 					subject: util.format('[%s] %s', settings.showname, "Lead Information"),

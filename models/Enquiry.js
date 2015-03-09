@@ -72,17 +72,17 @@ Enquiry.schema.post('save', function() {
 
 //This is not currently being used.
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
-	
+
 	var enquiry = this;
-	
+
 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
-		
+
 		if (err) return callback(err);
-		
+
 		new keystone.Email('enquiry-notification').send({
 			to: 'nlambert@maxmedia.com',
 			from: {
@@ -92,13 +92,13 @@ Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 			subject: 'New Enquiry for Cox Solution Finder',
 			enquiry: enquiry
 		}, callback);
-		
+
 	});
-	
+
 };
 
 Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
@@ -144,6 +144,27 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 
 };
 
+Enquiry.schema.methods.toCSV = function() {
+	var row = []
+
+	row.push(this.name.full);
+	row.push(this.email);
+	row.push(this.zipcode);
+	row.push(this.company_populationLabel);
+	row.push(this.is_customer ? "YES" : "NO");
+	row.push(this.industries);
+	row.push(this.services);
+	row.push(this.products);
+	row.push(this.partners);
+	row.push(this._.createdAt.format());
+
+	return row.map(function(val) {
+		return '"' + val + '"';
+	}).join(",");
+};
+
+Enquiry.CSV_HEADER = '"Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
+                     '"Services","Products","Partners","Created At"';
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, createdAt';

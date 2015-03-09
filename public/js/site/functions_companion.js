@@ -57,6 +57,13 @@ function setMobileNavHeight(){
 	$('.navigation-mobile').css('max-height', document.documentElement.clientHeight - 50 + 'px');
 }
 
+function customHomeReset(){
+	$('.hero-reset').click(function(){
+		$.removeCookie('UID');
+		location.reload();
+	});
+}
+
 function customHomeNameAdjust(){
 	if ($('.hero-custom-name')[0]){
 		var target = $('.hero-custom-name');

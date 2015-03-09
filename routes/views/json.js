@@ -1,11 +1,13 @@
 var util = require('util')
 	, fs = require('fs')
 	, async = require('async')
-	,	keystone = require('keystone')
-	,	_ = require('underscore')
+	, keystone = require('keystone')
+	, _ = require('underscore')
 	, mkdirp = require('mkdirp')
 	, fs = require('fs')
-	, nodeSES = require('node-ses');
+	, nodeSES = require('node-ses')
+	, piwik = require('piwik')
+	, moment = require('moment');
 
 
 var Product = keystone.list('Product').model
@@ -14,7 +16,7 @@ var Product = keystone.list('Product').model
 	, Enquiry = keystone.list('Enquiry');
 
 var domain = process.env.STATIC_URI
-	, urls = []
+	, urls = [];
 
 exports.productURLs = function(callback) {
 	var q = Product.find().where('state', 'published')
@@ -94,6 +96,8 @@ exports.sitemap = function(req, res) {
 }
 
 function processSyncData(fn) {
+	var piwikClient = piwik.setup(process.env.PIWIK_URI, process.env.PIWIK_TOKEN);
+
 	fs.readFile(fn, {encoding: 'utf8'}, function(err, content) {
 		if (err) {
 			console.error(err);
@@ -112,8 +116,11 @@ function processSyncData(fn) {
 					callback();
 					break;
 				case "stats":
-					//TODO send stats to piwik
-					path = record.path;
+					piwikClient.track({
+						idsite: process.env.PIWIK_SITEID,
+						url: "http://showroom.mxm" + record.path,
+						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss')
+					}, console.log);
 					callback();
 					break;
 				case "enquiry":

@@ -237,9 +237,6 @@ function modalContent(){
 			var videoData = $(this).data('video-data');
 			var video = $('.modal.csf-video-modal video');
 			video.attr('poster', videoData.background.url);
-			console.log('    videoData');
-			console.log(videoData);
-			console.log(videoData.background.url);
 
 			//Checks if Firefox 34 and loads webm as videojs src.
 			if($('.ie50')[0] && videoData.video_webm.url){

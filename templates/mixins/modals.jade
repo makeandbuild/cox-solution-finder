@@ -1,7 +1,7 @@
 mixin videoModal
 	.modal.csf-modal.csf-video-modal.fade(id="video_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
 		button.btn.btn-default.global-close.csf-content-close(type="button" data-dismiss="modal" data-video-close="the_video")
-			img(src=assetURI("/images/close.png"))
+			img(src=linkURI("/images/close.png"))
 		video(id="the_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" poster="" data-setup='{"techOrder": ["html5"]}')
 			source(src=linkURI("/default_videos/default.mp4") type='video/mp4')
 			source(src=linkURI("/default_videos/default.webm") type='video/webm')
@@ -9,7 +9,7 @@ mixin videoModal
 mixin storyModal
 	.modal.csf-modal.csf-story-modal.fade(id="story_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
 		button.btn.btn-default.global-close.csf-content-close(type="button" data-dismiss="modal" data-video-close="the_story")
-			img(src=assetURI("/images/close.png"))
+			img(src=linkURI("/images/close.png"))
 		.story-container
 			.story-content
 			.story-featured-image

@@ -221,9 +221,11 @@ exports = module.exports = function(req, res) {
 
 			productIndustryQuery.exec(function(err, results) {
 				allProducts = allProducts.concat(results);
+				locals.data.products = removeDuplicates(allProducts.concat(results)); 
 			}).then(function(){
 		        productServicesQuery.exec(function(err, results) {
 					allProducts = allProducts.concat(results);
+					locals.data.products = removeDuplicates(allProducts.concat(results)); 
 				}).then(function(){
 			        productSelected.exec(function(err, results) {
         	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	
@@ -238,6 +240,7 @@ exports = module.exports = function(req, res) {
 			}, function(err){
 		        productServicesQuery.exec(function(err, results) {
 					allProducts = allProducts.concat(results);
+					locals.data.products = removeDuplicates(allProducts.concat(results)); 
 				}).then(function(){
 			        productSelected.exec(function(err, results) {
         	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	

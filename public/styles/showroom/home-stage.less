@@ -185,6 +185,7 @@
 		.act-close {
 			.global-close();
 			height:56px;
+			z-index: 51;
 			width:56px;
 			right: 0;
 			img {
@@ -193,6 +194,7 @@
 			.showroom-screen({
 				.global-close();
 				right: 0;
+				z-index: 51;
 			});
 		}
 		video {
@@ -219,6 +221,7 @@
 			.transition(0.3s);
 			&.active {
 				opacity:1;
+				z-index:50;
 				.transition(0.3s);
 			}
 			.showroom-screen({
@@ -304,6 +307,7 @@
 			}
 			.related-product-item {
 				.shadow-light();
+				display:block;
 				color:@darkBlue;
 				background-color:@white;
 				height: 50px;

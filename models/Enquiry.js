@@ -65,7 +65,9 @@ Enquiry.schema.post('save', function() {
 		this.sendNotificationEmailSes();
 	}
 	if (!this.is_showroom){
-		this.sendNotificationEmailSes();
+		var enquiriesCSV = Enquiry.CSV_HEADER + "\n" + this.toCSV();
+
+		console.log('SEND EMAIL');
 	}
 });
 
@@ -146,7 +148,6 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 
 Enquiry.schema.methods.toCSV = function() {
 	var row = []
-
 	row.push(this.name.full);
 	row.push(this.email);
 	row.push(this.zipcode);
@@ -156,6 +157,7 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.services);
 	row.push(this.products);
 	row.push(this.partners);
+	row.push(this.showname);
 	row.push(this._.createdAt.format());
 
 	return row.map(function(val) {
@@ -163,8 +165,8 @@ Enquiry.schema.methods.toCSV = function() {
 	}).join(",");
 };
 
-Enquiry.CSV_HEADER = '"Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
-                     '"Services","Products","Partners","Created At"';
+Enquiry.CSV_HEADER = 'Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
+                     '"Services","Products","Partners","Show Name","Created At"';
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, createdAt';

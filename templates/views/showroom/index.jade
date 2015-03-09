@@ -55,7 +55,7 @@ mixin act_map_overlay(scene, act)
 						- var productCount = 0;
 						each product in map.products
 							if productCount < 3
-								.related-product-item
+								a(data-related-service=product.services).related-product-item
 									span= product.title
 								- productCount++
 						.map-overlay-all-services

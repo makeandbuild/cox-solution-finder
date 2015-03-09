@@ -1,6 +1,6 @@
 mixin tile(tile, key)
 
-	a(href=linkURI('/'+key+'/' + tile.slug) title=tile.title).navigation-modal-tile
+	a(href=linkURI('/'+key+'/' + tile.slug) title=tile.title data-tile-id=tile.id).navigation-modal-tile
 		.tile-icon.coxicon(class="coxicon_"+tile.svg_icon)
 		.tile-title
 			span= tile.title

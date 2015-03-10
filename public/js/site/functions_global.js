@@ -231,7 +231,7 @@ function videoClose(){
 // Initiate the link for the modal the normal bootstrap approach.
 // On the link add the data attribute: `data-video-data` and pass the keystone video array.
 function modalContent(){
-	$('.video-link, .story-link').on('click',function(){
+	$('.video-link, .story-link, .image-link').on('click',function(){
 		// Inits
 		if ($(this).hasClass('video-link')){
 			var videoData = $(this).data('video-data');

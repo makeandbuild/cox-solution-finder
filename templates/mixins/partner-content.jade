@@ -1,0 +1,14 @@
+mixin partnerContent(partner, isShowroom)
+	if isShowroom
+		h1.partner-title.can-favorite.solution-page-title(data-solutions-slug=partner.slug data-solutions-type='industries')= partner.title
+			.coxicon.coxicon_favorites_star_after
+	else
+		h1.partner-title= partner.title
+	ul.partner-attributes
+		li #{partner.attribute_one} 
+		if partner.attribute_two && partner.attribute_two != ''
+			li  | #{partner.attribute_two}
+		if partner.attribute_three && partner.attribute_three != ''
+			li  | #{partner.attribute_three}
+	p.section-heading= partner.heading
+	p.section-content= partner.content

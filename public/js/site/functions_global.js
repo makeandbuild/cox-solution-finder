@@ -278,6 +278,17 @@ function modalContent(){
 			
 		}
 	
+		if ($(this).hasClass('image-link')){
+			var imageData = $(this).data('image-data');
+			var imageTitle = imageData.title;
+			var image = imageData.featured_image.url;
+
+			$('.modal .image-container .image-title').html(imageTitle);
+			if (image){
+				$('.modal .imageModal-featured-image').css('background-image', 'url('+image+')');
+			}
+			
+		}
 
 		if($('body').hasClass('companion-site')){
 			if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {

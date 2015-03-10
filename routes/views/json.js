@@ -106,7 +106,7 @@ function processSyncData(fn) {
 		var data = JSON.parse(content),
 				settings = {},
 				enquiries = [];
-		async.each(data, function(recordStr, callback) {
+		async.eachLimit(data, 5, function(recordStr, callback) {
 			var record = JSON.parse(recordStr),
 					recordType = record.type;
 
@@ -118,7 +118,7 @@ function processSyncData(fn) {
 				case "stats":
 					piwikClient.track({
 						idsite: process.env.PIWIK_SITEID,
-						url: "http://showroom.mxm" + record.path,
+						url: process.env.PDOMAIN + record.path,
 						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss'),
 						_cvar: { '1': ['Platform', record.device] }
 					}, console.log);

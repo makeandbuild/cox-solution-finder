@@ -66,10 +66,10 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* ie */
 }
 .buttonDown {background:none;background-color: #c9cdd5; -webkit-box-shadow:none;-moz-box-shadow: none;box-shadow: none;}
-.button_a {margin-left:26px;}
+.button_a {margin-left: 70px;}
 .button_dash {margin-left:26px;}
 .button_underscore {margin-left:26px;}
-.button_enter {width:103px; font-size:1.3em; }
+.button_enter {width:0px; opacity:0; font-size:1.3em; }
 .button_del{width:103px; font-size:1.3em;}
 .button_smallletter{font-size:1.3em;}
 .button_capitalletterleft{font-size:1.3em;}

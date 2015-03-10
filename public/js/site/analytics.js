@@ -1,8 +1,8 @@
 $(function() {
-	var deviceName = 'tablet';
+	var deviceName = 'Tablet';
 
 	if(document.documentElement.clientWidth >= config.breakpoints.showroom.touch) {
-		deviceName = 'touch';
+		deviceName = 'Touch';
 	}
 
 	var data = {

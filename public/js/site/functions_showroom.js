@@ -626,12 +626,12 @@ function mySolutionsFavoritesInits(){
 				}
 				$('.solutions-services-title').addClass('active');
 			}
-			// if(currentData.partners.length) {
-			// 	for (var i = 0; i < currentData.partners.length; i++) {
-			// 		$('.solutions-partners').children().filter("[data-solutions-slug='"+currentData.partners[i]+"']").addClass('active');
-			// 	}
-			// 	$('.solutions-partners-title').addClass('active');
-			// }
+			if(currentData.partners.length) {
+				for (var i = 0; i < currentData.partners.length; i++) {
+					$('.solutions-partners').children().filter("[data-solutions-slug='"+currentData.partners[i]+"']").addClass('active');
+				}
+				$('.solutions-partners-title').addClass('active');
+			}
 			if(currentData.products.length) {
 				for (var i = 0; i < currentData.products.length; i++) {
 					$('.solutions-products').children().filter("[data-solutions-slug='"+currentData.products[i]+"']").addClass('active');

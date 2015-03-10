@@ -57,6 +57,13 @@ function setMobileNavHeight(){
 	$('.navigation-mobile').css('max-height', document.documentElement.clientHeight - 50 + 'px');
 }
 
+function customHomeReset(){
+	$('.hero-reset').click(function(){
+		$.removeCookie('UID');
+		location.reload();
+	});
+}
+
 function customHomeNameAdjust(){
 	if ($('.hero-custom-name')[0]){
 		var target = $('.hero-custom-name');
@@ -97,6 +104,27 @@ function piwikCompanionActions() {
 			_paq.push(['trackEvent', 'Resource', 'Click', $(e.currentTarget).attr('href')]);
 		});
 
+		$('.pi-success-story').on('click', function(e) {
+			var category = "Industry Success Story";
+			if($('.home-hero').length) {
+				category = "Home Success Story";
+			}
+			_paq.push(['trackEvent', category, 'Click', 'Success Story']);
+		});
+
+		$('.pi-home-services').on('click', function(e) {
+			var label = $(e.currentTarget).find('.service-title').text();
+			_paq.push(['trackEvent', 'Home Services', 'Click', label]);
+		});
+
+		$('.connect-page form').on('submit', function(e) {
+			_paq.push(['trackEvent', 'Contact Form', 'Submit']);
+		});
+
+		$('.home-connect form').on('submit', function(e) {
+			_paq.push(['trackEvent', 'Home Form', 'Submit']);
+		});
+
 		$('.pi-products').on('click', function(e) {
 			var label = 'unknown';
 			if($(e.currentTarget).is('a.product-navigation-item')) {
@@ -107,5 +135,45 @@ function piwikCompanionActions() {
 			}
 			_paq.push(['trackEvent', 'Product', 'Click', label]);
 		});
+
+		$('.pi-industry').on('click', function(e) {
+			var label = $(e.currentTarget).find('.industry-home-title').text();
+			_paq.push(['trackEvent', 'Home Industries', 'Click', label]);
+		});
+
+		$('video').on('play', function(e) {
+			var videoTitle = $(e.currentTarget).parentsUntil('.modal').find('h2').text();
+			_paq.push(['trackEvent', 'Video', 'Play', videoTitle]);
+		});
+
+		$('.pi-video').on('click', function(e) {
+			var category;
+			var action;
+			var label;
+			if($(e.currentTarget).hasClass('hero-video-cta')) {
+				category = 'Home Hero';
+				action = 'Click';
+				data = $(e.currentTarget).data('video-data');
+				label = data.url;
+			} else if($('.home-hero').length) {
+				category = 'Home Video';
+				action = 'Click';
+				label = $(e.currentTarget).siblings('.media-title').text();
+			} else if ($('.industry-content').length) {
+				category = 'Industry Video';
+				action = 'Click';
+				label = $(e.currentTarget).siblings('.media-title').text();
+			} else {
+				category = 'Video';
+				action = 'Click';
+				label = $(e.currentTarget).siblings('.media-title').text();
+			}
+			_paq.push(['trackEvent', category, action, label])
+		});
+
+		if($.cookie('UID')) {
+			_paq.push(['setCustomVariable','2','UID',$.cookie('UID')]);
+		}		
+
 	}
 }

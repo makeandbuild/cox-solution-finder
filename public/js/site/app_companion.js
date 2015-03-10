@@ -16,7 +16,8 @@ function initCompanion(){
 	mobileNavigation();
 	setMobileNavHeight();
 	customHomeNameAdjust();
-	piwikCompanionActions();	
+	piwikCompanionActions();
+	customHomeReset();
 	equalHeights($('.contains-equal-heights'), $('.equal-heights'));
 	compensateForFooter($('.connect-page'), [$('header'), $('main')], $('html'));
 

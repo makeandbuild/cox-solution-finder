@@ -7,7 +7,9 @@ var keystone = require('keystone'),
 		sender = process.env.SES_SENDER,
 		reciever = process.env.SES_RECIEVER,
 		EJS = require('ejs'),
-		security = require('../components/security.js');
+		security = require('../components/security.js'),
+		fs = require('fs'),
+		util = require('util');
 
 /**
  * Enquiry Model
@@ -61,46 +63,83 @@ Enquiry.schema.pre('save', function(next) {
 });
 
 Enquiry.schema.post('save', function() {
-	if (this.wasNew) {
+	
+	// IF SYNCED FROM SHOWROOM
+	if (this.wasNew && this.is_showroom) {
 		this.sendNotificationEmailSes();
+	}
+
+	// IF GENERATED FROM COMPANION SITE
+	if (!this.is_showroom){
+		console.log('COMPANION SITE');
+		var enquiry = this;
+		var enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiry.toCSV();
+
+		var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv";
+		var enquiriesCSVuri = "http://dev.sfv2.cox.mxmcloud.com"+enquiriesCSVfn;
+
+
+		fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {
+			if (err) {
+				console.error("Error writing file %s: %s", err);
+			}
+
+			nodeSES.createClient({
+				key: process.env.SES_KEY,	secret: process.env.SES_SECRET
+			}).sendemail({
+				to: process.env.SES_DISTRO_LIST,
+				from: process.env.SES_SENDER,
+				cc: 'cox-sfv2@maxmedia.com',
+				subject: util.format('[%s] %s', enquiry.showname, "Lead Information"),
+				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
+					enquiriesCSVuri, enquiriesCSVuri),
+				altText: util.format("Lead information:.\n\n%s", enquiriesCSVuri)
+			}, function (err, data, res) {
+				if (err) {
+					console.error("Error sending lead information: %s", err);
+				}
+			});
+		});
+		enquiry.getUpdateHandler({is_notified : true});
+
+
 	}
 });
 
 
 //This is not currently being used.
-Enquiry.schema.methods.sendNotificationEmail = function(callback) {
-	
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
-	
-	var enquiry = this;
-	
-	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
-		
-		if (err) return callback(err);
-		
-		new keystone.Email('enquiry-notification').send({
-			to: 'nlambert@maxmedia.com',
-			from: {
-				name: 'Cox Solution Finder',
-				email: 'contact@cox-solution-finder.com'
-			},
-			subject: 'New Enquiry for Cox Solution Finder',
-			enquiry: enquiry
-		}, callback);
-		
-	});
-	
-};
+// Enquiry.schema.methods.sendNotificationEmail = function(callback) {
+
+// 	if ('function' !== typeof callback) {
+// 		callback = function() {};
+// 	}
+
+// 	var enquiry = this;
+
+// 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
+
+// 		if (err) return callback(err);
+
+// 		new keystone.Email('enquiry-notification').send({
+// 			to: 'nlambert@maxmedia.com',
+// 			from: {
+// 				name: 'Cox Solution Finder',
+// 				email: 'contact@cox-solution-finder.com'
+// 			},
+// 			subject: 'New Enquiry for Cox Solution Finder',
+// 			enquiry: enquiry
+// 		}, callback);
+
+// 	});
+
+// };
 
 Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
-	
+
 	if ('function' !== typeof callback) {
 		callback = function() {};
 	}
 	var enquiry = this;
-	console.log(enquiry);
 
 	var fs = require('fs');
 
@@ -129,6 +168,7 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 					callback(err);
 				} else {
 					console.log('SUCCESS!');
+					enquiry.is_notified = true;
 					callback();
 				}
 				// console.log('\x1b[36mData:\n\x1b[0m');
@@ -141,6 +181,27 @@ Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 
 };
 
+Enquiry.schema.methods.toCSV = function() {
+	var row = []
+	row.push(this.name.full);
+	row.push(this.email);
+	row.push(this.zipcode);
+	row.push(this.company_populationLabel);
+	row.push(this.is_customer ? "YES" : "NO");
+	row.push(this.industries);
+	row.push(this.services);
+	row.push(this.products);
+	row.push(this.partners);
+	row.push(this.showname);
+	row.push(this._.createdAt.format());
+
+	return row.map(function(val) {
+		return '"' + val + '"';
+	}).join(",");
+};
+
+Enquiry.CSV_HEADER = 'Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
+                     '"Services","Products","Partners","Show Name","Created At"';
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, createdAt';

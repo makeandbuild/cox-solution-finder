@@ -3,72 +3,7 @@ extends ../layouts/default
 
 block content
 
-	- var isPersonal = false
-
-	if data.custom_data
-		- isPersonal = true
-
-		//- Personal Info
-		- var firstName = data.custom_data.name.first
-		- var lastName = data.custom_data.name.last
-		- var eventName = data.custom_data.eventName
-
-		//- Chosen Industry Slugs and Empty Array
-		- var customIndustries = data.custom_data.favorites.industries
-		- var personalizedIndustries = [];
-
-		//- Chosen Service Slugs and Empty Array
-		- var customServices = data.custom_data.favorites.services
-		- var personalizedServices = [];
-
-		//- Chosen Product Slugs and Empty Array, and Complete Product Selection Array
-		- var customProducts = data.custom_data.favorites.products
-		- var personalizedProducts = [];
-		- var selectedProducts = [];
-
-		//- How about a little array building like in beginner's programming?
-
-		//- Setup the Custom Industries and Services
-		each industry in global_data.industries
-			each customIndustry in customIndustries
-				if industry.slug == customIndustry
-					- personalizedIndustries.push(industry)
-		each service in global_data.services
-			each customService in customServices
-				if service.slug == customService
-					- personalizedServices.push(service)
-		each product in data.products
-			each customProduct in customProducts
-				if product.slug == customProduct
-					- personalizedProducts.push(product)
-
-		//- Go ahead and add the chosen Products
-		each product in personalizedProducts
-			- selectedProducts.push(product)
-		
-		//- Gather all products in selected industries in services, including duplicates.
-		each product in data.products
-			each product_industry in product.industries
-				each industry in personalizedIndustries
-					if industry.id == product_industry
-						- selectedProducts.push(product)
-			each product_service in product.services
-				each service in personalizedServices
-					if service.id == product_service
-						- selectedProducts.push(product)
-
-		//- Now remove the duplicates
-		- var tempProducts = selectedProducts
-		each product, p_index in selectedProducts
-			- var productCount = 0
-			each tempProduct, t_index in tempProducts
-				if product && tempProduct
-					if product.id == tempProduct.id
-						- productCount++
-						if productCount > 1
-							- selectedProducts.splice(p_index, 1)
-			
-	if !isPersonal
+	if !data.custom_data.is_custom
 		article.container-fluid.home-hero
 			.hero-background-overlay
 			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
@@ -85,7 +20,24 @@ block content
 						a.hero-video-cta(data-toggle="modal" data-target="#video_modal" data-video-data=data.home.hero.video).video-link.pi-video
 							span SEE WHY
 							img(src="/icons/png/icon-play.png").hero-video-icon
+	else
+		article.container-fluid.home-hero
+			.hero-background-overlay
+			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
+			.row
+				.col-xs-12
+					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{data.custom_data.name.first},
+					p.hero-subtext-custom
+						span Thank you for your interest 
+						span in Cox Business Solutions
+					.hero-content
+						| We look forward to hearing from you.
+						if data.custom_data.has_favorites
+							| Here are your solutions.
 
+					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{data.custom_data.name.first}?)
+	//- Generic Home Page
+	if !data.custom_data.has_favorites
 
 		article.container-fluid.home-content
 			span.background-shadow.from-right
@@ -133,12 +85,13 @@ block content
 					.col-xs-12.home-connect(style= data.home.connect_background ? "background-image: url(" + data.home.connect_background.url + ");" : "")
 						.col-xs-12.col-md-offset-7.col-md-5.home-connect-form
 							if enquirySubmitted
-								h3.connect-thanks Thanks for getting in touch!
+								h3.connect-thanks Thanks for your interest. We'll be in touch!
 							else
 								p Tell us about yourself
 								form(method='post')
 									input(type='hidden', name='action', value='home-connect')
-
+									input(type="hidden" name='showname' value='Companion Site').connect-showname
+									
 									.form-group(class=validationErrors.name ? 'has-error' : null)
 										label.sr-only Full Name
 										input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
@@ -180,28 +133,7 @@ block content
 									
 									.form-actions
 										button(type='submit').btn.btn-primary SUBMIT
-
-
-
 	else
-		//- /////////////////
-		//- Personalized Home
-		//- /////////////////
-		article.container-fluid.home-hero
-			.hero-background-overlay
-			.hero-background(style= data.home.hero.background ? "background-image: url(" + data.home.hero.background.url+");" : "")
-			.row
-				.col-xs-12
-					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{firstName},
-					p.hero-subtext-custom
-						span Thanks for visiting us at
-						span= eventName
-					.hero-content!=data.home.hero.content
-
-					a.hero-reset(href="/" title="Reset Personalization").pi-switch (not #{firstName}?)
-
-
-
 		article.container-fluid.home-content
 			.visible-xs.visible-sm
 				span.background-shadow.from-right.lighter
@@ -210,8 +142,8 @@ block content
 
 			.container
 				.row.header-space-home
-				if personalizedIndustries
-					each industry, index in personalizedIndustries
+				if data.custom_data.favorites.industries
+					each industry, index in data.industries
 						article.row.industry-row
 							unless index == 0
 								.col-xs-12.industry-divider: hr
@@ -219,16 +151,11 @@ block content
 								+industryContent(industry, false)
 							.col-xs-12.col-md-7
 								+mediaBuffet(industry.media_buffet)
-
-				else
-					h1 No Industries!
-
-				if personalizedServices
-
+				if data.custom_data.favorites.services
 					.row
 						.col-xs-12
 							h3.home-content-header SERVICES
-					each service in personalizedServices
+					each service in data.services
 						.col-xs-12
 							section.row.service-row
 								.col-xs-12.col-md-6
@@ -236,69 +163,62 @@ block content
 								.col-xs-12.col-md-6.resources-container-home-services
 									+resources(service)
 
-				else
-					h1 No Services!
+		if data.products
 
-		if personalizedIndustries || personalizedServices
+			article.container-fluid.container-fluid-products-navigation
+				.visible-xs.visible-sm
+					span.background-shadow.from-right.lighter.to-foreground
+				.visible-md.visible-lg
+					span.background-shadow.from-right.to-foreground
 
+				.container
 
-			if selectedProducts
+					.row
+						.col-xs-12.products-md.home-products-navigation
 
-
-				article.container-fluid.container-fluid-products-navigation
-					.visible-xs.visible-sm
-						span.background-shadow.from-right.lighter.to-foreground
-					.visible-md.visible-lg
-						span.background-shadow.from-right.to-foreground
-
-					.container
-
-						.row
-							.col-xs-12.products-md.home-products-navigation
-
-								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-									article.product-navigation-title
-										span PRODUCTS
-								each product, index in selectedProducts
-									if index == 0
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id).active
-											article.product-navigation-item
-												span= product.title
-									else
-										.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id)
-											article.product-navigation-item
-												span= product.title
-
-							.col-xs-12.products-xs
-
-								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-									article.product-navigation-title
-										span PRODUCTS
-								if selectedProducts.length == 2
-									.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
-										article.product-navigation-title
-								each product, index in selectedProducts
-									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
-										a(href="/products/#{product.slug}").product-navigation-item.pi-products
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+								article.product-navigation-title
+									span PRODUCTS
+							each product, index in data.products
+								if index == 0
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id).active
+										article.product-navigation-item
+											span= product.title
+								else
+									.col-xs-6.col-md-4.col-lg-3.product-navigation-item-container.pi-products(data-navigationitem=product.id)
+										article.product-navigation-item
 											span= product.title
 
+						.col-xs-12.products-xs
 
-				article.container-fluid.container-fluid-products.products-md
-					.visible-xs.visible-sm
-						span.background-shadow.from-right.lighter
-					.visible-md.visible-lg
-						span.background-shadow.from-right
-					span.product-gradient.product-gradient-companion-services: span
-					.container
-						
-						.row
-							each item, index in selectedProducts
-								if index == 0
-									.col-xs-12.product-container(data-item=item.id).active
-										+product(item)
-								else
-									.col-xs-12.product-container(data-item=item.id)
-										+product(item)
+							.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+								article.product-navigation-title
+									span PRODUCTS
+							if data.products.length == 2
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-title-container
+									article.product-navigation-title
+							each product, index in data.products
+								.col-xs-6.col-md-4.col-lg-3.product-navigation-item-link-container(data-navigationitem=product.id)
+									a(href="/products/#{product.slug}").product-navigation-item.pi-products
+										span= product.title
+
+
+			article.container-fluid.container-fluid-products.products-md
+				.visible-xs.visible-sm
+					span.background-shadow.from-right.lighter
+				.visible-md.visible-lg
+					span.background-shadow.from-right
+				span.product-gradient.product-gradient-companion-services: span
+				.container
+					
+					.row
+						each item, index in data.products
+							if index == 0
+								.col-xs-12.product-container(data-item=item.id).active
+									+product(item)
+							else
+								.col-xs-12.product-container(data-item=item.id)
+									+product(item)
 
 
 

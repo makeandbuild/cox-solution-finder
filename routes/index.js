@@ -61,6 +61,8 @@ exports = module.exports = function(app) {
 
 	app.post('/showroom-sync', routes.views.json.showroom_sync);
 
+	app.get('/partners/:partner', routes.views.partner);
+
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 

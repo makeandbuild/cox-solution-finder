@@ -1,0 +1,21 @@
+mixin partnerBuffet(partner_buffet)
+	section.media-buffet
+		.media-buffet-column-left
+			.media-buffet-top-block
+				.bigPic
+					a(data-toggle="modal" data-target="#image_modal" data-image-data=partner_buffet.bigPic style= partner_buffet.bigPic.featured_image.url ? "background-image: url(" + assetURI(partner_buffet.bigPic.featured_image.url)+");" : "").image-link.pi-image
+						img(src="/icons/png/icon-plus.png")
+						h4.media-title!=partner_buffet.bigPic.title
+			.media-buffet-bottom-block
+				.values
+					!= partner_buffet.values.content
+					h4.media-title!=partner_buffet.values.title
+
+		.media-buffet-column-right
+			.media-buffet-top-block
+				.facts(style= partner_buffet.facts.featured_image.url ? "background-image: url(" +assetURI(partner_buffet.facts.featured_image.url)+");" : "")
+			.media-buffet-bottom-block
+				.story
+					a(data-toggle="modal" data-target="#story_modal" data-image-data=partner_buffet.smallPic style= partner_buffet.smallPic.featured_image.url ? "background-image: url(" + assetURI(partner_buffet.smallPic.featured_image.url)+");" : "").image-link.pi-image
+						img(src="/icons/png/icon-plus.png")
+						h4.media-title!=partner_buffet.story.title

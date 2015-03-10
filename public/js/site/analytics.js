@@ -1,7 +1,7 @@
 $(function() {
 	var deviceName = 'tablet';
 
-	if(document.documentElement.clientWidth >= config.breakpoints.site.showroom.touch) {
+	if(document.documentElement.clientWidth >= config.breakpoints.showroom.touch) {
 		deviceName = 'touch';
 	}
 

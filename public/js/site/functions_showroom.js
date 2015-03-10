@@ -1053,7 +1053,7 @@ function tvTabletTransferInit() {
     	if(requester) {
 			$.cookie(solutions_cookieName, data.cookie, { expires: solutions_cookieExp, path: solutions_cookiePath });
 			requester = false;
-			$('.settings-section-title.transfer-success').fadeIn();
+			$('.settings-section-title.cart-transfer-success').fadeIn();
 			setTimeout(function() {
 				location.pathname = data.currentPage;
 			}, 1000)

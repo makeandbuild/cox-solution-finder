@@ -44,12 +44,9 @@
 		width:100%;
 		height:100%;
 		background-position: center;
-		background-size:100%;
+		background-size:cover;
 		background-repeat:none;
 		z-index:-1;
-		.respond-md({
-			background-size:1920px;
-		});
 
 	}
 	.hero-header {
@@ -84,7 +81,7 @@
 		span, img {
 		
 			.respond-md({
-				//display:inline-block;
+				margin-bottom: 0.4em;
 			});
 		}
 		span {
@@ -92,7 +89,10 @@
 			display:table-cell;
 			text-align: right;
 			line-height: 1;
-			width:55%;
+			width: 63%;
+			.respond-md({
+				width: 58%;
+			});
 		}
 		img {
 			margin-left:0.5em;

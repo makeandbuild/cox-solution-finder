@@ -134,36 +134,74 @@ block content
 									.form-actions
 										button(type='submit').btn.btn-primary SUBMIT
 	else
-		article.container-fluid.home-content
-			.visible-xs.visible-sm
-				span.background-shadow.from-right.lighter
-			.visible-md.visible-lg
-				span.background-shadow.from-right
+		if data.custom_data.favorites.industries || data.custom_data.favorites.services
 
-			.container
-				.row.header-space-home
-				if data.custom_data.favorites.industries
-					each industry, index in data.industries
-						article.row.industry-row
-							unless index == 0
-								.col-xs-12.industry-divider: hr
-							.col-xs-12.col-md-5.home-industry-content
-								+industryContent(industry, false)
+			if !data.custom_data.favorites.industries
+				article.container-fluid.home-content
+					span.background-shadow.from-right
+
+					.container
+						.row.header-space-home
+						.row
+							.col-xs-12.col-md-5.home-default-content
+								h1.cox-business COX
+									strong BUSINESS				
+								p.section-heading= data.home.default_heading
+								p.section-content= data.home.default_content
 							.col-xs-12.col-md-7
-								+mediaBuffet(industry.media_buffet)
-				if data.custom_data.favorites.services
-					.row
-						.col-xs-12
-							h3.home-content-header SERVICES
-					each service in data.services
-						.col-xs-12
-							section.row.service-row
-								.col-xs-12.col-md-6
-									+serviceContent(service)
-								.col-xs-12.col-md-6.resources-container-home-services
-									+resources(service)
+								+mediaBuffet(data.home.media_buffet)
+
+			article.container-fluid.home-content
+				.visible-xs.visible-sm
+					span.background-shadow.from-right.lighter
+				.visible-md.visible-lg
+					span.background-shadow.from-right
+
+				.container
+					.row.header-space-home
+					if data.custom_data.favorites.industries
+						each industry, index in data.industries
+							article.row.industry-row
+								unless index == 0
+									.col-xs-12.industry-divider: hr
+								.col-xs-12.col-md-5.home-industry-content
+									+industryContent(industry, false)
+								.col-xs-12.col-md-7
+									+mediaBuffet(industry.media_buffet)
+							article.row.industry-row
+								.col-xs-12.industry-divider: hr
+								.col-xs-12.col-md-5.home-industry-content
+									+industryContent(industry, false)
+								.col-xs-12.col-md-7
+									+mediaBuffet(industry.media_buffet)
+					if data.custom_data.favorites.services
+						.row
+							.col-xs-12
+								h3.home-content-header SERVICES
+						each service in data.services
+							.col-xs-12
+								section.row.service-row
+									.col-xs-12.col-md-6
+										+serviceContent(service)
+									.col-xs-12.col-md-6.resources-container-home-services
+										+resources(service)
 
 		if data.products
+
+			if !data.custom_data.favorites.industries && !data.custom_data.favorites.services
+				article.container-fluid.home-content
+					span.background-shadow.from-right
+
+					.container
+						.row.header-space-home
+						.row
+							.col-xs-12.col-md-5.home-default-content
+								h1.cox-business COX
+									strong BUSINESS				
+								p.section-heading= data.home.default_heading
+								p.section-content= data.home.default_content
+							.col-xs-12.col-md-7
+								+mediaBuffet(data.home.media_buffet)
 
 			article.container-fluid.container-fluid-products-navigation
 				.visible-xs.visible-sm

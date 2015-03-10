@@ -42,7 +42,7 @@ function mobileNavigation(){
 		$(this).parent().siblings().children('.navigation-mobile-sub-menu').slideUp();
 		$(this).parent().toggleClass('viewing');
 		$(this).siblings('.navigation-mobile-sub-menu').slideToggle();
-	})
+	});
 	$('#body, .navigation-mobile-body-background').on('click', function(e){
 		$('.navigation-mobile, .navigation-toggle, .navigation-mobile-sub-menu').removeClass('active');
 		$('.navigation-item.has-menu').removeClass('viewing');

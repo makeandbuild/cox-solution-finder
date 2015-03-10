@@ -119,7 +119,8 @@ function processSyncData(fn) {
 					piwikClient.track({
 						idsite: process.env.PIWIK_SITEID,
 						url: "http://showroom.mxm" + record.path,
-						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss')
+						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss'),
+						_cvar: { '1': ['Platform', record.device] }
 					}, console.log);
 					callback();
 					break;
@@ -144,7 +145,7 @@ function processSyncData(fn) {
 			}
 
 			var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv",
-					enquiriesCSV = enquiries.map(function(e) { return e.toCSV(); });
+			enquiriesCSV = enquiries.map(function(e) { return e.toCSV(); });
 			enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiriesCSV.join("\n");
 
 			fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {

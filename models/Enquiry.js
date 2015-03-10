@@ -108,31 +108,31 @@ Enquiry.schema.post('save', function() {
 
 
 //This is not currently being used.
-Enquiry.schema.methods.sendNotificationEmail = function(callback) {
+// Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 
-	if ('function' !== typeof callback) {
-		callback = function() {};
-	}
+// 	if ('function' !== typeof callback) {
+// 		callback = function() {};
+// 	}
 
-	var enquiry = this;
+// 	var enquiry = this;
 
-	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
+// 	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
 
-		if (err) return callback(err);
+// 		if (err) return callback(err);
 
-		new keystone.Email('enquiry-notification').send({
-			to: 'nlambert@maxmedia.com',
-			from: {
-				name: 'Cox Solution Finder',
-				email: 'contact@cox-solution-finder.com'
-			},
-			subject: 'New Enquiry for Cox Solution Finder',
-			enquiry: enquiry
-		}, callback);
+// 		new keystone.Email('enquiry-notification').send({
+// 			to: 'nlambert@maxmedia.com',
+// 			from: {
+// 				name: 'Cox Solution Finder',
+// 				email: 'contact@cox-solution-finder.com'
+// 			},
+// 			subject: 'New Enquiry for Cox Solution Finder',
+// 			enquiry: enquiry
+// 		}, callback);
 
-	});
+// 	});
 
-};
+// };
 
 Enquiry.schema.methods.sendNotificationEmailSes = function(callback) {
 

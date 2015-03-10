@@ -1,0 +1,18 @@
+extends ../../layouts/default-showroom
+//- Use the Showroom Default Template
+
+block content
+	.row.partner-top-row
+		.col-xs-6.partner-container
+			span.background-shadow.from-left
+			.row.header-space
+			.row
+				.col-xs-10.col-lg-8.col-xs-offset-1.content-container
+					+partnerContent(data.partner, true)
+		.col-xs-6.partner-container
+			span.background-shadow.from-right
+			+partnerBuffet(data.partner.partner_buffet)
+	.row.partner-bottom-row
+		.col-xs-12.partner-service-container
+			h3 Services
+			+service-list(global_data.services, true, data.partner)

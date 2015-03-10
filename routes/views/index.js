@@ -82,21 +82,21 @@ exports = module.exports = function(req, res) {
 
 				locals.data.custom_data.favorites = {};
 
-				if(user.industries != undefined || user.industries != false || user.industries != null || user.industries != "") { 
+				if(user.industries != undefined && user.industries != false && user.industries != null && user.industries != "") { 
 					user.industries_array = user.industries.split(",");
 					has_favorites = true;
 				} else {
 					user.industries_array = false;
 				}
 
-				if(user.services != undefined || user.services != false || user.services != null || user.services != "") { 
+				if(user.services != undefined && user.services != false && user.services != null && user.services != "") { 
 					user.services_array = user.services.split(",");
 					has_favorites = true;
 				} else {
 					user.services_array = false;
 				}
 
-				if(user.products != undefined || user.products != false || user.products != null || user.products != "") { 
+				if(user.products != undefined && user.products != false && user.products != null && user.products != "") { 
 					user.products_array = user.products.split(",");
 					has_favorites = true;
 				} else {

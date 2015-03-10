@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "keystone": "maxmedia/keystone#v0.3.3-mxm.0",
     "async": "~0.9.0",
     "connect-mongo": "~0.6.0",
     "debug": "^2.1.1",
@@ -10,7 +11,6 @@
     "ejs": "^2.3.1",
     "express": "~4.10.6",
     "jade": "~1.8.2",
-    "keystone": "~0.3.0",
     "mkdirp": "^0.5.0",
     "moment": "^2.9.0",
     "mongoose": "~3.8.21",

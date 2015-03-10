@@ -1022,18 +1022,18 @@ function settingsClearIt(){
 
 // TV TABLET TRANSFER CODE
 function tvTabletTransferInit() {
-    var transfer = io.connect('/transfer');
+    var socket = io();
     var requester = false;
-    transfer.emit('TEST!');
+    socket.emit('TEST!');
 	if(document.documentElement.clientWidth >= config.breakpoints.showroom.touch) {
-    	transfer.on('request', function(msg){
+    	socket.on('request', function(msg){
     		var response;
 	    	var cookie = $.cookie(solutions_cookieName);
 	    	var currentPage = location.pathname;
 
 	    	response = {"cookie" : cookie, "currentPage" : currentPage};
 	    	console.log("REQUESTED");
-	    	transfer.emit('response', response);
+	    	socket.emit('response', response);
 			$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
 	    	console.log("REPLY SENT");
 	    	if(!requester) {
@@ -1044,11 +1044,11 @@ function tvTabletTransferInit() {
 
     $('#settings-transfer-start').on('click', function(e) {
     	console.log('CLICK!');
-    	transfer.emit('request');
+    	socket.emit('request');
     	requester = true;
     });
 
-    transfer.on('response', function(data) {
+    socket.on('response', function(data) {
     	console.log("RECIEVED");
     	if(requester) {
 			$.cookie(solutions_cookieName, data.cookie, { expires: solutions_cookieExp, path: solutions_cookiePath });

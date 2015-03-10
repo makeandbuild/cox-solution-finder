@@ -16,6 +16,6 @@ mixin partnerBuffet(partner_buffet)
 				.facts(style= partner_buffet.facts.featured_image.url ? "background-image: url(" +assetURI(partner_buffet.facts.featured_image.url)+");" : "")
 			.media-buffet-bottom-block
 				.story
-					a(data-toggle="modal" data-target="#story_modal" data-image-data=partner_buffet.smallPic style= partner_buffet.smallPic.featured_image.url ? "background-image: url(" + assetURI(partner_buffet.smallPic.featured_image.url)+");" : "").image-link.pi-image
+					a(data-toggle="modal" data-target="#image_modal" data-image-data=partner_buffet.smallPic style= partner_buffet.smallPic.featured_image.url ? "background-image: url(" + assetURI(partner_buffet.smallPic.featured_image.url)+");" : "").image-link.pi-image
 						img(src="/icons/png/icon-plus.png")
 						h4.media-title!=partner_buffet.story.title

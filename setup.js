@@ -105,7 +105,7 @@ module.exports = function(keystone, callback) {
     'industries' : 'industries',
     'services' : 'services',
     'products' : 'products',
-    'Parters' : 'partners',
+    'Partners' : 'partners',
     'Connect' : 'connects'
   });
 

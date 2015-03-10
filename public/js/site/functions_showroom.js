@@ -471,6 +471,7 @@ function alterNavigationModalLinks(type, slug, remove){
 			var tiles = $('.navigation-modal-tiles').filter("[data-navigation-modal='services']").find('.navigation-modal-tile').not('.fake-tile');
 			tiles.each(function(e){
 				$(this).attr('href', $(this).attr('href').substr(0, $(this).attr('href').lastIndexOf("/")));
+				$(this).attr('href', $(this).attr('href')+'.html');
 			});
 		}
 		alteredLinks = false;
@@ -478,7 +479,7 @@ function alterNavigationModalLinks(type, slug, remove){
 		if (type == 'services'){
 			var tiles = $('.navigation-modal-tiles').filter("[data-navigation-modal='services']").find('.navigation-modal-tile').not('.fake-tile');
 			tiles.each(function(e){
-				$(this).attr('href', $(this).attr('href')+'/'+slug);
+				$(this).attr('href', $(this).attr('href').replace('.html','/'+slug+'.html'));
 			});
 			setTimeout(function(){
 				//Adjust for race conditions

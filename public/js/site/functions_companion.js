@@ -146,31 +146,6 @@ function piwikCompanionActions() {
 			_paq.push(['trackEvent', 'Video', 'Play', videoTitle]);
 		});
 
-		$('.pi-video').on('click', function(e) {
-			var category;
-			var action;
-			var label;
-			if($(e.currentTarget).hasClass('hero-video-cta')) {
-				category = 'Home Hero';
-				action = 'Click';
-				data = $(e.currentTarget).data('video-data');
-				label = data.url;
-			} else if($('.home-hero').length) {
-				category = 'Home Video';
-				action = 'Click';
-				label = $(e.currentTarget).siblings('.media-title').text();
-			} else if ($('.industry-content').length) {
-				category = 'Industry Video';
-				action = 'Click';
-				label = $(e.currentTarget).siblings('.media-title').text();
-			} else {
-				category = 'Video';
-				action = 'Click';
-				label = $(e.currentTarget).siblings('.media-title').text();
-			}
-			_paq.push(['trackEvent', category, action, label])
-		});
-
 		if($.cookie('UID')) {
 			_paq.push(['setCustomVariable','2','UID',$.cookie('UID')]);
 		}		

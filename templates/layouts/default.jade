@@ -1,7 +1,9 @@
 include ../mixins/flash-messages
 include ../mixins/navigation-modal
 include ../mixins/media-buffet
+include ../mixins/partner-buffet
 include ../mixins/industry-content
+include ../mixins/partner-content
 include ../mixins/product
 include ../mixins/service-content
 include ../mixins/service-list
@@ -196,6 +198,7 @@ html
 		block modals
 			+videoModal
 			+storyModal
+			+imageModal
 
 		//- Vendor JS
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')

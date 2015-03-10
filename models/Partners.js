@@ -49,40 +49,21 @@ Partner.add({
 		options:
 			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice'
 	},
-	media_buffet: {
-		video: {
+	partner_buffet: {
+		bigPic: {
 			title: { type: Types.Html,
 				wysiwyg: true,
 				height:40,
-				label: "Media Video: Title",
+				label: "Big Picture: Title",
 				note: "1-2 Words"
 			},
-			video_choice: {
-				type: Types.Boolean,
-				label: "Enable Video?",
-				note: "If not checked, no video will show and the image associated will show without the play icon.",
-				default: "false"
-			},
-			video: {
+			featured_image: {
 				type: Types.S3File,
-				label: 'Media Video: File MP4',
-				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
-				allowedTypes: ['video/mp4'],
-				s3path: 'uploads/videos'
-			},
-			video_webm: {
-				type: Types.S3File,
-				label: 'Media Video: File WebM',
-				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
-				allowedTypes: ['video/webm'],
-				s3path: 'uploads/videos'
-			},
-			background: {
-				type: Types.S3File,
-				label: 'Media Video: Preview Image',
-				note: "Upload a 2X Image to be preview image for the video.",
+				label: 'Big Picture: Image',
+				note: "Upload a 2X Image.",
 				s3path: 'uploads/images'
 			}
+
 		},
 		values: {
 			title: { type: Types.Html,
@@ -98,23 +79,17 @@ Partner.add({
 				note: "Limit to around 150 characters for optimal size."
 			}
 		},
-		story: {
+		smallPic: {
 			title: { type: Types.Html,
 				wysiwyg: true,
 				height:40,
-				label: "Media Story: Title",
+				label: "Small Pic: Title",
 				note: "1-2 Words"
-			},
-			content: { type: Types.Markdown,
-				wysiwyg: true,
-				height:1000,
-				label: "Media Story: Content",
-				note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
 			},
 			featured_image: {
 				type: Types.S3File,
-				label: 'Media Story: Featured Image',
-				note: "Upload a 2X Image to be the vertically cropped preview image for the article. This image will also display in full in the article modal.",
+				label: 'Small Pic: Image',
+				note: "Upload a 2X Image.",
 				s3path: 'uploads/images'
 			}
 

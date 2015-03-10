@@ -1,0 +1,32 @@
+extends ../layouts/default
+//- Use the Companion Site Default Template
+
+block content
+
+	article.container-fluid
+		.visible-xs.visible-sm
+			span.background-shadow.from-right.lighter
+		.visible-md.visible-lg
+			span.background-shadow.from-right
+		.row.header-space-small
+		.container
+			if data.partner
+				article.row.partner-page-content
+					.col-xs-12.col-md-5.partner-content
+						+partnerContent(data.partner, false)
+					.col-xs-12.col-md-7
+						+partnerBuffet(data.partner.partner_buffet)
+					.visible-xs.visible-sm
+						.col-xs-12.resources-container-partner
+							+resources(data.partner)
+			.visible-md.visible-lg
+				.resources-alternate-container-partner
+					+resources-alternate(data.partner)
+	article.container-fluid.container-fluid-services-navigation
+		.container
+			span.background-shadow.from-right.to-foreground
+			.row
+				.col-xs-12
+
+					h3.services-list-title SERVICES
+			+service-list(global_data.services)

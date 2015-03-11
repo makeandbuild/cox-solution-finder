@@ -10,18 +10,18 @@ block content
 			.col-xs-10.col-xs-offset-1
 				h1.settings-title Settings
 				.settings-fields
+					.form-group(style="margin-bottom:3.5em;")
+						section
+							a.btn.btn-default(href=linkURI("/showroomstatus")) Check the Sync Status Page
+
 					form#settings-form
 
 						.form-group
-							label.sr-only Trade Show Name
+							label Trade Show Name
 							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name
-
-						.form-group
-							label.sr-only Email Sync Notification
-							input(type='text', name='sync_notification_email', placeholder='Sync Notification Complete Email').form-control.sync-email-input
-						
+					
 						.form-actions
-							button(type='submit').btn.btn-primary SAVE ALL SETTINGS
+							button(type='submit').btn.btn-default SAVE ALL SETTINGS
 					.settings-warning
 						h3.settings-section-title.transfer-failure.settings-warning-text Please fill out all fields and choose an Industry below.
 						h3.settings-section-title.transfer-success.settings-success-text Settings Saved Successfully!
@@ -47,6 +47,6 @@ block content
 			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.settings-page-options-content
 				h3.settings-section-title Transfer Favorites
 				p.settings-section-content Transfer captured touchscreen favorites to this tablet.
-				button.btn.btn-primary#settings-transfer-start(onclick="") START
+				button.btn.btn-default#settings-transfer-start(onclick="") START
 
 				h3.settings-section-title.transfer-success.cart-transfer-success Favorites Transferred Successfully!

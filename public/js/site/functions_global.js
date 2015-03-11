@@ -4,9 +4,9 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-/*  
+/*
 	Standard Global Item Navigation within a view. (i.e. Product Navigation in Services)
-	
+
 	To use, set the argument `navigationItem` to the jQuery nav item to be clicked,
 	and set the arguement `item` to the jQuery item that should appear.
 
@@ -57,7 +57,7 @@ function equalHeights(parent, selector){
 				$(this).height(newHeight);
 			});
 		})
-		
+
 	}
 }
 
@@ -127,8 +127,8 @@ function navigationModal(){
 			$scope.$navItem.toggleClass('viewing');
 			$scope.$activePage.addClass('active');
 		}
-		
-	
+
+
 	});
 	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
 		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
@@ -185,9 +185,9 @@ function initCheckbox(){
 		}
 	});
 
-	
 
-	
+
+
 }
 
 function initDropdownSelect(){
@@ -195,7 +195,7 @@ function initDropdownSelect(){
 		var value = $(this).data('value');
 		var label = $(this).data('label');
 		var dropdown = $(this).parents('.dropdown-select');
-		
+
 		dropdown.find('.dropdown-select-current').html(label);
 		dropdown.siblings('select')
 		.children().filter("[value='" + value + "']")
@@ -223,7 +223,7 @@ function videoClose(){
 			reloadVideo(selector);
 			$('.vjs-big-play-button').removeClass('csf-active');
 		}
-		
+
 	});
 }
 
@@ -272,9 +272,9 @@ function modalContent(){
 			if (storyImage){
 				$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
 			}
-			
+
 		}
-	
+
 		if ($(this).hasClass('image-link')){
 			var imageData = $(this).data('image-data');
 			var imageTitle = imageData.title;
@@ -284,7 +284,7 @@ function modalContent(){
 			if (image){
 				$('.modal .imageModal-featured-image').css('background-image', 'url('+image+')');
 			}
-			
+
 		}
 
 		if($('body').hasClass('companion-site')){
@@ -300,8 +300,8 @@ function modalContent(){
 				$('.csf-content-close').css('top', '0');
 			}
 		}
-		
-		
+
+
 	});
 
 	$.fn.serializeObject = function()

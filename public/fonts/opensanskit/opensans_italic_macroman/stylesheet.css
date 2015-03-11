@@ -1,12 +1,11 @@
 @font-face {
     font-family: 'open_sansitalic';
-    src: url('/fonts/opensanskit/OpenSans-Italic-webfont.eot');
-    src: url('/fonts/opensanskit/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/opensanskit/OpenSans-Italic-webfont.woff') format('woff'),
-         url('/fonts/opensanskit/OpenSans-Italic-webfont.ttf') format('truetype'),
-         url('/fonts/opensanskit/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
+    src: url('/fonts/opensanskit/opensans_italic_macroman/OpenSans-Italic-webfont.eot');
+    src: url('/fonts/opensanskit/opensans_italic_macroman/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/opensanskit/opensans_italic_macroman/OpenSans-Italic-webfont.woff') format('woff'),
+         url('/fonts/opensanskit/opensans_italic_macroman/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('/fonts/opensanskit/opensans_italic_macroman/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
-

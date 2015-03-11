@@ -10,6 +10,7 @@ function initGlobal(){
 	
 	videoClose();
 	modalContent();
+	formValidation();
 	initCheckbox();
 	initDropdownSelect();
 

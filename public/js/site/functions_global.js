@@ -279,7 +279,7 @@ function modalContent(){
 			var imageData = $(this).data('image-data');
 			var imageTitle = imageData.title;
 			var image = imageData.featured_image.url;
-console.log(imageTitle);
+
 			$('.modal .image-container .image-title').html(imageTitle);
 			if (image){
 				$('.modal .imageModal-featured-image').css('background-image', 'url('+image+')');
@@ -320,4 +320,52 @@ console.log(imageTitle);
 	   });
 	   return o;
 	};
+}
+
+
+//Adds regex for first name / last name
+jQuery.validator.addMethod("firstandlast", function(value, element) {
+  return this.optional(element) || /(\w{2,}) (\w{2,})(( )?(\-)?(\w{1,}))?/g.test(value);
+}, "Please specify the correct domain for your documents");
+
+function formValidation() {
+	if($('.connect-form').length) {
+		$('.connect-form').validate({
+	    	debug: false,
+			rules: {
+				'name.full': {
+					required: true,
+					firstandlast: true
+				},
+				'email' : {
+					required: true,
+					email: true
+				},
+				'zipcode' : {
+					required: true,
+					minlength: 5,
+					maxlength: 5,
+					number: true
+				}
+			},
+			messages : {
+				'name.full' : 'Please enter your first and last name.',
+				'email' : 'Please enter a valid Email address.',
+				'zipcode' : 'Please enter a valid ZIP Code'
+			},
+			errorPlacement: function(error, element) {
+		    	error.insertAfter(element);
+		      	$(element).parent('.form-group').addClass('has-error');
+			},
+			highlight: function(element) {   // <-- fires when element has error
+				$(element).parent('.form-group').addClass('has-error');
+				$(element).addClass('error');
+			},
+			unhighlight: function(element) {   // <-- fires when element has error
+				$(element).parent('.form-group').removeClass('has-error');
+				$(element).removeClass('error');
+			}
+
+		});
+	}
 }

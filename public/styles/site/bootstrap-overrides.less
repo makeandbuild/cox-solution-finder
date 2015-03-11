@@ -11,11 +11,27 @@
 		box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0), 0 0 0px rgba(0, 0, 0, 0);
 
 	}
+
+	&.error {
+		border:2px solid #f00;
+
+		&:focus {
+			border:2px solid #f00;
+		}
+	}
+
 }
 .form-group {
+	position:relative;
 	.respond-md({
 		margin-bottom: 1.2em;
 	});
+
+	label.error {
+		position:absolute;
+		bottom:-25px;
+		color:@black;
+	}
 }
 .btn {
 	-webkit-border-radius: 0;

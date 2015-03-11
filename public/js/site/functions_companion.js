@@ -94,6 +94,8 @@ function compensateForFooter(toChange, elementArray, totalHeightElement){
 }
 
 function piwikCompanionActions() {
+	var label, action, videoTitle;
+	
 	if(_paq) {
 
 		$('.pi-switch').on('click', function(e) {
@@ -105,16 +107,16 @@ function piwikCompanionActions() {
 		});
 
 		$('.pi-success-story').on('click', function(e) {
-			var category = "Industry Success Story";
+			action = "Industry";
 			if($('.home-hero').length) {
-				category = "Home Success Story";
+				action = "Home";
 			}
-			_paq.push(['trackEvent', category, 'Click', 'Success Story']);
+			_paq.push(['trackEvent', 'Success Story', action]);
 		});
 
 		$('.pi-home-services').on('click', function(e) {
-			var label = $(e.currentTarget).find('.service-title').text();
-			_paq.push(['trackEvent', 'Home Services', 'Click', label]);
+			label = $(e.currentTarget).find('.service-title').text();
+			_paq.push(['trackEvent', 'Home Services', label]);
 		});
 
 		$('.connect-page form').on('submit', function(e) {
@@ -126,24 +128,24 @@ function piwikCompanionActions() {
 		});
 
 		$('.pi-products').on('click', function(e) {
-			var label = 'unknown';
+			label = 'unknown';
 			if($(e.currentTarget).is('a.product-navigation-item')) {
 				label = $(e.currentTarget).find('span').text();
 			}
 			if($(e.currentTarget).is('.product-navigation-item-container')) {
 				label = $(e.currentTarget).find('article > span').text();
 			}
-			_paq.push(['trackEvent', 'Product', 'Click', label]);
+			_paq.push(['trackEvent', 'Product', label]);
 		});
 
 		$('.pi-industry').on('click', function(e) {
-			var label = $(e.currentTarget).find('.industry-home-title').text();
-			_paq.push(['trackEvent', 'Home Industries', 'Click', label]);
+			label = $(e.currentTarget).find('.industry-home-title').text();
+			_paq.push(['trackEvent', 'Home Industries', label]);
 		});
 
 		$('video').on('play', function(e) {
-			var videoTitle = $(e.currentTarget).parentsUntil('.modal').find('h2').text();
-			_paq.push(['trackEvent', 'Video', 'Play', videoTitle]);
+			videoTitle = $(e.currentTarget).parentsUntil('.modal').find('h2').text();
+			_paq.push(['trackEvent', 'Video', videoTitle]);
 		});
 
 		if($.cookie('UID')) {

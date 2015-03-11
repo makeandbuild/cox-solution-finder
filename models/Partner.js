@@ -76,17 +76,29 @@ Partner.add({
 				note: "Limit to around 150 characters for optimal size."
 			}
 		},
-		smallPic: {
+		story: {
+			modal_choice: {
+				type: Types.Boolean,
+				label: "Media Story/Small Pic: Image Only?",
+				note: "If checked this will only be an image modal and any content will be ignored.",
+				default: "false"
+			},
 			title: { type: Types.Html,
 				wysiwyg: true,
 				height:40,
-				label: "Small Pic: Title",
+				label: "Media Story/Small Pic: Title",
 				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
+			},
+			content: { type: Types.Markdown,
+				wysiwyg: true,
+				height:1000,
+				label: "Media Story/Small Pic: Content",
+				note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
 			},
 			featured_image: {
 				type: Types.S3File,
-				label: 'Small Pic: Image',
-				note: "Upload a 2X Image.",
+				label: 'Media Story/Small Pic: Featured Image',
+				note: "Upload a 2X Image to be the vertically cropped preview image for the article. This image will also display in full in the article modal.",
 				s3path: 'uploads/images'
 			}
 

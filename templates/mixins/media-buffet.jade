@@ -4,14 +4,14 @@ mixin mediaBuffet(media_buffet)
 			.media-buffet-top-block
 				.video
 					if media_buffet.video.video_choice
-						if media_buffet.video.video.url
-							a(data-toggle="modal" data-video-data=assetData(media_buffet.video) data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").video-link.pi-video
+						if assetURI(media_buffet.video.video.url)
+							a(data-toggle="modal" data-video-data=assetData(media_buffet.video) data-target="#video_modal" style= assetURI(media_buffet.video.background.url) ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").video-link.pi-video
 								img(src="/icons/png/icon-play.png")
 						else
-							a(data-toggle="modal" data-video-data=global_data.default_video data-target="#video_modal" style= global_data.default_video.background.url ? "background-image: url(" +assetURI(global_data.default_video.background.url)+");" : "").video-link.pi-video
+							a(data-toggle="modal" data-video-data=assetData(global_data.default_video) data-target="#video_modal" style= assetURI(global_data.default_video.background.url) ? "background-image: url(" +assetURI(global_data.default_video.background.url)+");" : "").video-link.pi-video
 								img(src="/icons/png/icon-play.png")
 					else
-						a(style= media_buffet.video.background.url ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").remove-pointer
+						a(style= assetURI(media_buffet.video.background.url) ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").remove-pointer
 					h4.media-title!=media_buffet.video.title
 			.media-buffet-bottom-block
 				.values
@@ -20,9 +20,9 @@ mixin mediaBuffet(media_buffet)
 
 		.media-buffet-column-right
 			.media-buffet-top-block
-				.facts(style= media_buffet.facts.featured_image.url ? "background-image: url(" +assetURI(media_buffet.facts.featured_image.url)+");" : "")
+				.facts(style= assetURI(media_buffet.facts.featured_image.url) ? "background-image: url(" +assetURI(media_buffet.facts.featured_image.url)+");" : "")
 			.media-buffet-bottom-block
 				.story
-					a(data-toggle="modal" data-target="#story_modal" data-story-data=media_buffet.story style= media_buffet.story.featured_image.url ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link.pi-success-story
+					a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(media_buffet.story) style= assetURI(media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link.pi-success-story
 						img(src="/icons/png/icon-plus.png")
 						h4.media-title!=media_buffet.story.title

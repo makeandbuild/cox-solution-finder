@@ -55,7 +55,7 @@ Industry.add({
 				wysiwyg: true,
 				height:40,
 				label: "Media Video: Title",
-				note: "1-2 Words"
+				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
 			},
 			video_choice: {
 				type: Types.Boolean,
@@ -89,7 +89,7 @@ Industry.add({
 				wysiwyg: true,
 				height:40,
 				label: "Media Values: Title",
-				note: "1-2 Words"
+				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
 			},
 			content: { type: Types.Html,
 				wysiwyg: true,
@@ -103,7 +103,7 @@ Industry.add({
 				wysiwyg: true,
 				height:40,
 				label: "Media Story: Title",
-				note: "1-2 Words"
+				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
 			},
 			content: { type: Types.Markdown,
 				wysiwyg: true,
@@ -124,7 +124,7 @@ Industry.add({
 				wysiwyg: true,
 				height:40,
 				label: "Media Facts: Title",
-				note: "1-2 Words"
+				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
 			},
 			featured_image: {
 				type: Types.S3File,

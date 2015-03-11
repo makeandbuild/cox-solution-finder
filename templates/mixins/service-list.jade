@@ -15,9 +15,9 @@ mixin service-list(services, custom_ordering, industry)
 											h4.service-title=item.title
 											p.service-description=item.description
 											span.service-cta LEARN MORE
-												img(src=assetURI("/images/arrow_down.png"))
+												img(src="/images/arrow_down.png")
 				.industry-services-all-services(onclick="alterNavigationModalLinks('services', '"+industry.slug+"', false)")
-					img(src=assetURI("/images/arrow_down_gray.png"))
+					img(src="/images/arrow_down_gray.png")
 					p See All
 						br
 						| Services
@@ -31,4 +31,4 @@ mixin service-list(services, custom_ordering, industry)
 							h4.service-title=item.title
 							p.service-description=item.description
 							span.service-cta LEARN MORE
-								img(src=assetURI("/images/arrow_down.png"))
+								img(src="/images/arrow_down.png")

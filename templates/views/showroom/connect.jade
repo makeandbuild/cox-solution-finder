@@ -43,8 +43,7 @@ block content
 						.solutions-container.full-width-rows.solutions-partners
 
 							each item in global_data.partners
-								div=BLAH
-								a(href="/partners/"+item.slug data-solutions-slug=item.slug data-solutions-type="partners").solutions-favorited-item
+								a(href=linkURI("/partners/"+item.slug) data-solutions-slug=item.slug data-solutions-type="partners").solutions-favorited-item
 									.solutions-favorite-close
 										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)
@@ -56,7 +55,7 @@ block content
 						h3.solutions-section-title.solutions-services-title Services
 						.solutions-container.full-width-rows.solutions-services
 							each item in global_data.services
-								a(href="/services/"+item.slug data-solutions-slug=item.slug data-solutions-type="services").solutions-favorited-item
+								a(href=linkURI("/services/"+item.slug) data-solutions-slug=item.slug data-solutions-type="services").solutions-favorited-item
 									.solutions-favorite-close
 										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)

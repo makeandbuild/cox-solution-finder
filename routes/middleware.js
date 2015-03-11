@@ -45,6 +45,7 @@ exports.setState = function(req,res,next){
 			if (val && val.url) {
 				val.url = locals.assetURI(val.url);
 			}
+			return val;
 		});
 	}
 

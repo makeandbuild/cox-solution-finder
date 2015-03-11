@@ -5,7 +5,7 @@ mixin mediaBuffet(media_buffet)
 				.video
 					if media_buffet.video.video_choice
 						if media_buffet.video.video.url
-							a(data-toggle="modal" data-video-data=media_buffet.video data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").video-link.pi-video
+							a(data-toggle="modal" data-video-data=assetData(media_buffet.video) data-target="#video_modal" style= media_buffet.video.background.url ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").video-link.pi-video
 								img(src="/icons/png/icon-play.png")
 						else
 							a(data-toggle="modal" data-video-data=global_data.default_video data-target="#video_modal" style= global_data.default_video.background.url ? "background-image: url(" +assetURI(global_data.default_video.background.url)+");" : "").video-link.pi-video

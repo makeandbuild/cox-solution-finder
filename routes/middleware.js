@@ -33,6 +33,21 @@ exports.setState = function(req,res,next){
 		return uri;
 	}
 
+	locals.assetData = function(obj) {
+		if (!locals.gohtml) { return obj; }
+
+		if (obj && obj.url) {
+			obj.url = locals.assetURI(obj.url);
+			return obj;
+		}
+
+		return _.mapObject(obj, function(val, key) {
+			if (val && val.url) {
+				val.url = locals.assetURI(val.url);
+			}
+		});
+	}
+
 	next();
 }
 

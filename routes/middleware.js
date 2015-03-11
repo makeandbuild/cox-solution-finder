@@ -33,6 +33,21 @@ exports.setState = function(req,res,next){
 		return uri;
 	}
 
+	locals.assetData = function(obj) {
+		if (!locals.gohtml) { return obj; }
+
+		if (obj && obj.url) {
+			obj.url = locals.assetURI(obj.url);
+			return obj;
+		}
+
+		return _.mapObject(obj, function(val, key) {
+			if (val && val.url) {
+				val.url = locals.assetURI(val.url);
+			}
+		});
+	}
+
 	next();
 }
 
@@ -123,16 +138,16 @@ exports.requireUser = function(req, res, next) {
 };
 
 
-/** 
+/**
 	If user has a personalized email they hit /personalized/:enquiry and we decrypt and forward them to their custom home page.
 */
 exports.personalized = function(req, res, next) {
 	var uid = req.params.enquiry;
 	res.locals.uid = uid;
 	if(!req.cookies.UID) {
-		res.cookie('UID', uid);	
+		res.cookie('UID', uid);
 	}
-	
+
 	// res.redirect('/');
 
 

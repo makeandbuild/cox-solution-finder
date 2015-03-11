@@ -38,7 +38,7 @@ block content
 						if data.product.video.background.url
 							if data.product.video.video_choice
 								if data.product.video.video.url
-									a(data-toggle="modal" data-target="#video_modal" data-video-data=data.product.video style=data.product.video.background.url ? "background-image: url("+data.product.video.background.url+");" : "").video-link.product-hero-container										
+									a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(data.product.video) style=data.product.video.background.url ? "background-image: url("+data.product.video.background.url+");" : "").video-link.product-hero-container										
 										img(src="/icons/png/icon-play.png").product-play-icon
 										if data.product.video.title_overlay
 											h2.product-video-title.product-page-video-title= data.product.title

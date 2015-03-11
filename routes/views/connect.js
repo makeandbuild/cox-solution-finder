@@ -58,15 +58,15 @@ exports = module.exports = function(req, res) {
 
 	});
 
-	view.on('init', function(next) {
+	// view.on('init', function(next) {
 
-	  var partnerQuery = keystone.list('Partner').model.find().where('state', 'published');
-	  partnerQuery.exec(function(err, results) {
-	  	locals.global_data.partners = results;
-	  	next(err);
-	  });
+	//   var partnerQuery = keystone.list('Partner').model.find().where('state', 'published');
+	//   partnerQuery.exec(function(err, results) {
+	//   	locals.global_data.partners = results;
+	//   	next(err);
+	//   });
 
-	});
+	// });
 	
 
 

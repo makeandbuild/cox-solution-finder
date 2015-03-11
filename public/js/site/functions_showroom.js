@@ -810,34 +810,34 @@ function mySolutionsFormSubmission(){
 
 
 
-function mySolutionsScrolling(){
-	$('.solutions-navigation-arrow.arrow-up').on('mouseover',function(){
-		$('.solutions-navigation-arrow.arrow-down').removeClass('active');
-		var clicked = $(this);
-		var container = $(this).parent().parent().parent();
-		var amountToScroll = container.scrollTop();
-		amountToScroll = amountToScroll - 300;
-		customScrollTo(container, amountToScroll, 500);
-		setTimeout(function(){
-			if (container.scrollTop() <= 0){
-				clicked.addClass('active');
-			}
-		},500)
-	});
-	$('.solutions-navigation-arrow.arrow-down').on('mouseover',function(){
-		$('.solutions-navigation-arrow.arrow-up').removeClass('active');
-		var clicked = $(this);
-		var container = $(this).parent().parent().parent();
-		var amountToScroll = container.scrollTop();
-		amountToScroll = amountToScroll + 300;
-		customScrollTo(container, amountToScroll, 500);
-		setTimeout(function(){
-			if ( ( $('.solutions-favorites-container').height() - container.height() ) <= container.scrollTop() ) {
-				clicked.addClass('active');
-			}
-		},500)
-	});
-}
+// function mySolutionsScrolling(){
+// 	$('.solutions-navigation-arrow.arrow-up').on('mouseover',function(){
+// 		$('.solutions-navigation-arrow.arrow-down').removeClass('active');
+// 		var clicked = $(this);
+// 		var container = $(this).parent().parent().parent();
+// 		var amountToScroll = container.scrollTop();
+// 		amountToScroll = amountToScroll - 300;
+// 		customScrollTo(container, amountToScroll, 500);
+// 		setTimeout(function(){
+// 			if (container.scrollTop() <= 0){
+// 				clicked.addClass('active');
+// 			}
+// 		},500)
+// 	});
+// 	$('.solutions-navigation-arrow.arrow-down').on('mouseover',function(){
+// 		$('.solutions-navigation-arrow.arrow-up').removeClass('active');
+// 		var clicked = $(this);
+// 		var container = $(this).parent().parent().parent();
+// 		var amountToScroll = container.scrollTop();
+// 		amountToScroll = amountToScroll + 300;
+// 		customScrollTo(container, amountToScroll, 500);
+// 		setTimeout(function(){
+// 			if ( ( $('.solutions-favorites-container').height() - container.height() ) <= container.scrollTop() ) {
+// 				clicked.addClass('active');
+// 			}
+// 		},500)
+// 	});
+// }
 
 
 

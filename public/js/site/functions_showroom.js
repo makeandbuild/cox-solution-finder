@@ -763,46 +763,48 @@ function mySolutionsSessionInit(){
 function mySolutionsFormSubmission(){
 	$('#showroom-form').on('submit',function(e){
 		e.preventDefault();
+		var isValid = $('.connect-form').valid();
+		if(isValid) {
+			var currentData, formData;
 
-		var currentData, formData;
-
-		formData = $('#showroom-form').serializeObject();
-		if ($.cookie(solutions_cookieName) != undefined){
-			currentData = JSON.parse($.cookie(solutions_cookieName));
-			formData.industries = currentData.industries.toString();
-			formData.services = currentData.services.toString();
-			formData.products = currentData.products.toString();
-			formData.partners = currentData.partners.toString();
-			formData.favorites_count = currentData.count;
-		} else {
-			currentData = false;
-		}
-		formData.is_showroom = true;
-		formData.is_notified = false;
-		formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
-
-		var data = {
-			type: 'enquiry',
-			formData: formData
-		};
-
-		$.ajax({
-		    type: "POST",
-		    url: "/stats/record.json",
-		    contentType: 'application/json',
-		    data: JSON.stringify(data)
-		}).fail(function() {
-		    console.log( "mySolutionsFormSubmission Fail" );
-		}).success(function() {
-			$('.connect-thanks-container').addClass('active');
-			$('.connect-form-ready').addClass('inactive');
-			$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
-			if ($('.connect-page-my-solutions')[0]) {
-				$('.solutions-container').children().removeClass('active');
-				$('.solutions-section-title').removeClass('active');
-				$('.solutions-no-solutions').addClass('active');
+			formData = $('#showroom-form').serializeObject();
+			if ($.cookie(solutions_cookieName) != undefined){
+				currentData = JSON.parse($.cookie(solutions_cookieName));
+				formData.industries = currentData.industries.toString();
+				formData.services = currentData.services.toString();
+				formData.products = currentData.products.toString();
+				formData.partners = currentData.partners.toString();
+				formData.favorites_count = currentData.count;
+			} else {
+				currentData = false;
 			}
-		});
+			formData.is_showroom = true;
+			formData.is_notified = false;
+			formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
+
+			var data = {
+				type: 'enquiry',
+				formData: formData
+			};
+
+			$.ajax({
+			    type: "POST",
+			    url: "/stats/record.json",
+			    contentType: 'application/json',
+			    data: JSON.stringify(data)
+			}).fail(function() {
+			    console.log( "mySolutionsFormSubmission Fail" );
+			}).success(function() {
+				$('.connect-thanks-container').addClass('active');
+				$('.connect-form-ready').addClass('inactive');
+				$.removeCookie(solutions_cookieName, { path: solutions_cookiePath });
+				if ($('.connect-page-my-solutions')[0]) {
+					$('.solutions-container').children().removeClass('active');
+					$('.solutions-section-title').removeClass('active');
+					$('.solutions-no-solutions').addClass('active');
+				}
+			});
+		}
 	});
 }
 

@@ -13,6 +13,7 @@ mixin mediaBuffet(media_buffet)
 					else
 						a(style= assetURI(media_buffet.video.background.url) ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").remove-pointer
 					h4.media-title!=media_buffet.video.title
+					.media-buffet-gradient
 			.media-buffet-bottom-block
 				.values
 					!= media_buffet.values.content
@@ -26,3 +27,4 @@ mixin mediaBuffet(media_buffet)
 					a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(media_buffet.story) style= assetURI(media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link.pi-success-story
 						img(src="/icons/png/icon-plus.png")
 						h4.media-title!=media_buffet.story.title
+					.media-buffet-gradient

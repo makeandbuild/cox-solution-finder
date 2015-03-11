@@ -82,6 +82,7 @@
 		bottom:7px;
 		text-transform: uppercase;
 		color:@white;
+		z-index:1;
 		.opensans-regular();
 		strong {
 			.opensans-bold();
@@ -103,6 +104,7 @@
 	
 	.video, .values, .facts, .story, .bigPic, .smallPic a {
 		.shadow-light();
+		overflow:hidden;
 	}
 
 	.video, .bigPic {
@@ -225,6 +227,13 @@
 			}
 		}
 		
+	}
+	.media-buffet-gradient {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		z-index: 0;
+		.box-shadow(0 32px 83px 80px rgba(0, 0, 0, 0.45));
 	}
 
 	

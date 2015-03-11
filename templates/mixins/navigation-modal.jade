@@ -9,30 +9,29 @@ mixin tiles-showroom(tiles, key)
 
 	//- The Tiles
 	.navigation-modal-tiles(data-navigation-modal=key)
-
 		//- After 2nd Tile go to second row and create a fake tile
 		if tiles.length == 2
 			.row.navigation-modal-tile-row
 				each tile, index in tiles
-					if index > 1
-						span.go-right
-							+tile(tile, key)
-					else
-						if index == 0
-							a.navigation-modal-tile.fake-tile
+					if index == 0
+						a.navigation-modal-tile.fake-tile
 						span.go-left
 							+tile(tile, key)
-						if index == 1
-							a.navigation-modal-tile.fake-tile
+					if index == 1
+						span.go-right
+							+tile(tile, key)
 							br
 							a.navigation-modal-tile.fake-tile
-							a.navigation-modal-tile.fake-tile
+
+
+
+
 
 		//- Single Row of Tiles
-		if tiles.length < 3
-			.row.navigation-modal-tile-row
-				each tile, index in tiles
-					+tile(tile, key)
+		//- if tiles.length < 3
+		//- 	.row.navigation-modal-tile-row
+		//- 		each tile, index in tiles
+		//- 			+tile(tile, key)
 
 		//- After 2nd Tile go to second row and create a fake tile
 		if tiles.length == 3
@@ -95,11 +94,19 @@ mixin tiles-companion(tiles, key)
 		.tiles-companion-subcontainer
 
 			//- Single Row of Tiles
-			if tiles.length < 3
+			if tiles.length == 2
 				.row.navigation-modal-tile-row
 					each tile, index in tiles
-						+tile(tile, key)
-
+						if index == 0
+							span.go-right
+								+tile(tile, key)
+						else
+							span.go-left
+								+tile(tile, key)
+							if index == 1
+								a.navigation-modal-tile.fake-tile
+								br
+								a.navigation-modal-tile.fake-tile
 			//- After 2nd Tile go to second row and create a fake tile
 			if tiles.length == 3
 				.row.navigation-modal-tile-row

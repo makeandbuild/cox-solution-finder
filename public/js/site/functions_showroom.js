@@ -872,7 +872,7 @@ function settingsActions(){
 		$('.settings-success-text').removeClass('active');
 
 		// Check that a setting has been selected
-		if (!$('.settings-filter-item-container.active')[0] || $('.sync-email-input').val() == '' || $('.trade-show-name').val() == '' ){
+		if (!$('.settings-filter-item-container.active')[0] || $('.trade-show-name').val() == '' ){
 			$('.settings-warning-text').addClass('active');
 			return;
 		} else {
@@ -889,7 +889,6 @@ function settingsActions(){
 				currentData = {
 					'industry': '',
 					'partner': '',
-					'sync_notification_email': '',
 					'showname': ''
 				}
 			}
@@ -902,7 +901,6 @@ function settingsActions(){
 
 			// Set formData and add to currentData.
 			formData = $('#settings-form').serializeObject();
-			currentData.sync_notification_email = formData.sync_notification_email;
 			currentData.showname = formData.showname;
 
 			// Create the Cookie
@@ -944,7 +942,6 @@ function settingsPageInits(){
 			$('.settings-filter-industry').filter("[data-settings-filter-slug='"+currentData.industry+"']").addClass('active');
 			$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
 
-			$('.sync-email-input').val(currentData.sync_notification_email);
 			$('.trade-show-name').val(currentData.showname);
 		}
 		
@@ -969,7 +966,7 @@ function settingsInits(){
 
   			console.log(currentData);
 
-  			if (currentData.formData.industry == '' || currentData.formData.sync_notification_email == '' || currentData.formData.showroom == ''){
+  			if (currentData.formData.industry == '' || currentData.formData.showroom == ''){
   				if (!$('.settings-page')[0]){
   					window.location.replace("/settings.html");
   				}
@@ -996,7 +993,6 @@ function settingsClearIt(){
 	var currentData = {
 		'industry': '',
 		'partner': '',
-		'sync_notification_email': '',
 		'showname': ''
 
 	}

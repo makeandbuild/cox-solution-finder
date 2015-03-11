@@ -79,8 +79,7 @@ Partner.add({
 		story: {
 			modal_choice: {
 				type: Types.Boolean,
-				label: "Media Story/Small Pic: Image Only?",
-				note: "If checked this will only be an image modal and any content will be ignored.",
+				label: "Media Story/Small Pic: Image Only? If checked this will only be an image modal and any content will be ignored.",
 				default: "false"
 			},
 			title: { type: Types.Html,

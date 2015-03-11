@@ -8,8 +8,9 @@
  * modules in your project's /lib directory.
  */
 
-var _ = require('underscore');
 var keystone = require('keystone');
+		_ = require('underscore'),
+		async = require('async');
 
 exports.setState = function(req,res,next){
 	var locals = res.locals;

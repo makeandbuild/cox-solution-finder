@@ -86,6 +86,7 @@ mixin media_buffet_home_section(item, type)
 			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetURI(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
 				img(src="/icons/png/icon-plus.png")
 			h4.media-title!=item.media_buffet.story.title
+			.media-buffet-gradient
 		.values
 			.values-container
 				!= item.media_buffet.values.content
@@ -101,6 +102,7 @@ mixin media_buffet_home_section(item, type)
 			else
 				a(style= assetURI(item.media_buffet.video.background.url) ? "background-image: url(" +assetURI(item.media_buffet.video.background.url)+");" : "").remove-pointer
 			h4.media-title!=item.media_buffet.values.title
+			.media-buffet-gradient
 block content
 	.home-stage
 

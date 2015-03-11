@@ -8,7 +8,6 @@ function initShowroom(){
 	sidebarNavigation();
 	
 	allServices();
-	mySolutionsScrolling();
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
 	factoidGeneral();

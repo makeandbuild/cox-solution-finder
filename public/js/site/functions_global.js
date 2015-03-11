@@ -240,23 +240,39 @@ function modalContent(){
 
 			//Checks if Firefox 34 and loads webm as videojs src.
 			if($('.ie50')[0] && videoData.video_webm.url){
-				if(videoData.video_webm.url){
-					video.attr('src', "http:"+videoData.video_webm.url);
+				if(videoData.video_webm.url) {
+					if ( /^\/\//.test(videoData.video_webm.url) ) {
+						video.attr('src', "http:"+videoData.video_webm.url);
+					} else {
+						video.attr('src', videoData.video_webm.url);
+					}
 				}
 			} else {
 				if(videoData.video.url){
-					video.attr('src', "http:"+videoData.video.url);
+					if ( /^\/\//.test(videoData.video.url) ) {
+						video.attr('src', "http:"+videoData.video.url);
+					} else {
+						video.attr('src', videoData.video.url);
+					}
 				}
 			}
-			
+
 			//Loads MP4 and WEBM
 			if(videoData.video.url){
-				video.children('source').first().attr('src', "http:"+videoData.video.url);
+				if ( /^\/\//.test(videoData.video.url) ) {
+					video.children('source').first().attr('src', "http:"+videoData.video.url);
+				} else {
+					video.children('source').first().attr('src', videoData.video.url);
+				}
 			}
 			if(videoData.video_webm.url){
-				video.children('source').last().attr('src', "http:"+videoData.video_webm.url);
+				if ( /^\/\//.test(videoData.video_webm.url) ) {
+					video.children('source').last().attr('src', "http:"+videoData.video_webm.url);
+				} else {
+					video.children('source').last().attr('src', videoData.video_webm.url);
+				}
 			}
-			
+
 
 			$('.modal.csf-video-modal .video-title').html(videoData.title);
 			$('.modal.csf-video-modal .video-title').appendTo($('.modal.csf-video-modal .video-js'));

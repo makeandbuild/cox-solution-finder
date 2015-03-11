@@ -4,9 +4,9 @@
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-/*  
+/*
 	Standard Global Item Navigation within a view. (i.e. Product Navigation in Services)
-	
+
 	To use, set the argument `navigationItem` to the jQuery nav item to be clicked,
 	and set the arguement `item` to the jQuery item that should appear.
 
@@ -57,7 +57,7 @@ function equalHeights(parent, selector){
 				$(this).height(newHeight);
 			});
 		})
-		
+
 	}
 }
 
@@ -127,8 +127,8 @@ function navigationModal(){
 			$scope.$navItem.toggleClass('viewing');
 			$scope.$activePage.addClass('active');
 		}
-		
-	
+
+
 	});
 	$('#body, .navigation-modal-tiles').not('.navigation-modal-tile').on('click', function(e){
 		if (!$(e.target).hasClass('video-link') && !$(e.target).hasClass('modal') && !$(e.target).hasClass('story-link') && !$(e.target).hasClass('vjs-big-play-button') && !$(e.target).hasClass('vjs-tech')){
@@ -185,9 +185,9 @@ function initCheckbox(){
 		}
 	});
 
-	
 
-	
+
+
 }
 
 function initDropdownSelect(){
@@ -195,7 +195,7 @@ function initDropdownSelect(){
 		var value = $(this).data('value');
 		var label = $(this).data('label');
 		var dropdown = $(this).parents('.dropdown-select');
-		
+
 		dropdown.find('.dropdown-select-current').html(label);
 		dropdown.siblings('select')
 		.children().filter("[value='" + value + "']")
@@ -223,7 +223,7 @@ function videoClose(){
 			reloadVideo(selector);
 			$('.vjs-big-play-button').removeClass('csf-active');
 		}
-		
+
 	});
 }
 
@@ -240,23 +240,39 @@ function modalContent(){
 
 			//Checks if Firefox 34 and loads webm as videojs src.
 			if($('.ie50')[0] && videoData.video_webm.url){
-				if(videoData.video_webm.url){
-					video.attr('src', "http:"+videoData.video_webm.url);
+				if(videoData.video_webm.url) {
+					if ( /^\/\//.test(videoData.video_webm.url) ) {
+						video.attr('src', "http:"+videoData.video_webm.url);
+					} else {
+						video.attr('src', videoData.video_webm.url);
+					}
 				}
 			} else {
 				if(videoData.video.url){
-					video.attr('src', "http:"+videoData.video.url);
+					if ( /^\/\//.test(videoData.video.url) ) {
+						video.attr('src', "http:"+videoData.video.url);
+					} else {
+						video.attr('src', videoData.video.url);
+					}
 				}
 			}
-			
+
 			//Loads MP4 and WEBM
 			if(videoData.video.url){
-				video.children('source').first().attr('src', "http:"+videoData.video.url);
+				if ( /^\/\//.test(videoData.video.url) ) {
+					video.children('source').first().attr('src', "http:"+videoData.video.url);
+				} else {
+					video.children('source').first().attr('src', videoData.video.url);
+				}
 			}
 			if(videoData.video_webm.url){
-				video.children('source').last().attr('src', "http:"+videoData.video_webm.url);
+				if ( /^\/\//.test(videoData.video_webm.url) ) {
+					video.children('source').last().attr('src', "http:"+videoData.video_webm.url);
+				} else {
+					video.children('source').last().attr('src', videoData.video_webm.url);
+				}
 			}
-			
+
 
 			$('.modal.csf-video-modal .video-title').html(videoData.title);
 			$('.modal.csf-video-modal .video-title').appendTo($('.modal.csf-video-modal .video-js'));
@@ -272,9 +288,9 @@ function modalContent(){
 			if (storyImage){
 				$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
 			}
-			
+
 		}
-	
+
 		if ($(this).hasClass('image-link')){
 			var imageData = $(this).data('image-data');
 			var imageTitle = imageData.title;
@@ -284,7 +300,7 @@ function modalContent(){
 			if (image){
 				$('.modal .imageModal-featured-image').css('background-image', 'url('+image+')');
 			}
-			
+
 		}
 
 		if($('body').hasClass('companion-site')){
@@ -300,8 +316,8 @@ function modalContent(){
 				$('.csf-content-close').css('top', '0');
 			}
 		}
-		
-		
+
+
 	});
 
 	$.fn.serializeObject = function()

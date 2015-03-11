@@ -83,7 +83,7 @@ mixin act_map_overlay(scene, act)
 mixin media_buffet_home_section(item, type)
 	span.media_buffet_home_section(data-home-media-buffet=type)
 		.story
-			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetURI(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
+			a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(item.media_buffet.story) style= assetURI(item.media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(item.media_buffet.story.featured_image.url)+");" : "").story-link
 				img(src="/icons/png/icon-plus.png")
 			h4.media-title!=item.media_buffet.story.title
 			.media-buffet-gradient

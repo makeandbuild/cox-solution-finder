@@ -81,27 +81,39 @@ exports.initLocals = function(req, res, next) {
 		default_video: []
 	};
 
-	var serviceQuery = keystone.list('Service').model.find().where('state', 'published');
-	serviceQuery.exec(function(err, results) {
-		locals.global_data.services = results;
-	});
-	var industryQuery = keystone.list('Industry').model.find().where('state', 'published');
-	industryQuery.exec(function(err, results) {
-		locals.global_data.industries = results;
-	});
-	var homeQuery = keystone.list('Homepage').model.findOne({
-		slug: 'home'
-	});
-	homeQuery.exec(function(err, results) {
-		if (results.hero.video.video.url){
-			locals.global_data.default_video = results.hero.video;
-		} else {
-			locals.global_data.default_video = false;
+	async.parallel([
+		function(callback) {
+			var serviceQuery = keystone.list('Service').model.find().where('state', 'published');
+			serviceQuery.exec(function(err, results) {
+				locals.global_data.services = results;
+				callback(err, results);
+			});
+		},
+		function(callback) {
+			var industryQuery = keystone.list('Industry').model.find().where('state', 'published');
+			industryQuery.exec(function(err, results) {
+				locals.global_data.industries = results;
+				callback(err, results);
+			});
+		},
+		function(callback) {
+			var homeQuery = keystone.list('Homepage').model.findOne({
+				slug: 'home'
+			});
+			homeQuery.exec(function(err, results) {
+				if (results.hero.video.video.url){
+					locals.global_data.default_video = results.hero.video;
+					callback(err, results.hero.video);
+				} else {
+					locals.global_data.default_video = false;
+					callback(err, false);
+				}
+			});
 		}
-	})
-
-	next();
-
+	], function(err, results) {
+		//TODO should probably check for an error here, but not sure what we'd do with it...
+		next();
+	});
 };
 
 /**

@@ -25,7 +25,7 @@ block content
 						.solutions-container.full-width-rows.solutions-industries
 
 							each item in global_data.industries
-								a(href="/industries/"+item.slug data-solutions-slug=item.slug data-solutions-type="industries").solutions-favorited-item
+								a(href=linkURI("/industries/"+item.slug) data-solutions-slug=item.slug data-solutions-type="industries").solutions-favorited-item
 									.solutions-favorite-close
 										img(src="/icons/png/icon-close.png")
 									.solutions-favorite-icon.coxicon(class="coxicon_"+item.svg_icon)

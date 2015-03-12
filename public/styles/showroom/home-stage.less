@@ -40,7 +40,7 @@
 		height:0px;
 		opacity:1;
 		.transition(0.3s);
-		.box-shadow(0 0 140px 240px rgba(251, 242, 255, 0.9));
+		.box-shadow(0 0 140px 240px rgba(255, 255, 255, 0.9));
 		&.inactive {
 			opacity:0;
 			.transition(0.3s);
@@ -203,7 +203,10 @@
 		video {
 			width: 100%;
 			height: 100%;
-			padding-left:32%;
+			padding-left:0;
+			.showroom-tablet-retina({
+				padding-left:32%;
+			});
 			.showroom-screen({
 				padding-left:0;
 			});

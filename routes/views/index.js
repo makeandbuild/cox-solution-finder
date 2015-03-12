@@ -89,6 +89,13 @@ exports = module.exports = function(req, res) {
 					user.industries_array = false;
 				}
 
+				if(user.partners != undefined && user.partners != false && user.partners != null && user.partners != "") { 
+					user.partners_array = user.partners.split(",");
+					has_favorites = true;
+				} else {
+					user.partners_array = false;
+				}
+
 				if(user.services != undefined && user.services != false && user.services != null && user.services != "") { 
 					user.services_array = user.services.split(",");
 					has_favorites = true;
@@ -108,6 +115,7 @@ exports = module.exports = function(req, res) {
 				}
 
 				locals.data.custom_data.favorites.industries = user.industries_array;
+				locals.data.custom_data.favorites.partners = user.partners_array;
 				locals.data.custom_data.favorites.services = user.services_array;
 				locals.data.custom_data.favorites.products = user.products_array;
 			}
@@ -187,6 +195,19 @@ exports = module.exports = function(req, res) {
 		}
 	});
 
+	view.on('init', function(next) {
+		if (locals.data.custom_data.has_favorites && locals.data.custom_data.favorites.partners){
+			var qu = keystone.list('Partner').model.find()
+			.where('state', 'published')
+			.where('slug').in(locals.data.custom_data.favorites.partners);
+			qu.exec(function(err, results) {
+				locals.data.partners = results;
+				next(err);
+			});
+		} else {
+			next();
+		}
+	});
 	
 	view.on('init', function(next) {
 		if (locals.data.custom_data.has_favorites){

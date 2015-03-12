@@ -141,8 +141,17 @@ html
 														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
 														.navigation-mobile-title
 															span= item.title
+									else if link.key == 'partners'
+										a.navigation-item.has-menu= link.label
+										ul.navigation-mobile-sub-menu.row
+											each item, index in global_data.partners
+												li.col-xs-6
+													a(href='/'+link.key+'/'+item.slug title=item.title).navigation-mobile-tile
+														.navigation-mobile-icon.coxicon(class="coxicon_"+item.svg_icon)
+														.navigation-mobile-title
+															span= item.title
 									
-								else
+								else if link.type == 'page'
 									a.navigation-item(href=link.href)= link.label
 
 

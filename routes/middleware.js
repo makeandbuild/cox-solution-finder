@@ -98,6 +98,13 @@ exports.initLocals = function(req, res, next) {
 			});
 		},
 		function(callback) {
+			var partnerQuery = keystone.list('Partner').model.find().where('state', 'published');
+			partnerQuery.exec(function(err, results) {
+				locals.global_data.partners = results;
+				callback(err, results);
+			});	
+		},
+		function(callback) {
 			var homeQuery = keystone.list('Homepage').model.findOne({
 				slug: 'home'
 			});
@@ -110,14 +117,7 @@ exports.initLocals = function(req, res, next) {
 					callback(err, false);
 				}
 			});
-		},
-		function(callback) {
-			var partnerQuery = keystone.list('Partner').model.find().where('state', 'published');
-			partnerQuery.exec(function(err, results) {
-				locals.global_data.partners = results;
-				callback(err, results);
-			});	
-		}
+		}		
 	], function(err, results) {
 		//TODO should probably check for an error here, but not sure what we'd do with it...
 		next();

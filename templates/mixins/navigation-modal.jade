@@ -10,7 +10,7 @@ mixin tiles-showroom(tiles, key)
 	//- The Tiles
 	.navigation-modal-tiles(data-navigation-modal=key)
 		//- After 2nd Tile go to second row and create a fake tile
-		if tiles.length == 2
+		if tiles.length < 3
 			.row.navigation-modal-tile-row
 				each tile, index in tiles
 					if index == 0

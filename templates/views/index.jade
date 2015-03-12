@@ -134,9 +134,9 @@ block content
 									.form-actions
 										button(type='submit').btn.btn-primary SUBMIT
 	else
-		if data.custom_data.favorites.industries || data.custom_data.favorites.services
+		if data.custom_data.favorites.industries || data.custom_data.favorites.services || data.custom_data.favorites.partners
 
-			if !data.custom_data.favorites.industries
+			if !data.custom_data.favorites.industries || !data.custom_data.favorites.partners
 				article.container-fluid.home-content
 					span.background-shadow.from-right
 
@@ -168,12 +168,15 @@ block content
 									+industryContent(industry, false)
 								.col-xs-12.col-md-7
 									+mediaBuffet(industry.media_buffet)
+					if data.custom_data.favorites.partners
+						each partner, index in data.partners
 							article.row.industry-row
-								.col-xs-12.industry-divider: hr
+								unless index == 0 && !data.custom_data.favorites.industries
+									.col-xs-12.industry-divider: hr
 								.col-xs-12.col-md-5.home-industry-content
-									+industryContent(industry, false)
+									+partnerContent(partner, false)
 								.col-xs-12.col-md-7
-									+mediaBuffet(industry.media_buffet)
+									+partnerBuffet(partner.partner_buffet)
 					if data.custom_data.favorites.services
 						.row
 							.col-xs-12
@@ -188,7 +191,7 @@ block content
 
 		if data.products
 
-			if !data.custom_data.favorites.industries && !data.custom_data.favorites.services
+			if !data.custom_data.favorites.industries && !data.custom_data.favorites.services && !data.custom_data.favorites.partners
 				article.container-fluid.home-content
 					span.background-shadow.from-right
 

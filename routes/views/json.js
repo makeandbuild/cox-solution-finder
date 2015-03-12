@@ -12,6 +12,7 @@ var util = require('util')
 
 var Product = keystone.list('Product').model
 	,	Industry = keystone.list('Industry').model
+	,	Partner = keystone.list('Partner').model
 	,	Service = keystone.list('Service').model
 	, Enquiry = keystone.list('Enquiry');
 
@@ -50,6 +51,21 @@ exports.industryURLs = function(callback) {
 	})
 }
 
+exports.partnersURLs = function(callback) {
+	var q = Partner.find().where('state', 'published')
+
+	q.exec(function(err, partners){
+		if (err){
+			return callback(err)
+		}
+
+		_.each(partners, function(partner){
+				urls.push(domain + '/partners/' + partner.slug)
+		})
+
+		callback()
+	})
+}
 exports.serviceURLs = function(callback) {
 	Service.find()
 		.where('state', 'published')
@@ -85,6 +101,7 @@ exports.sitemap = function(req, res) {
 		exports.productURLs,
 		exports.industryURLs,
 		exports.serviceURLs,
+		exports.partnersURLs,
 		exports.generalURLs
 	], function (err){
 		if (err) {

@@ -103,7 +103,7 @@ function piwikCompanionActions() {
 		});
 
 		$('.pi-resource').on('click', function(e) {
-			_paq.push(['trackEvent', 'Resource', 'Click', $(e.currentTarget).attr('href')]);
+			_paq.push(['trackEvent', 'Resource', $(e.currentTarget).attr('href')]);
 		});
 
 		$('.pi-success-story').on('click', function(e) {

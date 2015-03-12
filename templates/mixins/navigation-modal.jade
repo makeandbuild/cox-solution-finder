@@ -23,17 +23,6 @@ mixin tiles-showroom(tiles, key)
 							br
 							a.navigation-modal-tile.fake-tile
 
-
-
-
-
-		//- Single Row of Tiles
-		//- if tiles.length < 3
-		//- 	.row.navigation-modal-tile-row
-		//- 		each tile, index in tiles
-		//- 			+tile(tile, key)
-
-		//- After 2nd Tile go to second row and create a fake tile
 		if tiles.length == 3
 			.row.navigation-modal-tile-row
 				each tile, index in tiles
@@ -94,7 +83,7 @@ mixin tiles-companion(tiles, key)
 		.tiles-companion-subcontainer
 
 			//- Single Row of Tiles
-			if tiles.length == 2
+			if tiles.length < 3
 				.row.navigation-modal-tile-row
 					each tile, index in tiles
 						if index == 0

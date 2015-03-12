@@ -40,11 +40,14 @@
 		height:0px;
 		opacity:1;
 		.transition(0.3s);
-		.box-shadow(0 0 340px 340px rgba(255,255,255,0.8));
+		.box-shadow(0 0 140px 240px rgba(251, 242, 255, 0.9));
 		&.inactive {
 			opacity:0;
 			.transition(0.3s);
 		}
+		.showroom-screen({
+			.box-shadow(0 0 340px 340px rgba(255,255,255,0.8));
+		});
 	}
 	.showroom-screen({
 		height:650px;
@@ -472,7 +475,7 @@
 				right: 0;
 				margin: auto;
 				&.flipped {
-					top:0;
+					top: -8%;
 					left: 0;
 					right: 0;
 					margin: auto;
@@ -520,8 +523,8 @@
 					left: 0%;
 					bottom: 0%;
 					&.flipped {
-						left: 0%;
-						bottom: 0%;
+						left: 2.5%;
+						bottom: 7%;
 					}
 					.scale(0.35);
 					.transition(0.5s);
@@ -576,8 +579,8 @@
 					right: 0%;
 					bottom: 0%;
 					&.flipped {
-						right: 0%;
-						bottom: 0%;
+						right: 2.5%;
+						bottom: 7%;
 					}
 					.transition(0.5s);
 					.scale(0.35);
@@ -597,7 +600,7 @@
 					right: 0;
 					margin: auto;
 					&.flipped {
-						top:0;
+						top: 10%;
 						left: 0;
 						right: 0;
 						margin: auto;

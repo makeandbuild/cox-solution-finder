@@ -77,7 +77,7 @@ Enquiry.schema.post('save', function() {
 
 		var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv";
 		var enquiriesCSVuri = "http://dev.sfv2.cox.mxmcloud.com"+enquiriesCSVfn;
-
+		var showname = this.showname ? this.showname : 'Companion Site';
 
 		fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {
 			if (err) {
@@ -90,7 +90,7 @@ Enquiry.schema.post('save', function() {
 				to: process.env.SES_DISTRO_LIST,
 				from: process.env.SES_SENDER,
 				cc: 'cox-sfv2@maxmedia.com',
-				subject: util.format('[%s] %s', enquiry.showname, "Lead Information"),
+				subject: util.format('[%s] %s', showname, "Lead Information"),
 				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 					enquiriesCSVuri, enquiriesCSVuri),
 				altText: util.format("Lead information:.\n\n%s", enquiriesCSVuri)
@@ -188,11 +188,11 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.zipcode);
 	row.push(this.company_populationLabel);
 	row.push(this.is_customer ? "YES" : "NO");
-	row.push(this.industries);
-	row.push(this.services);
-	row.push(this.products);
-	row.push(this.partners);
-	row.push(this.showname);
+	row.push(this.industries ? this.industries : '');
+	row.push(this.services ? this.services : '');
+	row.push(this.products ? this.products : '');
+	row.push(this.partners ? this.partners : '');
+	row.push(this.showname ? this.showname : 'Companion Site');
 	row.push(this._.createdAt.format());
 
 	return row.map(function(val) {

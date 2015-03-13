@@ -40,26 +40,22 @@ exports = module.exports = function(req, res) {
 	locals.data.products = [];
 	var product_in_industries, product_in_services, product_selected, allProducts = [];
 
-	
-
-	var encrypted_uid;
-	if(locals.uid != undefined) {
-		encrypted_uid = locals.uid;
-	} else if(req.cookies.UID != undefined) {
-		encrypted_uid = req.cookies.UID;
-	} else {
-		encrypted_uid = false;
+	var uid = false;
+	try {
+		if(locals.uid != undefined) {
+			uid = security.decrypt(locals.uid);
+		} else if(req.cookies.UID != undefined) {
+			uid = security.decrypt(req.cookies.UID);
+		}
+	} catch (e) {
+		console.error("Error attempting to decrypt UID");
+		console.error(e);
 	}
 
-	// if (encrypted_uid && req.params.enquiry) { //IS COOKIE THERE?
-	// 	console.log(111);
-	// 	res.redirect('/');
-	// } 
-	var uid = security.decrypt(encrypted_uid);
 	var objid = null;
- 	if(uid.length == 12 || uid.length == 24) {
- 		objid = new mongoose.Types.ObjectId(uid);
- 	}
+	if (uid && (uid.length == 12 || uid.length == 24)) {
+		objid = new mongoose.Types.ObjectId(uid);
+	}
 
 	if (objid !== null) {
 

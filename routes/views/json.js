@@ -170,7 +170,7 @@ function processSyncData(fn) {
 					console.error("Error writing file %s: %s", err);
 				}
 
-				var enquiriesCSVuri = "http://dev.sfv2.cox.mxmcloud.com"+enquiriesCSVfn;
+				var enquiriesCSVuri = process.env.PDOMAIN + enquiriesCSVfn;
 				nodeSES.createClient({
 					key: process.env.SES_KEY,	secret: process.env.SES_SECRET
 				}).sendemail({

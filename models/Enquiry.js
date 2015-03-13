@@ -76,7 +76,7 @@ Enquiry.schema.post('save', function() {
 		var enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiry.toCSV();
 
 		var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv";
-		var enquiriesCSVuri = "http://dev.sfv2.cox.mxmcloud.com"+enquiriesCSVfn;
+		var enquiriesCSVuri = process.env.PDOMAIN + enquiriesCSVfn;
 		var showname = this.showname ? this.showname : 'Companion Site';
 
 		fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {

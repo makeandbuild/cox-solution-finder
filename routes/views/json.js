@@ -161,6 +161,10 @@ function processSyncData(fn) {
 				console.error(err);
 			}
 
+			if (enquiries.length == 0) { // don't send email if there aren't any enquiries
+				return;
+			}
+
 			var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv",
 			enquiriesCSV = enquiries.map(function(e) { return e.toCSV(); });
 			enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiriesCSV.join("\n");

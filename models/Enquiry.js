@@ -188,11 +188,11 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.zipcode);
 	row.push(this.company_populationLabel);
 	row.push(this.is_customer ? "YES" : "NO");
-	row.push(this.industries ? this.industries : '');
-	row.push(this.services ? this.services : '');
-	row.push(this.products ? this.products : '');
-	row.push(this.partners ? this.partners : '');
-	row.push(this.showname ? this.showname : 'Companion Site');
+	row.push(this.industries ? this.industries : "");
+	row.push(this.services ? this.services : "");
+	row.push(this.products ? this.products : "");
+	row.push(this.partners ? this.partners : "");
+	row.push(this.showname ? this.showname : "Companion Site");
 	row.push(this._.createdAt.format());
 
 	return row.map(function(val) {
@@ -200,7 +200,7 @@ Enquiry.schema.methods.toCSV = function() {
 	}).join(",");
 };
 
-Enquiry.CSV_HEADER = 'Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
+Enquiry.CSV_HEADER = '"Name","Email","Zipcode","Company Population","Is Customer","Industries",' +
                      '"Services","Products","Partners","Show Name","Created At"';
 
 Enquiry.defaultSort = '-createdAt';

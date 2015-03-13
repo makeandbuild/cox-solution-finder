@@ -10,7 +10,7 @@ exports = module.exports = {
   
   encrypt: function(text) {
     var cipher = crypto.createCipher(this.algorithm, this.salt);
-    var crypted = cipher.update(text, 'utf8', 'base64') + cipher.final('base64')
+    var crypted = cipher.update(text, 'utf8', 'hex') + cipher.final('hex')
     console.log('CRYPTED ' + crypted);
     return encodeURIComponent(crypted);
   },
@@ -18,7 +18,7 @@ exports = module.exports = {
   decrypt: function(encrypted) {
     var text = decodeURIComponent(encrypted);
     var decipher = crypto.createDecipher(this.algorithm, this.salt);
-    var decrypted = decipher.update(text, 'base64', 'utf8') + decipher.final('utf8');
+    var decrypted = decipher.update(text, 'hex', 'utf8') + decipher.final('utf8');
     return decrypted;
   }
 

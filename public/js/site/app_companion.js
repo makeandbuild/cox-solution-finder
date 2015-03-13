@@ -26,7 +26,6 @@ function initCompanion(){
 	});
 
 	if($('.connect-thanks:visible').length) {
-		console.log("Scroll It");
 		window.scrollTo(0, $('.connect-thanks').offset().top);
 	}
 	

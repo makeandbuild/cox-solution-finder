@@ -22,10 +22,10 @@ function removeDuplicates(data_products){
 }
 
 exports = module.exports = function(req, res) {
-	
+
 	var view = new keystone.View(req, res),
 		locals = res.locals;
-	
+
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'home';
@@ -78,28 +78,28 @@ exports = module.exports = function(req, res) {
 
 				locals.data.custom_data.favorites = {};
 
-				if(user.industries != undefined && user.industries != false && user.industries != null && user.industries != "") { 
+				if(user.industries != undefined && user.industries != false && user.industries != null && user.industries != "") {
 					user.industries_array = user.industries.split(",");
 					has_favorites = true;
 				} else {
 					user.industries_array = false;
 				}
 
-				if(user.partners != undefined && user.partners != false && user.partners != null && user.partners != "") { 
+				if(user.partners != undefined && user.partners != false && user.partners != null && user.partners != "") {
 					user.partners_array = user.partners.split(",");
 					has_favorites = true;
 				} else {
 					user.partners_array = false;
 				}
 
-				if(user.services != undefined && user.services != false && user.services != null && user.services != "") { 
+				if(user.services != undefined && user.services != false && user.services != null && user.services != "") {
 					user.services_array = user.services.split(",");
 					has_favorites = true;
 				} else {
 					user.services_array = false;
 				}
 
-				if(user.products != undefined && user.products != false && user.products != null && user.products != "") { 
+				if(user.products != undefined && user.products != false && user.products != null && user.products != "") {
 					user.products_array = user.products.split(",");
 					has_favorites = true;
 				} else {
@@ -140,12 +140,12 @@ exports = module.exports = function(req, res) {
 
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'home-connect' }, function(next) {
-		
+
 		console.log('view on post');
 
 		var newEnquiry = new Enquiry.model(),
 			updater = newEnquiry.getUpdateHandler(req);
-		
+
 		updater.process(req.body, {
 			flashErrors: true,
 			fields: 'name, email, zipcode, company_population, is_customer',
@@ -160,7 +160,7 @@ exports = module.exports = function(req, res) {
 			}
 			next();
 		});
-		
+
 	});
 
 	view.on('init', function(next) {
@@ -204,11 +204,11 @@ exports = module.exports = function(req, res) {
 			next();
 		}
 	});
-	
+
 	view.on('init', function(next) {
 		if (locals.data.custom_data.has_favorites){
 
-			/* 
+			/*
 				Get all 3 types of ways to show products,
 				then go thru the queries, call a function
 				to remove duplicates, and set the data.
@@ -240,34 +240,34 @@ exports = module.exports = function(req, res) {
 
 			productIndustryQuery.exec(function(err, results) {
 				allProducts = allProducts.concat(results);
-				locals.data.products = removeDuplicates(allProducts.concat(results)); 
+				locals.data.products = removeDuplicates(allProducts.concat(results));
 			}).then(function(){
 		        productServicesQuery.exec(function(err, results) {
 					allProducts = allProducts.concat(results);
-					locals.data.products = removeDuplicates(allProducts.concat(results)); 
+					locals.data.products = removeDuplicates(allProducts.concat(results));
 				}).then(function(){
 			        productSelected.exec(function(err, results) {
-        	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	
+        	        	locals.data.products = removeDuplicates(allProducts.concat(results));
         	        	next();
         			});
 				}, function(err){
 			       productSelected.exec(function(err, results) {
-	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));	      	       	        	
+	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));
 	       	        	next();
 	       			});
 				});
 			}, function(err){
 		        productServicesQuery.exec(function(err, results) {
 					allProducts = allProducts.concat(results);
-					locals.data.products = removeDuplicates(allProducts.concat(results)); 
+					locals.data.products = removeDuplicates(allProducts.concat(results));
 				}).then(function(){
 			        productSelected.exec(function(err, results) {
-        	        	locals.data.products = removeDuplicates(allProducts.concat(results));               	        	
+        	        	locals.data.products = removeDuplicates(allProducts.concat(results));
         	        	next();
         			});
 				}, function(err){
-			       productSelected.exec(function(err, results) {       	    
-	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));	      	       	        	
+			       productSelected.exec(function(err, results) {
+	       	        	locals.data.products = removeDuplicates(allProducts.concat(results));
 	       	        	next();
 	       			});
 				});
@@ -276,13 +276,13 @@ exports = module.exports = function(req, res) {
 		} else {
 			next();
 		}
-		
+
 
 	});
 
 
-	
+
 	// Render the view
 	view.render('index');
-	
+
 };

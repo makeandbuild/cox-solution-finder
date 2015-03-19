@@ -138,6 +138,19 @@ exports = module.exports = function(req, res) {
 
 	});
 
+	view.on('init', function(next) {
+
+		var q = keystone.list('Map').model.find()
+			.where('state', 'published')
+			.populate('products');
+
+		q.exec(function(err, result) {
+			locals.data.regional_maps = result;
+			next(err);
+		});
+
+	});
+
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'home-connect' }, function(next) {
 

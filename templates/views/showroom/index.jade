@@ -35,20 +35,53 @@ mixin act_factoid(scene, act)
 			img(src="/images/close.png")
 
 
-	
+
 mixin act_video(scene)
 	.act(data-act=scene.title).act-video
 		video(id="home_stage_default_video" class="video-js vjs-default-skin" width="inherit" height="inherit" controls preload="none" data-setup="{}")
 			source(src=assetURI(data.home.hero.video.video.url) type='video/mp4')
 		button.btn.btn-default.act-close.csf-content-close(type="button" data-video-close="home_stage_default_video")
 			img(src="/images/close.png")
-	
+
 mixin act_map_overlay(scene, act)
 	.act(data-act=scene.title).act-map
-		each key, index in Object.keys(act).reverse()
-			- var map = act[key]
-			if map.map_overlay_enable
-				.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= assetURI(map.map.url) ? "background-image: url(" + assetURI(map.map.url)+");" : "")
+		.map-type-container(data-item='national')
+			each key, index in Object.keys(act).reverse()
+				- var map = act[key]
+				if map.map_overlay_enable
+					.map-overlay(data-item=map.title class= (index == 0 ? "active" : "") style= assetURI(map.map.url) ? "background-image: url(" + assetURI(map.map.url)+");" : "")
+						h1.map-overlay-title= scene.title
+						.map-overlay-related
+							h3 Top Products
+							- var productCount = 0;
+							each product in map.products
+								if productCount < 3
+									a(data-related-service=product.services[0] data-product-id=product.id ).related-product-item
+										span= product.title
+									- productCount++
+							.map-overlay-all-services
+								img(src="/images/arrow_down_gray.png")
+								p See All
+									br
+									| Services
+			.dropdown.custom-dropdown.map-overlay-dropdown
+				button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+					.icon-arrow
+						img(src="/images/arrow_down.png")
+					span.custom-dropdown-current by Type
+				ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
+					each key, index in Object.keys(act).reverse()
+						- var map = act[key]
+						if map.map_overlay_enable
+							if index == 0
+								li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem").active
+									a(role="menuitem" tabindex="-1")= map.title
+							else
+								li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
+									a(role="menuitem" tabindex="-1")= map.title
+		.map-type-container(data-item='regional')
+			each map, index in data.regional_maps
+				.map-overlay(data-map-item=map.title data-map-asset=assetURI(map.map.url))
 					h1.map-overlay-title= scene.title
 					.map-overlay-related
 						h3 Top Products
@@ -63,21 +96,19 @@ mixin act_map_overlay(scene, act)
 							p See All
 								br
 								| Services
-		.dropdown.custom-dropdown.map-overlay-dropdown
-			button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-				.icon-arrow
-					img(src="/images/arrow_down.png")
-				span.custom-dropdown-current by Type
-			ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
-				each key, index in Object.keys(act).reverse()
-					- var map = act[key]
-					if map.map_overlay_enable
-						if index == 0
-							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem").active
-								a(role="menuitem" tabindex="-1")= map.title
-						else
-							li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
-								a(role="menuitem" tabindex="-1")= map.title
+			.dropdown.custom-dropdown.map-overlay-dropdown
+				button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+					.icon-arrow
+						img(src="/images/arrow_down.png")
+					span.custom-dropdown-current Location
+				ul.dropdown-menu.scrolling-dropdown(role="menu" aria-labelledby="dropdownMenu2")
+					each map, index in data.regional_maps
+						li(role="presentation" data-map-navigationitem=map.title class="map-overlay-navitem-regional")
+							a(role="menuitem" tabindex="-1")= map.title
+		.map-type-selection
+			.map-type(data-navigationitem='national') National
+			.map-type(data-navigationitem='regional') Regional
+
 		button.btn.btn-default.act-close(type="button")
 			img(src="/images/close.png")
 mixin media_buffet_home_section(item, type)

@@ -228,15 +228,12 @@
 			position:absolute;
 			top:0;
 			left:0;
-			.transition(0.3s);
+			.transition(0.1s);
 			&.active {
 				opacity:1;
 				z-index:50;
-				.transition(0.3s);
+				.transition(0.1s);
 			}
-			.showroom-screen({
-				
-			});
 		}
 		.map-overlay-markets {
 			background-image:url(../images/map/map_overlay_markets@2x.png)
@@ -259,7 +256,7 @@
 			top: 30%;
 			left: 3%;
 			.showroom-screen({
-				top: 18%;
+				top: 29%;
 				left: 5%;
 			});
 			.custom-dropdown-current {
@@ -270,6 +267,16 @@
 			.dropdown-menu {
 				display:block !important;
 				width: 180px;
+				&.scrolling-dropdown {
+					height: 235px;
+					overflow-y: scroll;
+					.showroom-screen({
+
+					});
+				}
+				&.scrolling-dropdown::-webkit-scrollbar {
+				    display: none;
+				}
 				.showroom-screen({
 					width: 250px;
 				});
@@ -282,10 +289,13 @@
 				li {
 					a {
 						white-space: normal;
-						padding: 8px 20px 8px 20px;
+						padding: 6px 20px 6px 20px;
+						color:#888;
+						font-size:14px;
 						.transition(0.1s);
 						.showroom-screen({
-							padding:17px 20px 15px 20px;
+							padding:12px 20px 12px 20px;
+							font-size:16px;
 						});
 						&:hover, &:focus {
 							background-color:@white;
@@ -383,6 +393,49 @@
 				}
 			}
 		}
+
+		.map-type-container {
+			display:none;
+			&.active {
+				display:block;
+			}
+		}
+		.map-type-selection {
+			display:table;
+			width: 150px;
+			height: 40px;
+			position: absolute;
+			top: 17%;
+			left: 3%;
+			z-index: 60;
+			width: 180px;
+			white-space: nowrap;
+			.showroom-screen({
+				width:250px;
+				left:5%;
+				height:60px;
+			});
+			.map-type {
+				width: 50%;
+				height:40px;
+				background:@regularGray;
+				color:#888;
+				display:table-cell;
+				vertical-align: middle;
+				text-align: center;
+				.showroom-screen({
+					height:60px;
+					font-size: 1.2em;
+					text-align: left;
+					padding-left:15px;
+				});
+				&.active {
+					background:@lightBlue;
+					color:@white;
+				}
+			}
+		}
+
 		.factoid {
 			display:block;
 			width: 425px;
@@ -452,7 +505,6 @@
 					.transition(0.1s transform);
 				}
 
-				
 			}
 			&.factoid-position-3 {
 				right: -8%;
@@ -471,7 +523,6 @@
 					.scale(0.35);
 					.transition(0.1s transform);
 				}
-				
 			}
 			&.factoid-position-4 {
 				top: -17%;
@@ -503,22 +554,12 @@
 				-moz-transform: scale(0.6) rotateY( 180deg );
 				-o-transform: scale(0.6) rotateY( 180deg );
 				-ms-transform: scale(0.6) rotateY( 180deg );
-				// .factoid-front {
-				// 	opacity:0;
-				// 	.transition(1s);		
-				// }
-				// .factoid-back {
-				// 	-webkit-backface-visibility: visible;
-				// }
 			}
 			&.inactive-factoid {
 				opacity:0;
 				.scale(0.6);
-				.transition(1s);		
+				.transition(1s);
 			}
-
-
-
 
 			// TOUCHSCREEN FACTOID POSITIONS
 

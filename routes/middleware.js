@@ -172,6 +172,20 @@ exports.personalized = function(req, res, next) {
 
 	// res.redirect('/');
 
-
 	next();
 };
+
+/**
+	Prevents people from accessing protected pages when they're not signed in
+ */
+
+exports.requireUser = function(req, res, next) {
+	
+	if (!req.user) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/signin');
+	} else {
+		next();
+	}
+	
+}

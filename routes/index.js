@@ -29,7 +29,8 @@ keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
 var routes = {
-	views: importRoutes('./views')
+	views: importRoutes('./views'),
+	admin: importRoutes('./admin')
 };
 
 // Setup Route Bindings
@@ -62,6 +63,19 @@ exports = module.exports = function(app) {
 	app.post('/showroom-sync', routes.views.json.showroom_sync);
 
 	app.get('/partners/:partner', routes.views.partner);
+
+	
+	// Session
+	app.all('/signin', routes.views.session.signin);
+	app.all('/signout', routes.views.session.signout);
+	app.all('/forgot-password', routes.views.session['forgot-password']);
+
+
+	// Admin
+	app.all('/admin*', middleware.requireUser);
+	app.all('/admin', routes.admin.index);
+
+
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

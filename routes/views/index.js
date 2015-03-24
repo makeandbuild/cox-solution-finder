@@ -142,7 +142,8 @@ exports = module.exports = function(req, res) {
 
 		var q = keystone.list('Map').model.find()
 			.where('state', 'published')
-			.populate('products');
+			.populate('products')
+			.sort('slug');
 
 		q.exec(function(err, result) {
 			locals.data.regional_maps = result;

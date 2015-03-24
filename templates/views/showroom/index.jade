@@ -80,6 +80,8 @@ mixin act_map_overlay(scene, act)
 								li(role="presentation" data-navigationitem=map.title class="map-overlay-navitem")
 									a(role="menuitem" tabindex="-1")= map.title
 		.map-type-container(data-item='regional')
+			.loading-animation-container
+				+loadingAnimation
 			each map, index in data.regional_maps
 				.map-overlay(data-map-item=map.title data-map-asset=assetURI(map.map.url))
 					h1.map-overlay-title= scene.title

@@ -264,7 +264,9 @@ function attractLoop_Action(data){
 				map_current = 0;
 				timeToNextAction = time_duration_long;
 			} else {
+				$('.map-type').first().trigger('click');
 				map_current++;
+
 				data.currentAct.selectors.eq(map_current).trigger('click');
 
 
@@ -611,8 +613,15 @@ function mapTypeInits(){
 		}
 
 		if( !$('.map-type-container').filter("[data-item='regional']").find('ul li.active')[0] ){
-			$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
-		}
+
+			// Using SetTimeout for Race Conditions
+			setTimeout(function(){
+				$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
+				console.log('LOL');
+			},100);
+			
+			
+		} else { console.log('nope you lose'); }
 
 		$('.map-overlay-navitem-regional').on('click',function(e){
 			var clicked = $(this);

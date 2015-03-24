@@ -11,15 +11,15 @@
 
 // Custom Min-width Media Query
 .responsive(@minWidth; @rules) {
-    @media only screen and (min-width: @minWidth) {
-        @rules();
-    }
+	@media only screen and (min-width: @minWidth) {
+		@rules();
+	}
 }
 // Custom Max-width Media Query
 .responsive-max(@maxWidth; @rules) {
-    @media only screen and (max-width: @maxWidth) {
-        @rules();
-    }
+	@media only screen and (max-width: @maxWidth) {
+		@rules();
+	}
 }
 
 // Companion Site Mixins - Normal Mixins
@@ -33,35 +33,35 @@ sparingly if needed.
 
 // Use these only when needed. Otherwise use mobile first mixins below.
 .respond-xs-only(@rules) {
-  @media (max-width: 767px) {
-    @rules();
-  }
+	@media (max-width: 767px) {
+		@rules();
+	}
 }
 .respond-xs-sm-only(@rules) {
-  @media (max-width: 991px) {
-    @rules();
-  }
+	@media (max-width: 991px) {
+		@rules();
+	}
 }
 .respond-sm-only(@rules) {
-  @media (min-width: 768px) and (max-width: 991px) {
-    @rules();
-  }
+	@media (min-width: 768px) and (max-width: 991px) {
+		@rules();
+	}
 }
 .respond-md-only(@rules) {
-  @media (min-width: 992px) and (max-width: 1199px) {
-    @rules();
-  }
+	@media (min-width: 992px) and (max-width: 1199px) {
+		@rules();
+	}
 }
 
 // Mobile First Mixins
 .respond-sm(@rules) {
-  @media (min-width: 768px) { @rules(); }
+	@media (min-width: 768px) { @rules(); }
 }
 .respond-md(@rules) {
-  @media (min-width: 992px) { @rules(); }
+	@media (min-width: 992px) { @rules(); }
 }
 .respond-lg(@rules) {
-  @media (min-width: 1200px) { @rules(); }
+	@media (min-width: 1200px) { @rules(); }
 }
 
 
@@ -75,96 +75,290 @@ sparingly if needed.
 
 //Use only when needed.
 .showroom-tablet-only(@rules) {
-    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-max-device-pixel-ratio : 1),
-    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (max-device-pixel-ratio : 1) {
-        @rules();
-    }
+	@media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-max-device-pixel-ratio : 1),
+	only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (max-device-pixel-ratio : 1) {
+		@rules();
+	}
 }
 //Target retina displays for tablet
 .showroom-tablet-retina(@rules) {
-    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2),
-    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (min-device-pixel-ratio : 2) {
-        @rules();
-    }
+	@media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2),
+	only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (min-device-pixel-ratio : 2) {
+		@rules();
+	}
 }
 //Target Touchscreen
 .showroom-screen(@rules) {
-    @media only screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
-    only screen and (min-device-width : 1920px) and (min-device-pixel-ratio : 1) {
-        @rules();
-    }
+	@media only screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+	only screen and (min-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+		@rules();
+	}
 }
 
 //Target Exactly the Touchscreen
 .showroom-screen-exact(@rules) {
-    @media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
-    only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
-        @rules();
-    }
+	@media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+	only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+		@rules();
+	}
 }
 
 ////////////////////////////////////////////
 // Global Mixins and Helpers
 
 .clearfix {
-  display: block;
-  zoom: 1;
+	display: block;
+	zoom: 1;
 
-  &:after {
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-  }
+	&:after {
+		content: " ";
+		display: block;
+		font-size: 0;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
 }
 
 .transition(@time: 0.3s; @target: all;){
-    -webkit-transition: @time @target ease-in-out;
-      -moz-transition: @time @target ease-in-out;
-      -o-transition: @time @target ease-in-out;
-      transition: @time @target ease-in-out;
+	-webkit-transition: @time @target ease-in-out;
+	-moz-transition: @time @target ease-in-out;
+	-o-transition: @time @target ease-in-out;
+	transition: @time @target ease-in-out;
 }
 .translate( @translateX: 0; @translateY: 0;){
-  transform: translate(@translateX, @translateY);
-  -webkit-transform: translate(@translateX, @translateY);
-  -moz-transform: translate(@translateX, @translateY);
-  -o-transform: translate(@translateX, @translateY);
-  -ms-transform: translate(@translateX, @translateY);
+	transform: translate(@translateX, @translateY);
+	-webkit-transform: translate(@translateX, @translateY);
+	-moz-transform: translate(@translateX, @translateY);
+	-o-transform: translate(@translateX, @translateY);
+	-ms-transform: translate(@translateX, @translateY);
 }
 .scale( @scale: 1;){
-  transform: scale(@scale);
-  -webkit-transform: scale(@scale);
-  -moz-transform: scale(@scale);
-  -o-transform: scale(@scale);
-  -ms-transform: scale(@scale);
+	transform: scale(@scale);
+	-webkit-transform: scale(@scale);
+	-moz-transform: scale(@scale);
+	-o-transform: scale(@scale);
+	-ms-transform: scale(@scale);
 }
 .transform(@rotate: 0deg; @scale: 1; @skew: 0deg; @translate: 0;){
-  transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
 }
 .remove-filter(){
-  -webkit-filter: none;
-  -moz-filter: none;
-  -o-filter: none;
-  -ms-filter: none;
-  filter: none;
+	-webkit-filter: none;
+	-moz-filter: none;
+	-o-filter: none;
+	-ms-filter: none;
+	filter: none;
 }
 .blur(@amount) when (@amount > 0){
-  -webkit-filter: blur(@amount);
-  -moz-filter: blur(@amount);
-  -o-filter: blur(@amount);
-  -ms-filter: blur(@amount);
-  filter: blur(@amount);
-  -webkit-backface-visibility: hidden;
+	-webkit-filter: blur(@amount);
+	-moz-filter: blur(@amount);
+	-o-filter: blur(@amount);
+	-ms-filter: blur(@amount);
+	filter: blur(@amount);
+	-webkit-backface-visibility: hidden;
 }
 
 .box-shadow(@w: 0; @h: 0; @blur: 0; @spread: 0; @color: rgba(0, 0, 0, 0)){
-  -webkit-box-shadow: @w @h @blur @spread @color;
-  -moz-box-shadow:    @w @h @blur @spread @color;
-  box-shadow:         @w @h @blur @spread @color;
+	-webkit-box-shadow: @w @h @blur @spread @color;
+	-moz-box-shadow:    @w @h @blur @spread @color;
+	box-shadow:         @w @h @blur @spread @color;
 }
+
+#circularG{
+	position:relative;
+	width:128px;
+	height:128px;
+
+	position: absolute;
+  	left: 0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	margin: auto;
+  	z-index: 0;
+  	display: block;
+}
+
+.loading-animation-container {
+	position: absolute;
+  	left: 0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+  	margin: auto;
+  	z-index: 0;
+  	display: block;
+}
+
+.circularG {
+	position:absolute;
+	background-color:#03669D;
+	width:29px;
+	height:29px;
+	-moz-border-radius:19px;
+	-moz-animation-name:bounce_circularG;
+	-moz-animation-duration:1.04s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-direction:normal;
+	-webkit-border-radius:19px;
+	-webkit-animation-name:bounce_circularG;
+	-webkit-animation-duration:1.04s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:normal;
+	-ms-border-radius:19px;
+	-ms-animation-name:bounce_circularG;
+	-ms-animation-duration:1.04s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-direction:normal;
+	-o-border-radius:19px;
+	-o-animation-name:bounce_circularG;
+	-o-animation-duration:1.04s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-direction:normal;
+	border-radius:19px;
+	animation-name:bounce_circularG;
+	animation-duration:1.04s;
+	animation-iteration-count:infinite;
+	animation-direction:normal;
+}
+
+#circularG_1 {
+	left:0;
+	top:50px;
+	-moz-animation-delay:0.39s;
+	-webkit-animation-delay:0.39s;
+	-ms-animation-delay:0.39s;
+	-o-animation-delay:0.39s;
+	animation-delay:0.39s;
+}
+
+#circularG_2 {
+	left:14px;
+	top:14px;
+	-moz-animation-delay:0.52s;
+	-webkit-animation-delay:0.52s;
+	-ms-animation-delay:0.52s;
+	-o-animation-delay:0.52s;
+	animation-delay:0.52s;
+}
+
+#circularG_3 {
+	top:0;
+	left:50px;
+	-moz-animation-delay:0.65s;
+	-webkit-animation-delay:0.65s;
+	-ms-animation-delay:0.65s;
+	-o-animation-delay:0.65s;
+	animation-delay:0.65s;
+}
+
+#circularG_4 {
+	right:14px;
+	top:14px;
+	-moz-animation-delay:0.78s;
+	-webkit-animation-delay:0.78s;
+	-ms-animation-delay:0.78s;
+	-o-animation-delay:0.78s;
+	animation-delay:0.78s;
+}
+
+#circularG_5 {
+	right:0;
+	top:50px;
+	-moz-animation-delay:0.91s;
+	-webkit-animation-delay:0.91s;
+	-ms-animation-delay:0.91s;
+	-o-animation-delay:0.91s;
+	animation-delay:0.91s;
+}
+
+#circularG_6 {
+	right:14px;
+	bottom:14px;
+	-moz-animation-delay:1.04s;
+	-webkit-animation-delay:1.04s;
+	-ms-animation-delay:1.04s;
+	-o-animation-delay:1.04s;
+	animation-delay:1.04s;
+}
+
+#circularG_7 {
+	left:50px;
+	bottom:0;
+	-moz-animation-delay:1.17s;
+	-webkit-animation-delay:1.17s;
+	-ms-animation-delay:1.17s;
+	-o-animation-delay:1.17s;
+	animation-delay:1.17s;
+}
+
+#circularG_8 {
+	left:14px;
+	bottom:14px;
+	-moz-animation-delay:1.3s;
+	-webkit-animation-delay:1.3s;
+	-ms-animation-delay:1.3s;
+	-o-animation-delay:1.3s;
+	animation-delay:1.3s;
+}
+
+@-moz-keyframes bounce_circularG {
+	0%{
+		-moz-transform:scale(1)
+	}
+
+	100%{
+		-moz-transform:scale(.3)
+	}
+
+}
+
+@-webkit-keyframes bounce_circularG {
+	0%{
+		-webkit-transform:scale(1)
+	}
+
+	100%{
+		-webkit-transform:scale(.3)
+	}
+
+}
+
+@-ms-keyframes bounce_circularG{
+	0%{
+		-ms-transform:scale(1)
+	}
+
+	100%{
+		-ms-transform:scale(.3)
+	}
+
+}
+
+@-o-keyframes bounce_circularG{
+	0%{
+		-o-transform:scale(1)
+	}
+
+	100%{
+		-o-transform:scale(.3)
+	}
+
+}
+
+@keyframes bounce_circularG{
+	0%{
+		transform:scale(1)
+	}
+
+	100%{
+		transform:scale(.3)
+	}
+
+}
+

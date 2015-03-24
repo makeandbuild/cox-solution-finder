@@ -1,10 +1,10 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-	
+
 	var view = new keystone.View(req, res),
 		locals = res.locals;
-	
+
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'settings';
@@ -37,6 +37,18 @@ exports = module.exports = function(req, res) {
 
 		q.exec(function(err, results) {
 			locals.data.industries = results;
+			next(err);
+		});
+
+	});
+
+	// Load Maps
+	view.on('init', function(next) {
+
+		var q = keystone.list('Map').model.find().where('state', 'published').populate('products');
+
+		q.exec(function(err, results) {
+			locals.data.regional_maps = results;
 			next(err);
 		});
 

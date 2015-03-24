@@ -228,11 +228,9 @@
 			position:absolute;
 			top:0;
 			left:0;
-			.transition(0.1s);
 			&.active {
 				opacity:1;
 				z-index:50;
-				.transition(0.1s);
 			}
 		}
 		.map-overlay-markets {
@@ -268,7 +266,7 @@
 				display:block !important;
 				width: 180px;
 				&.scrolling-dropdown {
-					height: 235px;
+					height: 395px;
 					overflow-y: scroll;
 					.showroom-screen({
 
@@ -292,14 +290,12 @@
 						padding: 6px 20px 6px 20px;
 						color:#888;
 						font-size:14px;
-						.transition(0.1s);
 						.showroom-screen({
 							padding:12px 20px 12px 20px;
 							font-size:16px;
 						});
 						&:hover, &:focus {
 							background-color:@white;
-							// .transition(0.1s);
 							outline: 0;
 							color:@black;
 						}

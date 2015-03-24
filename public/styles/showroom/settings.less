@@ -1,9 +1,24 @@
+/*
+
+	A note to my future self, or the next developer here,
+	I apologize for the messiness, and positioned absolute
+	content. It was a very quick refactor and we shuffled everything
+	around 3-4 times as more and more was added. Maybe one day
+	we can clean this back up to best practices. :D
+
+*/
 .settings-page {
 	.header-space-settings {
 		height: 55px;
 		.showroom-screen({
 			height: 75px;
 		});
+		&.second-column {
+			height: 118px !important;
+			.showroom-screen({
+				height: 180px !important;
+			});
+		}
 	}
 	&.settings-page-selection {
 		background-color:@xlightGray;
@@ -53,25 +68,20 @@
 			}
 		}
 	}
-	.settings-label {
-		text-transform: uppercase;
-		.opensans-regular();
-		font-size:1.15em;
-	}
 	.settings-section-content {
 		margin-bottom:1em;
 	}
 	button {
-		padding:0.5em 1.5em;
+		padding:0.5em 2.5em;
 		font-size: 1.25em;
 	}
 	.settings-filter-container {
 		position: absolute;
-		bottom:-600px;
+		bottom: -532px;
 		width: 100%;
 		height:304px;
 		.showroom-screen({
-			bottom: -880px;
+			bottom: -780px;
 			height: 420px;
 		});
 		.settings-filter-item-container {
@@ -148,19 +158,52 @@
 		 	}
 		}
 	}
+	.settings-options-divider {
+		display:block;
+		border-top: 1px solid rgba(171, 171, 171, 0.51);
+		margin: auto;
+		width: 105%;
+		left: -2%;
+		position: absolute;
+		bottom: -550px;
+		.showroom-screen({
+			bottom:-800px;
+		});
+	}
+	.settings-save-container {
+		position: absolute;
+		bottom: -627px;
+		width: 97.5%;
+		.showroom-screen({
+			bottom: -887px;
+		});
+		button {
+			float:right;
+		}
+	}
+	.trade-show-name {
+		.showroom-screen({
+			height: 52px;
+			font-size: 1.2em;
+		});
+	}
+	.settings-action-button {
+		padding: .5em 2.5em;
+		width: 160px;
+	}
+	.settings-save {
+		background-color:#444;
+	}
 	.settings-warning {
 		width: 50%;
 	}
 	.settings-fields {
 		position: absolute;
 		width: 97%;
-		top: 80px;
+		top: 60px;
 		.showroom-screen({
 			top:100px;
 		});
-		button {
-			float:right;
-		}
 	}
 	.map-overlay-dropdown {
 		position: absolute;
@@ -176,6 +219,48 @@
 			.opensans-regular();
 			color:@black;
 			font-size: 0.85em;
+		}
+		&.inline-dropdown {
+			position: relative;
+			.dropdown-toggle {
+				width: 100%;
+				background-color: #FFF !important;
+				text-align: left;
+				margin: 0;
+				padding: 0;
+				.icon-arrow {
+					float: right;
+					padding-right: 12px;
+					img {
+						width:20px;
+					}
+					.showroom-screen({
+						padding-top: 10px;
+						img {
+							width:29px;
+						}
+					});
+				}
+				.custom-dropdown-current {
+					padding: 8px 8px;
+					color: #777;
+					.showroom-screen({
+						padding: 12px 8px;
+						font-size: 1em;
+					});
+				}
+			}
+			.dropdown-menu {
+				width: 100% !important;
+				li:first-child {
+					border-top:1px solid #bbb;
+				}
+				li {
+					a {
+						padding:12px 20px 11px 14px;
+					}
+				}
+			}
 		}
 		.dropdown-menu {
 			  width: 242px;

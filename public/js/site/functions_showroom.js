@@ -602,7 +602,6 @@ function mapTypeInits(){
 				$('.map-type').last().trigger('click');
 				setTimeout(function(){
 					$('.map-overlay-navitem-regional').filter("[data-map-navigationitem='"+currentData.map+"']").trigger('click');
-					console.log('LOL');
 				},100);
 			}
 		} else {
@@ -612,16 +611,6 @@ function mapTypeInits(){
 			},100);
 		}
 
-		// if( !$('.map-type-container').filter("[data-item='regional']").find('ul li.active')[0] ){
-
-		// 	// Using SetTimeout for Race Conditions
-		// 	setTimeout(function(){
-		// 		$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
-		// 	},100);
-			
-			
-		// } else {  }
-
 		$('.map-overlay-navitem-regional').on('click',function(e){
 			var clicked = $(this);
 			var selector = clicked.data('map-navigationitem');
@@ -629,6 +618,8 @@ function mapTypeInits(){
 			var asset = target.data('map-asset');
 
 			clicked.addClass('active').siblings().removeClass('active');
+
+			customScrollTo($('#regional_dropdown'), $('.map-overlay-navitem-regional').filter("[data-map-navigationitem='"+selector+"']").offset().top, 500);
 
 			target.siblings('.map-overlay').removeClass('active');
 

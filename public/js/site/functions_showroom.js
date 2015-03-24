@@ -23,9 +23,6 @@ solutions_cookiePath = '/';
 settings_cookieName = 'csf_showroom_settings';
 settings_cookieExp = 1;
 settings_cookiePath = '/';
-map_type_cookieName = 'csf_showroom_settings';
-map_type_cookieExp = 1;
-map_type_cookiePath = '/';
 
 settings_post_location = "/stats/settings.json";
 
@@ -595,33 +592,35 @@ function mapRelatedProducts(){
 	}
 }
 
-//$.cookie(solutions_cookieName, default_json_data, { expires: solutions_cookieExp, path: solutions_cookiePath });
 function mapTypeInits(){
 	if($('.home-stage')[0]){
-		if($.cookie(map_type_cookieName) != undefined){
-			var currentData = JSON.parse($.cookie(map_type_cookieName));
-			if (currentData.map_type == 'regional' && currentData.map){
-				var selector = currentData.map;
-
-				$('.map-type').last().trigger('click');
-				$('.map-overlay-navitem-regional').filter("[data-map-navigationitem='"+selector+"']").trigger('click');
-			} else {
+		if ($.cookie(settings_cookieName) != undefined){
+			var currentData = JSON.parse($.cookie(settings_cookieName));
+			if (currentData.map == 'national'){
 				$('.map-type').first().trigger('click');
+			} else {
+				$('.map-type').last().trigger('click');
+				setTimeout(function(){
+					$('.map-overlay-navitem-regional').filter("[data-map-navigationitem='"+currentData.map+"']").trigger('click');
+					console.log('LOL');
+				},100);
 			}
 		} else {
 			$('.map-type').first().trigger('click');
-		}
-
-		if( !$('.map-type-container').filter("[data-item='regional']").find('ul li.active')[0] ){
-
-			// Using SetTimeout for Race Conditions
 			setTimeout(function(){
 				$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
-				console.log('LOL');
 			},100);
+		}
+
+		// if( !$('.map-type-container').filter("[data-item='regional']").find('ul li.active')[0] ){
+
+		// 	// Using SetTimeout for Race Conditions
+		// 	setTimeout(function(){
+		// 		$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
+		// 	},100);
 			
 			
-		} else { console.log('nope you lose'); }
+		// } else {  }
 
 		$('.map-overlay-navitem-regional').on('click',function(e){
 			var clicked = $(this);
@@ -643,7 +642,17 @@ function mapTypeInits(){
 				target.addClass('active');
 			},200);
 		})
+	} else if($('.settings-page')[0]) {
+
+		$('.map-overlay-navitem-regional').on('click',function(e){
+			var clicked = $(this);
+			var selector = clicked.data('map');
+			$('.map-overlay-dropdown button .custom-dropdown-current').data().map = selector;
+			$('.map-overlay-dropdown button .custom-dropdown-current').html(selector);
+		});
 	}
+
+
 }
 
 function mySolutionsFavoritesInits(){
@@ -927,7 +936,7 @@ function settingsActions(){
 	});
 
 	// On Submit, Set Settings, and Create the Cookie or Override it.
-	$('#settings-form').on('submit',function(e){
+	$('.settings-save').on('click',function(e){
 		e.preventDefault();
 		$('.settings-warning-text').removeClass('active');
 		$('.settings-success-text').removeClass('active');
@@ -959,22 +968,19 @@ function settingsActions(){
 				currentData.partner = slug;
 			}
 
-
 			// Set formData and add to currentData.
-			formData = $('#settings-form').serializeObject();
-			currentData.showname = formData.showname;
+			currentData.showname = $('.trade-show-name').val();
+			currentData.map = $('.map-overlay-dropdown button .custom-dropdown-current').data('map');
 
 			// Create the Cookie
 			$.cookie(settings_cookieName, JSON.stringify(currentData), { expires: settings_cookieExp, path: settings_cookiePath });
 
-			// Add Settings to formData
-			formData.industry = currentData.industry;
-			formData.partner = currentData.partner;
+			console.log(currentData);
 
 			// Setup the Ajax Post Request
 			var data = {
 				type: 'settings',
-				formData: formData
+				formData: currentData
 			};
 
 			$.ajax({
@@ -1004,6 +1010,7 @@ function settingsPageInits(){
 			$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
 
 			$('.trade-show-name').val(currentData.showname);
+			$('.map-overlay-navitem-regional').filter("[data-map='"+currentData.map+"']").trigger('click');
 		}
 
 		if($('.home-menu')[0]){
@@ -1024,8 +1031,6 @@ function settingsInits(){
 	$.get( settings_post_location, function( data ) {
 		if(data.status != "error") {
   			currentData = JSON.parse(data.data);
-
-  			console.log(currentData);
 
   			if (currentData.formData.industry == '' || currentData.formData.showroom == ''){
   				if (!$('.settings-page')[0]){
@@ -1054,8 +1059,8 @@ function settingsClearIt(){
 	var currentData = {
 		'industry': '',
 		'partner': '',
-		'showname': ''
-
+		'showname': '',
+		'map': ''
 	}
 	var data = {
 		type: 'settings',

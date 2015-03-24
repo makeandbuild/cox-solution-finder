@@ -17,9 +17,9 @@ block content
 								button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 									.icon-arrow
 										img(src="/images/arrow_down.png")
-									span.custom-dropdown-current(data-map='national') National Maps
+									span.custom-dropdown-current(data-map='National Maps') National Maps
 								ul.dropdown-menu.scrolling-dropdown(role="menu" aria-labelledby="dropdownMenu2")
-									li(role="presentation" data-map='national' class="map-overlay-navitem-regional")
+									li(role="presentation" data-map='National Maps' class="map-overlay-navitem-regional")
 										a(role="menuitem" tabindex="-1") National Maps
 									each map, index in data.regional_maps
 										li(role="presentation" data-map=map.title class="map-overlay-navitem-regional")

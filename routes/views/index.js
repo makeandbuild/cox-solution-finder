@@ -227,16 +227,16 @@ exports = module.exports = function(req, res) {
 			var productIndustryQuery = keystone.list('Product').model.find()
 			.populate('industries')
 			.where('state', 'published')
-			.where('industries').in(locals.data.industries);
+			.where('industries').in(locals.data.industries).sort('order');
 
 			var productServicesQuery = keystone.list('Product').model.find()
 			.populate('services')
 			.where('state', 'published')
-			.where('services').in(locals.data.services);
+			.where('services').in(locals.data.services).sort('order');
 
 			var productSelected = keystone.list('Product').model.find()
 			.where('state', 'published')
-			.where('slug').in(locals.data.custom_data.favorites.products);
+			.where('slug').in(locals.data.custom_data.favorites.products).sort('order');
 
 			productIndustryQuery.exec(function(err, results) {
 				allProducts = allProducts.concat(results);

@@ -36,7 +36,7 @@ exports = module.exports = function(req, res) {
 	// Load Industries
 	view.on('init', function(next) {
 
-		var q = keystone.list('Industry').model.find().where('state', 'published').populate('services');
+		var q = keystone.list('Industry').model.find().where('state', 'published').where('services', locals.data.service.id).populate('services').sort('order');
 
 		q.exec(function(err, results) {
 			locals.data.industries = results;

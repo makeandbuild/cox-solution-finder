@@ -40,6 +40,38 @@
 			});
 		}
 	}
+	.settings-alert-box-container {
+		display:block;
+		position:absolute;
+		top:0;
+		right:0;
+	}
+	.settings-alert-box {
+		display:block;
+		opacity:0;
+		height:0;
+		.transition(0.3s);
+		padding:0;
+		color:#fff;
+		.opensans-regular();
+		background-color:@orange;
+		.showroom-screen({
+			font-size:1.3em;
+		});
+		&.failure {
+			background-color:red;
+		}
+		&.transferred {
+			background-color:@lightBlue;
+		}
+		&.active {
+			opacity:1;
+			height:auto;
+			padding:0.5em 0.7em;
+			margin-bottom:0.5em;
+			.transition(0.3s);
+		}
+	}
 	.settings-title {
 		.industry-title();
 	}
@@ -53,20 +85,6 @@
 			font-size:1.5em;
 			margin-bottom: 0.7em;
 		});
-		&.transfer-success {
-			color:@lightBlue;
-			display:none;
-			&.active {
-				display:block;
-			}
-		}
-		&.transfer-failure {
-			color:red;
-			display:none;
-			&.active {
-				display:block;
-			}
-		}
 	}
 	.settings-section-content {
 		margin-bottom:1em;
@@ -193,9 +211,6 @@
 	}
 	.settings-save {
 		background-color:#444;
-	}
-	.settings-warning {
-		width: 50%;
 	}
 	.settings-fields {
 		position: absolute;

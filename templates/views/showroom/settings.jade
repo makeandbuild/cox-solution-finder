@@ -5,6 +5,7 @@ block js
 
 block content
 	.col-xs-8.col-lg-6.full-height-col.settings-page.settings-page-selection
+
 		.row.header-space-settings
 		.row
 			.col-xs-10.col-xs-offset-1
@@ -26,10 +27,7 @@ block content
 											a(role="menuitem" tabindex="-1")= map.title
 						.form-group
 							h3.settings-section-title Trade Show Name
-							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name
-					.settings-warning
-						h3.settings-section-title.transfer-failure.settings-warning-text Please fill out all fields and choose an Industry below.
-						h3.settings-section-title.transfer-success.settings-success-text Settings Saved Successfully!
+							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name					
 
 				.settings-filter-container
 					.col-xs-6.col-lg-4.settings-filter-title-container
@@ -48,6 +46,12 @@ block content
 					button(type='submit').btn.btn-default.settings-save SAVE SETTINGS
 
 	.col-xs-4.col-lg-6.full-height-col.settings-page.settings-page-options
+
+		.settings-alert-box-container
+			.settings-alert-box.failure.transfer-failure.settings-warning-text Please enter all fields.
+			.settings-alert-box.transfer-success.settings-success-text Success! Your settings have been saved.
+			.settings-alert-box.transferred.transfer-success.cart-transfer-success Favorites transferred successfully!
+
 		span.background-shadow.from-right
 		.row.header-space-settings.second-column
 		.row
@@ -56,7 +60,7 @@ block content
 				p.settings-section-content Transfer touchscreen favorites to this tablet.
 				button.btn.btn-default#settings-transfer-start.settings-action-button(onclick="") START
 
-				h3.settings-section-title.transfer-success.cart-transfer-success Favorites Transferred Successfully!
+				h3.settings-section-title
 			
 			.col-xs-10.col-xs-offset-1.col-lg-8
 				h3.settings-section-title Sync Status

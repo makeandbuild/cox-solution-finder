@@ -596,8 +596,11 @@ function mapTypeInits(){
 	if($('.home-stage')[0]){
 		if ($.cookie(settings_cookieName) != undefined){
 			var currentData = JSON.parse($.cookie(settings_cookieName));
-			if (currentData.map == 'national'){
+			if (currentData.map == 'National Maps'){
 				$('.map-type').first().trigger('click');
+				setTimeout(function(){
+					$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
+				},100);
 			} else {
 				$('.map-type').last().trigger('click');
 				setTimeout(function(){

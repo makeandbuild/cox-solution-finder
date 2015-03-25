@@ -41,6 +41,7 @@ Product.add({
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
 	industries: { type: Types.Relationship, label: "Linked Industries", ref: 'Industry', required: true, many: true, initial: false },
 	services: { type: Types.Relationship, label: "Linked Services", ref: 'Service', required: true, many: true, initial: false },
+	order: { type: Types.Number, required: true, initial: false, default: 0, label: "Product Order", note: "Use this to determine the order the product should appear on a Service page or elsewhere where products are listed. Order is lowest to highest. Example: 0 would be first, followed by 1."},
 	video: {
 		title: { type: Types.Html,
 			wysiwyg: true,

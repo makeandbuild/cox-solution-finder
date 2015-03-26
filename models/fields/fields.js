@@ -29,46 +29,89 @@ exports.resource = function () {
 
 };
 
-exports.media_buffet = function () {
+exports.media_buffet = function (section, types) {
 
 	function modalTitle(type) {
 		return {
 			type: String,
+			wysiwyg: true,
+			height:40,
 			label: "Media "+type+": Title",
 			note: "Separate two blocks of text with ' | ' to create bolded text. <br>For example: normaltext | boldtext"
 		} 
 	};
 
-	return {
-		video: {
-			title: modalTitle('Video'),
-			video_choice: {
-				type: Types.Boolean,
-				label: "Enable Video?",
-				note: "If not checked, no video will show and the image associated will show without the play icon.",
-				default: "false"
+	function media_item(types) {
+		var selected_types;
+		if (types) { selected_types = types; } else { selected_types = "None, Video, Image, Story"}
+
+		return {
+			type: {
+				type: Types.Select,
+				options: selected_types,
+				label: "Media Type",
+				note: "Choose"
+			},
+			thumbnail: {
+				type: Types.S3File,
+				label: 'Media Thumbnail: Preview Image',
+				note: "Upload a 2X Image to be the thumbnail image for the tile.",
+				s3path: 'uploads/images'
 			},
 			video: {
-				type: Types.S3File,
-				label: 'Media Video: File MP4',
-				note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
-				allowedTypes: ['video/mp4'],
-				s3path: 'uploads/videos'
+				dependsOn: { type: 'Video' },
+				title: modalTitle('Video'),
+				video: {
+					type: Types.S3File,
+					label: 'Media Video: File MP4',
+					note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
+					allowedTypes: ['video/mp4'],
+					s3path: 'uploads/videos'
+				},
+				video_webm: {
+					type: Types.S3File,
+					label: 'Media Video: File WebM',
+					note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
+					allowedTypes: ['video/webm'],
+					s3path: 'uploads/videos'
+				},
+				poster: {
+					type: Types.S3File,
+					label: 'Media Video: Poster on Video',
+					note: "Upload a 2X Image to be preview image for the video.",
+					s3path: 'uploads/images'
+				}
 			},
-			video_webm: {
-				type: Types.S3File,
-				label: 'Media Video: File WebM',
-				note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
-				allowedTypes: ['video/webm'],
-				s3path: 'uploads/videos'
-			},
-			background: {
+			image: {
+				dependsOn: { type: 'Image' },
 				type: Types.S3File,
 				label: 'Media Video: Preview Image',
 				note: "Upload a 2X Image to be preview image for the video.",
 				s3path: 'uploads/images'
+			},
+			story: {
+				dependsOn: { type: 'Story' },
+				title: modalTitle('Story'),
+				content: { type: Types.Markdown,
+					wysiwyg: true,
+					height:300,
+					label: "Media Story: Content",
+					note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
+				},
+				featured_image: {
+					type: Types.S3File,
+					label: 'Media Story: Featured Image',
+					note: "Upload a 2X Image to be the Image located in the Article.",
+					s3path: 'uploads/images'
+				}
 			}
-		},
+		}
+	}
+
+	return {
+
+		media_section_one: media_item("None, Video, Image, Story"),
+		media_section_two: media_item("None, Video, Image, Story"),
 		values: {
 			title: modalTitle('Values'),
 			content: { type: Types.Html,
@@ -77,22 +120,6 @@ exports.media_buffet = function () {
 				label: "Media Values: Content",
 				note: "Limit to around 150 characters for optimal size."
 			}
-		},
-		story: {
-			title: modalTitle('Story'),
-			content: { type: Types.Markdown,
-				wysiwyg: true,
-				height:1000,
-				label: "Media Story: Content",
-				note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
-			},
-			featured_image: {
-				type: Types.S3File,
-				label: 'Media Story: Featured Image',
-				note: "Upload a 2X Image to be the vertically cropped preview image for the article. This image will also display in full in the article modal.",
-				s3path: 'uploads/images'
-			}
-
 		},
 		facts: {
 			title: modalTitle('Facts'),
@@ -103,6 +130,6 @@ exports.media_buffet = function () {
 				s3path: 'uploads/images'
 			}
 		}
-	}
+	};
 
 };

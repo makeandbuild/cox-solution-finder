@@ -17,7 +17,7 @@ var Industry = new keystone.List('Industry', {
 
 Industry.add(
 
-	Admin.headers('settings'),
+	{ heading: Admin.headers('settings') },
 
 	{
 		title: { type: String, required: true },
@@ -33,7 +33,7 @@ Industry.add(
 		}
 	},
 
-	Admin.headers('content'),
+	{ heading: Admin.headers('content') },
 
 	{
 		heading: { type: String, required: true, initial: false, label: "Industry Heading" },
@@ -45,13 +45,15 @@ Industry.add(
 		svg_icon: Fields.svg_icon()
 	},
 
-	Admin.headers('media-buffet'),
+
+	{ heading: Admin.headers('media-buffet') },
 
 	{
 		media_buffet: Fields.media_buffet()
 	},
 
-	Admin.headers('resources'),
+
+	{ heading: Admin.headers('resources') },
 
 	{
 		resource_one: 	Fields.resource(),

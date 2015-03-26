@@ -78,16 +78,17 @@ html
 				span Finder
 			ul.navigation-item-list
 				each link in navLinks
-					if link.type == 'page'
-						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item(href=linkURI(link.href))= link.label
-					if link.type == 'modal'
-						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key onclick= link.key == 'services' ? "alterNavigationModalLinks('services', '', true);" : "")= link.label
-								.arrow-right
-					if link.type == 'settings'
-						li(class=(section == link.key ? 'active' : null))
-							a.navigation-item.settings-item(href=linkURI(link.href))= link.label
+					if !link.adminOnly
+						if link.type == 'page'
+							li(class=(section == link.key ? 'active' : null))
+								a.navigation-item(href=linkURI(link.href))= link.label
+						if link.type == 'modal'
+							li(class=(section == link.key ? 'active' : null))
+								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key onclick= link.key == 'services' ? "alterNavigationModalLinks('services', '', true);" : "")= link.label
+									.arrow-right
+						if link.type == 'settings'
+							li(class=(section == link.key ? 'active' : null))
+								a.navigation-item.settings-item(href=linkURI(link.href))= link.label
 			a.navigation-item.navigation-restart(href=linkURI('/')) Start Over
 
 		button.navigation-toggle

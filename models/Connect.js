@@ -12,11 +12,11 @@ var Connect = new keystone.List('Connect', {
 	nocreate: true
 });
 
-Connect.add({
-	name: { type: String, required: true, index: true, noedit: true },
+Connect.add({heading:"CONNECT NOTE", note: "NOTE TEXT ALL DAY!"},{
+	name: { type: String, required: true, index: true, noedit: true},
 	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
-	heading: { type: String, initial: false, label: "Connect Page Heading" },
-	content: { type: Types.Textarea, height: 400, initial: false, label: "Connect Page Content" },
+	heading: { type: String, initial: false, label: "Connect Page Heading", m_cms: {maxLength: 2}, note: "This page will not show up unless published is chosen"},
+	content: { type: Types.Textarea, height: 400, initial: false, label: "Connect Page Content", m_cms: {maxLength: 2}},
 	connect_background: {
 		type: Types.S3File,
 		label: 'Connect Background',

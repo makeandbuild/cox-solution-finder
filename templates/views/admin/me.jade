@@ -1,0 +1,32 @@
+extends ../../layouts/default-admin
+
+block intro
+
+block flash-messages
+
+block content
+	.container
+		.page-content.tile.ph-2.pv-2.mb-2
+			+flash-messages(messages)
+			form(method='post', enctype='multipart/form-data', autocomplete='off', novalidate).form-horizontal
+				input(type='hidden', name='action', value='profile.details')
+				h3 Profile Info
+				.form-group
+					label.col-sm-1.control-label Email
+					.col-sm-11: input(type='email', name='email' value=user.email readonly).form-control
+				
+		.ui-reveal
+			form(method='post', autocomplete='off')
+				input(type='hidden', name='action', value='profile.password')
+				h3 Change password
+				.form-group
+					label(for='change-passwordNew').sr-only New Password
+					input(type='password', name='password', placeholder='New Password', id='change-passwordNew').form-control
+				.form-group
+					label(for='change-passwordConfirm').sr-only Confirm Password
+					input(type='password', name='password_confirm', placeholder='Confirm Password', id='signin-passwordConfirm').form-control
+				.form-group
+					button(type='submit', data-loading-text="Changing...").btn.btn-primary Change
+							
+block js
+

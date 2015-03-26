@@ -60,7 +60,6 @@ Partner.add({
 				note: "Upload a 2X Image.",
 				s3path: 'uploads/images'
 			}
-
 		},
 		values: {
 			title: { type: Types.Html,

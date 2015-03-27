@@ -20,8 +20,11 @@ Industry.add(
 	{ heading: Admin.headers('settings') },
 
 	{
-		title: { type: String, required: true },
-		state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
+		title: {
+			type: String,
+			required: true
+		},
+		state: Fields.state(),
 		custom_ordered_services: {
 			type: Types.Relationship,
 			label: "Services",
@@ -36,12 +39,38 @@ Industry.add(
 	{ heading: Admin.headers('content') },
 
 	{
-		heading: { type: String, required: true, initial: false, label: "Industry Heading" },
-		attribute_one: { type: String, label: "Industry Attribute One" },
-		attribute_two: { type: String, label: "Industry Attribute Two" },
-		attribute_three: { type: String, label: "Industry Attribute Three" },
-		content: { type: Types.Textarea, height: 400, required: true, initial: false, label: "Industry Content" },
-		description: { type: String, required: true, initial: false, label: "Industry Description", note: "Text will appear on other pages linking this industry, and not the industry page itself." },
+		heading: {
+			type: String, 
+			required: true, 
+			initial: false, 
+			abel: "Industry Heading"
+		},
+		attribute_one: {
+			type: String, 
+			label: "Industry Attribute One"
+		},
+		attribute_two: {
+			type: String, 
+			label: "Industry Attribute Two"
+		},
+		attribute_three: {
+			type: String, 
+			label: "Industry Attribute Three"
+		},
+		content: {
+			type: Types.Textarea, 
+			height: 400, 
+			required: true, 
+			initial: false, 
+			label: "Industry Content"
+		},
+		description: {
+			type: String,
+			required: true,
+			initial: false,
+			label: "Industry Description",
+			note: "Text will appear on other pages linking this industry, and not the industry page itself."
+		},
 		svg_icon: Fields.svg_icon()
 	},
 

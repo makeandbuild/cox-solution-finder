@@ -13,6 +13,18 @@ exports.svg_icon = function () {
 
 };
 
+exports.state = function () {
+
+	return {
+		type: Types.Select,
+		options: 'draft, published, archived',
+		default: 'draft',
+		note: "This page will not show up unless published is chosen",
+		index: true
+	}
+
+};
+
 exports.resource = function () {
 
 	return {
@@ -37,7 +49,7 @@ exports.media_buffet = function (section, types) {
 			type: Types.Html,
 			wysiwyg: true,
 			height:10,
-			label: "Media "+type+": Title",
+			label: "Media Section Title",
 			note: "PLACEHOLDER"
 		} 
 	};
@@ -47,22 +59,22 @@ exports.media_buffet = function (section, types) {
 		if (types) { selected_types = types; } else { selected_types = "None, Video, Image, Story"}
 
 		return {
+			title: modalTitle(),
 			type: {
 				type: Types.Select,
 				options: selected_types,
-				label: "Media Type",
-				note: "Choose",
+				label: "Media Section Type",
+				note: "Choose a type for this section.",
 				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			thumbnail: {
 				type: Types.S3File,
-				label: 'Media Thumbnail: Preview Image',
+				label: 'Media Section Thumbnail',
 				note: "Upload a 2X Image to be the thumbnail image for the tile.",
 				s3path: 'uploads/images',
 				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			video: {
-				title: modalTitle('Video'),
 				video: {
 					type: Types.S3File,
 					label: 'Media Video: File MP4',
@@ -81,7 +93,7 @@ exports.media_buffet = function (section, types) {
 				},
 				poster: {
 					type: Types.S3File,
-					label: 'Media Video: Poster on Video',
+					label: 'Media Video: Poster for Video Preview',
 					note: "Upload a 2X Image to be preview image for the video.",
 					s3path: 'uploads/images',
 					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
@@ -89,18 +101,17 @@ exports.media_buffet = function (section, types) {
 			},
 			image: {
 				type: Types.S3File,
-				label: 'Media Video: Preview Image',
+				label: 'Media Image: File',
 				note: "Upload a 2X Image to be preview image for the video.",
 				s3path: 'uploads/images',
 				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			story: {
-				title: modalTitle('Story'),
 				content: { type: Types.Markdown,
 					wysiwyg: true,
 					height:300,
 					label: "Media Story: Content",
-					note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue.",
+					note: "No set limit for characters. Overflowed content will not be shown. H2 and H3 elements will be dark blue.",
 					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				},
 				featured_image: {

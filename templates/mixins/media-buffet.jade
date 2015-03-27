@@ -2,18 +2,25 @@ mixin mediaBuffet(media_buffet)
 	section.media-buffet
 		.media-buffet-column-left
 			.media-buffet-top-block
-				.video
-					if media_buffet.video.video_choice
-						if assetURI(media_buffet.video.video.url)
-							a(data-toggle="modal" data-video-data=assetData(media_buffet.video) data-target="#video_modal" style= assetURI(media_buffet.video.background.url) ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").video-link.pi-video
-								img(src="/icons/png/icon-play.png")
-						else
-							a(data-toggle="modal" data-video-data=assetData(global_data.default_video) data-target="#video_modal" style= assetURI(global_data.default_video.background.url) ? "background-image: url(" +assetURI(global_data.default_video.background.url)+");" : "").video-link.pi-video
-								img(src="/icons/png/icon-play.png")
+				.media-tile-top-left
+					- var media_section_one_thumbnail = assetURI(media_buffet.media_section_one.thumbnail.url) ? "background-image: url(" +assetURI(media_buffet.media_section_one.thumbnail.url)+");" : ""
+
+					if media_buffet.media_section_one.type == 'Video' && assetURI(media_buffet.media_section_one.video.video.url)
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(media_buffet.media_section_one.video)     style=media_section_one_thumbnail).video-link.pi-video
+							img(src="/icons/png/icon-play.png")
+
+					else if media_buffet.media_section_one.type == 'Image' && assetURI(media_buffet.media_section_one.image.url)
+						a(data-toggle="modal" data-target="#image_modal" data-image-data=assetData(media_buffet.media_section_one.image.url) style=media_section_one_thumbnail).image-link.pi-image
+							img(src="/icons/png/icon-plus.png")
+
+					else if media_buffet.media_section_one.type == 'Story' && assetURI(media_buffet.media_section_one.story.featured_image.url)
+						a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(media_buffet.media_section_one.story)     style=media_section_one_thumbnail).story-link.pi-success-story
+							img(src="/icons/png/icon-plus.png")
 					else
-						a(style= assetURI(media_buffet.video.background.url) ? "background-image: url(" +assetURI(media_buffet.video.background.url)+");" : "").remove-pointer
-					h4.media-title!=media_buffet.video.title
+						a(style=media_section_one_thumbnail).remove-pointer
+					h4.media-title!=media_buffet.media_section_one.title
 					.media-buffet-gradient
+
 			.media-buffet-bottom-block
 				.values
 					!= media_buffet.values.content
@@ -22,9 +29,23 @@ mixin mediaBuffet(media_buffet)
 		.media-buffet-column-right
 			.media-buffet-top-block
 				.facts(style= assetURI(media_buffet.facts.featured_image.url) ? "background-image: url(" +assetURI(media_buffet.facts.featured_image.url)+");" : "")
+					
 			.media-buffet-bottom-block
-				.story
-					a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(media_buffet.story) style= assetURI(media_buffet.story.featured_image.url) ? "background-image: url(" + assetURI(media_buffet.story.featured_image.url)+");" : "").story-link.pi-success-story
-						img(src="/icons/png/icon-plus.png")
-						h4.media-title!=media_buffet.story.title
+				.media-tile-bottom-right
+					- var media_section_two_thumbnail = assetURI(media_buffet.media_section_two.thumbnail.url) ? "background-image: url(" +assetURI(media_buffet.media_section_two.thumbnail.url)+");" : ""
+
+					if media_buffet.media_section_two.type == 'Video' && assetURI(media_buffet.media_section_two.video.video.url)
+						a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(media_buffet.media_section_two.video)     style=media_section_two_thumbnail).video-link.pi-video
+							img(src="/icons/png/icon-play.png")
+
+					else if media_buffet.media_section_two.type == 'Image' && assetURI(media_buffet.media_section_two.image.url)
+						a(data-toggle="modal" data-target="#image_modal" data-image-data=assetData(media_buffet.media_section_two.image.url) style=media_section_two_thumbnail).image-link.pi-image
+							img(src="/icons/png/icon-plus.png")
+
+					else if media_buffet.media_section_two.type == 'Story' && assetURI(media_buffet.media_section_two.story.featured_image.url)
+						a(data-toggle="modal" data-target="#story_modal" data-story-data=assetData(media_buffet.media_section_two.story)     style=media_section_two_thumbnail).story-link.pi-success-story
+							img(src="/icons/png/icon-plus.png")
+					else
+						a(style=media_section_two_thumbnail).remove-pointer
+					h4.media-title!=media_buffet.media_section_two.title
 					.media-buffet-gradient

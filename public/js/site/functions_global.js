@@ -233,10 +233,12 @@ function videoClose(){
 function modalContent(){
 	$('.video-link, .story-link, .image-link').on('click',function(){
 		// Inits
+		var modalTitle = $(this).data('title');
+
 		if ($(this).hasClass('video-link')){
 			var videoData = $(this).data('video-data');
 			var video = $('.modal.csf-video-modal video');
-			video.attr('poster', videoData.background.url);
+			video.attr('poster', videoData.poster.url);
 
 			//Checks if Firefox 34 and loads webm as videojs src.
 			if($('.ie50')[0] && videoData.video_webm.url){
@@ -274,31 +276,28 @@ function modalContent(){
 			}
 
 
-			$('.modal.csf-video-modal .video-title').html(videoData.title);
+			$('.modal.csf-video-modal .video-title').html(modalTitle);
 			$('.modal.csf-video-modal .video-title').appendTo($('.modal.csf-video-modal .video-js'));
 		}
 		if ($(this).hasClass('story-link')){
 			var storyData = $(this).data('story-data');
 			var storyContent = storyData.content.html;
-			var storyTitle = storyData.title;
-			var storyImage = storyData.featured_image.url;
+			var storyImageURL = storyData.featured_image.url;
 
 			$('.modal .story-content').html(storyContent);
-			$('.modal .story-container .story-title').html(storyTitle);
-			if (storyImage){
-				$('.modal .story-featured-image').css('background-image', 'url('+storyImage+')');
+			$('.modal .story-container .story-title').html(modalTitle);
+			if (storyImageURL){
+				$('.modal .story-featured-image').css('background-image', 'url('+storyImageURL+')');
 			}
 
 		}
 
 		if ($(this).hasClass('image-link')){
-			var imageData = $(this).data('image-data');
-			var imageTitle = imageData.title;
-			var image = imageData.featured_image.url;
+			var imageURL = $(this).data('image-data');
 
-			$('.modal .image-container .image-title').html(imageTitle);
-			if (image){
-				$('.modal .imageModal-featured-image').css('background-image', 'url('+image+')');
+			$('.modal .image-container .image-title').html(modalTitle);
+			if (imageURL){
+				$('.modal .imageModal-featured-image').css('background-image', 'url('+imageURL+')');
 			}
 
 		}

@@ -8,7 +8,7 @@ html
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
-		title= title
+		title= title || 'Cox Solution Finder'
 
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/admin.min.css", rel="stylesheet")
@@ -48,7 +48,7 @@ html
 
 		block content
 
-		footer
+		footer.container-fluid
 			p Powered by 
 				a(href="http://www.maxmedia.com") maxmedia
 
@@ -58,11 +58,16 @@ html
 					.modal-content
 						+auth-forms({ modal: true, initial: 'signin' })
 
+		
+		//- lib
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 		//script(src='/js/lib/bootstrap/collapse.js')
 		//script(src='/js/lib/bootstrap/dropdown.js')
 		script(src='/js/lib/bootstrap/modal.js')
+		script(src='/js/lib/jquery-validation/jquery.validate.min.js')
+		//- site
+
 		script(src='/js/site/admin.js')
 
 

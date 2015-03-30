@@ -1,0 +1,12 @@
+mixin textarea(item)
+
+	+validations(item.field.options.m_cms.maxLength)
+
+	.form-group
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+
+		textarea(name=item.field.path autocomplete="off" style="height:auto").form-control
+			=data.current[item.field.path]
+		p.help-block=item.field.options.note
+			+printValidation()

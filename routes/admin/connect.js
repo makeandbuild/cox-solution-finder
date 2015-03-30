@@ -9,7 +9,8 @@ exports = module.exports = function(req, res) {
 	locals.section = 'connect';
 	locals.data = {};
 	locals.data.model = keystone.list('Connect');
-	console.log(locals.data.model);
+	
+	// console.log(locals.data.model);
 	
 	// On POST requests, add the Enquiry item to the database
 	// view.on('post', { action: 'connect' }, function(next) {

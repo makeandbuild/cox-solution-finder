@@ -1,42 +1,24 @@
+include ../../mixins/admin/cms-mixins
+
 extends ../../layouts/default-admin
+
 
 block content
 	.container
-		each item in data.model.uiElements
-			if(item.heading)
-				li=item.heading
-				li=item.options.note
-			if(item.type == 'field')
-				li=item.field.type
-				if(item.field.type == 'text')
-					li=item.field.options.note
-					- var validaitons
-					if(item.field.options.m_cms)
-						- validations = '<ul>'
-						each setting, key in item.field.options.m_cms
-							li=setting
-							- validations += '<li>' + key + ' : ' + setting + '</li>'
-						- validations += '</ul>'
-					label=item.field.label
-						span.glyphicon.glyphicon-question-sign(data-toggle="tooltip" data-placement="top" title=validations data-html="true")
-					input(type="text" value=data.current[item.field.path])
-					each v,i in item.field.options
-						li=i + ' : ' + v
-					|****************************
-				if(item.field.type == 'select')
-					p SELECT
-				if(item.field.type == 's3file')
-					p S3!
-				if(item.field.type == 'datetime')
-					p DATE
-					each v,i in item.field
-						li=i + ' : ' + v
-
-		|***********************************
 		h1=data.current.name
-		h2=data.current.heading
-		each field, index in data.current
-			li=index + ' : ' + field
+		p.help-block='Created On: ' + data.current._.createdAt.format('Do MMMM YYYY h:mm:ss a')
+		p.help-block='Last Edit: ' + data.current._.updatedAt.format('Do MMMM YYYY h:mm:ss a')
+		form(method='post')
+			input(type='hidden', name='action', value='admin-connect')
+			.row
+				.col-lg-8.col-md-8
+					each item in data.model.uiElements
+						+cms-field(item)
+			.row
+				.col-xs-12
+					.admin-buttons
+						button.btn.btn-primary Publish
+						button.btn.btn-default Preview
 
 block js
 	script(src='/js/lib/bootstrap/tooltip.js')

@@ -1,0 +1,20 @@
+mixin s3file(item)
+
+	+validations(item.field.options.m_cms.maxLength)
+
+	.form-group
+		-url=data.current[item.field.path]['url']
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+
+		
+		if(url)
+			.row
+				.col-lg-4.col-md-4
+					img(src=url).img-responsive.img-thumbnail
+		.row
+			.col-lg-6.col-md-6
+				input(type="hidden" value=data.current[item.field.path]['url'] id=item.field.path).form-control
+				input(type="file")
+		p.help-block=item.field.options.note
+			+printValidation()

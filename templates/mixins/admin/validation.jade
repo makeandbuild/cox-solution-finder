@@ -1,0 +1,11 @@
+mixin validations(maxLength)
+		if(maxLength)
+			- validation = ''
+			- label = 'Max Length'
+			- validation = '' + label + ': ' + maxLength + ' characters'
+		else
+			- validation = ''
+
+mixin printValidation()
+	if(validation != '') 
+		=' [' + validation + '] '

@@ -90,12 +90,13 @@ html
 						span Finder
 				ul.navigation-item-list
 					each link in navLinks
-						if link.type == 'page'
-							li(class=(section == link.key ? 'active' : null))
-								a.navigation-item(href=link.href)= link.label
-						if link.type == 'modal'
-							li(class=(section == link.key ? 'active' : null))
-								a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
+						if !link.adminOnly
+							if link.type == 'page'
+								li(class=(section == link.key ? 'active' : null))
+									a.navigation-item(href=link.href)= link.label
+							if link.type == 'modal'
+								li(class=(section == link.key ? 'active' : null))
+									a.navigation-item.navigation-modal-item(data-navigation-modal-item=link.key)= link.label
 
 				- // If adding back in phone number, you'll want to remove the `.shorten` class and remove the line breaks as well. Place the number on second span.
 				a(href="/connect").navigation-phone-cta-desktop.shorten

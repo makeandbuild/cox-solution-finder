@@ -1,0 +1,19 @@
+include validation
+include heading
+include text-field
+include textarea
+include s3file
+
+
+mixin cms-field(item)
+	if(item.type == 'heading' && item.type == 'heading')
+		+heading(item)
+	else
+		if(item.type == 'field' && item.field.type == 'text' && !item.field.noedit && item.field.options.m_cms)
+			+text-field(item)
+
+		if(item.type == 'field' && item.field.type == 'textarea' && !item.field.noedit && item.field.options.m_cms)
+			+textarea(item)
+
+		if(item.type == 'field' && item.field.type == 's3file' && !item.field.noedit && item.field.options.m_cms)
+			+s3file(item)

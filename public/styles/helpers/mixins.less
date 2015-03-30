@@ -11,15 +11,27 @@
 
 // Custom Min-width Media Query
 .responsive(@minWidth; @rules) {
-    @media only screen and (min-width: @minWidth) {
-        @rules();
-    }
+	@media only screen and (min-width: @minWidth) {
+			@rules();
+	}
 }
 // Custom Max-width Media Query
 .responsive-max(@maxWidth; @rules) {
-    @media only screen and (max-width: @maxWidth) {
-        @rules();
-    }
+	@media only screen and (max-width: @maxWidth) {
+			@rules();
+	}
+}
+
+.portrait-only(@rules){
+	@media (orientation: portrait) {
+		@rules();
+	}
+}
+
+.landscape-only(@rules){
+	@media (orientation: landscape) {
+		@rules();
+	}
 }
 
 // Companion Site Mixins - Normal Mixins
@@ -33,35 +45,35 @@ sparingly if needed.
 
 // Use these only when needed. Otherwise use mobile first mixins below.
 .respond-xs-only(@rules) {
-  @media (max-width: 767px) {
-    @rules();
-  }
+	@media (max-width: 767px) {
+		@rules();
+	}
 }
 .respond-xs-sm-only(@rules) {
-  @media (max-width: 991px) {
-    @rules();
-  }
+	@media (max-width: 991px) {
+		@rules();
+	}
 }
 .respond-sm-only(@rules) {
-  @media (min-width: 768px) and (max-width: 991px) {
-    @rules();
-  }
+	@media (min-width: 768px) and (max-width: 991px) {
+		@rules();
+	}
 }
 .respond-md-only(@rules) {
-  @media (min-width: 992px) and (max-width: 1199px) {
-    @rules();
-  }
+	@media (min-width: 992px) and (max-width: 1199px) {
+		@rules();
+	}
 }
 
 // Mobile First Mixins
 .respond-sm(@rules) {
-  @media (min-width: 768px) { @rules(); }
+	@media (min-width: 768px) { @rules(); }
 }
 .respond-md(@rules) {
-  @media (min-width: 992px) { @rules(); }
+	@media (min-width: 992px) { @rules(); }
 }
 .respond-lg(@rules) {
-  @media (min-width: 1200px) { @rules(); }
+	@media (min-width: 1200px) { @rules(); }
 }
 
 
@@ -75,96 +87,96 @@ sparingly if needed.
 
 //Use only when needed.
 .showroom-tablet-only(@rules) {
-    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-max-device-pixel-ratio : 1),
-    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (max-device-pixel-ratio : 1) {
-        @rules();
-    }
+		@media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-max-device-pixel-ratio : 1),
+		only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (max-device-pixel-ratio : 1) {
+				@rules();
+		}
 }
 //Target retina displays for tablet
 .showroom-tablet-retina(@rules) {
-    @media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2),
-    only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (min-device-pixel-ratio : 2) {
-        @rules();
-    }
+		@media only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2),
+		only screen and (min-device-width : 768px) and (max-width: 1024px) and (orientation : landscape) and (min-device-pixel-ratio : 2) {
+				@rules();
+		}
 }
 //Target Touchscreen
 .showroom-screen(@rules) {
-    @media only screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
-    only screen and (min-device-width : 1920px) and (min-device-pixel-ratio : 1) {
-        @rules();
-    }
+		@media only screen and (min-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+		only screen and (min-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+				@rules();
+		}
 }
 
 //Target Exactly the Touchscreen
 .showroom-screen-exact(@rules) {
-    @media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
-    only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
-        @rules();
-    }
+		@media only screen and (min-width: 1920px) and (max-width: 1920px) and (-webkit-min-device-pixel-ratio : 1),
+		only screen and (min-device-width : 1920px) and (max-device-width : 1920px) and (min-device-pixel-ratio : 1) {
+				@rules();
+		}
 }
 
 ////////////////////////////////////////////
 // Global Mixins and Helpers
 
 .clearfix {
-  display: block;
-  zoom: 1;
+	display: block;
+	zoom: 1;
 
-  &:after {
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-  }
+	&:after {
+		content: " ";
+		display: block;
+		font-size: 0;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
 }
 
 .transition(@time: 0.3s; @target: all;){
-    -webkit-transition: @time @target ease-in-out;
-      -moz-transition: @time @target ease-in-out;
-      -o-transition: @time @target ease-in-out;
-      transition: @time @target ease-in-out;
+		-webkit-transition: @time @target ease-in-out;
+			-moz-transition: @time @target ease-in-out;
+			-o-transition: @time @target ease-in-out;
+			transition: @time @target ease-in-out;
 }
 .translate( @translateX: 0; @translateY: 0;){
-  transform: translate(@translateX, @translateY);
-  -webkit-transform: translate(@translateX, @translateY);
-  -moz-transform: translate(@translateX, @translateY);
-  -o-transform: translate(@translateX, @translateY);
-  -ms-transform: translate(@translateX, @translateY);
+	transform: translate(@translateX, @translateY);
+	-webkit-transform: translate(@translateX, @translateY);
+	-moz-transform: translate(@translateX, @translateY);
+	-o-transform: translate(@translateX, @translateY);
+	-ms-transform: translate(@translateX, @translateY);
 }
 .scale( @scale: 1;){
-  transform: scale(@scale);
-  -webkit-transform: scale(@scale);
-  -moz-transform: scale(@scale);
-  -o-transform: scale(@scale);
-  -ms-transform: scale(@scale);
+	transform: scale(@scale);
+	-webkit-transform: scale(@scale);
+	-moz-transform: scale(@scale);
+	-o-transform: scale(@scale);
+	-ms-transform: scale(@scale);
 }
 .transform(@rotate: 0deg; @scale: 1; @skew: 0deg; @translate: 0;){
-  transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
-  -ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-webkit-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-moz-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-o-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
+	-ms-transform: rotate(@rotate) scale(@scale) skew(@skew) translate(@translate);
 }
 .remove-filter(){
-  -webkit-filter: none;
-  -moz-filter: none;
-  -o-filter: none;
-  -ms-filter: none;
-  filter: none;
+	-webkit-filter: none;
+	-moz-filter: none;
+	-o-filter: none;
+	-ms-filter: none;
+	filter: none;
 }
 .blur(@amount) when (@amount > 0){
-  -webkit-filter: blur(@amount);
-  -moz-filter: blur(@amount);
-  -o-filter: blur(@amount);
-  -ms-filter: blur(@amount);
-  filter: blur(@amount);
-  -webkit-backface-visibility: hidden;
+	-webkit-filter: blur(@amount);
+	-moz-filter: blur(@amount);
+	-o-filter: blur(@amount);
+	-ms-filter: blur(@amount);
+	filter: blur(@amount);
+	-webkit-backface-visibility: hidden;
 }
 
 .box-shadow(@w: 0; @h: 0; @blur: 0; @spread: 0; @color: rgba(0, 0, 0, 0)){
-  -webkit-box-shadow: @w @h @blur @spread @color;
-  -moz-box-shadow:    @w @h @blur @spread @color;
-  box-shadow:         @w @h @blur @spread @color;
+	-webkit-box-shadow: @w @h @blur @spread @color;
+	-moz-box-shadow:    @w @h @blur @spread @color;
+	box-shadow:         @w @h @blur @spread @color;
 }

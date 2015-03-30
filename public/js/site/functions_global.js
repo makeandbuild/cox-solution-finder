@@ -297,7 +297,8 @@ function modalContent(){
 
 			$('.modal .image-container .image-title').html(modalTitle);
 			if (imageURL){
-				$('.modal .imageModal-featured-image').css('background-image', 'url('+imageURL+')');
+				//$('.modal .imageModal-featured-image').css('background-image', 'url('+imageURL+')');
+				$('.modal .image-wrapper img').attr('src', imageURL);
 			}
 
 		}

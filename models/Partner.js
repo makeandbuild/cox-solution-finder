@@ -1,5 +1,8 @@
 var keystone = require('keystone'),
-	Types = keystone.Field.Types;
+	Types = keystone.Field.Types,
+	Fields = require('./fields/fields'),
+	Admin = require('./fields/admin'),
+	Variables = require('./fields/variables');
 
 /**
  * Partners Model
@@ -12,116 +15,59 @@ var Partner = new keystone.List('Partner', {
 	track: true
 });
 
-var resource = {
-	title: { type: String, label: "Resource Title" },
-	svg_icon: {
-		type: Types.Select,
-		label: "Icon",
-		options:
-			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice'
-	},
-	resource_type: { type: Types.Boolean, default: false, label: "Is this resource an external link?", note: "Check this box if this is an external link. Do not check the box if the link below is a PDF for download."},
-	resource_link: { type: String, initial:false, label: "Resource Linked File", note: "Enter the full url for the item to download. (Example: 'http:/www.example.com/my_file.pdf')" },
-	description: { type: Types.Textarea, height: 100, label: "Resource Description" }
-}
+Partner.add(
 
-Partner.add({
-	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
-	custom_ordered_services: {
-		type: Types.Relationship,
-		label: "Services",
-		ref: 'Service',
-		required: true,
-		many: true,
-		initial: false,
-		note: "Choose 3 only."
-	},
-	heading: { type: String, initial: false, label: "Partner Heading" },
-	content: { type: Types.Textarea, height: 400, initial: false, label: "Partner Content" },
-	description: { type: String, initial: false, label: "Partner Description", note: "Text will appear on other pages linking this partner, and not the partner page itself." },
-	svg_icon: {
-		type: Types.Select,
-		label: "Icon",
-		options:
-			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice'
-	},
-	partner_buffet: {
-		bigPic: {
-			title: { type: Types.Html,
-				wysiwyg: true,
-				height:40,
-				label: "Big Picture: Title",
-				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
-			},
-			featured_image: {
-				type: Types.S3File,
-				label: 'Big Picture: Image',
-				note: "Upload a 2X Image.",
-				s3path: 'uploads/images'
-			}
+	{ heading: Admin.headers('settings') },
 
+	{
+		title: {
+			type: String,
+			required: true
 		},
-		values: {
-			title: { type: Types.Html,
-				wysiwyg: true,
-				height:40,
-				label: "Media Values: Title",
-				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
-			},
-			content: { type: Types.Html,
-				wysiwyg: true,
-				height:200,
-				label: "Media Values: Content",
-				note: "Limit to around 150 characters for optimal size."
-			}
+		state: Fields.state(),
+		custom_ordered_services: {
+			type: Types.Relationship,
+			label: "Services",
+			ref: 'Service',
+			required: true,
+			many: true,
+			initial: false,
+			note: "Choose 3 only."
 		},
-		story: {
-			modal_choice: {
-				type: Types.Boolean,
-				label: "Media Story/Small Pic: Image Only? If checked this will only be an image modal and any content will be ignored.",
-				default: "false"
-			},
-			title: { type: Types.Html,
-				wysiwyg: true,
-				height:40,
-				label: "Media Story/Small Pic: Title",
-				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
-			},
-			content: { type: Types.Markdown,
-				wysiwyg: true,
-				height:1000,
-				label: "Media Story/Small Pic: Content",
-				note: "No set limit for characters. Overflowed content will not be shown. All headers will be dark blue."
-			},
-			featured_image: {
-				type: Types.S3File,
-				label: 'Media Story/Small Pic: Featured Image',
-				note: "Upload a 2X Image to be the vertically cropped preview image for the article. This image will also display in full in the article modal.",
-				s3path: 'uploads/images'
-			}
-
+		heading: {
+			type: String,
+			initial: false,
+			label: "Partner Heading"
 		},
-		facts: {
-			title: { type: Types.Html,
-				wysiwyg: true,
-				height:40,
-				label: "Media Facts: Title",
-				note: "1-2 Words. Do not copy and paste text into this field. Make sure there is no extra code besides the desired text. Click the source button to see additional information. Adding extraneous code could cause styling issues in this section."
-			},
-			featured_image: {
-				type: Types.S3File,
-				label: 'Media Facts: Factoid Image',
-				note: "Upload a 2X Image.",
-				s3path: 'uploads/images'
-			}
-		}
+		content: {
+			type: Types.Textarea,
+			height: 400, initial: false,
+			label: "Partner Content"
+		},
+		description: {
+			type: String,
+			initial: false,
+			label: "Partner Description",
+			note: "Text will appear on other pages linking this partner, and not the partner page itself."
+		},
+		svg_icon: Fields.svg_icon()
 	},
-	resource_one: resource,
-	resource_two: resource,
-	resource_three: resource,
-	resource_four: resource
-});
+
+	{ heading: Admin.headers('media-buffet') },
+
+	{
+		media_buffet: Fields.media_buffet()
+	},
+
+	{ heading: Admin.headers('resources') },
+
+	{
+		resource_one: 	Fields.resource(),
+		resource_two: 	Fields.resource(),
+		resource_three: Fields.resource(),
+		resource_four: 	Fields.resource()
+	}
+);
 
 Partner.relationship({ ref: 'Service', refPath: ':service', path: ':industry' });
 

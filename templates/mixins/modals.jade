@@ -22,3 +22,11 @@ mixin imageModal
 			.image-wrapper
 				img
 				h2.image-title
+
+mixin imageModalShowroom
+	.modal.csf-modal.csf-image-modal.fade(id="image_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true")
+		button.btn.btn-default.global-close.csf-content-close(type="button" data-dismiss="modal" data-video-close="the_image")
+			img(src="/images/close.png")
+		.image-container
+			.imageModal-featured-image
+			h2.image-title

@@ -6,19 +6,25 @@ extends ../../layouts/default-admin
 block content
 	.container
 		h1=data.current.name
-		p.help-block='Created On: ' + data.current._.createdAt.format('Do MMMM YYYY h:mm:ss a')
-		p.help-block='Last Edit: ' + data.current._.updatedAt.format('Do MMMM YYYY h:mm:ss a')
-		form(method='post')
+		form(method='post', enctype='multipart/form-data')
 			input(type='hidden', name='action', value='admin-connect')
+			input(type='hidden', name='name', value=data.current.name)
+			input(type='hidden', name='slug', value=data.current.slug)
+
 			.row
 				.col-lg-8.col-md-8
 					each item in data.model.uiElements
 						+cms-field(item)
-			.row
-				.col-xs-12
-					.admin-buttons
-						button.btn.btn-primary Publish
-						button.btn.btn-default Preview
+				.col-xs-4
+					.right-rail(data-spy="affix" data-offset-top="0")
+						.admin-buttons
+							p.help-block='Created On: ' + data.current._.createdAt.format('MMMM DD, YYYY h:mm:ss a')
+							p.help-block='Last Edit: ' + data.current._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+							p.help-block='By: ' + data.current.lastEditor
+							button(type="submit").btn.btn-primary.publish Publish
+							button(type="button").btn.btn-default.preview Preview
+						.icon-key
+							+site-icons-key()
 
 block js
 	script(src='/js/lib/bootstrap/tooltip.js')

@@ -7,6 +7,6 @@ mixin text-field(item)
 	.form-group
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-		input(type="text" value=data.current[item.field.path] id=item.field.path).form-control
+		input(type="text" value=data.current[item.field.path] name=item.field.path).form-control
 		p.help-block=item.field.options.note
 			+printValidation()

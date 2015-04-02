@@ -153,7 +153,7 @@ exports.requireUser = function(req, res, next) {
 
 	if (!req.user) {
 		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/keystone/signin');
+		res.redirect('/signin');
 	} else {
 		next();
 	}
@@ -176,17 +176,45 @@ exports.personalized = function(req, res, next) {
 	next();
 };
 
-/**
-	Prevents people from accessing protected pages when they're not signed in
- */
+exports.unlockUserDocs = function(req, res, next) {
 
-exports.requireUser = function(req, res, next) {
-	
-	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/signin');
-	} else {
-		next();
+	// IF REFERER IS CONNECT-EDIT && USER IS THE EDITOR OF THE CONNECT PAGE
+	// 	UNLOCK CONNECT
+
+	// ELSE DO NOTHING
+
+	// CHECK ALL OTHER PAGES AND THEIR CHECK OUT TIMES AND UNLCOK THE HOUR LONG ONES
+
+	console.log(req.headers);
+	var slug;
+	if(req.headers.referer) {
+		var slug = req.headers.referer.replace('http://' + req.headers.host + '/admin/', '');
+		console.log('Referer Slug:' + slug);
 	}
+
 	
-}
+
+	  var q = keystone.list('Connect').model.findOne({
+	    slug: 'connect',
+	    editor: req.user.id
+	  });
+
+	  // I open Connect.
+	  // I open a new tab.
+	  // I open admin.
+
+
+	  
+	  q.exec(function(err, result) {
+
+	  	if(result) {
+		  	if(result.editor) {
+		  		console.log('set it');
+			  	result.editor = undefined;
+			  	result.save();
+		  	}
+	  	}
+  		next();
+	  })
+
+};

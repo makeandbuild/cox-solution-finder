@@ -74,9 +74,12 @@ exports = module.exports = function(app) {
 
 	// Admin
 	app.all('/admin*', middleware.requireUser);
+	app.all('/admin*', middleware.unlockUserDocs);
+
 	app.all('/admin', routes.admin.index);
 	app.all('/admin/me', routes.admin.me);
 	app.all('/admin/connect', routes.admin.connect);
+	app.all('/admin/preview/connect', routes.admin.preview.connect);
 
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

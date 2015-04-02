@@ -1014,6 +1014,11 @@ function settingsPageInits(){
 		if($('.connect-showname')[0]){
 			$('.connect-showname').val(currentData.showname);
 		}
+	} else {
+		if (!$('.settings-page')[0]){
+			window.location.replace("/settings.html");
+		}
+		
 	}
 }
 

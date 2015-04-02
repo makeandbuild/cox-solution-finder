@@ -6,15 +6,14 @@ mixin s3file(item)
 		-url=data.current[item.field.path]['url']
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-
 		
-		if(url)
+		if(data.current[item.field.path]['exists'])
 			.row
-				.col-lg-4.col-md-4
+				.col-lg-4.col-md-4.col-sm-6
 					img(src=url).img-responsive.img-thumbnail
 		.row
 			.col-lg-6.col-md-6
-				input(type="hidden" value=data.current[item.field.path]['url'] id=item.field.path).form-control
-				input(type="file")
+				//- input(type="hidden" name=item.field.path value=data.current[item.field.path]['url']).form-control
+				input(type="file" name=item.field.path + '_upload' value=data.current[item.field.path]['url']).form-control
 		p.help-block=item.field.options.note
 			+printValidation()

@@ -45,6 +45,7 @@ html
 								li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
 
 		block intro
+			+flash-messages(messages)
 
 		block content
 
@@ -64,6 +65,7 @@ html
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
 		//script(src='/js/lib/bootstrap/collapse.js')
 		//script(src='/js/lib/bootstrap/dropdown.js')
+		script(src='/js/lib/bootstrap/affix.js')
 		script(src='/js/lib/bootstrap/modal.js')
 		script(src='/js/lib/jquery-validation/jquery.validate.min.js')
 		//- site

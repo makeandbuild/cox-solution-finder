@@ -40,10 +40,15 @@ Connect.add({
 	connect_background: {
 		type: Types.S3File,
 		label: 'Connect Background',
+		allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 		note: "Upload a 2X Resolution image. Image will be the background for the Connect Page.",
 		s3path: 'uploads/images',
 		m_cms: { showroom: false, companion: true }
 	},
+	editor: {
+		type: Types.Relationship, 
+		ref: 'User'
+	}
 });
 
 Connect.register();

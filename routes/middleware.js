@@ -10,7 +10,18 @@
 
 var keystone = require('keystone');
 		_ = require('underscore'),
-		async = require('async');
+		async = require('async'),
+		url = require('url');
+
+var lists = {	'services': 'Service',
+				'industries': 'Industry',
+				'partners': 'Partner',
+				'products': 'Product',
+				'connect': 'Connect',
+				'homepage': 'Homepage',
+				'map': 'Map'
+			};
+
 
 exports.setState = function(req,res,next){
 	var locals = res.locals;
@@ -120,7 +131,7 @@ exports.initLocals = function(req, res, next) {
 			});
 		}		
 	], function(err, results) {
-		//TODO should probably check for an error here, but not sure what we'd do with it...
+		//TO;DO should probably check for an error here, but not sure what we'd do with it...
 		next();
 	});
 };
@@ -178,43 +189,85 @@ exports.personalized = function(req, res, next) {
 
 exports.unlockUserDocs = function(req, res, next) {
 
-	// IF REFERER IS CONNECT-EDIT && USER IS THE EDITOR OF THE CONNECT PAGE
-	// 	UNLOCK CONNECT
-
-	// ELSE DO NOTHING
-
-	// CHECK ALL OTHER PAGES AND THEIR CHECK OUT TIMES AND UNLCOK THE HOUR LONG ONES
-
-	console.log(req.headers);
-	var slug;
+	//Don't do anything on a refresh or a reclick
 	if(req.headers.referer) {
-		var slug = req.headers.referer.replace('http://' + req.headers.host + '/admin/', '');
-		console.log('Referer Slug:' + slug);
+
+		var referer = url.parse(req.headers.referer);
+		if(referer.pathname != req.url) {
+		
+			//Strip /admin/ from referrer url.
+			pathname = referer.pathname;
+			pathname = pathname.replace('/admin', '');
+			if(pathname.charAt(0) == '/') {
+				pathname = pathname.substr(1,pathname.length);
+			}
+
+			pathparts = pathname.split('/');
+
+			//If no pathparts[1] we're coming from a list page, adming page, or either homepage or connects
+			var q;
+			if(pathparts[1] != undefined) {
+				q = keystone.list(lists[pathparts[0]]).model.findOne({
+				    slug: pathparts[1],
+				    editor: req.user.id
+			  	});
+
+			} else {
+				//Being extra cautious that nothing slips through the logic above
+				if(pathparts[0] == 'homepage' || pathparts[0] == 'connect') {
+					console.log('homepage or connect');
+					q = keystone.list(lists[pathparts[0]]).model.findOne({
+		    			slug: pathparts[0],
+				    	editor: req.user.id
+			  		});
+				}
+			}
+
+			//Make sure the query was created. More cautiousness.
+			if(q) {
+				q.exec(function(err, result) {
+				  	if(result) {
+					  	if(result.editor) {
+					  		console.log('UNLOCK IT');
+						  	result.editor = undefined;
+						  	result.save();
+					  	}
+				  	}
+				  	next();
+			  	});
+			} else {
+				next();
+			}
+		} else {
+			next();
+		}
+	} else {
+		next();		
 	}
 
-	
+};
 
-	  var q = keystone.list('Connect').model.findOne({
-	    slug: 'connect',
-	    editor: req.user.id
-	  });
+exports.timerUnlockUserDocs = function(req, res, next) {
 
-	  // I open Connect.
-	  // I open a new tab.
-	  // I open admin.
+	for(x in lists) {
+		q = keystone.list(lists[x]).model.find()
+			.where('state', 'published')
+			.where('editor').ne(undefined)
+			.where('checkoutTime').lt(Date.now() - 30*60*1000);
 
-
-	  
-	  q.exec(function(err, result) {
-
-	  	if(result) {
-		  	if(result.editor) {
-		  		console.log('set it');
-			  	result.editor = undefined;
-			  	result.save();
+		q.exec(function(err, results) {
+		  	if(results) {
+		  		for(var i = 0; i < results.length; i++) {
+		  			result = results[i];
+		  			result.editor = undefined;
+		  			result.checkoutTime = null;
+		  			result.save();
+		  		}
 		  	}
-	  	}
-  		next();
-	  })
+	  	});
+
+	}
+
+	next();
 
 };

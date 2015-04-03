@@ -48,7 +48,15 @@ Connect.add({
 	editor: {
 		type: Types.Relationship, 
 		ref: 'User'
+	},
+	checkoutTime: {
+		type: Types.Datetime,
+		default: Date.now()
 	}
 });
+
+Connect.schema.methods.updatableFields = function() {
+    return 'name, heading, content, connect_background';
+}
 
 Connect.register();

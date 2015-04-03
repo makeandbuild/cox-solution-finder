@@ -1,6 +1,8 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry');
 
+var showroom = true;
+
 
 exports = module.exports = function(req, res) {
 	
@@ -42,7 +44,17 @@ exports = module.exports = function(req, res) {
 
 	});
 
-	view.render('connect');
+	view.on('init', function(next) {
+		showroom = false;
+		next();
+	});
+
+
+	if(showroom) {
+		view.render('showroom/connect');
+	} else {
+		view.render('connect');
+	}
 	
 };
 

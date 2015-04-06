@@ -262,19 +262,29 @@
 				color:@black;
 				font-size: 0.85em;
 			}
+			#regional_dropdown_outer {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				z-index: 1000;
+				height: 235px;
+				overflow-y: scroll;
+				.showroom-screen({
+					height: 395px;
+				});
+			}
+			#regional_dropdown_outer::-webkit-scrollbar {
+			    display: none;
+			}
+			#regional_dropdown {
+				position: relative;
+				height: auto;
+				overflow: hidden;
+				top:0;
+			}
 			.dropdown-menu {
 				display:block !important;
 				width: 180px;
-				&.scrolling-dropdown {
-					height: 235px;
-					overflow-y: scroll;
-					.showroom-screen({
-						height: 395px;
-					});
-				}
-				&.scrolling-dropdown::-webkit-scrollbar {
-				    display: none;
-				}
 				.showroom-screen({
 					width: 250px;
 				});

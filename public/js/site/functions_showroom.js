@@ -622,24 +622,7 @@ function mapTypeInits(){
 
 			clicked.addClass('active').siblings().removeClass('active');
 
-			//customScrollTo($('#regional_dropdown'), clicked.offset().top, 500);
-
-			console.log('    outer');
-			console.log($('#regional_dropdown_outer').offset().top);
-			console.log($('#regional_dropdown_outer').scrollTop());
-
-			console.log('    dropdown');
-			console.log($('#regional_dropdown').offset().top);
-			console.log($('#regional_dropdown').scrollTop());
-
-			console.log('    clicked');
-			console.log(clicked.offset().top);
-			console.log(clicked.scrollTop());
-
 			var newScrollTop = clicked.offset().top - $('#regional_dropdown').offset().top;
-
-			console.log(newScrollTop);
-			console.log("should be equal: "+newScrollTop+" and ");
 
 			$('#regional_dropdown_outer').animate({
 		        scrollTop: newScrollTop
@@ -647,11 +630,15 @@ function mapTypeInits(){
 
 			target.siblings('.map-overlay').removeClass('active');
 
-			if ( /^\/\//.test(asset) ) {
-				target.css('background-image', 'url(http:'+asset+')');
-			} else {
-				target.css('background-image', 'url('+asset+')');
+			if(asset){
+				if ( /^\/\//.test(asset) ) {
+					target.css('background-image', 'url(http:'+asset+')');
+				} else {
+					target.css('background-image', 'url('+asset+')');
+				}
 			}
+
+			
 
 			setTimeout(function(){
 				target.addClass('active');

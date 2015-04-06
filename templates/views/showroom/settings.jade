@@ -5,26 +5,29 @@ block js
 
 block content
 	.col-xs-8.col-lg-6.full-height-col.settings-page.settings-page-selection
+
 		.row.header-space-settings
 		.row
 			.col-xs-10.col-xs-offset-1
 				h1.settings-title Settings
 				.settings-fields
-					.form-group(style="margin-bottom:3.5em;")
-						section
-							a.btn.btn-default(href=linkURI("_status_/update")) Check the Sync Status Page
-
 					form#settings-form
-
 						.form-group
-							label Trade Show Name
-							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name
-					
-						.form-actions
-							button(type='submit').btn.btn-default SAVE ALL SETTINGS
-					.settings-warning
-						h3.settings-section-title.transfer-failure.settings-warning-text Please fill out all fields and choose an Industry below.
-						h3.settings-section-title.transfer-success.settings-success-text Settings Saved Successfully!
+							h3.settings-section-title Regional Map
+							.dropdown.custom-dropdown.map-overlay-dropdown.inline-dropdown
+								button(type="button" id="map_overlay_dropdown" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+									.icon-arrow
+										img(src="/images/arrow_down.png")
+									span.custom-dropdown-current(data-map='National Maps') National Maps
+								ul.dropdown-menu.scrolling-dropdown(role="menu" aria-labelledby="dropdownMenu2")
+									li(role="presentation" data-map='National Maps' class="map-overlay-navitem-regional")
+										a(role="menuitem" tabindex="-1") National Maps
+									each map, index in data.regional_maps
+										li(role="presentation" data-map=map.title class="map-overlay-navitem-regional")
+											a(role="menuitem" tabindex="-1")= map.title
+						.form-group
+							h3.settings-section-title Trade Show Name
+							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name					
 
 				.settings-filter-container
 					.col-xs-6.col-lg-4.settings-filter-title-container
@@ -38,15 +41,29 @@ block content
 					.col-xs-6.col-lg-4.settings-filter-item-container.settings-filter-industry(data-settings-filter-slug='default' data-settings-filter-type='industry')
 						article.settings-filter-item
 							span Default
-							
+				.settings-options-divider
+				.settings-save-container
+					button(type='submit').btn.btn-default.settings-save SAVE SETTINGS
 
 	.col-xs-4.col-lg-6.full-height-col.settings-page.settings-page-options
-		span.background-shadow.from-right.hidden-md.hidden-lg
-		.row.header-space-settings
-		.row
-			.col-xs-10.col-xs-offset-1.col-lg-8.col-lg-offset-2.settings-page-options-content
-				h3.settings-section-title Transfer Favorites
-				p.settings-section-content Transfer captured touchscreen favorites to this tablet.
-				button.btn.btn-default#settings-transfer-start(onclick="") START
 
-				h3.settings-section-title.transfer-success.cart-transfer-success Favorites Transferred Successfully!
+		.settings-alert-box-container
+			.settings-alert-box.failure.transfer-failure.settings-warning-text Please enter all fields.
+			.settings-alert-box.transfer-success.settings-success-text Success! Your settings have been saved.
+			.settings-alert-box.transferred.transfer-success.cart-transfer-success Favorites transferred successfully!
+
+		span.background-shadow.from-right
+		.row.header-space-settings.second-column
+		.row
+			.col-xs-10.col-xs-offset-1.col-lg-8.settings-page-options-content
+				h3.settings-section-title Transfer Favorites
+				p.settings-section-content Transfer touchscreen favorites to this tablet.
+				button.btn.btn-default#settings-transfer-start.settings-action-button(onclick="") START
+
+				h3.settings-section-title
+			
+			.col-xs-10.col-xs-offset-1.col-lg-8
+				h3.settings-section-title Sync Status
+				p.settings-section-content Display last sync time for leads and content updates.
+				a.btn.btn-default.settings-action-button(href=linkURI("_status_/update")) VIEW
+

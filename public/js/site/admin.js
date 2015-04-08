@@ -1,60 +1,83 @@
-	$(function () {
-  		$('[data-toggle="tooltip"]').tooltip();
-	});
-
 	$('input[type=file]').on('change', function(e) {
-		console.log(e);
-		console.log(this);
 		file = e.target.files[0];
 		reader = new FileReader();
-
+		console.log(e.target.files);
 		$(reader).on('load', function(event) {
 			$('.img-responsive').attr('src', event.target.result);
 		});
 
   		reader.readAsDataURL(file);
 
+  		$(e.target).siblings('input:text').val(e.target.files[0]['name']);
+  		$(e.target).siblings('input[name$="_newfile"]').val(true);
+
 		
 	});
 
 	$('.preview').on('click', function(e) {
-		var url = '/admin/preview';
-		var data = $(this).parents('form').serializeObject();
-		data.action = 'preview';
-		data.mode = 'showroom';
-		var dataType = 'json';
-		var slug = data.slug;
-		var pathname = '/admin/preview' + data.pathname;
+		previewLink = this;
 
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: data,
-			dataType: dataType
-		}).done(function(response) {
-			console.log('OPEN IT UP!!!');
-			console.log(response);
-			if(response.success) {
-				window.open(pathname, '_blank', 'resizeable=no,titlebar=no,toolbar=no,height=1080,width=1920');
+		$(this).parents('form').find('input[name="action"]').val('preview');
+		
+		previewModeInput = $('<input type="hidden" name="previewMode">').val($(previewLink).data('mode'));
+		$(this).parents('form').append(previewModeInput);
+
+		$(this).parents('form').submit();
+
+	});
+
+	$('.s3button').on('click', function(e) {
+		e.preventDefault();
+		$(this).siblings('input:file').click();
+		console.log('CLICK THE S3');
+	});
+
+	$('.icon-choices li').on('click', function(e) {
+		if(!$(e.currentTarget).hasClass('selected')) {
+			choice = $(e.currentTarget).data('value');
+			$(e.currentTarget).parent().siblings('.icon-selector').val(choice);
+			$(e.currentTarget).siblings().removeClass('selected');
+			$(e.currentTarget).addClass('selected');
+		}
+
+	});
+
+	$('.delete-resource').on('click', function(e) {
+		$(e.target).parents('.resource').find(':input').each(function(index, input) {
+			$(input).val('');
+			$(input).attr('checked', false);
+		});
+		$(e.target).parents('.resource').find('ul.icon-choices li').removeClass('selected');
+		$(e.target).parents('.resource').slideUp(function() {
+			if($('.resources').siblings('.resource:hidden').length > 0) {
+				console.log(11);
+				$('.resources').find('.add-resource').attr('disabled', false);
+			}			
+		});
+	});
+
+	$('.add-resource').on('click', function(e) {
+		console.log($(e.target).parents('.resources').find('.resource:hidden'));
+		$(e.target).parents('.resources').siblings('.resource:hidden').first().slideDown();
+		if($(e.target).parents('.resources').siblings('.resource:hidden').length == 0) {
+			$(e.target).attr('disabled', true);
+		}
+	});
+
+	$(function(){
+		$('.resource').find('input.text-field').each(function(index, input) {
+			if($(input).val().trim() == '') {
+				$(input).parents('.resource').hide();
 			}
 		});
 
-		// $(this).parents('form').submit();
-	});
+		if($('.resources').siblings('.resource:hidden').length == 0) {
+			$('.resources').find('.add-resource').attr('disabled', true);
+		}
 
-	$.fn.serializeObject = function()
-	{
-	   var o = {};
-	   var a = this.serializeArray();
-	   $.each(a, function() {
-	       if (o[this.name]) {
-	           if (!o[this.name].push) {
-	               o[this.name] = [o[this.name]];
-	           }
-	           o[this.name].push(this.value || '');
-	       } else {
-	           o[this.name] = this.value || '';
-	       }
-	   });
-	   return o;
-	};
+		$('.multi-select').each(function(index, select) {
+			$(select).multiSelect();
+			$('.multi-select').siblings('.ms-container').find('.ms-selectable').prepend('<h5>Industries</h5>');
+			$('.multi-select').siblings('.ms-container').find('.ms-selection').prepend('<h5>Selected Industries</h5>');
+		});
+	});

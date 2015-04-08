@@ -28,15 +28,37 @@ exports.state = function () {
 exports.resource = function () {
 
 	return {
-		title: { type: String, label: "Resource Title" },
+		title: { 
+			type: String, 
+			label: "Resource Title",
+			m_cms: { maxLength: 25, showroom: true, companion: true } 
+		},
 		svg_icon: {
 			type: Types.Select,
 			label: "Icon",
-			options: Variables.svg_icons()
+			options: Variables.svg_icons(),
+			m_cms: { showroom: true, companion: true } 
 		},
-		resource_type: { type: Types.Boolean, default: false, label: "Is this resource an external link?", note: "Check this box if this is an external link. Do not check the box if the link below is a PDF for download."},
-		resource_link: { type: String, initial:false, label: "Resource Linked File", note: "Enter the full url for the item to download. (Example: 'http:/www.example.com/my_file.pdf')" },
-		description: { type: Types.Textarea, height: 100, label: "Resource Description" }
+		resource_type: { 
+			type: Types.Boolean, 
+			default: false, 
+			label: "Is this resource an external link?", 
+			note: "Check this box if this is an external link. Do not check the box if the link below is a PDF for download.",
+			m_cms: { showroom: false, companion: false } 
+		},
+		resource_link: { 
+			type: String, 
+			initial:false, 
+			label: "Resource Linked File", 
+			note: "Enter the full url for the item to download. (Example: 'http:/www.example.com/my_file.pdf')",
+			m_cms: { maxLength: 2000, showroom: true, companion: true } 
+ 		},
+		description: { 
+			type: Types.Textarea, 
+			height: 100, 
+			label: "Resource Description",
+			m_cms: { maxLength: 25, showroom: true, companion: true } 
+		}
 	}
 
 };

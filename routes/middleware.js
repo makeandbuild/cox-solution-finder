@@ -11,15 +11,35 @@
 var keystone = require('keystone');
 		_ = require('underscore'),
 		async = require('async'),
-		url = require('url');
+		url = require('url'),
+		Connect = keystone.list('Connect'),
+		Homepage = keystone.list('Homepage'),
+		Industry = keystone.list('Industry'),
+		Map = keystone.list('Map'),
+		Partner = keystone.list('Partner'),
+		Product = keystone.list('Product'),
+		Service = keystone.list('Service'),
+		security = require('../components/security.js'),
+		util = require('util');
 
-var lists = {	'services': 'Service',
-				'industries': 'Industry',
-				'partners': 'Partner',
-				'products': 'Product',
-				'connect': 'Connect',
-				'homepage': 'Homepage',
-				'map': 'Map'
+//index model by name
+var Models = {	'Connect': Connect,
+				'Homepage': Homepage,
+				'Industry': Industry,
+				'Map': Map,
+				'Partner': Partner,
+				'Product': Product,
+				'Service': Service
+			};
+
+//index model by slug
+var slugs = {	'connect': Connect,
+				'homepage': Homepage,
+				'industries': Industry,
+				'partners': Partner,
+				'products': Product,
+				'map': Map,
+				'services': Service
 			};
 
 
@@ -60,6 +80,23 @@ exports.setState = function(req,res,next){
 			return val;
 		});
 	}
+
+	locals.md5hash = security.md5hash;
+
+	locals.isObjInArray = function(needle, haystack) {
+
+		if(util.isArray(haystack) && typeof needle == "object") {
+			for(i=0; i < haystack.length; i++) {
+				if(haystack[i]['id'] === needle.id) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
+
 
 	next();
 }
@@ -204,10 +241,11 @@ exports.unlockUserDocs = function(req, res, next) {
 
 			pathparts = pathname.split('/');
 
-			//If no pathparts[1] we're coming from a list page, adming page, or either homepage or connects
+			//If no pathparts[1] we're coming from a list page, admin page, or either homepage or connects
 			var q;
 			if(pathparts[1] != undefined) {
-				q = keystone.list(lists[pathparts[0]]).model.findOne({
+				Model = slugs[pathparts[0]];
+				q = Model.model.findOne({
 				    slug: pathparts[1],
 				    editor: req.user.id
 			  	});
@@ -216,7 +254,8 @@ exports.unlockUserDocs = function(req, res, next) {
 				//Being extra cautious that nothing slips through the logic above
 				if(pathparts[0] == 'homepage' || pathparts[0] == 'connect') {
 					console.log('homepage or connect');
-					q = keystone.list(lists[pathparts[0]]).model.findOne({
+					Model = slugs[pathparts[0]];
+					q = Model.model.findOne({
 		    			slug: pathparts[0],
 				    	editor: req.user.id
 			  		});
@@ -249,8 +288,10 @@ exports.unlockUserDocs = function(req, res, next) {
 
 exports.timerUnlockUserDocs = function(req, res, next) {
 
-	for(x in lists) {
-		q = keystone.list(lists[x]).model.find()
+	for(x in Models) {
+		var Model = Models[x];
+
+		q = Model.model.find()
 			.where('state', 'published')
 			.where('editor').ne(undefined)
 			.where('checkoutTime').lt(Date.now() - 30*60*1000);
@@ -271,3 +312,183 @@ exports.timerUnlockUserDocs = function(req, res, next) {
 	next();
 
 };
+
+exports.saveData = function(req, res, next) {
+
+	if(req.body.action == 'preview') {
+		var newTitle = false;
+		var Model = Models[req.body.key];
+		slug = req.body.slug + '-preview';
+
+		console.log(req.body);
+		// DO THIS LATER
+		// if key == Service && req.body.products[IDS IN ORDER]
+		// 	RUN SUBROUTINE
+
+		// 	find all Prodcuts with this service.id
+		// 	LOOP through all Products give ID the index from .body.products
+
+
+		var autokeyPath = Model.options.autokey.from[0]['path'];
+		req.body[autokeyPath] = req.body[autokeyPath] + ' Preview';
+
+		var q = Model.model.findOne({
+			slug: slug
+		});
+
+		q.exec(function(err, result) {
+			var preview;
+
+			if(result) {
+				preview = result;
+			} else {
+				settings = {};
+				settings[autokeyPath] = req.body[autokeyPath];
+				preview = new Model.model(settings);
+				newTitle = true;
+			}
+
+			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
+				console.log("A NEW TITLE APPROACHES");
+				newTitle = true;
+			}
+
+			updater = preview.getUpdateHandler(req);
+
+			for(key in req.body) {
+
+				if(/_s3obj$/.test(key)) {
+
+					s3obj = JSON.parse(req.body[key]);
+
+					key = key.replace('_s3obj', '');
+
+					if(!req.body[key + '_newfile']) {
+
+						if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
+							for(prop in s3obj) {
+								preview[key][prop] = s3obj[prop];
+							}
+						} else {
+							res.status(418).end('I am a tea pot.');
+							return next();
+						}
+					}
+
+				}
+
+			}
+			preview.save();
+
+			updater.process(req.body, {
+				flashErros: false,
+				fields: Model.schema.methods.updateableFields(),
+				errorMessage: 'There was a problem with generating the preview'
+			}, function(err) {
+				if(err) {
+					res.locals.savedPreview = false;
+					req.flash('error', err);
+				} else {
+					res.locals.previewMode = req.body.previewMode;
+					res.locals.savedPreview = true;
+				}
+				if(newTitle) {
+					pathname = req.url;
+					pathname = pathname.replace('/admin/', '/admin/preview/');
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					pathname = pathname + '/' + preview.slug;
+					res.locals.previewPath = pathname;
+					res.locals.previewSlug = preview.slug;
+					console.log(pathname);
+					console.log(preview.slug);
+					next(err);
+				} else {
+					next(err);
+				}
+				
+			});
+		});
+	} else if(req.body.action == 'publish') {
+		var Model = Models[req.body.key];
+		
+
+		var q = Model.model.findOne({
+			slug: req.body.slug
+		});
+
+		var newTitle = false;
+		var autokeyPath = Model.options.autokey.from[0]['path'];
+
+		q.exec(function(err, result) {
+			current = result;
+
+			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
+				console.log("A NEW TITLE APPROACHES");
+				newTitle = true;
+			}
+
+			updater = current.getUpdateHandler(req);
+
+				for(key in req.body) {
+
+					if(/_s3obj$/.test(key)) {
+
+						s3obj = JSON.parse(req.body[key]);
+
+						key = key.replace('_s3obj', '');
+
+						if(!req.body[key + '_newfile']) {
+
+							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
+								for(prop in s3obj) {
+									current[key][prop] = s3obj[prop];
+								}
+							} else {
+								res.status(418).end('I am a tea pot.');
+								return next();
+							}
+
+						}
+
+					}
+
+				}
+				current.save();
+
+			updater.process(req.body, {
+				flashErrors: true,
+				fields: Model.schema.methods.updateableFields(),
+				errorMessage: 'There was a problem publishing your changes.'
+			}, function(err) {
+
+				if(err) {
+					req.flash('error', err);
+				} else {
+					req.flash('success', 'Your changes have been published.');
+				}
+
+				if(newTitle) {
+					pathname = req.url;
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					pathname = pathname + '/' + current.slug;
+					console.log(pathname);
+					console.log(current.slug);
+					res.redirect(pathname);
+					// next(err);
+				} else {
+					next(err);
+				}
+			});
+
+		});
+	} else {
+		next();
+	}
+}
+
+
+
+
+
+
+

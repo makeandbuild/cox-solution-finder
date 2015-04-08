@@ -6,6 +6,6 @@ mixin textarea(item)
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
 
-		textarea(name=item.field.path autocomplete="off" style="height:auto").form-control=data.current[item.field.path]
+		textarea(name=item.field.path autocomplete="off" rows="5" style="height:auto").form-control.textarea=data.current.get(item.field.path)
 		p.help-block=item.field.options.note
 			+printValidation()

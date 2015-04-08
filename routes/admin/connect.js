@@ -1,86 +1,64 @@
 var keystone = require('keystone'),
-	Connect = keystone.list('Connect');
+	Connect = keystone.list('Connect')
 
 exports = module.exports = function(req, res) {
-	
 	var view = new keystone.View(req, res),
-		preview = false,
 		locals = res.locals;
 	
 	// Set locals
 	locals.section = 'connect';
 	locals.data = {};
 	locals.data.model = Connect;
-	
-	// console.log(locals.data.model);
-	
-
 
 	view.on('init', function(next) {
-
-	  var q = keystone.list('Connect').model.findOne({
-	    slug: 'connect'
-	  });
-	  
-	  q.exec(function(err, result) {
-	  	var locked = false;
-
-	  	if(result.editor && result.editor != req.user.id) {
-	  		locked = true;
-	  		req.flash('info', 'LOCKED!');
-	  		res.redirect('/admin');
-	  	} else {
-		    locals.data.current = result;
-		    locals.data.current.editor = req.user;
-		    locals.data.current.checkoutTime = Date.now();
-		    locals.data.current.save();
-		}
-		if(err) {
-			throw err;
-		}
-	  })
-	  .then(function() {
-  		  	var userQuery = keystone.list('User').model.findOne({
-		  		_id : locals.data.current.updatedBy
-	  		});
-		  	userQuery.exec(function(err, result) {
-		  		console.log(result.name.full);
-	  			locals.data.current.lastEditor = result.name.full;
-	  			next(err);
-			});
-		});
-
-	});
-
-	// On POST requests, add the Enquiry item to the database
-	view.on('post', { action: 'admin-connect' }, function(next) {
-		
 		var current;
-		
-		var q = keystone.list('Connect').model.findOne({
+		var preview;
+
+		var q = Connect.model.findOne({
 			slug: 'connect'
-		});
-		console.log(req.body);
+		})
+		.populate('editor')
+		.populate('updatedBy');
+
 		q.exec(function(err, result) {
-			current = result;
-			updater = current.getUpdateHandler(req);
+	  		var locked = false;
 
-			updater.process(req.body, {
-				flashErrors: true,
-				fields: Connect.updateableFields,
-				errorMessage: 'There was a problem submitting your enquiry:'
-			}, function(err) {
-				if(err) {
-					req.flash('error', 'There was an issue!');
-				} else {
-					req.flash('success', 'Your changes have been saved.');
-				}
+		  	if(result.editor && result.editor.id != req.user.id) {
+		  		locked = true;
+		  		req.flash('info', 'LOCKED!');
+		  		res.redirect('/admin');
+		  	} else {
+			    current = result;
+			    current.editor = req.user;
+			    current.checkoutTime = Date.now();
+			    current.save();
+			}
+		}).then(function(current){
+			if(locals.savedPreview) {
+				var previewQuery = Connect.model.findOne({
+					slug: 'connect-preview'
+				})
+				.populate('editor');
+
+				previewQuery.exec(function(err, result) {
+					preview = result;
+					if(preview) {
+						fields = Connect.schema.methods.updateableFields().split(', ');
+						for(x in fields) {
+							path = fields[x];
+							if(path != 'name') {
+								current[path] = preview[path];
+							}
+						}
+						locals.data.current = current;
+						next(err);
+					}
+				});
+			} else {
 				locals.data.current = current;
-				next(err);
-			});
-
+				next();
+			}
 		});
-
 	});
 
 	view.render('admin/connect');

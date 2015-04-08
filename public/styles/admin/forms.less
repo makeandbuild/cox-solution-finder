@@ -1,28 +1,120 @@
 label {
 	.coxicon {
-		padding-left:5px;
+		padding:0 5px;
 		font-size:25px;
 		vertical-align: middle;
+
+		&:nth-last-child(2) {
+			padding-right:0;
+		}
+		&:last-child {
+			padding-left:0;
+		}
+		&:only-child {
+			padding:0 5px;
+		}
 	}
 }
 
-.admin-buttons {
-	border-top:1px solid @gray-lighter;
-	border-bottom:1px solid @gray-lighter;
-	padding:15px 0 20px 10px;
-}
+.right-rail {
+	padding-top:30px;
 
+	&.affix {
+		top:20px;
+		min-width:360px;
+	}
+	.admin-buttons {
+		border-top:1px solid @gray-lighter;
+		border-bottom:1px solid @gray-lighter;
+		padding:15px 0 20px 10px;
+	}
+}
 .icon-key {
 	ul {
-		padding:15px 0 15px 10px;
+		padding:15px;
 		margin-left:0;
 		list-style:none;
 		list-style-position: inside;
 
-		li.coxicon:before {
-			padding-right:5px;
-			font-size:25px;
-			vertical-align: middle;
+		li {
+			font-size:14px;
+			&.coxicon:before {
+				font-size:25px;
+				vertical-align: middle;
+			}
+
+			.preview {
+				float:right;
+			}
+		}
+	}
+}
+
+input[type="file"] {
+	display:block;
+	position: absolute;
+	left: -9999px;
+}
+
+.s3text {
+	margin-bottom:10px;
+	width:100%;
+}
+
+.icon-selector {
+	display:none;
+}
+
+.icon-choices {
+	list-style:none;
+	margin:0;
+	padding:0;
+	display:block;
+
+	li {
+		position:relative;
+		text-align:center;
+		display:inline-block;
+		padding:5px;
+		font-size:12px;
+		width: 16.6%;
+		height: 90px;
+		margin: 0;
+		overflow: hidden;
+		word-wrap: break-word;
+
+		&:hover {
+			background:@xxlightGray;
+		}
+
+		&.selected {
+			background:@xlightGray;
+		}
+
+		span {
+			display:block;
+		}
+
+		.coxicon {
+			font-size:48px;
+			color:@darkBlue
+		}
+	}
+}
+.resource {
+	.panel-heading {
+		position:relative;
+		padding:15px 10px 15px 10px;
+
+		h4 {
+			padding:0;
+			margin:0;
+			float:left;
+			padding-top:5px;
+		}
+
+		button {
+			float:right;
 		}
 	}
 }

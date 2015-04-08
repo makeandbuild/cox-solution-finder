@@ -3,17 +3,26 @@ mixin s3file(item)
 	+validations(item.field.options.m_cms.maxLength)
 
 	.form-group
-		-url=data.current[item.field.path]['url']
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
 		
 		if(data.current[item.field.path]['exists'])
 			.row
 				.col-lg-4.col-md-4.col-sm-6
-					img(src=url).img-responsive.img-thumbnail
+					- var imgObj = data.current.get(item.field.path)
+					img(src=imgObj.url).img-responsive.img-thumbnail
 		.row
 			.col-lg-6.col-md-6
 				//- input(type="hidden" name=item.field.path value=data.current[item.field.path]['url']).form-control
-				input(type="file" name=item.field.path + '_upload' value=data.current[item.field.path]['url']).form-control
+
+				input(type="file" name=item.field.path+'_upload' value=imgObj.url).form-control
+				input(type="hidden" name=item.field.path+'_s3obj_hash' value=md5hash(JSON.stringify(imgObj)))
+				input(type="hidden" name=item.field.path+'_s3obj' value=JSON.stringify(imgObj))
+				input(type="hidden" name=item.field.path+'_newfile' value=false)
+				input(type="text" value=imgObj.url readonly).form-control.s3text
+				if(data.current[item.field.path]['exists'])
+					button(type="button").btn.btn-default.s3button Change Image
+				else
+					button(type="button").btn.btn-default.s3button Choose Image
 		p.help-block=item.field.options.note
 			+printValidation()

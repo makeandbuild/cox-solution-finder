@@ -1,0 +1,5 @@
+mixin boolean(item)
+	.checkbox
+		label(for=item.field.path)
+			input(type="checkbox" id=item.field.path name=item.field.path value=item.field.options).boolean
+			=item.field.label	

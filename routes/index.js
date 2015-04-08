@@ -80,11 +80,15 @@ exports = module.exports = function(app) {
 	app.all('/admin', routes.admin.index);
 	app.all('/admin/me', routes.admin.me);
 
-	app.all('/admin/connect', routes.admin.connect);
+	app.all('/admin/connect', middleware.saveData, routes.admin.connect);
+
+	app.all('/admin/services', routes.admin.services);
+	app.all('/admin/services/:service', middleware.saveData, routes.admin.service);
 
 
-	app.post('/admin/preview', keystone.middleware.api, routes.admin.preview.index);
+	// app.post('/admin/preview', keystone.middleware.api, routes.admin.preview.index);
 	app.all('/admin/preview/connect', routes.admin.preview.connect);
+	app.all('/admin/preview/services/:service', routes.admin.preview.service);
 
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

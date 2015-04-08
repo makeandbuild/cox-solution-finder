@@ -1,14 +1,22 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry');
 
-var showroom = true;
-
-
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
 		locals = res.locals;
+	// var safe = true;
 	
+
+	// if(req.query) {
+	// 	for(x in req.query) {
+	// 		if(/^[\w-]+$/.test(req.query[x])) {
+	// 			safe = false;
+	// 		}
+	// 	}
+	// }
+
+
 	// Set locals
 	locals.section = 'connect';
 	locals.company_population = Enquiry.fields.company_population.ops;
@@ -17,9 +25,8 @@ exports = module.exports = function(req, res) {
 	locals.enquirySubmitted = false;
 	locals.data = {};
 	locals.title = 'Cox Solution Finder -- PREVIEW MODE';
-	// console.log(locals.data.model);
+	locals.preview = true;
 	
-	console.log(req.body);
 
 	view.on('init', function(next) {
 
@@ -44,13 +51,7 @@ exports = module.exports = function(req, res) {
 
 	});
 
-	view.on('init', function(next) {
-		showroom = false;
-		next();
-	});
-
-
-	if(showroom) {
+	if(req.query.mode == 'showroom') {
 		view.render('showroom/connect');
 	} else {
 		view.render('connect');

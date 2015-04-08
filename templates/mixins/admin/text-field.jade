@@ -1,12 +1,9 @@
-include site-icons
-
 mixin text-field(item)
 
 	+validations(item.field.options.m_cms.maxLength)
-
 	.form-group
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-		input(type="text" value=data.current[item.field.path] name=item.field.path).form-control
+		input(type="text" value=data.current.get(item.field.path) name=item.field.path).form-control.text-field
 		p.help-block=item.field.options.note
 			+printValidation()

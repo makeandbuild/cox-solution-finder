@@ -20,6 +20,13 @@ exports = module.exports = {
     var decipher = crypto.createDecipher(this.algorithm, this.salt);
     var decrypted = decipher.update(text, 'hex', 'utf8') + decipher.final('utf8');
     return decrypted;
+  },
+
+  md5hash: function(str) {
+    var hash = crypto.createHash('md5');
+    hash.update(str, 'utf8');
+    
+    return hash.digest('hex');
   }
 
 };

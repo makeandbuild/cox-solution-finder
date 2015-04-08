@@ -55,7 +55,7 @@ Connect.add({
 	}
 });
 
-Connect.schema.methods.updatableFields = function() {
+Connect.schema.methods.updateableFields = function() {
     return 'name, heading, content, connect_background';
 }
 

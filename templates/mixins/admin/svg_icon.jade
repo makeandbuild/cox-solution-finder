@@ -1,0 +1,30 @@
+mixin svg_icon(item)
+
+	- var cssPrefix
+	- var valuePrefix
+	//- - var icons = item.field.values.split(',')
+	if(data.model.key == 'Service')
+		- cssPrefix = 'service-icon'
+		- valuePrefix = 'service_'
+	if(item.field.path.indexOf("resource_") == 0)
+		- cssPrefix = 'resources-icon'
+		- valuePrefix = 'resources_'
+
+	.form-group.svg_icon
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+		select(name=item.field.path).icon-selector
+			each label, value in item.field.labels
+				if(value == data.current.get(item.field.path))
+					option(value=value selected="selected")=label
+				else
+					option(value=value)=label
+		ul.icon-choices
+			each label, value in item.field.labels
+				if(value.indexOf(valuePrefix) >= 0)
+					li(class=data.current.get(item.field.path) == value ? "selected" : "" data-value=value)
+						span.coxicon(class=cssPrefix + ' coxicon_' + value)
+						span=label
+
+
+

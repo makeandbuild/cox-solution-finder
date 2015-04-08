@@ -120,7 +120,7 @@ html
 			.container-fluid.the-looking-glass
 				.the-looking-glass-overlay
 				block content
-
+		p=preview + 'BLAH!'
 		//- Add your modals here
 		block modals
 			+videoModal
@@ -147,3 +147,6 @@ html
 
 		if gohtml
 			script(src=assetURI('/js/site/analytics.js'))
+
+		if preview
+			script(src=assetURI('/js/site/preview.js'))

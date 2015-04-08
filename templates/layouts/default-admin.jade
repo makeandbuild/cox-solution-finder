@@ -12,13 +12,14 @@ html
 
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/admin.min.css", rel="stylesheet")
+		link(href="/styles/multi-select/multi-select.css", rel="stylesheet")
 
 		block css
 		block head
 	body
 		header
 			div(role="navigation").navbar.navbar-default
-				.container-fluid
+				.container
 					.navbar-header
 						button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
 							span.sr-only Toggle navigation
@@ -68,6 +69,7 @@ html
 		script(src='/js/lib/bootstrap/affix.js')
 		script(src='/js/lib/bootstrap/modal.js')
 		script(src='/js/lib/jquery-validation/jquery.validate.min.js')
+		script(src='/js/lib/multi-select/jquery.multi-select.js')
 		//- site
 
 		script(src='/js/site/admin.js')

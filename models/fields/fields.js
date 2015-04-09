@@ -8,7 +8,8 @@ exports.svg_icon = function () {
 	return {
 		type: Types.Select,
 		label: "Icon",
-		options: Variables.svg_icons()
+		options: Variables.svg_icons(),
+		m_cms: { showroom: true, companion: true } 
 	}
 
 };
@@ -72,7 +73,8 @@ exports.media_buffet = function (section, types) {
 			wysiwyg: true,
 			height:10,
 			label: "Media Section Title",
-			note: "PLACEHOLDER"
+			note: "PLACEHOLDER",
+			m_cms: { maxLength: 25, showroom: true, companion: true } 
 		} 
 	};
 
@@ -87,14 +89,14 @@ exports.media_buffet = function (section, types) {
 				options: selected_types,
 				label: "Media Section Type",
 				note: "Choose a type for this section.",
-				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+				m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			thumbnail: {
 				type: Types.S3File,
 				label: 'Media Section Thumbnail',
 				note: "Upload a 2X Image to be the thumbnail image for the tile.",
 				s3path: 'uploads/images',
-				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+				m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			video: {
 				video: {
@@ -103,7 +105,7 @@ exports.media_buffet = function (section, types) {
 					note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video.',
 					allowedTypes: ['video/mp4'],
 					s3path: 'uploads/videos',
-					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				},
 				video_webm: {
 					type: Types.S3File,
@@ -111,14 +113,14 @@ exports.media_buffet = function (section, types) {
 					note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
 					allowedTypes: ['video/webm'],
 					s3path: 'uploads/videos',
-					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				},
 				poster: {
 					type: Types.S3File,
 					label: 'Media Video: Poster for Video Preview',
 					note: "Upload a 2X Image to be preview image for the video.",
 					s3path: 'uploads/images',
-					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				}
 			},
 			image: {
@@ -126,7 +128,7 @@ exports.media_buffet = function (section, types) {
 				label: 'Media Image: File',
 				note: "Upload a 2X Image to be preview image for the video.",
 				s3path: 'uploads/images',
-				m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+				m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 			},
 			story: {
 				content: { type: Types.Markdown,
@@ -134,14 +136,14 @@ exports.media_buffet = function (section, types) {
 					height:300,
 					label: "Media Story: Content",
 					note: "No set limit for characters. Overflowed content will not be shown. H2 and H3 elements will be dark blue.",
-					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				},
 				featured_image: {
 					type: Types.S3File,
 					label: 'Media Story: Featured Image',
 					note: "Upload a 2X Image to be the Image located in the Article.",
 					s3path: 'uploads/images',
-					m_cms: { group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
 				}
 			}
 		}
@@ -156,7 +158,8 @@ exports.media_buffet = function (section, types) {
 				wysiwyg: true,
 				height:200,
 				label: "Media Values: Content",
-				note: "Limit to around 150 characters for optimal size."
+				note: "Limit to around 150 characters for optimal size.",
+				m_cms: { maxLength: 25, showroom: true, companion: true } 
 			}
 		},
 		facts: {
@@ -165,7 +168,8 @@ exports.media_buffet = function (section, types) {
 				type: Types.S3File,
 				label: 'Media Facts: Factoid Image',
 				note: "Upload a 2X Image.",
-				s3path: 'uploads/images'
+				s3path: 'uploads/images',
+				m_cms: { maxLength: 25, showroom: true, companion: true } 
 			}
 		},
 		media_section_two: media_item("None, Video, Image, Story", "Media Section Bottom Right", "media_section_two")

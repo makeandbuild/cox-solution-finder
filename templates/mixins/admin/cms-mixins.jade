@@ -28,6 +28,7 @@ mixin cms-field(item, complexFields)
 		+draw-field(item)
 
 mixin draw-field(item)
+
 		if(item.type == 'field' && item.field.type == 'text' && !item.field.noedit && item.field.options.m_cms)
 			+text-field(item)
 
@@ -35,7 +36,7 @@ mixin draw-field(item)
 			+textarea(item)
 
 		else if(item.type == 'field' && item.field.type == 's3file' && !item.field.noedit && item.field.options.m_cms)
-			+s3file(item)
+			//- +s3file(item)
 
 		else if(item.type == 'field' && item.field.type == 'select' && !item.field.noedit && item.field.options.m_cms && item.field.path.indexOf('svg_icon') >= 0)
 			+svg_icon(item)
@@ -45,7 +46,7 @@ mixin draw-field(item)
 			+industries(item)
 
 
-		//- else
-		//- 	li=key + " : " + item.field.path
-		//- 	li=key + " : " + item.field.type
-		//- 	li=key + " : " + item.field
+		else
+			p="## - " + item.field.path
+			p="## - " + item.field.type
+			p|="## - " +  !{JSON.stringify(item.field.options.m_cms)}

@@ -11,7 +11,6 @@ exports = module.exports = {
   encrypt: function(text) {
     var cipher = crypto.createCipher(this.algorithm, this.salt);
     var crypted = cipher.update(text, 'utf8', 'hex') + cipher.final('hex')
-    console.log('CRYPTED ' + crypted);
     return encodeURIComponent(crypted);
   },
 

@@ -25,7 +25,7 @@ exports = module.exports = function(req, res) {
 
 		q.exec(function(err, result) {
 			locals.data.service = result;
-			console.log(result);
+			// console.log(result);
 			next(err);
 		});
 
@@ -35,7 +35,7 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 
 		var q = keystone.list('Service').model.findOne({
-			slug: locals.filters.service
+			slug: req.query.originalSlug
 		});
 		var original;
 		q.exec(function(err, result) {

@@ -319,8 +319,10 @@ exports.saveData = function(req, res, next) {
 		var newTitle = false;
 		var Model = Models[req.body.key];
 		slug = req.body.slug + '-preview';
-
-		console.log(req.body);
+		res.locals.savedPreivew = false;
+		res.locals.newTitle = false;
+		res.locals.previewPath = '';
+		res.locals.previewSlug = '';
 		// DO THIS LATER
 		// if key == Service && req.body.products[IDS IN ORDER]
 		// 	RUN SUBROUTINE
@@ -403,7 +405,12 @@ exports.saveData = function(req, res, next) {
 					console.log(preview.slug);
 					next(err);
 				} else {
+					pathname = req.url;
+					pathname = pathname.replace('/admin/', '/admin/preview/');
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					res.locals.previewPath = pathname + '/' + preview.slug;
 					next(err);
+
 				}
 				
 			});
@@ -478,6 +485,7 @@ exports.saveData = function(req, res, next) {
 				} else {
 					next(err);
 				}
+
 			});
 
 		});

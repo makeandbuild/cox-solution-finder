@@ -13,6 +13,6 @@ $(function () {
 	if(mode == 'showroom-tv' || mode == 'showroom-tablet') {
 		modequery = '?mode=showroom';
 	}
-
-	window.open(pathname + modequery, '_blank', resolutions[mode] + 'resizeable=no,titlebar=no,toolbar=no');
+	slugQuery = '&originalSlug=' + $('input[name="slug"]').val();
+	window.open(pathname + modequery + slugQuery, '_blank', resolutions[mode] + 'resizeable=no,titlebar=no,toolbar=no');
 });

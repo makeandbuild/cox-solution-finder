@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
-	Service = keystone.list('Service')
-	Industries = keystone.list('Industry');
+	Service = keystone.list('Service'),
+	util = require('util');
 
 exports = module.exports = function(req, res) {
 	
@@ -33,7 +33,6 @@ exports = module.exports = function(req, res) {
 		q.exec(function(err, result) {
 			if(result) {
 			  	var locked = false;
-			  	
 			  	if(result.editor && result.editor.id != req.user.id) {
 			  		locked = true;
 			  		req.flash('info', 'LOCKED!');
@@ -45,8 +44,6 @@ exports = module.exports = function(req, res) {
 				    current.save();
 				}
 			}
-
-
 		}).then(function(err) {
 			if(locals.savedPreview) {
 				if(locals.previewSlug) {
@@ -68,10 +65,11 @@ exports = module.exports = function(req, res) {
 							path = fields[x];
 							if(path == 'title') {
 								current[path] = preview[path].replace(' Preview', '');
-							} else if(path != 'editor' || path != 'industries') {
+							} else if(path != 'editor' || path != 'industries' || path  != 'slug') {
 								current[path] = preview[path];
 							}
 						}
+						// locals.data.products = current.getProducts();
 						locals.data.current = current;
 						next(err);
 					}
@@ -86,7 +84,11 @@ exports = module.exports = function(req, res) {
 	// // Load Products
 	// view.on('init', function(next) {
 
-	// 	var q = keystone.list('Product').model.find().where('state', 'published').where('services', locals.data.current.id).populate('services').sort('order');
+	// 	var q = keystone.list('Product').model.find()
+	// 			.where('state', 'published')
+	// 			.where('services', locals.data.current.id)
+	// 			.populate('services')
+	// 			.sort('order');
 
 	// 	q.exec(function(err, results) {
 	// 		locals.data.products = results;

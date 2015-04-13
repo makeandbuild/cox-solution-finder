@@ -7,26 +7,32 @@ include s3file
 include svg_icon
 include boolean
 include resource
-include industries
+include media_buffet
+include relationship
+include markdown
+include map
 
 mixin cms-field(item, complexFields)
-	if(item.type == 'heading')
+	- if(item.type == 'heading')
 		+heading(item)
-	else if (item.type == 'field' && (item.field.path.indexOf('resource_one') == 0 || item.field.path.indexOf('resource_two') == 0 || item.field.path.indexOf('resource_three') == 0 || item.field.path.indexOf('resource_four') == 0))
-			if(complexFields.length == 0)
-				- complexFields.push(item)
-			else if(complexFields[0]['field']['path'].split('.')[0] == item.field.path.split('.')[0])
-				- complexFields.push(item)
-			else
-				+resource(complexFields, resourceHeaderDisplayed)
-				- complexFields.push(item)
+	- else if (item.type == 'field' && _.contains(['resource_one', 'resource_two', 'resource_three', 'resource_four', 'media_buffet', 'stage', 'act', 'map', 'hero'], item.field.path.split('.')[0]))
+		- if(complexFields.length == 0)
+			- complexFields.push(item)
+		- else if(complexFields[0]['field']['path'].split('.')[0] == item.field.path.split('.')[0])
+			- complexFields.push(item)
+		- else if (complexFields[0]['field']['path'].split('.')[0] != item.field.path.split('.')[0])
+			+draw-complexFields(complexFields)
+			+cms-field(item, complexFields)
+	- else
+		- if(complexFields.length)
+			+draw-complexFields(complexFields)
+			+draw-field(item)
+		- else
+			+draw-field(item)
 
-	else if(item.type == 'field' && complexFields.length && complexFields[0]['field']['path'].split('.')[0] != item.field.path.split('.')[0])
-		+resource(complexFields)
 
-	else
-		+draw-field(item)
 
+	
 mixin draw-field(item)
 
 		if(item.type == 'field' && item.field.type == 'text' && !item.field.noedit && item.field.options.m_cms)
@@ -36,17 +42,30 @@ mixin draw-field(item)
 			+textarea(item)
 
 		else if(item.type == 'field' && item.field.type == 's3file' && !item.field.noedit && item.field.options.m_cms)
-			//- +s3file(item)
-
+			+s3file(item)
 		else if(item.type == 'field' && item.field.type == 'select' && !item.field.noedit && item.field.options.m_cms && item.field.path.indexOf('svg_icon') >= 0)
 			+svg_icon(item)
 		else if(item.type == 'field' && item.field.type == 'boolean' && !item.field.noedit && item.field.options.m_cms)
 			+boolean(item)
-		else if(item.type == 'field' && item.field.type == 'relationship' && !item.field.noedit && item.field.options.m_cms && item.field.path == 'industries')
-			+industries(item)
+		else if(item.type == 'field' && item.field.type == 'relationship' && !item.field.noedit && item.field.options.m_cms)
+			+relationship(item)
+		else if(item.type == 'field' && item.field.type == 'select' && !item.field.noedit && item.field.options.m_cms)
+			+select(item)
+		else if(item.type == 'field' && item.field.type == 'markdown' && !item.field.noedit && item.field.options.m_cms)
+			+markdown(item)
 
+		//- else if(item.type == 'field')
+		//- 	p="## - " + item.field.path
+		//- 	p="## - " + item.field.type
 
-		else
-			p="## - " + item.field.path
-			p="## - " + item.field.type
-			p|="## - " +  !{JSON.stringify(item.field.options.m_cms)}
+mixin draw-complexFields(compfields)
+	if (compfields[0]['field']['path'].split('.')[0] == 'media_buffet')
+		+media_buffet(compfields, headerDisplayed)
+	else if(compfields[0]['field']['path'].split('.')[0] == 'media_buffet')
+		+resource(compfields, resourceHeaderDisplayed)
+	else if(compfields[0]['field']['path'].split('.')[0] == 'map')
+		+map(compfields)
+	else
+		+resource(compfields, resourceHeaderDisplayed)
+		p woo!
+		

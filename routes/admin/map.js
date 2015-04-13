@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
-	Industry = keystone.list('Industry'),
-	Service = keystone.list('Service'),
+	Map = keystone.list('Map'),
+	Product = keystone.list('Product'),
 	util = require('util');
 
 exports = module.exports = function(req, res) {
@@ -10,36 +10,36 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'industries';
+	locals.section = 'maps';
 	locals.filters = {
-		industry: req.params.industry
+		map: req.params.map
 	};
 	locals.data = {};
-	locals.data.model = Industry;
+	locals.data.model = Map;
 	locals.data.relationships = {};
 
-	// Populate relationship fields
+	//
 	view.on('init', function(next) {
-		var q = Service.model.find({
+		var q = Product.model.find({
 			state: 'published'
 		});
 
 		q.exec(function(err, results) {
-			locals.data.relationships.Service = results;
+			locals.data.relationships.Product = results;
 			next(err);
 		})
 	});
 
-	// Load the current Industry
+	// Load the current Map
 	view.on('init', function(next) {
 		var current;
 		var preview;
 
-		var q = Industry.model.findOne({
+		var q = Map.model.findOne({
 			state: 'published',
-			slug: locals.filters.industry
+			slug: locals.filters.map
 		})
-		.populate('custom_ordered_services')
+		.populate('products')
 		.populate('editor')
 		.populate('updatedBy');
 
@@ -69,7 +69,7 @@ exports = module.exports = function(req, res) {
 					slug = locals.filters.industry + '-preview';	
 				}
 				
-				var previewQuery = Industry.model.findOne({
+				var previewQuery = Partner.model.findOne({
 					slug: slug
 				})
 
@@ -77,7 +77,7 @@ exports = module.exports = function(req, res) {
 					preview = result;
 					// console.log(preview.media_buffet)
 					if(preview) {
-						fields = Industry.schema.methods.updateableFields().split(', ');
+						fields = Partner.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
 							if(path == 'title') {
@@ -99,5 +99,5 @@ exports = module.exports = function(req, res) {
 	});
 
 	// Render the view
-	view.render('admin/industry');
+	view.render('admin/map');
 };

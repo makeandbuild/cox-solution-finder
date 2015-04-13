@@ -1,0 +1,43 @@
+extends ../../layouts/default-admin
+
+block content
+	.container
+		h1 Partners
+		.row
+			.col-lg-12.col-md-12
+				table.table.table-striped.table-hover.table-responsive
+					thead
+						tr
+							each field in data.defaultColumns
+								if(field.path != 'state')
+									td=field.label
+					tbody
+						each partner in data.partnersList 
+							tr(id=partner.slug)
+								each field in data.defaultColumns
+									if(field.path != 'state')
+										if(field.path == 'title')
+											if(partner.editor == undefined || partner.editor.id == data.user)
+												td
+													a(href="/admin/partners/"+partner.slug)=partner[field.path]
+											else
+												td
+													span.glyphicon.glyphicon-lock
+													span=partner[field.path]
+
+										else if(field.path == 'industries')
+											td
+												each industry, index in partner[field.path]
+													if index != partner[field.path].length - 1
+														=industry.title + ', '
+													else
+														=industry.title
+										else if(field.path == 'svg_icon')
+											td.icon-column
+												span.partner-icon.coxicon(class="coxicon_"+partner[field.path])
+										else if(field.path == 'updatedAt')
+											td=partner._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+										else
+											td=partner[field.path]
+										//- a(href="/admin/services/"+service.slug) Edit
+						

@@ -1,28 +1,48 @@
 mixin s3file(item)
-
+	- var imageTypes = ['image/gif', 'image/jpeg', 'image/png']
+	- var videoTypes = ['video/mp4', 'video/webm']
+	- var type
 	+validations(item.field.options.m_cms.maxLength)
+	
+	- if(_.intersection(item.field.options.allowedTypes, videoTypes).length)
+		- type = "Video"
+
+	- if(_.intersection(item.field.options.allowedTypes, imageTypes).length)
+		- type = "Image"
 
 	.form-group
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-		
-		if(data.current[item.field.path]['exists'])
-			.row
-				.col-lg-4.col-md-4.col-sm-6
-					- var imgObj = data.current.get(item.field.path)
-					img(src=imgObj.url).img-responsive.img-thumbnail
+		- if(type == 'Image')
+			.row.thumbnail-row
+				.col-lg-6.col-md-6.col-sm-6
+					- var s3obj = data.current.get(item.field.path)
+					if(s3obj.url)
+						img(src=s3obj.url).img-responsive.img-thumbnail
+
+		- if(type == 'Video')
+			.row.thumbnail-row
+				.col-lg-8.col-md-8.col-sm-6
+					- var s3obj = data.current.get(item.field.path)
+					if(s3obj.url)
+						video(controls preload="auto").video-js.vjs-default-skin
+							source(src=s3obj.url type=s3obj.type)
+							p.vjs-no-js To view this video please enable JavaScript, and consider upgrading to a web browser that 
+								a(href="http://videojs.com/html5-video-support/" target="_blank") supports HTML5 video
 		.row
 			.col-lg-6.col-md-6
 				//- input(type="hidden" name=item.field.path value=data.current[item.field.path]['url']).form-control
-
-				input(type="file" name=item.field.path+'_upload' value=imgObj.url).form-control
-				input(type="hidden" name=item.field.path+'_s3obj_hash' value=md5hash(JSON.stringify(imgObj)))
-				input(type="hidden" name=item.field.path+'_s3obj' value=JSON.stringify(imgObj))
-				input(type="hidden" name=item.field.path+'_newfile' value=false)
-				input(type="text" value=imgObj.url readonly).form-control.s3text
-				if(data.current[item.field.path]['exists'])
-					button(type="button").btn.btn-default.s3button Change Image
+				if(s3obj)
+					input(type="file" accept=item.field.options.allowedTypes name=item.field.path+'_upload' value=s3obj.url).form-control
+					input(type="hidden" name=item.field.path+'_s3obj_hash' value=md5hash(JSON.stringify(s3obj)))
+					input(type="hidden" name=item.field.path+'_s3obj' value=JSON.stringify(s3obj))
+					input(type="hidden" name=item.field.path+'_newfile' value=false)
+					input(type="text" value=s3obj.url readonly).form-control.s3text
 				else
-					button(type="button").btn.btn-default.s3button Choose Image
+					input(type="file" name=item.field.path+'_upload').form-control
+				if(data.current[item.field.path] && data.current[item.field.path]['exists'])
+					button(type="button").btn.btn-default.s3button="Change " + type
+				else
+					button(type="button").btn.btn-default.s3button="Choose " + type
 		p.help-block=item.field.options.note
 			+printValidation()

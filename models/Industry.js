@@ -16,9 +16,6 @@ var Industry = new keystone.List('Industry', {
 });
 
 Industry.add(
-
-	{ heading: Admin.headers('settings') },
-
 	{
 		title: {
 			type: String,
@@ -33,8 +30,8 @@ Industry.add(
 			required: true,
 			many: true,
 			initial: false,
-			note: "Choose 3 only.",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			note: "Select services and their order by dragging and dropping them. Choose 3 only.",
+			m_cms: { limit: 3, showroom: true, companion: true } 
 		},
 		heading: {
 			type: String, 
@@ -75,20 +72,13 @@ Industry.add(
 			note: "Text will appear on other pages linking this industry, and not the industry page itself.",
 			m_cms: { maxLength: 25, showroom: true, companion: true } 
 		},
-		svg_icon: Fields.svg_icon()
-	},
-
-
-	{ heading: Admin.headers('media-buffet') },
-
-	{
-		media_buffet: Fields.media_buffet(),
+		svg_icon: Fields.svg_icon(),
+	
+		media_buffet: Fields.media_buffet(false, "Top Left", "Bottom Right"),
 		resource_one: 	Fields.resource(),
 		resource_two: 	Fields.resource(),
 		resource_three: Fields.resource(),
-		resource_four: 	Fields.resource()
-	},
-	{
+		resource_four: 	Fields.resource(),
 		editor: {
 			type: Types.Relationship, 
 			ref: 'User'
@@ -99,6 +89,11 @@ Industry.add(
 		}
 	}
 );
+
+Industry.schema.post('save', function() {
+	console.log('SAVED!!!')
+});
+
 
 Industry.relationship({ ref: 'Service', refPath: ':service', path: ':industry' });
 

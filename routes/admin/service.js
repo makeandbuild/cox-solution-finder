@@ -16,6 +16,7 @@ exports = module.exports = function(req, res) {
 	};
 	locals.data = {};
 	locals.data.model = Service;
+	locals.data.relationships = {};
 
 	// Load the current service
 	view.on('init', function(next) {
@@ -104,7 +105,7 @@ exports = module.exports = function(req, res) {
 				.populate('services');
 
 		q.exec(function(err, results) {
-			locals.data.industries = results;
+			locals.data.relationships.Industry = results;
 			next(err);
 		});
 

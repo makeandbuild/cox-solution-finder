@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
-	Types = keystone.Field.Types;
+	Types = keystone.Field.Types,
+	Fields = require('./fields/fields');
 
 /**
  * Product Model
@@ -13,76 +14,117 @@ var Product = new keystone.List('Product', {
 });
 
 var section = {
-	title: { type: String, requred: true, label: "Feature Title" },
+	title: { 
+		type: String, 
+		requred: true, 
+		label: "Feature Title", 
+		m_cms: { maxLength: 25, showroom: true, companion: true }
+	},
 	svg_icon: {
 		type: Types.Select,
 		label: "Icon",
 		options:
-			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice'
+			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice',
+		m_cms: { showroom: true, companion: true }
 	},
-	content: { type: Types.Textarea, label: "Feature Content", height: 200 }
+	content: { 
+		type: Types.Textarea, 
+		label: "Feature Content", 
+		height: 200,
+		m_cms: { maxLength: 25, showroom: true, companion: true }
+	}
 }
-var resource = {
-	title: { type: String, label: "Resource Title" },
-	svg_icon: {
-		type: Types.Select,
-		label: "Icon",
-		options:
-			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice'
-	},
-	resource_type: { type: Types.Boolean, default: false, label: "Is this resource an external link?", note: "Check this box if this is an external link. Do not check the box if the link below is a PDF for download."},
-	resource_link: { type: String, initial:false, label: "Resource Linked File", note: "Enter the full url for the item to download. (Example: 'http:/www.example.com/my_file.pdf')" },
-	description: { type: Types.Textarea, height: 100, label: "Resource Description" }
-}
-
 
 Product.add({
-	title: { type: String, required: true },
-	state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', note: "This page will not show up unless published is chosen", index: true },
-	industries: { type: Types.Relationship, label: "Linked Industries", ref: 'Industry', required: true, many: true, initial: false },
-	services: { type: Types.Relationship, label: "Linked Services", ref: 'Service', required: true, many: true, initial: false },
-	order: { type: Types.Number, required: true, initial: false, default: 0, label: "Product Order", note: "Use this to determine the order the product should appear on a Service page or elsewhere where products are listed. Order is lowest to highest. Example: 0 would be first, followed by 1."},
+	title: { 
+		type: String, 
+		required: true,
+		m_cms: { maxLength: 25, showroom: true, companion: true }	
+	},
+	state: { 
+		type: Types.Select, 
+		options: 'draft, published, archived', 
+		default: 'draft', 
+		note: "This page will not show up unless published is chosen", 
+		index: true 
+	},
+	industries: { 
+		type: Types.Relationship, 
+		label: "Linked Industries", 
+		ref: 'Industry', 
+		required: true, 
+		many: true, 
+		initial: false,
+		m_cms: { limit: 0, showroom: true, companion: true }
+	},
+	services: { 
+		type: Types.Relationship, 
+		label: "Linked Services", 
+		ref: 'Service', 
+		required: true, 
+		many: true, 
+		initial: false,
+		m_cms: { limit: 0, showroom: true, companion: true }
+	},
+	order: { 
+		type: Types.Number, 
+		required: true, 
+		initial: false, 
+		default: 0, 
+		label: "Product Order", 
+		note: "Use this to determine the order the product should appear on a Service page or elsewhere where products are listed. Order is lowest to highest. Example: 0 would be first, followed by 1."
+	},
 	video: {
-		title: { type: Types.Html,
+		title: { 
+			type: Types.Html,
 			wysiwyg: true,
 			height:40,
 			label: "Hero Video: Title",
-			note: "1-2 Words"
+			note: "1-2 Words",
+			m_cms: { maxLength: 25, showroom: true, companion: true }
 		},
 		video_choice: {
 			type: Types.Boolean,
 			label: "Enable Video?",
 			note: "If not checked, no video will show and the image associated will show without the play icon.",
-			default: "false"
+			default: "false",
+			m_cms: { showroom: false, companion: false }
 		},
 		video: {
 			type: Types.S3File,
 			label: 'Product Video: File MP4',
 			note: 'MP4 Only. If no video is uploaded, video will default to the Homepage Hero Video. Note: If no image is uploaded, no video will show up!',
 			allowedTypes: ['video/mp4'],
-			s3path: 'uploads/videos'
+			s3path: 'uploads/videos',
+			m_cms: { showroom: true, companion: true }
 		},
 		video_webm: {
 			type: Types.S3File,
 			label: 'Product Video: File WebM',
 			note: 'WebM Only. If no WebM, video may function in all browsers. Also, if no MP4 video will not be shown.',
 			allowedTypes: ['video/webm'],
-			s3path: 'uploads/videos'
+			s3path: 'uploads/videos',
+			m_cms: { showroom: true, companion: true }
 		},
 		title_overlay: {
-			type: Types.Boolean, default: false, label: "Use title overlay over the image?", note:"This should be used when there is no image content available for this product and the blue generic image is used."
+			type: Types.Boolean, 
+			default: false, 
+			label: "Use title overlay over the image?", 
+			note:"This should be used when there is no image content available for this product and the blue generic image is used.",
+			m_cms: { showroom: false, companion: false }
 		},
 		background: {
 			type: Types.S3File,
 			label: 'Product Video: Hero Image',
 			note: "Upload a 2X Image to be preview image for the video. This image must be uploaded for the video to be displayed.",
-			s3path: 'uploads/images'
+			s3path: 'uploads/images',
+			m_cms: { showroom: true, companion: true }
 		}
 	},
-	resource_one: resource,
-	resource_two: resource,
-	resource_three: resource,
-	resource_four: resource,
+	resource_one: Fields.resource(),
+	resource_two: Fields.resource(),
+	resource_three: Fields.resource(),
+	resource_four: Fields.resource(),
 	
 	item_one: section,
 	item_two: section,

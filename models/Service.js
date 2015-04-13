@@ -64,8 +64,8 @@ Service.add({
 		many: true, 
 		initial: false, 
 		label: "Linked Industries",
-		note: "Select Industries to associate with this Service from the left column.",
-		m_cms: { showroom: true, companion: true } 
+		note: "Select Industries to associate with this Service by dragging and dropping them.",
+		m_cms: { limit: 0, showroom: true, companion: true } 
 	},
 	resource_one: Fields.resource(),
 	resource_two: Fields.resource(),

@@ -1,0 +1,131 @@
+- var headerDisplayed = false
+mixin media_buffet(mb_fields)
+	- var mediaOne = []
+	- var fact = []
+	- var value = []
+	- var mediaTwo = []
+	- while(mb_fields.length)
+		- item = mb_fields.shift()
+		- if(item.field.path.indexOf('media_section_one') >= 0)
+			- mediaOne.push(item)
+		- if(item.field.path.indexOf('fact') >=0)
+			- fact.push(item)
+		- if(item.field.path.indexOf('values') >= 0)
+			- value.push(item)
+		- if(item.field.path.indexOf('media_section_two') >= 0)
+			- mediaTwo.push(item)
+	.panel.panel-default.media-buffet
+		.panel-heading.clearfix
+			h4 Media Buffet
+		ul(role='tablist').nav.nav-tabs.mb-tabs
+			li(role='presentation').active
+				a(href='#mediaOne' aria-controls='mediaOne' role='tab') Top Left Media
+			li(role='presentation')
+				a(href='#factoid' aria-controls='factoid' role='tab') Factoid
+			li(role='presentation')
+				a(href='#values' aria-controls='values' role='tab') Values
+			li(role='presentation')
+				a(href='#mediaTwo' aria-controls='mediaTwo' role='tab') Bottom Right Media
+
+		.panel-body
+			.tabpanel
+				.tab-content
+					div(role='tabpanel')#mediaOne.tab-pane.active
+						+tabgroup-media(mediaOne)
+					div(role='tabpanel')#factoid.tab-pane
+						+tabgroup(fact)
+					div(role='tabpanel')#values.tab-pane
+						+tabgroup(value)
+					div(role='tabpanel')#mediaTwo.tab-pane
+						+tabgroup-media(mediaTwo)
+
+
+
+				
+
+mixin tabgroup(items)
+	each item in items
+		- if(item.field.path.indexOf('title') >= 0)
+			+mb-title(item)
+		- else
+			+draw-field(item)
+
+mixin tabgroup-media(items)
+	- var title
+	- var thumbnail_field
+	- var video_fields = []
+	- var image_fields = []
+	- var story_fields = []
+
+	each item in items
+		- if(item.field.path.indexOf('title') >= 0)
+			- title = item
+		- if(item.field.path.indexOf('type') >= 0)
+			- selector_field = item
+		- if(item.field.path.indexOf('thumbnail') >= 0)
+			- thumbnail_field = item
+		- if(item.field.path.indexOf('video') >= 0)
+			- video_fields.push(item)
+		- if(item.field.path.indexOf('image') >= 0 && item.field.path.indexOf('story') < 0)
+			- image_fields.push(item)
+		- if(item.field.path.indexOf('story') >= 0)
+			- story_fields.push(item)
+
+	.media
+		+mb-title(title)
+		.no-hide
+			+s3file(thumbnail_field)
+		+mb-select(selector_field)
+		.form-group.video
+			+mb-video(video_fields)
+		.form-group.image
+			+mb-image(image_fields)
+		.form-group.story
+			+mb-story(story_fields)
+
+mixin mb-title(item)
+	.form-group.mb-title.no-hide
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+		.mb-title-preview 
+			span Preview:
+			.preview-area
+				!=data.current.get(item.field.path)
+		input(type="hidden" name=item.field.path value=data.current.get(item.field.path)).mb-title-formatted
+		.row
+			.col-lg-6.col-md-6
+				label Plain Text
+				input(type='text').form-control.mb-title-plain
+			.col-lg-6.col-md-6
+				label Bold Text
+				input(type='text').form-control.mb-title-bold
+			.col-lg-12.col-md-12
+				.help-block=item.field.options.note
+
+mixin mb-select(item)
+	.form-group.selector.no-hide
+		label=item.field.label
+		select(name=item.field.path).form-control.mb-select
+			each option in item.field.options.options
+				if option == data.current.get(item.field.path)
+					option(value=option selected="selected")=option
+				else 
+					option(value=option)=option
+		.help-block=item.field.options.note
+
+mixin mb-video(items)
+	each item in items
+		+draw-field(item)
+
+mixin mb-image(items)
+	each item in items
+		+draw-field(item)
+
+mixin mb-story(items)
+	each item in items
+		+draw-field(item)
+				//- each i, k in item.field.options
+				//- 	li=i + " : " + k
+				//- each i, k in item.field.options.m_cms
+				//- 	li=i + " : " + k
+				//- +draw-field(item)

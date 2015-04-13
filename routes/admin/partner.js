@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	Industry = keystone.list('Industry'),
+	Partner = keystone.list('Partner'),
 	Service = keystone.list('Service'),
 	util = require('util');
 
@@ -10,15 +10,15 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'industries';
+	locals.section = 'partners';
 	locals.filters = {
-		industry: req.params.industry
+		partner: req.params.partner
 	};
 	locals.data = {};
-	locals.data.model = Industry;
+	locals.data.model = Partner;
 	locals.data.relationships = {};
 
-	// Populate relationship fields
+	//
 	view.on('init', function(next) {
 		var q = Service.model.find({
 			state: 'published'
@@ -30,14 +30,14 @@ exports = module.exports = function(req, res) {
 		})
 	});
 
-	// Load the current Industry
+	// Load the current Partner
 	view.on('init', function(next) {
 		var current;
 		var preview;
 
-		var q = Industry.model.findOne({
+		var q = Partner.model.findOne({
 			state: 'published',
-			slug: locals.filters.industry
+			slug: locals.filters.partner
 		})
 		.populate('custom_ordered_services')
 		.populate('editor')
@@ -69,7 +69,7 @@ exports = module.exports = function(req, res) {
 					slug = locals.filters.industry + '-preview';	
 				}
 				
-				var previewQuery = Industry.model.findOne({
+				var previewQuery = Partner.model.findOne({
 					slug: slug
 				})
 
@@ -77,7 +77,7 @@ exports = module.exports = function(req, res) {
 					preview = result;
 					// console.log(preview.media_buffet)
 					if(preview) {
-						fields = Industry.schema.methods.updateableFields().split(', ');
+						fields = Partner.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
 							if(path == 'title') {
@@ -99,5 +99,5 @@ exports = module.exports = function(req, res) {
 	});
 
 	// Render the view
-	view.render('admin/industry');
+	view.render('admin/partner');
 };

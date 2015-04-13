@@ -7,24 +7,25 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'industries';
+	locals.section = 'partners';
 	locals.filters = {
-		industry: req.params.industry
+		partner: req.params.partner
 	};
 	locals.data = {
-		industry: []
+		partner: []
 	};
 
 	// Load the current industries
 	view.on('init', function(next) {
 
-		var q = keystone.list('Industry').model.findOne({
-			slug: locals.filters.industry
+		var q = keystone.list('Partner').model.findOne({
+			state: 'published',
+			slug: locals.filters.partner
 		});
 
 		q.exec(function(err, result) {
 			result.title = result.title.replace(' Preview', '');
-			locals.data.industry = result;
+			locals.data.partner = result;
 			next(err);
 		});
 
@@ -32,8 +33,7 @@ exports = module.exports = function(req, res) {
 
 	// Render the view
 	if(req.query.mode == 'showroom') {
-		view.render('showroom/industry');
+		view.render('showroom/partner');
 	} else {
-		view.render('industry');
-	}
-};
+		view.render('partner');
+	}};

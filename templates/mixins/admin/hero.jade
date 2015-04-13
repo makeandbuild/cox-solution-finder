@@ -1,0 +1,8 @@
+mixin hero(heroFields)
+	.hero.panel.panel-primary
+		.panel-heading.clearfix
+			h4 Hero
+		.panel-body
+			- while(heroFields.length)
+				- item = heroFields.shift()
+				+draw-field(item)

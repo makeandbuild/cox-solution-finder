@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	Industry = keystone.list('Industry'),
+	Product = keystone.list('Product'),
 	Service = keystone.list('Service'),
 	util = require('util');
 
@@ -10,15 +10,15 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'industries';
+	locals.section = 'products';
 	locals.filters = {
-		industry: req.params.industry
+		product: req.params.product
 	};
 	locals.data = {};
-	locals.data.model = Industry;
+	locals.data.model = Product;
 	locals.data.relationships = {};
 
-	// Populate relationship fields
+	//Populate relationships
 	view.on('init', function(next) {
 		var q = Service.model.find({
 			state: 'published'
@@ -30,16 +30,28 @@ exports = module.exports = function(req, res) {
 		})
 	});
 
-	// Load the current Industry
+	view.on('init', function(next) {
+		var q = Industry.model.find({
+			state: 'published'
+		});
+
+		q.exec(function(err, results) {
+			locals.data.relationships.Industry = results;
+			next(err);
+		})
+	});
+	
+	// Load the current Product
 	view.on('init', function(next) {
 		var current;
 		var preview;
 
-		var q = Industry.model.findOne({
+		var q = Product.model.findOne({
 			state: 'published',
-			slug: locals.filters.industry
+			slug: locals.filters.product
 		})
-		.populate('custom_ordered_services')
+		.populate('industries')
+		.populate('services')
 		.populate('editor')
 		.populate('updatedBy');
 
@@ -69,7 +81,7 @@ exports = module.exports = function(req, res) {
 					slug = locals.filters.industry + '-preview';	
 				}
 				
-				var previewQuery = Industry.model.findOne({
+				var previewQuery = Product.model.findOne({
 					slug: slug
 				})
 
@@ -77,7 +89,7 @@ exports = module.exports = function(req, res) {
 					preview = result;
 					// console.log(preview.media_buffet)
 					if(preview) {
-						fields = Industry.schema.methods.updateableFields().split(', ');
+						fields = Product.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
 							if(path == 'title') {
@@ -99,5 +111,5 @@ exports = module.exports = function(req, res) {
 	});
 
 	// Render the view
-	view.render('admin/industry');
+	view.render('admin/product');
 };

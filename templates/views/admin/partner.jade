@@ -2,13 +2,11 @@ include ../../mixins/admin/cms-mixins
 
 extends ../../layouts/default-admin
 
-
 block content
 	.container
-		h1=data.current.name
+		h1="Partners - " + data.current.title
 		form(method='post', enctype='multipart/form-data')
 			input(type='hidden', name='action', value='publish')
-			input(type='hidden', name='name', value=data.current.name)
 			input(type='hidden', name='slug', value=data.current.slug)
 			input(type='hidden', name='key', value=data.model.key)
 
@@ -17,6 +15,7 @@ block content
 					- var complexFields = []
 					each item in data.model.uiElements
 						+cms-field(item, complexFields)
+
 				.col-xs-4
 					.right-rail(data-spy="affix" data-offset-top="130")
 						.admin-buttons
@@ -31,5 +30,6 @@ block js
 	if savedPreview
 		script(type="text/javascript").
 			var mode = !{JSON.stringify(previewMode)};
-			var pathname = '/admin/preview/connect';
+			var pathname = !{JSON.stringify(previewPath)}
 		script(src='/js/site/previewlaunch.js')
+

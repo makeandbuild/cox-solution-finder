@@ -97,7 +97,6 @@ exports.setState = function(req,res,next){
 		}
 	}
 
-
 	next();
 }
 
@@ -113,13 +112,15 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 
 	locals.navLinks = [
-		{ label: 'Home',		key: 'home',		href: '/', 			 	type: 'page' },
+		{ label: 'Home',		key: 'home',		href: '/', 			 	type: 'page', 	admin: false },
 		{ label: 'Homepage',	key: 'homepage',	href: '/homepage',		type: 'page',	adminOnly: true },
 		{ label: 'Industries',	key: 'industries', 	href: '/industries', 	type: 'modal' },
 		{ label: 'Services',	key: 'services',	href: '/services', 		type: 'modal' },
 		{ label: 'Partners',	key: 'partners',	href: '/partners', 		type: 'modal' },
 		{ label: 'Connect',		key: 'connect',		href: '/connect', 		type: 'page' },
-		{ label: 'Settings',	key: 'settings',	href: '/settings', 		type: 'settings' },
+		{ label: 'Products',	key: 'products',	href: '/products',		type: 'page',	adminOnly: true },		
+		{ label: 'Maps',	key: 'maps',	href: '/maps',		type: 'page',	adminOnly: true },
+		{ label: 'Settings',	key: 'settings',	href: '/settings', 		type: 'settings',	admin: false },
 
 	];
 
@@ -323,6 +324,8 @@ exports.saveData = function(req, res, next) {
 		res.locals.newTitle = false;
 		res.locals.previewPath = '';
 		res.locals.previewSlug = '';
+
+		// console.log(req.body);
 		// DO THIS LATER
 		// if key == Service && req.body.products[IDS IN ORDER]
 		// 	RUN SUBROUTINE
@@ -351,36 +354,36 @@ exports.saveData = function(req, res, next) {
 			}
 
 			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
-				console.log("A NEW TITLE APPROACHES");
 				newTitle = true;
 			}
 
 			updater = preview.getUpdateHandler(req);
 
-			for(key in req.body) {
+			if(preview) {
+				for(key in req.body) {
 
-				if(/_s3obj$/.test(key)) {
+					if(/_s3obj$/.test(key)) {
 
-					s3obj = JSON.parse(req.body[key]);
+						s3obj = JSON.parse(req.body[key]);
+						key = key.replace('_s3obj', '');
 
-					key = key.replace('_s3obj', '');
+						if(!preview.get(key)) {
+							preview[key] = {};
+							console.log(":(")
+						}
 
-					if(!req.body[key + '_newfile']) {
-
-						if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
-							for(prop in s3obj) {
-								preview[key][prop] = s3obj[prop];
+						if(!req.body[key + '_newfile']) {
+							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
+									preview.set(key, s3obj);
+							} else {
+								res.status(418).end('I am a tea pot.');
+								return next();
 							}
-						} else {
-							res.status(418).end('I am a tea pot.');
-							return next();
 						}
 					}
-
 				}
-
+				preview.save();
 			}
-			preview.save();
 
 			updater.process(req.body, {
 				flashErros: false,
@@ -430,19 +433,21 @@ exports.saveData = function(req, res, next) {
 			current = result;
 
 			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
-				console.log("A NEW TITLE APPROACHES");
 				newTitle = true;
 			}
 
 			updater = current.getUpdateHandler(req);
+			if(current) {
 
 				for(key in req.body) {
 
 					if(/_s3obj$/.test(key)) {
 
 						s3obj = JSON.parse(req.body[key]);
-
 						key = key.replace('_s3obj', '');
+						if(!current[key]) {
+							current[key] = {}
+						}
 
 						if(!req.body[key + '_newfile']) {
 
@@ -454,13 +459,11 @@ exports.saveData = function(req, res, next) {
 								res.status(418).end('I am a tea pot.');
 								return next();
 							}
-
 						}
-
 					}
-
 				}
 				current.save();
+			}
 
 			updater.process(req.body, {
 				flashErrors: true,

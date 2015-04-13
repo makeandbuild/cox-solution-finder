@@ -1,0 +1,25 @@
+mixin relationship(item, collection)
+	- var selected = []
+	div(data-limit=item.field.options.m_cms.limit data-target-class=".sortable" data-groupname=item.field.path).panel.panel-default.relationship.clearfix
+		.panel-heading
+			h4=item.field.options.label
+
+		.panel-body
+			.row
+				.col-lg-5
+					h5 Unselected
+					ol.sortable.unselected.serialization
+						each option in data.relationships[item.field.options.ref]
+							- if(_.pluck(data.current.get(item.field.path), 'id').indexOf(option.id) < 0)
+								li(data-id=option.id data-name=option.title)=option.title
+				.col-lg-5.col-lg-offset-2
+					h5 Selected
+					ol.sortable.selected.serialization
+						each option in data.current.get(item.field.path)
+							li(data-id=option.id data-name=option.title)=option.title
+			.row
+				.col-lg-12
+					p.help-block=item.field.options.note
+		select(name=item.field.path multiple)
+				each option in data.current.get(item.field.path)					
+					option(value=option.id selected='selected')=option.title

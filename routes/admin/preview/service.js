@@ -24,6 +24,7 @@ exports = module.exports = function(req, res) {
 		}).populate('industries');
 
 		q.exec(function(err, result) {
+			result.title = result.title.replace(' Preview', '');
 			locals.data.service = result;
 			// console.log(result);
 			next(err);

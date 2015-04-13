@@ -64,23 +64,25 @@ exports.resource = function () {
 
 };
 
-exports.media_buffet = function (section, types) {
+exports.media_buffet = function () {
 
-	function modalTitle(type, dependsOnObj) {
+	function modalTitle(type) {
+		label = "Media Section Title";
+		if(type) { label = type + " Section Title"}
 
 		return {
 			type: Types.Html,
 			wysiwyg: true,
 			height:10,
-			label: "Media Section Title",
-			note: "PLACEHOLDER",
+			label: label,
+			note: "Enter the two words that form the title to this section. The boxes are in order and labeled with which style they will be. Place one word in each box.",
 			m_cms: { maxLength: 25, showroom: true, companion: true } 
 		} 
 	};
 
 	function media_item(types, m_cms_grouplabel, m_cms_groupname) {
 		var selected_types;
-		if (types) { selected_types = types; } else { selected_types = "None, Video, Image, Story"}
+		if (types) { selected_types = types; } else { selected_types = "None,Video,Image,Story"}
 
 		return {
 			title: modalTitle(),
@@ -94,6 +96,7 @@ exports.media_buffet = function (section, types) {
 			thumbnail: {
 				type: Types.S3File,
 				label: 'Media Section Thumbnail',
+				allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 				note: "Upload a 2X Image to be the thumbnail image for the tile.",
 				s3path: 'uploads/images',
 				m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
@@ -118,6 +121,7 @@ exports.media_buffet = function (section, types) {
 				poster: {
 					type: Types.S3File,
 					label: 'Media Video: Poster for Video Preview',
+					allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 					note: "Upload a 2X Image to be preview image for the video.",
 					s3path: 'uploads/images',
 					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
@@ -126,6 +130,7 @@ exports.media_buffet = function (section, types) {
 			image: {
 				type: Types.S3File,
 				label: 'Media Image: File',
+				allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 				note: "Upload a 2X Image to be preview image for the video.",
 				s3path: 'uploads/images',
 				m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
@@ -141,6 +146,7 @@ exports.media_buffet = function (section, types) {
 				featured_image: {
 					type: Types.S3File,
 					label: 'Media Story: Featured Image',
+					allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 					note: "Upload a 2X Image to be the Image located in the Article.",
 					s3path: 'uploads/images',
 					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
@@ -151,7 +157,7 @@ exports.media_buffet = function (section, types) {
 
 	return {
 
-		media_section_one: media_item("None, Video, Image, Story", "Media Section Top Left", "media_section_one"),
+		media_section_one: media_item("None,Video,Image,Story", "Media Section Top Left", "media_section_one"),
 		values: {
 			title: modalTitle('Values'),
 			content: { type: Types.Html,
@@ -167,12 +173,13 @@ exports.media_buffet = function (section, types) {
 			featured_image: {
 				type: Types.S3File,
 				label: 'Media Facts: Factoid Image',
+				allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 				note: "Upload a 2X Image.",
 				s3path: 'uploads/images',
 				m_cms: { maxLength: 25, showroom: true, companion: true } 
 			}
 		},
-		media_section_two: media_item("None, Video, Image, Story", "Media Section Bottom Right", "media_section_two")
+		media_section_two: media_item("None,Video,Image,Story", "Media Section Bottom Right", "media_section_two")
 	};
 
 };

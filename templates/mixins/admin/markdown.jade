@@ -1,0 +1,11 @@
+mixin markdown(item)
+	+validations(item.field.options.m_cms.maxLength)
+	
+	.form-group.markdown
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+
+		textarea(name=item.field.path autocomplete="off" data-provide="markdown" data-resize="vertical" data-hidden-buttons="cmdImage,cmdUrl,cmdQuote,cmdCode" rows="10" style="height:auto").form-control
+			=data.current.get(item.field.path).md
+		p.help-block=item.field.options.note
+			+printValidation()

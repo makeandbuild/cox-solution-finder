@@ -12,7 +12,7 @@ html
 
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/admin.min.css", rel="stylesheet")
-		link(href="/styles/multi-select/multi-select.css", rel="stylesheet")
+		link(href="/styles/bootstrap-markdown/bootstrap-markdown.min.css", rel="stylesheet")
 
 		block css
 		block head
@@ -31,7 +31,8 @@ html
 					.collapse.navbar-collapse
 						ul.nav.navbar-nav.navbar-left
 							each link in navLinks
-								li(class=(section == link.key ? 'active' : null)): a(href='/admin' + link.href)= link.label
+								if(link.admin != false)
+									li(class=(section == link.key ? 'active' : null)): a(href='/admin' + link.href)= link.label
 						ul.nav.navbar-nav.navbar-right
 							if user
 								if user.canAccessKeystone
@@ -68,8 +69,12 @@ html
 		//script(src='/js/lib/bootstrap/dropdown.js')
 		script(src='/js/lib/bootstrap/affix.js')
 		script(src='/js/lib/bootstrap/modal.js')
+		script(src='/js/lib/bootstrap/tab.js')
 		script(src='/js/lib/jquery-validation/jquery.validate.min.js')
-		script(src='/js/lib/multi-select/jquery.multi-select.js')
+		script(src='/js/lib/bootstrap-markdown/bootstrap-markdown.js')
+		script(src='/js/lib/bootstrap-markdown/to-markdown.js')
+		script(src='/js/lib/bootstrap-markdown/markdown.js')			
+		script(src='/js/lib/jquery-sortable/jquery-sortable-min.js')
 		//- site
 
 		script(src='/js/site/admin.js')

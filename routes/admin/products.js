@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
-	Product = keystone.list('Product');
+	Product = keystone.list('Product'),
+	Service = keystone.list('Service');;
 
 exports = module.exports = function(req, res) {
 	
@@ -21,16 +22,30 @@ exports = module.exports = function(req, res) {
 			state: 'published'
 		})
 		.populate('editor')
-		.sort(sort);
+		.populate('services')
+		.sort('order');
 
 		q.exec(function(err, results) {
 			locals.data.user = req.user.id;
-			locals.data.productsList = results;
+			if(!locals.data.productsList) {
+				locals.data.productsList = results;
+			}
 			locals.data.model = Product;
 			locals.data.defaultColumns = Product.defaultColumns;
 			next(err);
 		});
 
+	});
+
+	view.on('init', function(next) {
+		var q = Service.model.find({
+			state: 'published'
+		});
+
+		q.exec(function(err, results) {
+			locals.data.services = results;
+			next();
+		});
 	});
 
 	// Render the view

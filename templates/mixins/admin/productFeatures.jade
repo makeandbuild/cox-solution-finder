@@ -1,0 +1,67 @@
+mixin productFeatures(actFields)
+	- var itemOne = []
+	- var itemTwo = []
+	- var itemThree = []
+	- var itemFour = []
+	- var itemFive = []
+
+
+	- while(actFields.length)
+		- item = actFields.shift()
+		- if(item.field.path.indexOf('item_one') >= 0)
+			- itemOne.push(item)
+		- if(item.field.path.indexOf('item_two') >= 0)
+			- itemTwo.push(item)
+		- if(item.field.path.indexOf('item_three') >= 0)
+			- itemThree.push(item)
+		- if(item.field.path.indexOf('item_four') >= 0)
+			- itemFour.push(item)
+		- if(item.field.path.indexOf('item_five') >= 0)
+			- itemFive.push(item)
+
+	if(itemOne)
+		.panel.panel-primary.tabbed
+			.panel-heading.clearfix
+				h4 Product Features
+			ul(role='tablist').nav.nav-tabs.mb-tabs
+				- if(itemOne.length > 0)
+					li(role='presentation').active
+						a(href='#itemOne' aria-controls='itemOne' role='tab') Feature One
+				- if(itemTwo.length > 0)
+					li(role='presentation')
+						a(href='#itemTwo' aria-controls='itemTwo' role='tab') Feature Two
+				- if(itemThree.length > 0)
+					li(role='presentation')
+						a(href='#itemThree' aria-controls='itemThree' role='tab') Feature Three
+				- if(itemFour.length > 0)
+					li(role='presentation')
+						a(href='#itemFour' aria-controls='itemFour' role='tab') Feature Four
+				- if(itemFive.length > 0)
+					li(role='presentation')
+						a(href='#itemFive' aria-controls='itemFive' role='tab') Feature Five
+
+			.panel-body
+				.tabpanel
+					.tab-content
+						- if(itemOne.length > 0)
+							div(role='tabpanel')#itemOne.tab-pane.active
+								+draw-feature(itemOne)
+						- if(itemTwo.length > 0)
+							div(role='tabpanel')#itemTwo.tab-pane
+								+draw-feature(itemTwo)
+						- if(itemThree.length > 0)
+							div(role='tabpanel')#itemThree.tab-pane
+								+draw-feature(itemThree)
+						- if(itemFour.length > 0)
+							div(role='tabpanel')#itemFour.tab-pane
+								+draw-feature(itemFour)
+						- if(itemFive.length > 0)
+							div(role='tabpanel')#itemFive.tab-pane
+								+draw-feature(itemFive)
+
+	
+
+mixin draw-feature(fields)
+	- while(fields.length)
+		- item = fields.shift()
+		+draw-field(item)

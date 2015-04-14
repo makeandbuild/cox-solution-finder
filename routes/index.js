@@ -93,7 +93,7 @@ exports = module.exports = function(app) {
 	app.all('/admin/partners', routes.admin.partners);
 	app.all('/admin/partners/:partner', middleware.saveData, routes.admin.partner);
 
-	app.all('/admin/products', routes.admin.products);
+	app.all('/admin/products', middleware.saveProductListOrder, routes.admin.products);
 	app.all('/admin/products/:product', middleware.saveData, routes.admin.product);
 
 	app.all('/admin/maps', routes.admin.maps);

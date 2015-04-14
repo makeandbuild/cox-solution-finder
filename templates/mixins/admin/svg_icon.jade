@@ -12,6 +12,10 @@ mixin svg_icon(item)
 	if(item.field.path.indexOf("resource_") == 0)
 		- cssPrefix = 'resources-icon'
 		- valuePrefix = 'resources_'
+	if(item.field.path.indexOf("item_") >= 0)
+		- cssPrefix = 'features-icon'
+		- valuePrefix = 'features_'
+
 
 
 	.form-group.svg_icon

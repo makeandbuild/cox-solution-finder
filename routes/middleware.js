@@ -314,6 +314,46 @@ exports.timerUnlockUserDocs = function(req, res, next) {
 
 };
 
+exports.saveProductListOrder = function(req, res, next) {
+	if(req.body.action == 'reorder') {
+		serviceTitle = req.body.service;
+
+		var q = Product.model.find()
+				.in('services', [req.body.service_id])
+
+		q.exec(function(err, results) {
+			if(results) {
+				var success = true;
+				for(i=0; i<results.length; i++) {
+					product = results[i];
+					order = req.body[serviceTitle].indexOf(product.id);
+					updater = product.getUpdateHandler({order: order})
+					updater.process({order: order}, {
+						flashErrors: false,
+						fields: 'order',
+						errorMessage: 'There was a problem with saving the new order.'
+					}, function(err) {
+						if(err) {
+							req.flash('error', err);
+							success = false;
+						}
+					});
+				}
+				if(success) {
+					req.flash('success', 'Product List Order Updated');
+				}
+				console.log(22);
+			}
+			console.log(11);
+
+		}).then(function() {
+			next();
+		})
+	} else {
+		next();
+	}
+}
+
 exports.saveData = function(req, res, next) {
 
 	if(req.body.action == 'preview') {
@@ -442,12 +482,7 @@ exports.saveData = function(req, res, next) {
 							current[key] = {}
 						}
 
-<<<<<<< HEAD
 						if(!req.body[key + '_newfile'] || current.get(key).url != s3obj.url) {
-=======
-						if(!req.body[key + '_newfile']) {
->>>>>>> CMS
-
 							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
 								for(prop in s3obj) {
 									current[key][prop] = s3obj[prop];
@@ -478,12 +513,6 @@ exports.saveData = function(req, res, next) {
 					pathname = req.url;
 					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
 					pathname = pathname + '/' + current.slug;
-<<<<<<< HEAD
-
-=======
-					console.log(pathname);
-					console.log(current.slug);
->>>>>>> CMS
 					res.redirect(pathname);
 					// next(err);
 				} else {

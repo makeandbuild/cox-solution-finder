@@ -13,16 +13,27 @@ include markdown
 include hero
 include stage
 include acts
+include productFeatures
 
 mixin cms-field(item, complexFields)
 	- if(item.type == 'heading')
 		+heading(item)
-	- else if (item.type == 'field' && _.contains(['resource_one', 'resource_two', 'resource_three', 'resource_four', 'media_buffet', 'stage', 'act', 'map', 'hero'], item.field.path.split('.')[0]))
+	- else if (item.type == 'field' && _.contains(['resource_one', 'resource_two', 'resource_three', 'resource_four', 'media_buffet', 'stage', 'act', 'hero'], item.field.path.split('.')[0]))
 		- if(complexFields.length == 0)
 			- complexFields.push(item)
-		- else if(complexFields[0]['field']['path'].split('.')[0] == item.field.path.split('.')[0])
+		- else if(complexFields[0]['field']['path'].split('.')[0] == item.field.path.split('.')[0] || item.field.options.m_cms.m_group == 'items')
 			- complexFields.push(item)
 		- else if (complexFields[0]['field']['path'].split('.')[0] != item.field.path.split('.')[0])
+			+draw-complexFields(complexFields)
+			+cms-field(item, complexFields)
+	- else if(item.type == 'field' && item.field.options.m_cms && item.field.options.m_cms.m_group && item.field.options.m_cms.m_group == 'items')
+		- if(complexFields.length > 0 && complexFields[0]['field']['options']['m_cms']['m_group'] != 'items')
+			+draw-complexFields(complexFields)
+		- if(complexFields.length == 0)
+			- complexFields.push(item)
+		- else if(item.field.options.m_cms.m_group == 'items')
+			- complexFields.push(item)
+		- else if (item.field.options.m_cms.m_group != 'items')
 			+draw-complexFields(complexFields)
 			+cms-field(item, complexFields)
 	- else
@@ -61,6 +72,7 @@ mixin draw-field(item)
 		//- 	p="## - " + item.field.type
 
 mixin draw-complexFields(compfields)
+
 	if (compfields[0]['field']['path'].split('.')[0] == 'media_buffet')
 		+media_buffet(compfields, headerDisplayed)
 	else if(compfields[0]['field']['path'].split('.')[0] == 'media_buffet')
@@ -71,6 +83,8 @@ mixin draw-complexFields(compfields)
 		+stage(compfields)
 	else if(compfields[0]['field']['path'].split('.')[0] == 'act')
 		+acts(compfields)
-	else if(compfields[0]['field']['path'].split('.')[0] == 'resource')
+	else if(compfields[0]['field']['path'].split('.')[0] == 'item_one')
+		+productFeatures(complexFields)
+	else 
 		+resource(compfields, resourceHeaderDisplayed)
 		

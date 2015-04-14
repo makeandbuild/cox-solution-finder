@@ -45,4 +45,8 @@ Map.add({
 	},
 });
 
+Map.schema.methods.updateableFields = function() {
+	return 'title, map, products';
+}
+
 Map.register();

@@ -22,7 +22,7 @@ function removeDuplicates(data_products){
 }
 
 exports = module.exports = function(req, res) {
-
+	console.log(123123123123123123123);
 	var view = new keystone.View(req, res),
 		locals = res.locals;
 

@@ -1,0 +1,133 @@
+mixin acts(actFields)
+	- var factoidOne = []
+	- var factoidTwo = []
+	- var factoidThree = []
+	- var factoidFour = []
+	- var factoidFive = []
+
+	- var mapOne = []
+	- var mapTwo = []
+	- var mapThree = []
+	- var mapFour = []
+	- var mapFive = []
+	- var mapSix = []
+
+	- while(actFields.length)
+		- item = actFields.shift()
+		- if(item.field.path.indexOf('factoid_one') >= 0)
+			- factoidOne.push(item)
+		- if(item.field.path.indexOf('factoid_two') >= 0)
+			- factoidTwo.push(item)
+		- if(item.field.path.indexOf('factoid_three') >= 0)
+			- factoidThree.push(item)
+		- if(item.field.path.indexOf('factoid_four') >= 0)
+			- factoidFour.push(item)
+		- if(item.field.path.indexOf('factoid_five') >= 0)
+			- factoidFive.push(item)
+
+		- if(item.field.path.indexOf('map_one') >= 0)
+			- mapOne.push(item)
+		- if(item.field.path.indexOf('map_two') >= 0)
+			- mapTwo.push(item)
+		- if(item.field.path.indexOf('map_three') >= 0)
+			- mapThree.push(item)
+		- if(item.field.path.indexOf('map_four') >= 0)
+			- mapFour.push(item)
+		- if(item.field.path.indexOf('map_five') >= 0)
+			- mapFive.push(item)
+		- if(item.field.path.indexOf('map_six') >= 0)
+			- mapSix.push(item)
+
+
+
+	if(factoidOne)
+		.panel.panel-primary.tabbed
+			.panel-heading.clearfix
+				h4 Attract Loop Factoids
+			ul(role='tablist').nav.nav-tabs.mb-tabs
+				- if(factoidOne.length > 0)
+					li(role='presentation').active
+						a(href='#factoidOne' aria-controls='factoidOne' role='tab') Factoid One
+				- if(factoidTwo.length > 0)
+					li(role='presentation')
+						a(href='#factoidTwo' aria-controls='factoidTwo' role='tab') Factoid Two
+				- if(factoidThree.length > 0)
+					li(role='presentation')
+						a(href='#factoidThree' aria-controls='factoidThree' role='tab') Factoid Three
+				- if(factoidFour.length > 0)
+					li(role='presentation')
+						a(href='#factoidFour' aria-controls='factoidFour' role='tab') Factoid Four
+				- if(factoidFive.length > 0)
+					li(role='presentation')
+						a(href='#factoidFive' aria-controls='factoidFive' role='tab') Factoid Five
+
+			.panel-body
+				.tabpanel
+					.tab-content
+						- if(factoidOne.length > 0)
+							div(role='tabpanel')#factoidOne.tab-pane.active
+								+draw-act(factoidOne)
+						- if(factoidTwo.length > 0)
+							div(role='tabpanel')#factoidTwo.tab-pane
+								+draw-act(factoidTwo)
+						- if(factoidThree.length > 0)
+							div(role='tabpanel')#factoidThree.tab-pane
+								+draw-act(factoidThree)
+						- if(factoidFour.length > 0)
+							div(role='tabpanel')#factoidFour.tab-pane
+								+draw-act(factoidFour)
+						- if(factoidFive.length > 0)
+							div(role='tabpanel')#factoidFive.tab-pane
+								+draw-act(factoidFive)
+
+	if(mapOne)
+		.panel.panel-primary.tabbed
+			.panel-heading.clearfix
+				h4 Attract Loop Maps
+			ul(role='tablist').nav.nav-tabs.mb-tabs
+				- if(mapOne.length > 0)
+					li(role='presentation').active
+						a(href='#mapOne' aria-controls='mapOne' role='tab') Map One
+				- if(mapTwo.length > 0)
+					li(role='presentation')
+						a(href='#mapTwo' aria-controls='mapTwo' role='tab') Map Two
+				- if(mapThree.length > 0)
+					li(role='presentation')
+						a(href='#mapThree' aria-controls='mapThree' role='tab') Map Three
+				- if(mapFour.length > 0)
+					li(role='presentation')
+						a(href='#mapFour' aria-controls='mapFour' role='tab') Map Four
+				- if(mapFive.length > 0)
+					li(role='presentation')
+						a(href='#mapFive' aria-controls='mapFive' role='tab') Map Five
+				- if(mapSix.length > 0)
+					li(role='presentation')
+						a(href='#mapSix' aria-controls='mapSix' role='tab') Map Five
+
+			.panel-body
+				.tabpanel
+					.tab-content
+						- if(mapOne.length > 0)
+							div(role='tabpanel')#mapOne.tab-pane.active
+								+draw-act(mapOne)
+						- if(mapTwo.length > 0)
+							div(role='tabpanel')#mapTwo.tab-pane
+								+draw-act(mapTwo)
+						- if(mapThree.length > 0)
+							div(role='tabpanel')#mapThree.tab-pane
+								+draw-act(mapThree)
+						- if(mapFour.length > 0)
+							div(role='tabpanel')#mapFour.tab-pane
+								+draw-act(mapFour)
+						- if(mapFive.length > 0)
+							div(role='tabpanel')#mapFive.tab-pane
+								+draw-act(mapFive)
+						- if(mapSix.length > 0)
+							div(role='tabpanel')#mapSix.tab-pane
+								+draw-act(mapSix)
+
+
+mixin draw-act(fields)
+	- while(fields.length)
+		- item = fields.shift()
+		+draw-field(item)

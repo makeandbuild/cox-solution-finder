@@ -1,8 +1,42 @@
 mixin stage(stageFields)
-	.stage.panel.panel-primary
+	- var sceneOne = []
+	- var sceneTwo = []
+	- var sceneThree = []
+
+
+	- while(stageFields.length)
+		- item = stageFields.shift()
+		- if(item.field.path.indexOf('scene_one') >= 0)
+			- sceneOne.push(item)
+		- if(item.field.path.indexOf('scene_two') >= 0)
+			- sceneTwo.push(item)
+		- if(item.field.path.indexOf('scene_three') >= 0)
+			- sceneThree.push(item)
+
+	.panel.panel-primary.tabbed
 		.panel-heading.clearfix
 			h4 Stage
+		ul(role='tablist').nav.nav-tabs.mb-tabs
+			li(role='presentation').active
+				a(href='#sceneOne' aria-controls='sceneOne' role='tab') Scene One
+			li(role='presentation')
+				a(href='#sceneTwo' aria-controls='sceneTwo' role='tab') Scene Two
+			li(role='presentation')
+				a(href='#sceneThree' aria-controls='sceneThree' role='tab') Scene Three
+
 		.panel-body
-			- while(stageFields.length)
-				- item = stageFields.shift()
-				+draw-field(item)
+			.tabpanel
+				.tab-content
+					div(role='tabpanel')#sceneOne.tab-pane.active
+						+draw-scene(sceneOne)
+					div(role='tabpanel')#sceneTwo.tab-pane
+						+draw-scene(sceneTwo)
+					div(role='tabpanel')#sceneThree.tab-pane
+						+draw-scene(sceneThree)
+
+
+
+mixin draw-scene(fields)
+	- while(fields.length)
+		- item = fields.shift()
+		+draw-field(item)

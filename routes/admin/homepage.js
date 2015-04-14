@@ -32,6 +32,12 @@ exports = module.exports = function(req, res) {
 		var q = Homepage.model.findOne({
 			slug: 'home'
 		})
+		.populate('act.act_three.map_one.products')
+		.populate('act.act_three.map_two.products')
+		.populate('act.act_three.map_three.products')
+		.populate('act.act_three.map_four.products')
+		.populate('act.act_three.map_five.products')
+		.populate('act.act_three.map_six.products')
 		.populate('editor')
 		.populate('updatedBy');
 
@@ -51,8 +57,14 @@ exports = module.exports = function(req, res) {
 		}).then(function(current){
 			if(locals.savedPreview) {
 				var previewQuery = Homepage.model.findOne({
-					slug: 'connect-preview'
+					slug: 'home-preview'
 				})
+				.populate('act.act_three.map_one.products')
+				.populate('act.act_three.map_two.products')
+				.populate('act.act_three.map_three.products')
+				.populate('act.act_three.map_four.products')
+				.populate('act.act_three.map_five.products')
+				.populate('act.act_three.map_six.products')
 				.populate('editor');
 
 				previewQuery.exec(function(err, result) {
@@ -60,6 +72,7 @@ exports = module.exports = function(req, res) {
 					if(preview) {
 						fields = Homepage.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
+							console.log(x);
 							path = fields[x];
 							if(path != 'name') {
 								current[path] = preview[path];

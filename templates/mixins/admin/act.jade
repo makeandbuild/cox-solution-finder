@@ -1,8 +1,0 @@
-mixin act(actFields)
-	.act.panel.panel-primary
-		.panel-heading.clearfix
-			h4 Act
-		.panel-body
-			- while(actFields.length)
-				- item = actFields.shift()
-				+draw-field(item)

@@ -363,18 +363,12 @@ exports.saveData = function(req, res, next) {
 				for(key in req.body) {
 
 					if(/_s3obj$/.test(key)) {
-
 						s3obj = JSON.parse(req.body[key]);
 						key = key.replace('_s3obj', '');
 
-						if(!preview.get(key)) {
-							preview[key] = {};
-							console.log(":(")
-						}
-
-						if(!req.body[key + '_newfile']) {
+						if(!req.body[key + '_newfile'] || preview.get(key).url != s3obj.url) {
 							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
-									preview.set(key, s3obj);
+								preview.set(key, s3obj);
 							} else {
 								res.status(418).end('I am a tea pot.');
 								return next();
@@ -390,6 +384,7 @@ exports.saveData = function(req, res, next) {
 				fields: Model.schema.methods.updateableFields(),
 				errorMessage: 'There was a problem with generating the preview'
 			}, function(err) {
+				console.log('???')
 				if(err) {
 					res.locals.savedPreview = false;
 					req.flash('error', err);
@@ -404,16 +399,15 @@ exports.saveData = function(req, res, next) {
 					pathname = pathname + '/' + preview.slug;
 					res.locals.previewPath = pathname;
 					res.locals.previewSlug = preview.slug;
-					console.log(pathname);
-					console.log(preview.slug);
+
 					next(err);
 				} else {
 					pathname = req.url;
 					pathname = pathname.replace('/admin/', '/admin/preview/');
 					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
 					res.locals.previewPath = pathname + '/' + preview.slug;
-					next(err);
 
+					next(err);
 				}
 				
 			});
@@ -449,7 +443,7 @@ exports.saveData = function(req, res, next) {
 							current[key] = {}
 						}
 
-						if(!req.body[key + '_newfile']) {
+						if(!req.body[key + '_newfile'] || current.get(key).url != s3obj.url) {
 
 							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
 								for(prop in s3obj) {
@@ -481,8 +475,7 @@ exports.saveData = function(req, res, next) {
 					pathname = req.url;
 					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
 					pathname = pathname + '/' + current.slug;
-					console.log(pathname);
-					console.log(current.slug);
+
 					res.redirect(pathname);
 					// next(err);
 				} else {

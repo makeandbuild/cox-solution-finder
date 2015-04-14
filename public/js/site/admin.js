@@ -106,7 +106,7 @@
 	}
 
 	// Media Buffet Title Handlers
-	$('.mb-title').find('input:visible').on('keyup', function(e) {
+	$('.mb-title').find('input[type="text"]').on('keyup', function(e) {
 		var plain = $(e.target).parents('.mb-title').find('.mb-title-plain').val();
 		var bold = $(e.target).parents('.mb-title').find('.mb-title-bold').val();
 		var formatted = '<p>' + plain + '<strong>' + bold + '</strong></p>';

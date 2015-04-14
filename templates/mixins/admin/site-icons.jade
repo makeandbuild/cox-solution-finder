@@ -13,8 +13,8 @@ mixin site-icons-key()
 			- if(data.model.key != 'Map') 
 				a(href="#" data-mode="companion").preview Preview
 		li.coxicon.coxicon-admin-tv Showroom TV
-			- if(data.model.key != 'Map') 
+			- if(data.model.key != 'Map' && data.model.key != 'Connect') 
 				a(href="#" data-mode="showroom-tv").preview Preview
 		li.coxicon.coxicon-admin-tablet Showroom Tablet
-			- if(data.model.key != 'Map') 
+			- if(data.model.key != 'Map' && data.model.key != 'Connect') 
 				a(href="#" data-mode="showroom-tablet").preview Preview

@@ -1,5 +1,8 @@
 mixin boolean(item)
 	.checkbox
 		label(for=item.field.path)
-			input(type="checkbox" id=item.field.path name=item.field.path value=item.field.options).boolean
+			if(data.current.get(item.field.path))
+				input(type="checkbox" id=item.field.path name=item.field.path value=item.field.options checked="checked").boolean
+			else
+				input(type="checkbox" id=item.field.path name=item.field.path value=item.field.options).boolean
 			=item.field.label	

@@ -38,7 +38,7 @@ var slugs = {	'connect': Connect,
 				'industries': Industry,
 				'partners': Partner,
 				'products': Product,
-				'map': Map,
+				'maps': Map,
 				'services': Service
 			};
 
@@ -320,10 +320,10 @@ exports.saveProductListOrder = function(req, res, next) {
 
 		var q = Product.model.find()
 				.in('services', [req.body.service_id])
+		var success = true;
 
 		q.exec(function(err, results) {
 			if(results) {
-				var success = true;
 				for(i=0; i<results.length; i++) {
 					product = results[i];
 					order = req.body[serviceTitle].indexOf(product.id);
@@ -339,16 +339,19 @@ exports.saveProductListOrder = function(req, res, next) {
 						}
 					});
 				}
-				if(success) {
-					req.flash('success', 'Product List Order Updated');
-				}
-				console.log(22);
 			}
-			console.log(11);
-
 		}).then(function() {
-			next();
-		})
+			var q = Service.model.findOne({
+				_id: req.body.service_id
+			});
+
+			q.exec(function(err, result) {
+				if(success && result) {
+					req.flash('success', "Product List Order for <a href=/services/" + result.slug + ">" + result.title + "</a> Updated");
+				}
+				next();
+			});
+		});
 	} else {
 		next();
 	}
@@ -364,15 +367,6 @@ exports.saveData = function(req, res, next) {
 		res.locals.newTitle = false;
 		res.locals.previewPath = '';
 		res.locals.previewSlug = '';
-
-		// console.log(req.body);
-		// DO THIS LATER
-		// if key == Service && req.body.products[IDS IN ORDER]
-		// 	RUN SUBROUTINE
-
-		// 	find all Prodcuts with this service.id
-		// 	LOOP through all Products give ID the index from .body.products
-
 
 		var autokeyPath = Model.options.autokey.from[0]['path'];
 		req.body[autokeyPath] = req.body[autokeyPath] + ' Preview';

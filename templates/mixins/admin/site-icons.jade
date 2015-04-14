@@ -10,8 +10,11 @@ mixin site-icons(m_cms)
 mixin site-icons-key()
 	ul
 		li.coxicon.coxicon-admin-laptop Companion Site
-			a(href="#" data-mode="companion").preview Preview
+			- if(data.model.key != 'Map') 
+				a(href="#" data-mode="companion").preview Preview
 		li.coxicon.coxicon-admin-tv Showroom TV
-			a(href="#" data-mode="showroom-tv").preview Preview
+			- if(data.model.key != 'Map') 
+				a(href="#" data-mode="showroom-tv").preview Preview
 		li.coxicon.coxicon-admin-tablet Showroom Tablet
-			a(href="#" data-mode="showroom-tablet").preview Preview
+			- if(data.model.key != 'Map') 
+				a(href="#" data-mode="showroom-tablet").preview Preview

@@ -63,15 +63,16 @@ exports = module.exports = function(req, res) {
 			
 		}).then(function(err) {
 			if(locals.savedPreview) {
+
 				if(locals.previewSlug) {
 					slug = locals.previewSlug;
 				} else {
-					slug = locals.filters.industry + '-preview';	
+					slug = locals.filters.partner + '-preview';	
 				}
-				
+
 				var previewQuery = Partner.model.findOne({
 					slug: slug
-				})
+				}).populate('custom_ordered_services')
 
 				previewQuery.exec(function(err, result) {
 					preview = result;
@@ -82,7 +83,7 @@ exports = module.exports = function(req, res) {
 							path = fields[x];
 							if(path == 'title') {
 								current[path] = preview[path].replace(' Preview', '');
-							} else if(path != 'editor' || path  != 'slug') {
+							} else  if(path != 'editor' || path  != 'slug') {
 								current[path] = preview[path];
 							}
 						}

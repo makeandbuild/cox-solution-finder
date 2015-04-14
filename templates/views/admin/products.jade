@@ -29,15 +29,18 @@ block content
 					.col-lg-6.col-md-6.col-sm-6
 						h3=title
 					.col-lg-6.col-md-6.col-sm-6
-						button(type="button" data-edit-order=title).btn.btn-default Reorder
+						button(type="button" data-edit-order=title).btn.btn-default.reorder Reorder
+						button(type="button").btn.btn-default.cancel Cancel
 						button(type="submit").btn.btn-primary.save Publish
+
+
 				.row
 					.col-lg-12.col-md-12
 						table(data-target-class=title + '-product-list' class=title + '-product-list').table.table-striped.table-hover.table-responsive.table-product-list
 							thead
 								tr
-									th(width="10%")
-									th Order
+									th(width="5%")
+									th(width="10%") Order
 									each field in data.defaultColumns
 										if(field.path != 'state')
 											th=field.label

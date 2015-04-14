@@ -78,16 +78,20 @@ exports = module.exports = function(req, res) {
 				if(locals.previewSlug) {
 					slug = locals.previewSlug;
 				} else {
-					slug = locals.filters.industry + '-preview';	
+					slug = locals.filters.product + '-preview';	
 				}
 				
 				var previewQuery = Product.model.findOne({
 					slug: slug
 				})
+				.populate('industries')
+				.populate('services')
+				.populate('editor')
+				.populate('updatedBy');
 
 				previewQuery.exec(function(err, result) {
 					preview = result;
-					// console.log(preview.media_buffet)
+
 					if(preview) {
 						fields = Product.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
@@ -100,6 +104,8 @@ exports = module.exports = function(req, res) {
 						}
 
 						locals.data.current = current;
+						next(err);
+					} else {
 						next(err);
 					}
 				});

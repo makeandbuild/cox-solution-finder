@@ -71,7 +71,7 @@ exports = module.exports = function(req, res) {
 				
 				var previewQuery = Industry.model.findOne({
 					slug: slug
-				})
+				}).populate('custom_ordered_services')
 
 				previewQuery.exec(function(err, result) {
 					preview = result;

@@ -116,6 +116,7 @@ Product.add({
 		background: {
 			type: Types.S3File,
 			label: 'Product Video: Hero Image',
+			allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 			note: "Upload a 2X Image to be preview image for the video. This image must be uploaded for the video to be displayed.",
 			s3path: 'uploads/images',
 			m_cms: { showroom: true, companion: true }

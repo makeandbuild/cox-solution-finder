@@ -9,6 +9,7 @@ block content
 			input(type='hidden', name='action', value='publish')
 			input(type='hidden', name='slug', value=data.current.slug)
 			input(type='hidden', name='key', value=data.model.key)
+			input(type='hidden', name='order', value=data.current.get('order'))
 
 			.row
 				.col-lg-8.col-md-8

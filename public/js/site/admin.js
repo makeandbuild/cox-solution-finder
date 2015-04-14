@@ -176,10 +176,18 @@
 	}
 
 	if($('.table-product-list').length > 0) {
-		$('button').on('click', function(e) {
+		$('button.reorder').on('click', function(e) {
+			$('button').hide();
 			$(this).parents('.product-list').find('.glyphicon-move').show();
-			$(this).siblings('.save').show();
-			$(this).hide();
+			$(this).siblings('button.save').show();
+			$(this).siblings('button.cancel').show();
+		})
+
+		$('button.cancel').on('click', function(e) {
+			$('button').hide();
+			$('.glyphicon-move').hide();
+			$('button.save').hide();
+			$('button.reorder').show();
 		})
 
 		$('.table-product-list').each(function() {

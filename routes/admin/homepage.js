@@ -72,7 +72,6 @@ exports = module.exports = function(req, res) {
 					if(preview) {
 						fields = Homepage.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
-							console.log(x);
 							path = fields[x];
 							if(path != 'name') {
 								current[path] = preview[path];

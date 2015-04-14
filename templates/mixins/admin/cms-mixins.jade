@@ -17,7 +17,7 @@ include acts
 mixin cms-field(item, complexFields)
 	- if(item.type == 'heading')
 		+heading(item)
-	- else if (item.type == 'field' && _.contains(['resource_one', 'resource_two', 'resource_three', 'resource_four', 'media_buffet', 'stage', 'act', 'hero'], item.field.path.split('.')[0]))
+	- else if (item.type == 'field' && _.contains(['resource_one', 'resource_two', 'resource_three', 'resource_four', 'media_buffet', 'stage', 'act', 'map', 'hero'], item.field.path.split('.')[0]))
 		- if(complexFields.length == 0)
 			- complexFields.push(item)
 		- else if(complexFields[0]['field']['path'].split('.')[0] == item.field.path.split('.')[0])
@@ -71,6 +71,6 @@ mixin draw-complexFields(compfields)
 		+stage(compfields)
 	else if(compfields[0]['field']['path'].split('.')[0] == 'act')
 		+acts(compfields)
-	else
+	else if(compfields[0]['field']['path'].split('.')[0] == 'resource')
 		+resource(compfields, resourceHeaderDisplayed)
 		

@@ -384,7 +384,6 @@ exports.saveData = function(req, res, next) {
 				fields: Model.schema.methods.updateableFields(),
 				errorMessage: 'There was a problem with generating the preview'
 			}, function(err) {
-				console.log('???')
 				if(err) {
 					res.locals.savedPreview = false;
 					req.flash('error', err);
@@ -443,7 +442,11 @@ exports.saveData = function(req, res, next) {
 							current[key] = {}
 						}
 
+<<<<<<< HEAD
 						if(!req.body[key + '_newfile'] || current.get(key).url != s3obj.url) {
+=======
+						if(!req.body[key + '_newfile']) {
+>>>>>>> CMS
 
 							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
 								for(prop in s3obj) {
@@ -475,7 +478,12 @@ exports.saveData = function(req, res, next) {
 					pathname = req.url;
 					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
 					pathname = pathname + '/' + current.slug;
+<<<<<<< HEAD
 
+=======
+					console.log(pathname);
+					console.log(current.slug);
+>>>>>>> CMS
 					res.redirect(pathname);
 					// next(err);
 				} else {

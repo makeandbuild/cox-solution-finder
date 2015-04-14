@@ -137,6 +137,7 @@
 	});
 
 	if($('.relationship').length > 0) {
+
 		$('.relationship').each(function() {
 			var parent = this;
 			// Relationship Field Drag/Drop Sortable

@@ -41,7 +41,7 @@ Map.add({
 		ref: 'Product', 
 		many: true, 
 		initial: false,
-		m_cms: { showroom: true, companion: true }
+		m_cms: { limit: 3, showroom: true, companion: true }
 	},
 });
 

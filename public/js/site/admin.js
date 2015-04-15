@@ -218,6 +218,16 @@
 		})
 	}
 
+	$('.summernote').summernote({
+		toolbar: [
+					['style', ['bold', 'italic']]
+				],
+		iconPrefix: 'glyphicon glyphicon-'
+
+	});
+
+
+
 	// On page load functions.
 	$(function(){
 		$('.resource').find('input.text-field').each(function(index, input) {

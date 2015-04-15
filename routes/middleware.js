@@ -347,7 +347,7 @@ exports.saveProductListOrder = function(req, res, next) {
 
 			q.exec(function(err, result) {
 				if(success && result) {
-					req.flash('success', "Product List Order for <a href=/services/" + result.slug + ">" + result.title + "</a> Updated");
+					req.flash('success', "Product List Order for <a target='_blank' href=/services/" + result.slug + ">" + result.title + "</a> Updated");
 				}
 				next();
 			});

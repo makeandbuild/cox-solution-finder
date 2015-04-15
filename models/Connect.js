@@ -27,7 +27,14 @@ Connect.add({
 	heading: { type: String, 
 		initial: false, 
 		label: "Connect Page Heading", 
-		m_cms: { maxLength: 25, showroom: false, companion: true }, 
+		m_cms: {
+				validations: {
+				required: true,
+				rangelength: [1,100]
+			}, 
+			showroom: false, 
+			companion: true 
+		},
 		note: "Information about this field"
 	},
 	content: { type: Types.Textarea, 
@@ -35,7 +42,14 @@ Connect.add({
 		initial: false, 
 		label: "Connect Page Content", 
 		note: "Information about this field",
-		m_cms: { maxLength: 400, showroom: false, companion: true }
+		m_cms: {
+				validations: {
+				required: true,
+				rangelength: [1,400]
+			}, 
+			showroom: false, 
+			companion: true 
+		}
 	},
 	connect_background: {
 		type: Types.S3File,

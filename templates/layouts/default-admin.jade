@@ -1,5 +1,6 @@
 include ../mixins/flash-messages
 include ../mixins/auth/auth-forms
+include ../mixins/admin/admin-buttons
 
 doctype html
 html
@@ -66,8 +67,8 @@ html
 		//- lib
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
-		//script(src='/js/lib/bootstrap/collapse.js')
-		//script(src='/js/lib/bootstrap/dropdown.js')
+		//-script(src='/js/lib/bootstrap/collapse.js')
+		//-script(src='/js/lib/bootstrap/dropdown.js')
 		script(src='/js/lib/bootstrap/affix.js')
 		script(src='/js/lib/bootstrap/modal.js')
 		script(src='/js/lib/bootstrap/tab.js')
@@ -80,6 +81,7 @@ html
 		//- site
 
 		script(src='/js/site/admin.js')
+		script(src='/js/site/admin_validations.js')
 
 
 		block js

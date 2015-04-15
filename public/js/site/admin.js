@@ -97,6 +97,8 @@
 		var val = '.' + $(selectField).val().toLowerCase();
 
 		$(selectField).parent().siblings().not('.no-hide').hide();
+		$(selectField).parent().siblings(val).find('.validate').removeClass('ignore');
+		$(selectField).parent().siblings().not(val).not('.no-hide').find('.validate').addClass('ignore');
 		$(selectField).parent().siblings(val).show();
 
 	}
@@ -219,13 +221,20 @@
 	}
 
 	$('.summernote').summernote({
+		height:150,
 		toolbar: [
-					['style', ['bold', 'italic']]
+					['style', ['bold', 'italic']],
+					['misc', ['codeview']]
 				],
-		iconPrefix: 'glyphicon glyphicon-'
+		iconPrefix: 'glyphicon glyphicon-',
+	    onpaste: function (e) {
+	        var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+	        console.log('did we do it?');
+	        e.preventDefault();
 
+	        document.execCommand('insertText', false, bufferText);
+	    }
 	});
-
 
 
 	// On page load functions.
@@ -240,9 +249,4 @@
 			$('.resources').find('.add-resource').attr('disabled', true);
 		}
 
-		$('.multi-select').each(function(index, select) {
-			$(select).multiSelect();
-			$('.multi-select').siblings('.ms-container').find('.ms-selectable').prepend('<h5>Industries</h5>');
-			$('.multi-select').siblings('.ms-container').find('.ms-selection').prepend('<h5>Selected Industries</h5>');
-		});
 	});

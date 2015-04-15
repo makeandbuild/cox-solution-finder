@@ -15,6 +15,7 @@ include stage
 include acts
 include productFeatures
 include html
+include htmlTwoFieldTitle
 
 mixin cms-field(item, complexFields)
 	- if(item.type == 'heading')
@@ -67,7 +68,9 @@ mixin draw-field(item)
 			+select(item)
 		else if(item.type == 'field' && item.field.type == 'markdown' && !item.field.noedit && item.field.options.m_cms)
 			+markdown(item)
-		else if(item.type == 'field' && item.field.type == 'html' && !item.field.noedit && item.field.options.m_cms)
+		else if(item.type == 'field' && item.field.type == 'html' && !item.field.noedit && item.field.options.m_cms && !item.field.options.m_cms.htmlEditor)
+			+htmlTwoFieldTitle(item)
+		else if(item.type == 'field' && item.field.type == 'html' && !item.field.noedit && item.field.options.m_cms && item.field.options.m_cms.htmlEditor)
 			+html(item)
 
 

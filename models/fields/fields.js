@@ -32,33 +32,60 @@ exports.resource = function () {
 		title: { 
 			type: String, 
 			label: "Resource Title",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: {
+ 				validations: {
+					required: true,
+					rangelength: [1,75]
+				}, 
+				showroom: true, 
+				companion: true 
+			} 
 		},
 		svg_icon: {
 			type: Types.Select,
 			label: "Icon",
 			options: Variables.svg_icons(),
-			m_cms: { showroom: true, companion: true } 
+			m_cms: { 
+				showroom: true, 
+				companion: true 
+			} 
 		},
 		resource_type: { 
 			type: Types.Boolean, 
 			default: false, 
 			label: "Is this resource an external link?", 
 			note: "Check this box if this is an external link. Do not check the box if the link below is a PDF for download.",
-			m_cms: { showroom: false, companion: false } 
+			m_cms: { 
+				showroom: false, 
+				companion: false 
+			} 
 		},
 		resource_link: { 
 			type: String, 
 			initial:false, 
 			label: "Resource Linked File", 
 			note: "Enter the full url for the item to download. (Example: 'http:/www.example.com/my_file.pdf')",
-			m_cms: { maxLength: 2000, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,2000]
+				},
+				showroom: true, 
+				companion: true 
+			} 
  		},
 		description: { 
 			type: Types.Textarea, 
 			height: 100, 
 			label: "Resource Description",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: {
+				validations: {
+					required: true,
+					rangelength: [1,200]
+				}, 
+				maxLength: 200, showroom: true, 
+				companion: true 
+			} 
 		}
 	}
 
@@ -76,7 +103,15 @@ exports.media_buffet = function () {
 			height:10,
 			label: label,
 			note: "Enter the two words that form the title to this section. The boxes are in order and labeled with which style they will be. Place one word in each box.",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				htmlEditor: false, 
+				validations: {
+					required: true,
+					twoFieldHtmlMax: 15
+				},
+				showroom: true, 
+				companion: true 
+			} 
 		} 
 	};
 
@@ -141,7 +176,16 @@ exports.media_buffet = function () {
 					height:300,
 					label: "Media Story: Content",
 					note: "No set limit for characters. Overflowed content will not be shown. H2 and H3 elements will be dark blue.",
-					m_cms: { showroom: true, companion: true, group_label: m_cms_grouplabel, group_name: m_cms_groupname }
+					m_cms: { 
+						validations: {
+							required: true,
+							rangelength: [1,1000]
+						}, 
+						showroom: true, 
+						companion: true, 
+						group_label: m_cms_grouplabel, 
+						group_name: m_cms_groupname 
+					}
 				},
 				featured_image: {
 					type: Types.S3File,
@@ -165,7 +209,15 @@ exports.media_buffet = function () {
 				height:200,
 				label: "Media Values: Content",
 				note: "Limit to around 150 characters for optimal size.",
-				m_cms: { maxLength: 25, showroom: true, companion: true } 
+				m_cms: { 
+					htmlEditor: true, 
+					validations: {
+						required: true,
+						rangelength: [1,150]
+					},
+					showroom: true, 
+					companion: true 
+				} 
 			}
 		},
 		facts: {
@@ -176,7 +228,7 @@ exports.media_buffet = function () {
 				allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 				note: "Upload a 2X Image.",
 				s3path: 'uploads/images',
-				m_cms: { maxLength: 25, showroom: true, companion: true } 
+				m_cms: { showroom: true, companion: true } 
 			}
 		},
 		media_section_two: media_item("None,Video,Image,Story", "Media Section Bottom Right", "media_section_two")

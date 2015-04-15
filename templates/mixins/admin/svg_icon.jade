@@ -21,7 +21,7 @@ mixin svg_icon(item)
 	.form-group.svg_icon
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-		select(name=item.field.path).icon-selector
+		select(name=item.field.path).icon-selector.validate
 			each label, value in item.field.labels
 				if(value == data.current.get(item.field.path))
 					option(value=value selected="selected")=label

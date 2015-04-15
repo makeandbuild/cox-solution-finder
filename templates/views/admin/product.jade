@@ -19,11 +19,8 @@ block content
 
 				.col-xs-4
 					.right-rail(data-spy="affix" data-offset-top="130")
-						.admin-buttons
-							p.help-block='Created On: ' + data.current._.createdAt.format('MMMM DD, YYYY h:mm:ss a')
-							p.help-block='Last Edit: ' + data.current._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
-							p.help-block='By: ' + data.current.updatedBy.name.full
-							button(type="submit").btn.btn-primary.publish Publish
+						+admin-buttons()
+						
 						.icon-key
 							+site-icons-key()
 

@@ -20,6 +20,6 @@ mixin relationship(item, collection)
 			.row
 				.col-lg-12
 					p.help-block=item.field.options.note
-		select(name=item.field.path multiple)
+		select(name=item.field.path multiple).validate
 				each option in data.current.get(item.field.path)					
 					option(value=option.id selected='selected')=option.title

@@ -7,7 +7,7 @@ exports = module.exports = function(req, res) {
 		locals = res.locals;
 	
 	// Set locals
-	locals.section = 'home';
+	locals.section = 'homepage';
 	locals.data = {};
 	locals.data.model = Homepage;
 	locals.data.relationships = {};

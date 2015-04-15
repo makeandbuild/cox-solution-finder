@@ -19,7 +19,14 @@ var scene = {
 	title: {
 		type: Types.Text,
 		label: "Showroom Stage: Scene Name",
-		m_cms: { maxLength: 25, showroom: true, companion: false } 
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,25]
+			}, 
+			showroom: true, 
+			companion: false 
+		} 
 	},
 	featured_image: {
 		type: Types.S3File,
@@ -35,7 +42,14 @@ var scene_with_text = {
 		type: Types.Text,
 		label: "Showroom Stage: Scene Name",
 		note: "Scene will use text from the Companion Site Hero section, and the act displayed will be the Hero Video used globally.",
-		m_cms: { maxLength: 25, showroom: true, companion: false } 
+		m_cms: {
+ 			validations: {
+				required: true,
+				rangelength: [1,25]
+			}, 
+			showroom: true, 
+			companion: false 
+		} 
 	},
 }
 
@@ -50,7 +64,14 @@ var map = {
 	title: {
 		type: Types.Text,
 		label: "Map Overlay Name",
-		m_cms: { maxLength: 25, showroom: true, companion: false }
+		m_cms: { 
+ 			validations: {
+				required: true,
+				rangelength: [1,50]
+			}, 
+			showroom: true, 
+			companion: false 
+		}
 	},
 	map: {
 		type: Types.S3File,
@@ -81,7 +102,14 @@ var factoid = {
 	title: {
 		type: Types.Text,
 		label: "Factoid Name",
-		m_cms: { maxLength: 25, showroom: true, companion: false }
+		m_cms: {
+			validations: {
+				required: true,
+				rangelength: [1,25]
+			}, 
+			showroom: true, 
+			companion: false 
+		}
 	},
 	front_image: {
 		type: Types.S3File,
@@ -97,7 +125,7 @@ var factoid = {
 		allowedTypes: ['image/gif', 'image/jpeg', 'image/png'],
 		note: "",
 		s3path: 'uploads/images/factoids',
-		m_cms: { maxLength: 25, showroom: true, companion: false }
+		m_cms: { showroom: true, companion: false }
 	}
 }
 
@@ -114,13 +142,27 @@ Homepage.add(
 				type: Types.Text,
 				label: "Greeting",
 				note: "The word before the name of the customer when on the customized home view. For example you would enter 'Hi' and the text would read 'Hi Mark'.",
-				m_cms: { maxLength: 25, showroom: false, companion: true }
+				m_cms: { 
+		 			validations: {
+						required: true,
+						rangelength: [1,10]
+					}, 
+					showroom: false, 
+					companion: true 
+				}
 			},
 			business_count: {
 				type: Types.Text,
 				label: "Default Home Number of Business's Powered by COX Business",
 				note: "The number that will appear on the default home page.",
-				m_cms: { maxLength: 25, showroom: false, companion: true }
+				m_cms: { 
+					validations: {
+						required: true,
+						rangelength: [1,15]
+					}, 
+					showroom: false, 
+					companion: true 
+				}
 			},
 			video: {
 				title: { type: Types.Html,
@@ -128,7 +170,15 @@ Homepage.add(
 					height:40,
 					label: "Hero Video: Title",
 					note: "1-2 Words",
-					m_cms: { showroom: false, companion: true }
+					m_cms: { 
+						htmlEditor: false,
+						validations: {
+							required: true,
+							twoFieldHtmlMax: 15
+						}, 
+						showroom: false, 
+						companion: true 
+					}
 				},
 				video_choice: {
 					type: Types.Boolean,
@@ -175,7 +225,14 @@ Homepage.add(
 				wysiwyg: true,
 				height:200,
 				label: "Custom Home: Content",
-				m_cms: { showroom: false, companion: true }
+				m_cms: { 
+					htmlEditor: true, 
+					validations: {
+						required: true,
+						htmlField: [1,300]
+					},
+					showroom: false, companion: true 
+				}
 			}
 		},
 
@@ -183,13 +240,27 @@ Homepage.add(
 			type: Types.Textarea,
 			height: 200,
 			label: "Default Heading",
-			m_cms: { maxLength: 25, showroom: true, companion: true }
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,150]
+				}, 
+				showroom: true, 
+				companion: true 
+			}
 		},
 		default_content: {
 			type: Types.Textarea,
 			height: 200,
 			label: "Default Content",
-			m_cms: { maxLength: 25, showroom: true, companion: true }
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,300]
+				}, 
+				showroom: true, 
+				companion: true 
+			}
 
 		},
 		media_buffet: Fields.media_buffet(),

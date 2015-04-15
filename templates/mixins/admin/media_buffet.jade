@@ -46,7 +46,7 @@ mixin media_buffet(mb_fields)
 mixin tabgroup(items)
 	each item in items
 		- if(item.field.path.indexOf('title') >= 0)
-			+mb-title(item)
+			+htmlTwoFieldTitle(item)
 		- else
 			+draw-field(item)
 
@@ -72,7 +72,7 @@ mixin tabgroup-media(items)
 			- story_fields.push(item)
 
 	.media
-		+mb-title(title)
+		+htmlTwoFieldTitle(title)
 		.no-hide
 			+s3file(thumbnail_field)
 		+mb-select(selector_field)
@@ -82,25 +82,6 @@ mixin tabgroup-media(items)
 			+mb-image(image_fields)
 		.form-group.story
 			+mb-story(story_fields)
-
-mixin mb-title(item)
-	.form-group.mb-title.no-hide
-		label=item.field.label
-			+site-icons(item.field.options.m_cms)
-		.mb-title-preview 
-			span Preview:
-			.preview-area
-				!=data.current.get(item.field.path)
-		input(type="hidden" name=item.field.path value=data.current.get(item.field.path)).mb-title-formatted
-		.row
-			.col-lg-6.col-md-6
-				label Plain Text
-				input(type='text').form-control.mb-title-plain
-			.col-lg-6.col-md-6
-				label Bold Text
-				input(type='text').form-control.mb-title-bold
-			.col-lg-12.col-md-12
-				.help-block=item.field.options.note
 
 mixin mb-select(item)
 	.form-group.selector.no-hide

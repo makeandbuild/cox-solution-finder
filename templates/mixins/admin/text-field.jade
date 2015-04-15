@@ -1,9 +1,9 @@
 mixin text-field(item)
 
-	+validations(item.field.options.m_cms.maxLength)
+	+validations(item.field.options.m_cms.validations)
 	.form-group
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
-		input(type="text" value=data.current.get(item.field.path) name=item.field.path).form-control.text-field
+		input(type="text" data-rules=item.field.options.m_cms.validations value=data.current.get(item.field.path) name=item.field.path).form-control.text-field.validate
 		p.help-block=item.field.options.note
 			+printValidation()

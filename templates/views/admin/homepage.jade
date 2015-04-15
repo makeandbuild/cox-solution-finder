@@ -5,7 +5,7 @@ extends ../../layouts/default-admin
 block content
 	.container
 		h1=data.current.name
-		form(method='post', enctype='multipart/form-data')
+		form(method='post', enctype='multipart/form-data').primary-form
 			input(type='hidden', name='action', value='publish')
 			input(type='hidden', name='name', value=data.current.name)
 			input(type='hidden', name='slug', value=data.current.slug)
@@ -19,11 +19,8 @@ block content
 
 				.col-xs-4
 					.right-rail(data-spy="affix" data-offset-top="130")
-						.admin-buttons
-							p.help-block='Created On: ' + data.current._.createdAt.format('MMMM DD, YYYY h:mm:ss a')
-							p.help-block='Last Edit: ' + data.current._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
-							p.help-block='By: ' + data.current.updatedBy.name.full
-							button(type="submit").btn.btn-primary.publish Publish
+						+admin-buttons()
+
 						.icon-key
 							+site-icons-key()
 

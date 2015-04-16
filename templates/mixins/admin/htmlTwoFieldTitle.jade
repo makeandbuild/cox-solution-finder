@@ -1,4 +1,7 @@
 mixin htmlTwoFieldTitle(item)
+
+	+validations(item.field.options.m_cms.validations)
+
 	.form-group.mb-title.no-hide
 		label=item.field.label
 			+site-icons(item.field.options.m_cms)
@@ -16,3 +19,4 @@ mixin htmlTwoFieldTitle(item)
 				input(type='text' name="ignore").ignore.form-control.mb-title-bold
 			.col-lg-12.col-md-12
 				.help-block=item.field.options.note
+					+printValidation()

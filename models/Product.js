@@ -57,7 +57,7 @@ Product.add({
 		m_cms: { 
  			validations: {
 				required: true,
-				markdownLimit: [1,40]
+				rangelength: [1,40]
 			},
 			showroom: true, 
 			companion: true 

@@ -35,13 +35,13 @@ Connect.add({
 			showroom: false, 
 			companion: true 
 		},
-		note: "Information about this field"
+		note: ""
 	},
 	content: { type: Types.Textarea, 
 		height: 400, 
 		initial: false, 
 		label: "Connect Page Content", 
-		note: "Information about this field",
+		note: "",
 		m_cms: {
 				validations: {
 				required: true,

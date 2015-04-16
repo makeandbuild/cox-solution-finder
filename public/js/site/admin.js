@@ -15,10 +15,8 @@
 	$('input[type=file]').on('change', function(e) {
 		file = e.target.files[0];
 		reader = new FileReader();
-		console.log(e.target.files);
 
 		if(file.type.indexOf('image') >= 0) {
-			console.log('image');
 			$(reader).on('load', function(event) {
 				image = $(e.target).parents('.row').siblings('.thumbnail-row').find('img');
 				if(image.length > 0) {
@@ -31,7 +29,6 @@
 		}
 
 		if(file.type.indexOf('video') >=0) {
-			console.log('video');
 			$(reader).on('load', function(event) {
 				video = $(e.target).parents('.row').siblings('.thumbnail-row').find('video');
 				if(video.length > 0) {
@@ -69,6 +66,12 @@
 		$(e.target).parents('.resource').find(':input').each(function(index, input) {
 			$(input).val('');
 			$(input).attr('checked', false);
+			$(input).addClass('ignore');
+			$(input).removeClass('error');
+			$(input).attr('aria-invalid', false);
+			$(input).parents('.form-group').removeClass('has-error');
+			$('.help-block.errors').hide();
+			$('.error-fields').hide();
 		});
 		$(e.target).parents('.resource').find('ul.icon-choices li').removeClass('selected');
 		$(e.target).parents('.resource').slideUp(function() {
@@ -79,7 +82,9 @@
 	});
 
 	$('.add-resource').on('click', function(e) {
+		$(e.target).parents('.resources').siblings('.resource:hidden').first().find(':input').removeClass('ignore');
 		$(e.target).parents('.resources').siblings('.resource:hidden').first().slideDown();
+
 		if($(e.target).parents('.resources').siblings('.resource:hidden').length == 0) {
 			$(e.target).attr('disabled', true);
 		}
@@ -104,7 +109,9 @@
 	}
 	if($('.mb-select').length > 0) {
 		$('.mb-select').on('change', function(e){ mediaBuffetTypeSelector(e.target) });
-		mediaBuffetTypeSelector($('.mb-select'));
+		$('.mb-select').each(function() {
+			mediaBuffetTypeSelector(this);	
+		});
 	}
 
 	// Media Buffet Title Handlers
@@ -148,7 +155,7 @@
 										isValidTarget: function  (item, container) {
 											if($(container.target).hasClass('selected') && container.items.length < $(parent).data('limit') || $(parent).data('limit') == 0) {
 												return true;
-											} else if ($(container.target).hasClass('unselected')) {
+											} else if ($(container.target).hasClass('unselected') && $(container.target).parents('.row').find('.selected').children('li').not('.placeholder').length > 1) {
 												return true;
 											} else {
 												return item.parent("ol")[0] == container.el[0];
@@ -165,9 +172,6 @@
 											    	$(parent).find('select').append('<option value="' + id + '" selected="selected">' + id + '</option>');
 											    }
 
-
-
-											    console.log($(parent).find('select').html());
 			    								_super(item, container)
 		  								},
 										tolerance: 6,
@@ -194,7 +198,7 @@
 
 		$('.table-product-list').each(function() {
 			parent = this;
-			console.log('1: ' + $(parent).data('group-name'));
+
 			var group = $(this).sortable({
 			  group: $(parent).data('target-class'),
 			  handle: 'span.glyphicon.glyphicon-move',
@@ -205,10 +209,9 @@
 		  	onDrop: function (item, container, _super) {
 											var data = group.sortable("serialize").get();
 										    var jsonString = JSON.stringify(data, null, ' ');
-										    console.log(data);
+
 										    $(group).parents('.product-list').find('select').html('');
 										    for(i=0;i<data[0].length;i++) {
-										    	console.log(111);
 										    	id = data[0][i]['id'];
 										    	$(group).parents('.product-list').find('select').append('<option value="' + id + '" selected="selected">' + id + '</option>');
 										    }
@@ -229,7 +232,6 @@
 		iconPrefix: 'glyphicon glyphicon-',
 	    onpaste: function (e) {
 	        var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-	        console.log('did we do it?');
 	        e.preventDefault();
 
 	        document.execCommand('insertText', false, bufferText);
@@ -242,6 +244,7 @@
 		$('.resource').find('input.text-field').each(function(index, input) {
 			if($(input).val().trim() == '') {
 				$(input).parents('.resource').hide();
+				$(input).parents('.resource').find(':input').addClass('ignore');
 			}
 		});
 

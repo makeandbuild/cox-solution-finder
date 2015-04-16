@@ -16,9 +16,16 @@ var Product = new keystone.List('Product', {
 var section = {
 	title: { 
 		type: String, 
-		requred: true, 
 		label: "Feature Title", 
-		m_cms: { maxLength: 25, showroom: true, companion: true, m_group: 'items' }
+		m_cms: { 
+			validations: {
+				required: true,
+				markdownLimit: [1,50]
+			}, 
+			showroom: true, 
+			companion: true, 
+			m_group: 'items'
+		}
 	},
 	svg_icon: {
 		type: Types.Select,
@@ -31,7 +38,15 @@ var section = {
 		type: Types.Textarea, 
 		label: "Feature Content", 
 		height: 200,
-		m_cms: { maxLength: 25, showroom: true, companion: true, m_group: 'items' }
+		m_cms: {
+ 			validations: {
+				required: true,
+				markdownLimit: [1,500]
+			}, 
+			showroom: true, 
+			companion: true, 
+			m_group: 'items' 
+		}
 	}
 }
 
@@ -39,7 +54,14 @@ Product.add({
 	title: { 
 		type: String, 
 		required: true,
-		m_cms: { maxLength: 25, showroom: true, companion: true }	
+		m_cms: { 
+ 			validations: {
+				required: true,
+				markdownLimit: [1,40]
+			},
+			showroom: true, 
+			companion: true 
+		}
 	},
 	state: { 
 		type: Types.Select, 
@@ -81,7 +103,15 @@ Product.add({
 			height:40,
 			label: "Hero Video: Title",
 			note: "1-2 Words",
-			m_cms: { maxLength: 25, showroom: true, companion: true }
+			m_cms: { 
+				htmlEditor: false, 
+				validations: {
+					required: true,
+					twoFieldHtmlMax: 15
+				},
+				showroom: true, 
+				companion: true 
+			}
 		},
 		video_choice: {
 			type: Types.Boolean,
@@ -131,7 +161,16 @@ Product.add({
 	item_two: section,
 	item_three: section,
 	item_four: section,
-	item_five: section
+	item_five: section,
+
+	editor: {
+		type: Types.Relationship, 
+		ref: 'User'
+	},
+	checkoutTime: {
+		type: Types.Datetime,
+		default: Date.now()
+	}
 });
 
 Product.schema.methods.updateableFields = function() {

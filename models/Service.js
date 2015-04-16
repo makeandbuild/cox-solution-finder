@@ -18,7 +18,14 @@ Service.add({
 	title: { 
 		type: String, 
 		required: true,	
-		m_cms: { maxLength: 25, showroom: true, companion: true } 
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,25]
+			},
+			showroom: true, 
+			companion: true
+		}
 	},
 	state: { 
 		type: Types.Select, 
@@ -34,28 +41,49 @@ Service.add({
 			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice',
 		m_cms: { showroom: true, companion: true } 
 	},
-	heading: { 
+	heading: {
 		type: String, 
 		required: true, 
 		initial: false, 
 		label: "Service Heading",
-		m_cms: { maxLength: 25, showroom: true, companion: true } 
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,200]
+			},
+			showroom: true, 
+			companion: true 
+		}
 	},
-	content: { 
+	content: {
 		type: Types.Textarea, 
 		height: 400, 
 		required: true, 
 		initial: false, 
 		label: "Service Content",
-		m_cms: { maxLength: 400, showroom: true, companion: true } 
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,1000]
+			},
+			showroom: true, 
+			companion: true
+		} 
 	},
-	description: { 
-		type: String, 
-		required: true, 
-		initial: false, 
-		label: "Service Description", 
-		note: "Text will appear on other pages linking this service, and not the service page itself.",
-		m_cms: { maxLength: 25, showroom: true, companion: true } 
+	description: {
+		type: String,
+		required: true,
+		initial: false,
+		label: "Service Description",
+		note: "Text will appear on other pages linking this industry, and not the industry page itself.",
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,150]
+			},
+			showroom: true, 
+			companion: true
+		} 
 	},
 	industries: { 
 		type: Types.Relationship, 

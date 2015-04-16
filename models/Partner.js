@@ -20,7 +20,14 @@ Partner.add(
 		title: {
 			type: String,
 			required: true,
-			m_cms: { maxLength: 25, showroom: true, companion: true }
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,25]
+				},
+				showroom: true, 
+				companion: true
+			}
 		},
 		state: Fields.state(),
 		custom_ordered_services: {
@@ -34,30 +41,63 @@ Partner.add(
 			m_cms: { limit: 3, showroom: true, companion: true } 
 		},
 		heading: {
-			type: String,
+			type: String,  
 			initial: false,
+			required:true,
 			label: "Partner Heading",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,200]
+				},
+				showroom: true, 
+				companion: true 
+			}
 		},
 		content: {
-			type: Types.Textarea,
-			height: 400, initial: false,
+			type: Types.Textarea, 
+			height: 400, 
+			required: true, 
+			initial: false, 
 			label: "Partner Content",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,1000]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		description: {
 			type: String,
+			required: true,
 			initial: false,
 			label: "Partner Description",
-			note: "Text will appear on other pages linking this partner, and not the partner page itself.",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			note: "Text will appear on other pages linking this industry, and not the industry page itself.",
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,150]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		svg_icon: Fields.svg_icon(),
 		media_buffet: Fields.media_buffet(),
 		resource_one: 	Fields.resource(),
 		resource_two: 	Fields.resource(),
 		resource_three: Fields.resource(),
-		resource_four: 	Fields.resource()
+		resource_four: 	Fields.resource(),
+		editor: {
+			type: Types.Relationship, 
+			ref: 'User'
+		},
+		checkoutTime: {
+			type: Types.Datetime,
+			default: Date.now()
+		}
 	}
 );
 

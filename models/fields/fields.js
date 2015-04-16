@@ -80,8 +80,8 @@ exports.resource = function () {
 			label: "Resource Description",
 			m_cms: {
 				validations: {
-					required: true,
-					rangelength: [1,200]
+					required: false,
+					rangelength: [0,200]
 				}, 
 				maxLength: 200, showroom: true, 
 				companion: true 
@@ -111,7 +111,7 @@ exports.media_buffet = function () {
 				},
 				showroom: true, 
 				companion: true 
-			} 
+			}
 		} 
 	};
 
@@ -179,7 +179,7 @@ exports.media_buffet = function () {
 					m_cms: { 
 						validations: {
 							required: true,
-							rangelength: [1,1000]
+							markdownLimit: [1,3000]
 						}, 
 						showroom: true, 
 						companion: true, 
@@ -213,7 +213,7 @@ exports.media_buffet = function () {
 					htmlEditor: true, 
 					validations: {
 						required: true,
-						rangelength: [1,150]
+						htmlField: [1,150]
 					},
 					showroom: true, 
 					companion: true 

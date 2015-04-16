@@ -4,6 +4,8 @@ mixin validations(validations)
 				- validation = ''
 				- label = 'Max Length'
 				- validation = '' + label + ': ' + validations.rangelength[1] + ' characters'
+			if(validations.required)
+				- validation += ', Required'
 		else
 			- validation = ''
 

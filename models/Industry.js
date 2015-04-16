@@ -20,7 +20,14 @@ Industry.add(
 		title: {
 			type: String,
 			required: true,
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,25]
+				},
+				showroom: true, 
+				companion: true
+			}
 		},
 		state: Fields.state(),
 		custom_ordered_services: {
@@ -38,23 +45,50 @@ Industry.add(
 			required: true, 
 			initial: false, 
 			label: "Industry Heading",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
-
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,200]
+				},
+				showroom: true, 
+				companion: true 
+			}
 		},
 		attribute_one: {
 			type: String, 
 			label: "Industry Attribute One",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+			validations: {
+					required: true,
+					rangelength: [1,25]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		attribute_two: {
 			type: String, 
 			label: "Industry Attribute Two",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+			validations: {
+					required: false,
+					rangelength: [0,25]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		attribute_three: {
 			type: String, 
 			label: "Industry Attribute Three",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+			validations: {
+					required: false,
+					rangelength: [0,25]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		content: {
 			type: Types.Textarea, 
@@ -62,7 +96,14 @@ Industry.add(
 			required: true, 
 			initial: false, 
 			label: "Industry Content",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,1000]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		description: {
 			type: String,
@@ -70,7 +111,14 @@ Industry.add(
 			initial: false,
 			label: "Industry Description",
 			note: "Text will appear on other pages linking this industry, and not the industry page itself.",
-			m_cms: { maxLength: 25, showroom: true, companion: true } 
+			m_cms: { 
+				validations: {
+					required: true,
+					rangelength: [1,150]
+				},
+				showroom: true, 
+				companion: true
+			} 
 		},
 		svg_icon: Fields.svg_icon(),
 	
@@ -89,11 +137,6 @@ Industry.add(
 		}
 	}
 );
-
-Industry.schema.post('save', function() {
-	console.log('SAVED!!!')
-});
-
 
 Industry.relationship({ ref: 'Service', refPath: ':service', path: ':industry' });
 

@@ -1,9 +1,10 @@
+// CUSTOM RULES
 jQuery.validator.addMethod("twoFieldHtmlMax", function(value, element, limit) {
 
 	bold = $(element).parents('.form-group').find('.mb-title-bold').val();
 	plain = $(element).parents('.form-group').find('.mb-title-plain').val();
 	str = plain + bold;
-	console.log(str);
+
   	return 1 <= str.length && limit >= str.length;
 }, 'Please enter a value between 1 and {0} characters long.');
 
@@ -14,14 +15,71 @@ jQuery.validator.addMethod("htmlField", function(value, element, limit) {
   	return limit[0] <= str.length && limit[1] >= str.length;
 }, 'Please enter a value between {0} and {1} characters long.');
 
+jQuery.validator.addMethod("markdownLimit", function(value, element, limit) {
+  	return limit[0] <= value.length && limit[1] >= value.length;
+}, 'Please enter a value between {0} and {1} characters long.');
 
+
+// REMOVE ALL OTHER FORMS
+// IGNORE STUFF THAT ISN'T NECESSARY
+$('.note-modal-form').ready(function() {
+	$('.note-modal-form').remove();
+	$('textarea.note-codable').addClass('ignore');
+});
+
+function ignoreBasedOnCheckbox(checkbox) {
+
+	var splitnames = $(checkbox).attr('name').split('.');
+	var namespace = '';
+	for(i=0;i < splitnames.length-1; i++) {
+		namespace += splitnames[i] + '.';
+	}
+	if(namespace.indexOf('resource') > 0) {
+		console.log(namespace);
+
+		$(':input[name^="' + namespace + '"]').each(function() {
+
+			if($(this).hasClass('validate')) {
+				if($(checkbox).is(':checked')) {
+					$(this).removeClass('ignore');
+				} else {
+					$(this).addClass('ignore');
+					stripErrors(this);
+				}
+			}
+		});
+	}
+}
+
+function stripErrors(input) {
+	$(input).removeClass('error');
+	$(input).attr('aria-invalid', false);
+	$(input).parents('.form-group').removeClass('has-error');
+	$(input).parents('.form-group').find('label.error').hide();
+}
+
+// VALIDATIONS
 $(function(){
 	console.log('LET THE VALIDATIONS BEGIN!');
-	// REMOVE ALL OTHER FORMS
-	// IGNORE STUFF THAT ISN'T NECESSARY
-	$('.note-modal-form').ready(function() {
-		$('.note-modal-form').remove();
-		$('textarea.note-codable').addClass('ignore');
+
+	$('input[type="checkbox"]').on('change', function(e) {
+		ignoreBasedOnCheckbox(this);
+	});
+
+	$('input[type="checkbox"]').each(function(){
+		console.log('CHECKBOX');
+		ignoreBasedOnCheckbox(this);
+	});
+
+
+	$('.markdown textarea').each(function(){
+		console.log('MARKDOWN!');
+		var textarea = this;
+		$(textarea).markdown({
+			onBlur: function(e) {
+				$(textarea).text(e.getContent());
+			}
+		})
 	});
 
 	var rules = {};
@@ -29,7 +87,7 @@ $(function(){
 	$('form').find('.validate').each(function(index) {
 
 		var ruleObj = $(this).data('rules');
-		var name = $(this).attr('name');		
+		var name = $(this).attr('name');
 		if(ruleObj) {
 			rules[name] = ruleObj;
 		}
@@ -39,7 +97,7 @@ $(function(){
 
 	if(rules) {
 		$('form').validate({
-		    	debug: true,
+		    	debug: false,
 				rules: rules,
 				ignore: '.ignore',
 				

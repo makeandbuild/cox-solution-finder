@@ -17,7 +17,14 @@ Map.add({
 	title: { 
 		type: String, 
 		required: true,
-		m_cms: { maxLength: 25, showroom: true, companion: true } 
+		m_cms: { 
+			validations: {
+				required: true,
+				rangelength: [1,30]
+			},
+			showroom: true, 
+			companion: true
+		}
 	},
 	state: { 
 		type: Types.Select, 
@@ -43,6 +50,14 @@ Map.add({
 		initial: false,
 		m_cms: { limit: 3, showroom: true, companion: true }
 	},
+	editor: {
+		type: Types.Relationship, 
+		ref: 'User'
+	},
+	checkoutTime: {
+		type: Types.Datetime,
+		default: Date.now()
+	}
 });
 
 Map.schema.methods.updateableFields = function() {

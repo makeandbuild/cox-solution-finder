@@ -62,7 +62,6 @@ function stripErrors(input) {
 
 // VALIDATIONS
 $(function(){
-	console.log('LET THE VALIDATIONS BEGIN!');
 
 	$('input[type="checkbox"]').on('change', function(e) {
 		ignoreBasedOnCheckbox(this);
@@ -75,7 +74,6 @@ $(function(){
 
 
 	$('.markdown textarea').each(function(){
-		console.log('MARKDOWN!');
 		var textarea = this;
 		$(textarea).markdown({
 			onBlur: function(e) {
@@ -85,7 +83,6 @@ $(function(){
 	});
 
 	var rules = {};
-	var messages = {};
 	$('form').find('.validate').each(function(index) {
 
 		var ruleObj = $(this).data('rules');
@@ -95,11 +92,10 @@ $(function(){
 		}
 
 	});
-	console.log(rules);
 
 	if(rules) {
 		$('form').validate({
-		    	debug: false,
+		    	debug: true,
 				rules: rules,
 				ignore: '.ignore',
 				
@@ -110,10 +106,16 @@ $(function(){
 				highlight: function(element) {   // <-- fires when element has error
 					$(element).parent('.form-group').addClass('has-error');
 					$(element).addClass('error');
+					errorID = $(element).parents('.tab-pane').attr('id');
+					console.log(errorID);
+					$('a[href="#' + errorID +'"]').addClass('error');
 				},
 				unhighlight: function(element) {   // <-- fires when element has error
 					$(element).parent('.form-group').removeClass('has-error');
 					$(element).removeClass('error');
+					errorID = $(element).parents('.tab-pane').attr('id');
+					console.log(errorID);
+					$('a[href="#' + errorID +'"]').removeClass('error');
 				},
 				invalidHandler: function(event, validator) {
 				    var errors = validator.numberOfInvalids();
@@ -137,17 +139,15 @@ $(function(){
 
 				    $(this).find('.help-block.errors').text(errorMessage);
 				    $(this).find('.help-block.errors, .error-fields').show();
+				},
+				submitHandler: function(form) {
+					console.log('submit');
+					$('form').find('.publish').attr('disabled', 'disabled');
+					$('form').find('.publish').text('');
+					$('form').find('.publish').addClass('loading');
 				}
 
 			});
 	}
 
 });
-
-
-
-// messages : {
-// 				'name.full' : 'Please enter your first and last name.',
-// 				'email' : 'Please enter a valid Email address.',
-// 				'zipcode' : 'Please enter a valid ZIP Code'
-// 			},

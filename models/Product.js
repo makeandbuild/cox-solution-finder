@@ -177,5 +177,5 @@ Product.schema.methods.updateableFields = function() {
 	return 'title, industries, services, order, video.title, video.video_choice, video.video, video.video_webm, video.title_overlay, video.background, resource_one.title, resource_one.svg_icon, resource_one.resource_type, resource_one.resource_link, resource_one.description, resource_two.title, resource_two.svg_icon, resource_two.resource_type, resource_two.resource_link, resource_two.description, resource_three.title, resource_three.svg_icon, resource_three.resource_type, resource_three.resource_link, resource_three.description, resource_four.title, resource_four.svg_icon, resource_four.resource_type, resource_four.resource_link, resource_four.description, item_one.title, item_one.svg_icon, item_one.content, item_two.title, item_two.svg_icon, item_two.content, item_three.title, item_three.svg_icon, item_three.content, item_four.title, item_four.svg_icon, item_four.content, item_five.title, item_five.svg_icon, item_five.content';
 }
 
-Product.defaultColumns = 'title, state|20%';
+Product.defaultColumns = 'title, state|20%, updatedAt';
 Product.register();

@@ -64,4 +64,6 @@ Map.schema.methods.updateableFields = function() {
 	return 'title, map, products';
 }
 
+Map.defaultColumns = 'title, state|20%, updatedAt|20%';
+
 Map.register();

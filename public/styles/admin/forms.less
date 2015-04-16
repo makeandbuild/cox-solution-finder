@@ -153,7 +153,9 @@ input[type="file"] {
 	}
 }
 
-
+.mb-title-plain, .mb-title-bold {
+	text-transform: uppercase;
+}
 
 .mb-title-preview {
 	display:block;
@@ -162,6 +164,7 @@ input[type="file"] {
 
 	p {
 		border:1px solid @xlightGray;
+		text-transform: uppercase;
 		padding:10px;
 		border-radius:4px;
 	}
@@ -178,18 +181,18 @@ body.dragging, body.dragging * {
 }
 
 .dragged {
-  position: absolute;
-  opacity: 0.5;
-  z-index: 2000;
+	position: absolute;
+	opacity: 0.5;
+	z-index: 2000;
 }
 
 ol.example li.placeholder {
-  position: relative;
-  /** More li styles **/
+	position: relative;
+	/** More li styles **/
 }
 ol.example li.placeholder:before {
-  position: absolute;
-  /** Define arrowhead **/
+	position: absolute;
+	/** Define arrowhead **/
 }
 
 .relationship {
@@ -252,6 +255,23 @@ ol.example li.placeholder:before {
 
 .md-input.error {
 	border:1px solid @error;
+}
+
+.nav {
+	li {
+		a.error, a.error:hover, a.error:focus, a.error:active {
+			border-color:@error;
+			border-bottom-color:transparent;
+		}
+	}
+}
+
+.publish {
+	&.loading {
+		background:url('/images/ajax-loader.gif') center center no-repeat;
+		width:80px;
+		height:36px;
+	}
 }
 
 

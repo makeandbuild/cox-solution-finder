@@ -137,6 +137,14 @@ Homepage.add(
 			index: true,
 			noedit: true
 		},
+		editor: {
+			type: Types.Relationship, 
+			ref: 'User'
+		},
+		checkoutTime: {
+			type: Types.Datetime,
+			default: Date.now()
+		},
 		hero: {
 			greeting: {
 				type: Types.Text,

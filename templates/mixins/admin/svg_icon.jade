@@ -9,6 +9,9 @@ mixin svg_icon(item)
 	if(data.model.key == 'Industry')
 		- cssPrefix = 'industry-icon'
 		- valuePrefix = 'industry_'
+	if(data.model.key == 'Partner')
+		- cssPrefix = 'partners-icon'
+		- valuePrefix = 'partners_'
 	if(item.field.path.indexOf("resource_") == 0)
 		- cssPrefix = 'resources-icon'
 		- valuePrefix = 'resources_'

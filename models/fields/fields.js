@@ -81,9 +81,9 @@ exports.resource = function () {
 			m_cms: {
 				validations: {
 					required: false,
-					rangelength: [0,200]
+					rangelength: [0,225]
 				}, 
-				maxLength: 200, showroom: true, 
+				showroom: true, 
 				companion: true 
 			} 
 		}

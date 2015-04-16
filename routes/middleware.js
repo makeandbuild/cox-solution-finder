@@ -241,7 +241,7 @@ exports.unlockUserDocs = function(req, res, next) {
 			}
 
 			pathparts = pathname.split('/');
-
+console.log(pathparts);
 			//If no pathparts[1] we're coming from a list page, admin page, or either homepage or connects
 			var q;
 			if(pathparts[1] != undefined) {
@@ -255,9 +255,13 @@ exports.unlockUserDocs = function(req, res, next) {
 				//Being extra cautious that nothing slips through the logic above
 				if(pathparts[0] == 'homepage' || pathparts[0] == 'connect') {
 					console.log('homepage or connect');
+					slug = pathparts[0];
+					if(slug == 'homepage') {
+						slug = 'home';
+					}
 					Model = slugs[pathparts[0]];
 					q = Model.model.findOne({
-		    			slug: pathparts[0],
+		    			slug: slug,
 				    	editor: req.user.id
 			  		});
 				}

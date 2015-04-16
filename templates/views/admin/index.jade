@@ -2,6 +2,62 @@ extends ../../layouts/default-admin
 
 block content
 
-	p Hello World!
-
-	a(href="/signout") Sign Out
+	.container
+		.row
+			.col-lg-12
+				.jumbotron
+					p Welcome to the Cox Solution Finder CMS
+						p.lead='You are logged in as  '
+							=user.name.full
+						a(href='/signout').small
+							='(Not ' + user.name.first + '?)'
+		.row
+			.col-lg-12
+				h2 Recent Edits
+			.col-lg-6
+				.panel.panel-primary
+					.panel-heading
+						h4 Industries
+					.panel-body
+						table.table.table-striped
+							each industry in data.industries
+								tr
+									td
+										a(href='/admin/industries/' + industry.slug)=industry.title
+									td.text-right=industry._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+						a(href="/admin/industries").btn.btn-primary.pull-right More
+				.panel.panel-primary
+					.panel-heading
+						h4 Products
+					.panel-body
+						table.table.table-striped
+							each product in data.products
+								tr
+									td
+										a(href='/admin/industries/' + product.slug)=product.title
+									td.text-right=product._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+						a(href="/admin/products").btn.btn-primary.pull-right More
+			
+			.col-lg-6
+				.panel.panel-primary
+					.panel-heading
+						h4 Maps
+					.panel-body
+						table.table.table-striped
+							each map in data.maps
+								tr
+									td
+										a(href='/admin/industries/' + map.slug)=map.title
+									td.text-right=map._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+						a(href="/admin/maps").btn.btn-primary.pull-right More
+				.panel.panel-primary
+					.panel-heading
+						h4 Services
+					.panel-body
+						table.table.table-striped
+							each service in data.services
+								tr
+									td
+										a(href='/admin/industries/' + service.slug)=service.title
+									td.text-right=service._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+						a(href="/admin/services").btn.btn-primary.pull-right More

@@ -95,7 +95,7 @@ $(function(){
 
 	if(rules) {
 		$('form').validate({
-		    	debug: true,
+		    	debug: false,
 				rules: rules,
 				ignore: '.ignore',
 				
@@ -142,9 +142,11 @@ $(function(){
 				},
 				submitHandler: function(form) {
 					console.log('submit');
-					$('form').find('.publish').attr('disabled', 'disabled');
-					$('form').find('.publish').text('');
-					$('form').find('.publish').addClass('loading');
+					$(form).find('.publish').attr('disabled', 'disabled');
+					$(form).find('.publish').text('');
+					$(form).find('.publish').addClass('loading');
+				    $(form).find('.help-block.errors, .error-fields').hide();
+				    form.submit();
 				}
 
 			});

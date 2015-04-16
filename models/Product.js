@@ -19,7 +19,7 @@ var section = {
 		label: "Feature Title", 
 		m_cms: { 
 			validations: {
-				required: true,
+				required: false,
 				markdownLimit: [1,50]
 			}, 
 			showroom: true, 
@@ -40,7 +40,7 @@ var section = {
 		height: 200,
 		m_cms: {
  			validations: {
-				required: true,
+				required: false,
 				markdownLimit: [1,500]
 			}, 
 			showroom: true, 

@@ -34,13 +34,15 @@ function ignoreBasedOnCheckbox(checkbox) {
 	for(i=0;i < splitnames.length-1; i++) {
 		namespace += splitnames[i] + '.';
 	}
-	if(namespace.indexOf('resource') > 0) {
+	console.log(namespace);
+	if(namespace.indexOf('resource') < 0) {
 		console.log(namespace);
 
 		$(':input[name^="' + namespace + '"]').each(function() {
 
 			if($(this).hasClass('validate')) {
 				if($(checkbox).is(':checked')) {
+					console.log('checked');
 					$(this).removeClass('ignore');
 				} else {
 					$(this).addClass('ignore');

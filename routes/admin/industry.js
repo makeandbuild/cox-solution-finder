@@ -72,7 +72,6 @@ exports = module.exports = function(req, res) {
 				var previewQuery = Industry.model.findOne({
 					slug: slug
 				}).populate('custom_ordered_services')
-
 				previewQuery.exec(function(err, result) {
 					preview = result;
 					// console.log(preview.media_buffet)
@@ -80,10 +79,12 @@ exports = module.exports = function(req, res) {
 						fields = Industry.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
+
+
 							if(path == 'title') {
-								current[path] = preview[path].replace(' Preview', '');
-							} else if(path != 'editor' || path  != 'slug') {
-								current[path] = preview[path];
+								current.set(path, preview.get(path).replace(' Preview', ''));
+							} else if(path != 'editor' && path  != 'slug') {
+								current.set(path, preview.get(path));
 							}
 						}
 

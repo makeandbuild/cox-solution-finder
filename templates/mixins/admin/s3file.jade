@@ -17,14 +17,14 @@ mixin s3file(item)
 			.row.thumbnail-row
 				.col-lg-6.col-md-6.col-sm-6
 					- var s3obj = data.current.get(item.field.path)
-					if(s3obj.url)
+					- if(s3obj && s3obj.url)
 						img(src=s3obj.url).img-responsive.img-thumbnail
 
 		- if(type == 'Video')
 			.row.thumbnail-row
 				.col-lg-8.col-md-8.col-sm-6
 					- var s3obj = data.current.get(item.field.path)
-					if(s3obj.url)
+					- if(s3obj && s3obj.url)
 						video(controls preload="auto").video-js.vjs-default-skin
 							source(src=s3obj.url type=s3obj.type)
 							p.vjs-no-js To view this video please enable JavaScript, and consider upgrading to a web browser that 

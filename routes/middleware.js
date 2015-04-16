@@ -472,15 +472,10 @@ exports.saveData = function(req, res, next) {
 
 						s3obj = JSON.parse(req.body[key]);
 						key = key.replace('_s3obj', '');
-						if(!current[key]) {
-							current[key] = {}
-						}
 
 						if(!req.body[key + '_newfile'] || current.get(key).url != s3obj.url) {
 							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
-								for(prop in s3obj) {
-									current[key][prop] = s3obj[prop];
-								}
+								current.set(key, s3obj);
 							} else {
 								res.status(418).end('I am a tea pot.');
 								return next();

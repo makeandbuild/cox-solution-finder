@@ -40,11 +40,10 @@ block content
 							thead
 								tr
 									th(width="5%")
-									th(width="10%") Order
+									th(width="5%") Order
 									each field in data.defaultColumns
 										if(field.path != 'state')
-											th=field.label
-									th Service
+											th(width="45%")=field.label
 							tbody
 								each product in productGroup
 									tr(data-id=product.id)
@@ -57,15 +56,11 @@ block content
 													if(product.editor == undefined || product.editor.id == data.user)
 														td
 															a(href="/admin/products/"+product.slug)=product[field.path]
-														td
-															=product.services[0]['title']
 
 													else
 														td
 															span.glyphicon.glyphicon-lock
 															span=product[field.path]
-														td
-															=product.services[0]['title']
 												else if(field.path == 'updatedAt')
 													td=product._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
 											//- a(href="/admin/services/"+service.slug) Edit

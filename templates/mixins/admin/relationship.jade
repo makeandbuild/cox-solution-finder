@@ -6,13 +6,13 @@ mixin relationship(item, collection)
 
 		.panel-body
 			.row
-				.col-lg-5
+				.col-lg-5.col-md-5
 					h5 Unselected
 					ol.sortable.unselected.serialization
 						each option in data.relationships[item.field.options.ref]
 							- if(_.pluck(data.current.get(item.field.path), 'id').indexOf(option.id) < 0)
 								li(data-id=option.id data-name=option.title)=option.title
-				.col-lg-5.col-lg-offset-2
+				.col-lg-5.col-lg-offset-2.col-md-5.col-md-offset-1
 					h5 Selected
 					ol.sortable.selected.serialization
 						each option in data.current.get(item.field.path)

@@ -167,6 +167,7 @@ input[type="file"] {
 		text-transform: uppercase;
 		padding:10px;
 		border-radius:4px;
+		overflow:hidden;
 	}
 }
 
@@ -196,6 +197,18 @@ ol.example li.placeholder:before {
 }
 
 .relationship {
+
+	.panel-heading {
+		.coxicon {
+			font-size: 26px;
+			top: 5px;
+			position: relative;
+			
+			&:first-child {
+				padding-left: 10px;
+		  	}
+		}
+	}
 	select {
 		display:none;
 	}

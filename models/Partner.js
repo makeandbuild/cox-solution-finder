@@ -37,7 +37,7 @@ Partner.add(
 			required: true,
 			many: true,
 			initial: false,
-			note: "Select services and their order by dragging and dropping them. Choose 3 only.",
+			note: "Select services and their order by dragging and dropping them. Choose 3 only for the Showroom. All 4 will show on Companion.",
 			m_cms: { limit: 3, showroom: true, companion: true } 
 		},
 		heading: {

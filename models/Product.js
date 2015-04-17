@@ -20,7 +20,7 @@ var section = {
 		m_cms: { 
 			validations: {
 				required: false,
-				markdownLimit: [1,50]
+				markdownLimit: [0,50]
 			}, 
 			showroom: true, 
 			companion: true, 
@@ -41,7 +41,7 @@ var section = {
 		m_cms: {
  			validations: {
 				required: false,
-				markdownLimit: [1,500]
+				markdownLimit: [0,600]
 			}, 
 			showroom: true, 
 			companion: true, 
@@ -77,7 +77,8 @@ Product.add({
 		required: true, 
 		many: true, 
 		initial: false,
-		m_cms: { limit: 0, showroom: true, companion: true }
+		m_cms: { limit: 0, showroom: true, companion: true },
+		note: 'Choose all applicable industries. Relevant to both showroom and companion.'
 	},
 	services: { 
 		type: Types.Relationship, 
@@ -86,7 +87,8 @@ Product.add({
 		required: true, 
 		many: true, 
 		initial: false,
-		m_cms: { limit: 0, showroom: true, companion: true }
+		m_cms: { limit: 1, showroom: true, companion: true },
+		note: 'Choose applicable service for prodcut. Relevant to both showroom and companion.'
 	},
 	order: { 
 		type: Types.Number, 

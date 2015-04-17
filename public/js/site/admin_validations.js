@@ -34,15 +34,13 @@ function ignoreBasedOnCheckbox(checkbox) {
 	for(i=0;i < splitnames.length-1; i++) {
 		namespace += splitnames[i] + '.';
 	}
-	console.log(namespace);
+
 	if(namespace.indexOf('resource') < 0) {
-		console.log(namespace);
 
 		$(':input[name^="' + namespace + '"]').each(function() {
 
 			if($(this).hasClass('validate')) {
 				if($(checkbox).is(':checked')) {
-					console.log('checked');
 					$(this).removeClass('ignore');
 				} else {
 					$(this).addClass('ignore');
@@ -68,7 +66,6 @@ $(function(){
 	});
 
 	$('input[type="checkbox"]').each(function(){
-		console.log('CHECKBOX');
 		ignoreBasedOnCheckbox(this);
 	});
 
@@ -78,7 +75,10 @@ $(function(){
 		$(textarea).markdown({
 			onBlur: function(e) {
 				$(textarea).text(e.getContent());
-			}
+			},
+			onChange: function(e){
+				$(textarea).parents('.markdown').find('.counter').find('.curCount').text(e.getContent().length);
+  			},	
 		})
 	});
 
@@ -141,7 +141,6 @@ $(function(){
 				    $(this).find('.help-block.errors, .error-fields').show();
 				},
 				submitHandler: function(form) {
-					console.log('submit');
 					$(form).find('.publish').attr('disabled', 'disabled');
 					$(form).find('.publish').text('');
 					$(form).find('.publish').addClass('loading');
@@ -153,3 +152,80 @@ $(function(){
 	}
 
 });
+
+
+
+//Character counts for text-field and textarea
+function textFieldCounter(field) {
+	var count = $(field).val().length;
+	var max = $(field).data('rules').rangelength[1];
+	$(field).siblings('.counter').find('.curCount').text(count);
+	$(field).siblings('.counter').find('.maxCount').text(max);
+}
+//Update on keyup
+$('.text-field, .textarea').on('keyup', function(e) {
+	textFieldCounter(e.target);
+});
+
+//Update on page load
+$('.text-field, .textarea').each(function() {
+	textFieldCounter(this);
+});
+
+//Character counts for two field plainBOLD style inputs.
+function htmlTwoFieldTitleCounter(field) {
+	var count = $(field).siblings('.mb-title-preview').find('.preview-area p').text().length;
+	var max = $(field).data('rules').twoFieldHtmlMax;
+
+	$(field).siblings('.counter').find('.curCount').text(count);
+	$(field).siblings('.counter').find('.maxCount').text(max);	
+}
+
+//Update on keyup
+$('.mb-title-plain, .mb-title-bold').on('keyup', function(e) {
+	input = $(e.target).parents('.mb-title').find('.mb-title-formatted');
+	htmlTwoFieldTitleCounter(input);
+});
+
+//Update on page load
+$('.mb-title-formatted').each(function() {
+	htmlTwoFieldTitleCounter(this);
+});
+
+// Character counts for html Fields (summernote)
+function htmlFieldCounter(field) {
+	var count = $(field).text().length;
+	var max = $(field).parents('.html').find('.summernote').data('rules').htmlField[1]
+
+	$(field).parents('.html').find('.counter').find('.curCount').text(count);
+	$(field).parents('.html').find('.counter').find('.maxCount').text(max);	
+}
+
+$('.note-editable').on('change', function(e) {
+	console.log(11);
+	htmlFieldCounter(e.target);
+})
+
+$('.note-editable').each(function() {
+	htmlFieldCounter(this);
+});
+
+// Character counts for markdown fields.
+function markdownCounter(field) {
+	var count = $(field).text().length;
+	var max = $(field).data('rules').markdownLimit[1]
+	console.log(count);
+	$(field).parents('.markdown').find('.counter').find('.curCount').text(count);
+	$(field).parents('.markdown').find('.counter').find('.maxCount').text(max);	
+}
+
+//ON CHANGE HANDLED ABOVE IN MARKDOWN INIT
+//Update on page load.
+$('.markdown textarea').each(function() {
+	markdownCounter(this);
+});
+
+
+
+
+

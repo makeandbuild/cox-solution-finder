@@ -84,7 +84,7 @@ var map = {
 	products: { 
 		type: Types.Relationship, 
 		label: "Related Products", 
-		note: "Choose 3 Products to show up next to the Map Overlay.", 
+		note: "Choose 3 Products to show up next to the Map Overlay. Showroom only.", 
 		ref: 'Product', 
 		many: true, 
 		initial: false,

@@ -105,13 +105,17 @@ Service.add({
 	checkoutTime: {
 		type: Types.Datetime,
 		default: Date.now()
+	},
+	lastEditAt: {
+		type: Types.Datetime,
+		required:false
 	}
 });
 
-Service.defaultColumns = 'title, state, svg_icon, industries|50%, updatedAt';
+Service.defaultColumns = 'title, state, svg_icon, industries|50%, lastEditAt';
 
 Service.schema.methods.updateableFields = function() {
-    return 'title, svg_icon, heading, content, description, industries, resource_one.title, resource_one.svg_icon, resource_one.resource_link, resource_one.description, resource_two.title, resource_two.svg_icon, resource_two.resource_link, resource_two.description, resource_three.title, resource_three.svg_icon, resource_three.resource_link, resource_three.description';
+    return 'title, svg_icon, heading, content, description, industries, resource_one.title, resource_one.svg_icon, resource_one.resource_link, resource_one.description, resource_two.title, resource_two.svg_icon, resource_two.resource_link, resource_two.description, resource_three.title, resource_three.svg_icon, resource_three.resource_link, resource_three.description, lastEditAt';
 }
 
 Service.register();

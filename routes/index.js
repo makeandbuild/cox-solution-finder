@@ -76,6 +76,8 @@ exports = module.exports = function(app) {
 	app.all('/admin*', middleware.requireUser);
 	app.all('/admin*', middleware.unlockUserDocs);
 	app.all('/admin*', middleware.timerUnlockUserDocs);
+	// app.all('/admin*', middleware.s3cleaner);
+
 
 	app.all('/admin', routes.admin.index);
 	app.all('/admin/me', routes.admin.me);

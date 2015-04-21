@@ -10,7 +10,10 @@ block content
 						tr
 							each field in data.defaultColumns
 								if(field.path != 'state')
-									td=field.label
+									if(field.path == 'lastEditAt')
+										td(width="20%")=field.label
+									else 
+										td=field.label
 					tbody
 						each service in data.serviceList 
 							tr(id=service.slug)
@@ -35,8 +38,8 @@ block content
 										else if(field.path == 'svg_icon')
 											td.icon-column
 												span.service-icon.coxicon(class="coxicon_"+service[field.path])
-										else if(field.path == 'updatedAt')
-											td=service._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+										else if(field.path == 'lastEditAt')
+											td=service._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 										else
 											td=service[field.path]
 										//- a(href="/admin/services/"+service.slug) Edit

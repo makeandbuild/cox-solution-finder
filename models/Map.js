@@ -57,13 +57,17 @@ Map.add({
 	checkoutTime: {
 		type: Types.Datetime,
 		default: Date.now()
+	},
+	lastEditAt: {
+		type: Types.Datetime,
+		required:false
 	}
 });
 
 Map.schema.methods.updateableFields = function() {
-	return 'title, map, products';
+	return 'title, map, products, lastEditAt';
 }
 
-Map.defaultColumns = 'title, state|20%, updatedAt|20%';
+Map.defaultColumns = 'title, state|20%, lastEditAt|20%';
 
 Map.register();

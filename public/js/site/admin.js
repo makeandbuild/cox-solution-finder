@@ -152,6 +152,7 @@
 			// Relationship Field Drag/Drop Sortable
 			var group = $(parent).find($(parent).data('target-class')).sortable({
 										group: $(parent).data('target-class'),
+									   	nested: false,
 										isValidTarget: function  (item, container) {
 											if($(container.target).hasClass('selected') && container.items.length < $(parent).data('limit') || $(parent).data('limit') == 0) {
 												return true;
@@ -187,41 +188,116 @@
 			$(this).parents('.product-list').find('.glyphicon-move').show();
 			$(this).siblings('button.save').show();
 			$(this).siblings('button.cancel').show();
-		})
+		});
 
 		$('button.cancel').on('click', function(e) {
 			$('button').hide();
 			$('.glyphicon-move').hide();
 			$('button.save').hide();
 			$('button.reorder').show();
-		})
+
+			var tbody = $(e.target).parents('.product-list').find('tbody');
+			var rows = $(tbody).find('tr');
+			var originalOrder = $('form.product-reorder').find('select.original-order').val();
+
+			$('form.product-reorder').find('select').not('.original-order').html('');
+
+			for(i=0; i < originalOrder.length; i++) {
+				for(j=0; j < rows.length; j++) {
+					if($(rows[j]).data('id') == originalOrder[i]) {
+						$(rows[j]).appendTo(tbody);
+					}
+				}
+			}
+
+			$('form.product-reorder').find('select.original-order').html('');
+
+
+		});
+
+		$('button.reorder').on('click', function(e) {
+			var parent = $(e.target).parents('.product-list');
+			var table = $(parent).find('.table-product-list');
+
+			var form = $('form.product-reorder');
+			var newOrder = $(form).find('select').not('.original-order')
+			var originalOrder = $(form).find('select.original-order');
+
+			var service = $(parent).data('service');
+			var slug = $(parent).data('slug');
+			var service_id = $(parent).data('service-id');
+
+			$(form).find('input[name="service"]').val(service);
+			$(form).find('input[name="slug"]').val(slug);
+			$(form).find('input[name="service_id"]').val(service_id);
+
+			$(newOrder).html('');
+			$(originalOrder).html('');
+
+			var tbody = $(e.target).parents('.product-list').find('tbody');
+			var rows = $(tbody).find('tr');
+
+			for(i=0;i<rows.length;i++) {
+				id = $(rows[i]).data('id');
+				$(newOrder).append('<option value="' + id + '" selected="selected">' + id + '</option>');
+				$(originalOrder).append('<option value="' + id + '" selected="selected">' + id + '</option>');
+			}
+
+		});
+
+		$('.save').on('click', function(e) {
+			$('form.product-reorder').submit();
+		});
 
 		$('.table-product-list').each(function() {
-			parent = this;
+			table = this;
 
-			var group = $(this).sortable({
-			  group: $(parent).data('target-class'),
-			  handle: 'span.glyphicon.glyphicon-move',
-		   	  containerSelector: 'table',
-			  itemPath: '> tbody',
-			  itemSelector: 'tr',
-			  placeholder: '<tr class="placeholder"><td></td><td></td><td></td></tr>',
-		  	onDrop: function (item, container, _super) {
+			var group = $(table).sortable({
+									group: $(table).data('target-class'),
+									handle: 'span.glyphicon.glyphicon-move',
+									containerSelector: 'table',
+									nested: false,
+									itemPath: '> tbody',
+									itemSelector: 'tr',
+									placeholder: '<tr class="placeholder"><td></td><td></td><td></td></tr>',
+							  		onDrop: function (item, container, _super) {
 											var data = group.sortable("serialize").get();
 										    var jsonString = JSON.stringify(data, null, ' ');
 
-										    $(group).parents('.product-list').find('select').html('');
+										    $('.product-reorder').find('select').not('.original-order').html('');
 										    for(i=0;i<data[0].length;i++) {
 										    	id = data[0][i]['id'];
-										    	$(group).parents('.product-list').find('select').append('<option value="' + id + '" selected="selected">' + id + '</option>');
+										    	$('.product-reorder').find('select').not('.original-order').append('<option value="' + id + '" selected="selected">' + id + '</option>');
 										    }
 
 		    								_super(item, container)
 	  								}
-			})
+			});
 
-		})
+
+			// $(parent).parents('form').find('.cancel').on('click', function(e){
+			// 	location.reload();
+			// });
+			// Reset original order if user cancels.
+
+
+			// $(parent).parents('form').find('.cancel').on('click', function(e) {
+			// 	var tbody = $(e.target).parents('form').find('tbody');
+			// 	var rows = $(tbody).find('tr');
+			// 	var originalOrder = $(e.target).parents('form').find('select.original-order').val();
+
+			// 	$(tbody).children('tr').remove();
+
+
+
+			// 	$(e.target).parents('form').find('select').not('.original-order').html($(e.target).parents('form').find('select.original-order').html());
+
+
+			// });
+
+		});
 	}
+
 
 	$('.summernote').summernote({
 		height:150,

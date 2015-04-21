@@ -10,7 +10,10 @@ block content
 						tr
 							each field in data.defaultColumns
 								if(field.path != 'state')
-									td=field.label
+									if(field.path == 'lastEditAt')
+										td(width="20%")=field.label
+									else 
+										td=field.label
 					tbody
 						each industry in data.industryList 
 							tr(id=industry.slug)
@@ -35,8 +38,8 @@ block content
 										else if(field.path == 'svg_icon')
 											td.icon-column
 												span.industry-icon.coxicon(class="coxicon_"+industry[field.path])
-										else if(field.path == 'updatedAt')
-											td=industry._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+										else if(field.path == 'lastEditAt')
+											td=industry._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 										else
 											td=industry[field.path]
 										//- a(href="/admin/industries/"+industry.slug) Edit

@@ -34,7 +34,7 @@ block content
 							each product in data.products
 								tr
 									td
-										a(href='/admin/industries/' + product.slug)=product.title
+										a(href='/admin/products/' + product.slug)=product.title
 									td.text-right=product._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/products").btn.btn-primary.pull-right More
 			
@@ -47,7 +47,7 @@ block content
 							each map in data.maps
 								tr
 									td
-										a(href='/admin/industries/' + map.slug)=map.title
+										a(href='/admin/maps/' + map.slug)=map.title
 									td.text-right=map._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/maps").btn.btn-primary.pull-right More
 				.panel.panel-primary
@@ -58,6 +58,6 @@ block content
 							each service in data.services
 								tr
 									td
-										a(href='/admin/industries/' + service.slug)=service.title
+										a(href='/admin/services/' + service.slug)=service.title
 									td.text-right=service._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/services").btn.btn-primary.pull-right More

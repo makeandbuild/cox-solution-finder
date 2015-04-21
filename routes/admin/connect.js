@@ -48,7 +48,7 @@ exports = module.exports = function(req, res) {
 							path = fields[x];
 							if(path == 'title') {
 								current.set(path, preview.get(path).replace(' Preview', ''));
-							} else if(path != 'editor' && path  != 'slug') {
+							} else if(path != 'editor' && path  != 'slug' && path != 'lastEditAt') {
 								current.set(path, preview.get(path));
 							}
 						}

@@ -20,8 +20,10 @@ var keystone = require('keystone');
 		Product = keystone.list('Product'),
 		Service = keystone.list('Service'),
 		security = require('../components/security.js'),
-		util = require('util');
-
+		util = require('util'),
+		moment = require('moment');
+		// s3cleanup = require('../components/s3cleanup.js');
+		
 //index model by name
 var Models = {	'Connect': Connect,
 				'Homepage': Homepage,
@@ -330,7 +332,7 @@ exports.saveProductListOrder = function(req, res, next) {
 			if(results) {
 				for(i=0; i<results.length; i++) {
 					product = results[i];
-					order = req.body[serviceTitle].indexOf(product.id);
+					order = req.body.newOrder.indexOf(product.id);
 					updater = product.getUpdateHandler({order: order})
 					updater.process({order: order}, {
 						flashErrors: false,
@@ -345,17 +347,12 @@ exports.saveProductListOrder = function(req, res, next) {
 				}
 			}
 		}).then(function() {
-			var q = Service.model.findOne({
-				_id: req.body.service_id
-			});
-
-			q.exec(function(err, result) {
-				if(success && result) {
-					req.flash('success', "Product List Order for <a target='_blank' href=/services/" + result.slug + ">" + result.title + "</a> Updated");
-				}
-				next();
-			});
+			if(success) {
+				req.flash('success', "Product List Order for <a target='_blank' href=/services/" + req.body.slug + ">" + req.body.service + "</a> Updated");
+			}
+			next();
 		});
+
 	} else {
 		next();
 	}
@@ -490,6 +487,8 @@ exports.saveData = function(req, res, next) {
 				current.save();
 			}
 
+			req.body.lastEditAt = moment().format();
+			
 			updater.process(req.body, {
 				flashErrors: true,
 				fields: Model.schema.methods.updateableFields(),
@@ -520,6 +519,11 @@ exports.saveData = function(req, res, next) {
 	}
 }
 
+// exports.s3cleaner = function(req, res, next) {
+// 	console.log('CLEAN IT');
+// 	s3cleanup.cleanup();
+// 	next();
+// }
 
 
 

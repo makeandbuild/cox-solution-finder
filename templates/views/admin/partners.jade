@@ -10,7 +10,10 @@ block content
 						tr
 							each field in data.defaultColumns
 								if(field.path != 'state')
-									td=field.label
+									if(field.path == 'lastEditAt')
+										td(width="20%")=field.label
+									else 
+										td=field.label
 					tbody
 						each partner in data.partnersList 
 							tr(id=partner.slug)
@@ -35,8 +38,8 @@ block content
 										else if(field.path == 'svg_icon')
 											td.icon-column
 												span.partner-icon.coxicon(class="coxicon_"+partner[field.path])
-										else if(field.path == 'updatedAt')
-											td=partner._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+										else if(field.path == 'lastEditAt')
+											td=partner._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 										else
 											td=partner[field.path]
 										//- a(href="/admin/services/"+service.slug) Edit

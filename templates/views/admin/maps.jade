@@ -10,7 +10,10 @@ block content
 						tr
 							each field in data.defaultColumns
 								if(field.path != 'state')
-									td=field.label
+									if(field.path == 'lastEditAt')
+										td(width="20%")=field.label
+									else 
+										td=field.label
 					tbody
 						each map in data.mapsList 
 							tr(id=map.slug)
@@ -35,8 +38,8 @@ block content
 										else if(field.path == 'svg_icon')
 											td.icon-column
 												span.map-icon.coxicon(class="coxicon_"+map[field.path])
-										else if(field.path == 'updatedAt')
-											td=map._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+										else if(field.path == 'lastEditAt')
+											td=map._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 										else
 											td=map[field.path]
 										//- a(href="/admin/services/"+service.slug) Edit

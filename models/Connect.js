@@ -65,12 +65,16 @@ Connect.add({
 	},
 	checkoutTime: {
 		type: Types.Datetime,
-		default: Date.now()
+		default: Date.now
+	},
+	lastEditAt: {
+		type: Types.Datetime,
+		required:false
 	}
 });
 
 Connect.schema.methods.updateableFields = function() {
-    return 'name, heading, content, connect_background';
+    return 'name, heading, content, connect_background, lastEditAt';
 }
 
 Connect.register();

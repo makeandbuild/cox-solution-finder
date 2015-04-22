@@ -10,12 +10,10 @@ exports = module.exports = function(req, res) {
 
 		var q = keystone.list('Industry').model.find()
 				.where('state', 'published')
-				.sort('updatedAt')
+				.sort('lastEditAt')
 				.limit('3')
 
 		q.exec(function(err, results) {
-			console.log(results.length);
-
 			locals.data.industries = results;
 			next(err);
 		});
@@ -24,12 +22,10 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		var q = keystone.list('Product').model.find()
 				.where('state', 'published')
-				.sort('updatedAt')
+				.sort('lastEditAt')
 				.limit('3')
 
 		q.exec(function(err, results) {
-			console.log(results.length);
-
 			locals.data.products = results;
 			next();
 		});
@@ -38,12 +34,10 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		var q = keystone.list('Service').model.find()
 				.where('state', 'published')
-				.sort('updatedAt')
+				.sort('lastEditAt')
 				.limit('3')
 
 		q.exec(function(err, results) {
-			console.log(results.length);
-
 			locals.data.services = results;
 			next();
 		});
@@ -52,12 +46,10 @@ exports = module.exports = function(req, res) {
 	view.on('init', function(next) {
 		var q = keystone.list('Map').model.find()
 				.where('state', 'published')
-				.sort('updatedAt')
+				.sort('lastEditAt')
 				.limit('3')
 
 		q.exec(function(err, results) {
-			console.log(results.length);
-
 			locals.data.maps = results;
 			next();
 		});

@@ -21,8 +21,8 @@ var keystone = require('keystone');
 		Service = keystone.list('Service'),
 		security = require('../components/security.js'),
 		util = require('util'),
-		moment = require('moment');
-		// s3cleanup = require('../components/s3cleanup.js');
+		moment = require('moment'),
+		s3cleanup = require('../components/s3cleanup');
 		
 //index model by name
 var Models = {	'Connect': Connect,
@@ -243,7 +243,7 @@ exports.unlockUserDocs = function(req, res, next) {
 			}
 
 			pathparts = pathname.split('/');
-console.log(pathparts);
+
 			//If no pathparts[1] we're coming from a list page, admin page, or either homepage or connects
 			var q;
 			if(pathparts[1] != undefined) {
@@ -256,7 +256,7 @@ console.log(pathparts);
 			} else {
 				//Being extra cautious that nothing slips through the logic above
 				if(pathparts[0] == 'homepage' || pathparts[0] == 'connect') {
-					console.log('homepage or connect');
+
 					slug = pathparts[0];
 					if(slug == 'homepage') {
 						slug = 'home';
@@ -519,11 +519,14 @@ exports.saveData = function(req, res, next) {
 	}
 }
 
-// exports.s3cleaner = function(req, res, next) {
-// 	console.log('CLEAN IT');
-// 	s3cleanup.cleanup();
-// 	next();
-// }
+exports.s3cleaner = function(req, res, next) {
+
+	if(Math.random() < 0.1) {
+		console.log('CLEAN IT');
+		s3cleanup(keystone.mongoose);
+	}
+	next();
+}
 
 
 

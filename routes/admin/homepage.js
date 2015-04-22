@@ -73,9 +73,9 @@ exports = module.exports = function(req, res) {
 						fields = Homepage.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
-							if(path == 'title') {
+							if(path == 'name') {
 								current.set(path, preview.get(path).replace(' Preview', ''));
-							} else if(path != 'editor' && path  != 'slug') {
+							} else if(path != 'editor' && path  != 'slug' && path != 'lastEditAt') {
 								current.set(path, preview.get(path));
 							}
 						}

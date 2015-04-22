@@ -20,7 +20,7 @@ function s3Download(callback){
   	s3Options: {
     	accessKeyId: process.env.S3_KEY,
     	secretAccessKey: process.env.S3_SECRET,
-  	},
+  	}
 	})
 
 	var eventer = client.downloadDir({

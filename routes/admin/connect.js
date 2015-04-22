@@ -15,7 +15,8 @@ exports = module.exports = function(req, res) {
 		var preview;
 
 		var q = Connect.model.findOne({
-			slug: 'connect'
+			slug: 'connect',
+			state: 'published'
 		})
 		.populate('editor')
 		.populate('updatedBy');
@@ -37,8 +38,7 @@ exports = module.exports = function(req, res) {
 			if(locals.savedPreview) {
 				var previewQuery = Connect.model.findOne({
 					slug: 'connect-preview'
-				})
-				.populate('editor');
+				});
 
 				previewQuery.exec(function(err, result) {
 					preview = result;
@@ -46,9 +46,9 @@ exports = module.exports = function(req, res) {
 						fields = Connect.schema.methods.updateableFields().split(', ');
 						for(x in fields) {
 							path = fields[x];
-							if(path == 'title') {
+							if(path == 'name') {
 								current.set(path, preview.get(path).replace(' Preview', ''));
-							} else if(path != 'editor' && path  != 'slug' && path != 'lastEditAt') {
+							} else if(path != 'editor' && path != 'slug' && path != 'lastEditAt') {
 								current.set(path, preview.get(path));
 							}
 						}

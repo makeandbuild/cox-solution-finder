@@ -24,7 +24,7 @@ block content
 								tr
 									td
 										a(href='/admin/industries/' + industry.slug)=industry.title
-									td.text-right=industry._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+									td.text-right=industry._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/industries").btn.btn-primary.pull-right More
 				.panel.panel-primary
 					.panel-heading
@@ -35,7 +35,7 @@ block content
 								tr
 									td
 										a(href='/admin/products/' + product.slug)=product.title
-									td.text-right=product._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+									td.text-right=product._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/products").btn.btn-primary.pull-right More
 			
 			.col-lg-6
@@ -48,7 +48,7 @@ block content
 								tr
 									td
 										a(href='/admin/maps/' + map.slug)=map.title
-									td.text-right=map._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+									td.text-right=map._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/maps").btn.btn-primary.pull-right More
 				.panel.panel-primary
 					.panel-heading
@@ -59,5 +59,5 @@ block content
 								tr
 									td
 										a(href='/admin/services/' + service.slug)=service.title
-									td.text-right=service._.updatedAt.format('MMMM DD, YYYY h:mm:ss a')
+									td.text-right=service._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
 						a(href="/admin/services").btn.btn-primary.pull-right More

@@ -54,7 +54,6 @@ module.exports = function(mongoose) {
 				if (err) {
 					console.log(err)
 				}
-				console.log('Searching for S3 Files is Complete.');
 				console.log('S3 Files In Keystone: ' + s3filesInUse.length);
 				s3filesInUse = _.uniq(s3filesInUse);
 				// console.log(s3filesInUse);
@@ -91,7 +90,6 @@ module.exports = function(mongoose) {
 					var toBeArchived = _.difference(s3filenames, s3filesInUse);
 					// console.log(toBeArchived);
 					console.log('Archive Me: ' + toBeArchived.length);
-					console.log(toBeArchived);
 
 					for(i=0;i<toBeArchived.length;i++) {
 						var moveEventer = client.moveObject({
@@ -101,11 +99,9 @@ module.exports = function(mongoose) {
 						})
 
 						moveEventer.on('end', function(data) {
-							console.log(data);
+							console.log('s3Cleanup moved a file');
 						});
 					}
-
-					console.log('Intersection: ' + _.intersection(s3filenames, s3filesInUse).length);
 
 				});
 

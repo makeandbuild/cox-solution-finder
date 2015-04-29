@@ -6,20 +6,27 @@ extends ../../layouts/default-admin
 block content
 	.container
 		h1=data.current.name
-		p.help-block='Created On: ' + data.current._.createdAt.format('Do MMMM YYYY h:mm:ss a')
-		p.help-block='Last Edit: ' + data.current._.updatedAt.format('Do MMMM YYYY h:mm:ss a')
-		form(method='post')
-			input(type='hidden', name='action', value='admin-connect')
+		form(method='post', enctype='multipart/form-data')
+			input(type='hidden', name='action', value='publish')
+			input(type='hidden', name='name', value=data.current.name)
+			input(type='hidden', name='slug', value=data.current.slug)
+			input(type='hidden', name='key', value=data.model.key)
+
 			.row
 				.col-lg-8.col-md-8
+					- var complexFields = []
 					each item in data.model.uiElements
-						+cms-field(item)
-			.row
-				.col-xs-12
-					.admin-buttons
-						button.btn.btn-primary Publish
-						button.btn.btn-default Preview
+						+cms-field(item, complexFields)
+				.col-xs-4
+					.right-rail(data-spy="affix" data-offset-top="130")
+						+admin-buttons()
+
+						.icon-key
+							+site-icons-key()
 
 block js
-	script(src='/js/lib/bootstrap/tooltip.js')
-
+	if savedPreview
+		script(type="text/javascript").
+			var mode = !{JSON.stringify(previewMode)};
+			var pathname = '/admin/preview/connect';
+		script(src='/js/site/previewlaunch.js')

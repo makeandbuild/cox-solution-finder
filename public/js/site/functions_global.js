@@ -238,7 +238,11 @@ function modalContent(){
 		if ($(this).hasClass('video-link')){
 			var videoData = $(this).data('video-data');
 			var video = $('.modal.csf-video-modal video');
-			video.attr('poster', videoData.poster.url);
+			if (videoData.background && videoData.background.url) {
+				video.attr('poster', videoData.background.url);
+			} else if (videoData.poster && videoData.poster.url) {
+				video.attr('poster', videoData.poster.url);
+			}
 
 			//Checks if Firefox 34 and loads webm as videojs src.
 			if($('.ie50')[0] && videoData.video_webm.url){

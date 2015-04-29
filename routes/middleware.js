@@ -10,7 +10,40 @@
 
 var keystone = require('keystone');
 		_ = require('underscore'),
-		async = require('async');
+		async = require('async'),
+		url = require('url'),
+		Connect = keystone.list('Connect'),
+		Homepage = keystone.list('Homepage'),
+		Industry = keystone.list('Industry'),
+		Map = keystone.list('Map'),
+		Partner = keystone.list('Partner'),
+		Product = keystone.list('Product'),
+		Service = keystone.list('Service'),
+		security = require('../components/security.js'),
+		util = require('util'),
+		moment = require('moment'),
+		s3cleanup = require('../components/s3cleanup');
+		
+//index model by name
+var Models = {	'Connect': Connect,
+				'Homepage': Homepage,
+				'Industry': Industry,
+				'Map': Map,
+				'Partner': Partner,
+				'Product': Product,
+				'Service': Service
+			};
+
+//index model by slug
+var slugs = {	'connect': Connect,
+				'homepage': Homepage,
+				'industries': Industry,
+				'partners': Partner,
+				'products': Product,
+				'maps': Map,
+				'services': Service
+			};
+
 
 exports.setState = function(req,res,next){
 	var locals = res.locals;
@@ -50,6 +83,22 @@ exports.setState = function(req,res,next){
 		});
 	}
 
+	locals.md5hash = security.md5hash;
+
+	locals.isObjInArray = function(needle, haystack) {
+
+		if(util.isArray(haystack) && typeof needle == "object") {
+			for(i=0; i < haystack.length; i++) {
+				if(haystack[i]['id'] === needle.id) {
+					return true;
+				}
+			}
+			return false;
+		} else {
+			return false;
+		}
+	}
+
 	next();
 }
 
@@ -65,13 +114,15 @@ exports.initLocals = function(req, res, next) {
 	var locals = res.locals;
 
 	locals.navLinks = [
-		{ label: 'Home',		key: 'home',		href: '/', 			 	type: 'page' },
+		{ label: 'Home',		key: 'home',		href: '/', 			 	type: 'page', 	admin: false },
 		{ label: 'Homepage',	key: 'homepage',	href: '/homepage',		type: 'page',	adminOnly: true },
 		{ label: 'Industries',	key: 'industries', 	href: '/industries', 	type: 'modal' },
 		{ label: 'Services',	key: 'services',	href: '/services', 		type: 'modal' },
 		{ label: 'Partners',	key: 'partners',	href: '/partners', 		type: 'modal' },
 		{ label: 'Connect',		key: 'connect',		href: '/connect', 		type: 'page' },
-		{ label: 'Settings',	key: 'settings',	href: '/settings', 		type: 'settings' },
+		{ label: 'Products',	key: 'products',	href: '/products',		type: 'page',	adminOnly: true },		
+		{ label: 'Maps',	key: 'maps',	href: '/maps',		type: 'page',	adminOnly: true },
+		{ label: 'Settings',	key: 'settings',	href: '/settings', 		type: 'settings',	admin: false },
 
 	];
 
@@ -120,7 +171,7 @@ exports.initLocals = function(req, res, next) {
 			});
 		}		
 	], function(err, results) {
-		//TODO should probably check for an error here, but not sure what we'd do with it...
+		//TO;DO should probably check for an error here, but not sure what we'd do with it...
 		next();
 	});
 };
@@ -153,7 +204,7 @@ exports.requireUser = function(req, res, next) {
 
 	if (!req.user) {
 		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/keystone/signin');
+		res.redirect('/signin');
 	} else {
 		next();
 	}
@@ -176,17 +227,309 @@ exports.personalized = function(req, res, next) {
 	next();
 };
 
-/**
-	Prevents people from accessing protected pages when they're not signed in
- */
+exports.unlockUserDocs = function(req, res, next) {
 
-exports.requireUser = function(req, res, next) {
-	
-	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/signin');
+	//Don't do anything on a refresh or a reclick
+	if(req.headers.referer) {
+
+		var referer = url.parse(req.headers.referer);
+		if(referer.pathname != req.url) {
+		
+			//Strip /admin/ from referrer url.
+			pathname = referer.pathname;
+			pathname = pathname.replace('/admin', '');
+			if(pathname.charAt(0) == '/') {
+				pathname = pathname.substr(1,pathname.length);
+			}
+
+			pathparts = pathname.split('/');
+
+			//If no pathparts[1] we're coming from a list page, admin page, or either homepage or connects
+			var q;
+			if(pathparts[1] != undefined) {
+				Model = slugs[pathparts[0]];
+				q = Model.model.findOne({
+				    slug: pathparts[1],
+				    editor: req.user.id
+			  	});
+
+			} else {
+				//Being extra cautious that nothing slips through the logic above
+				if(pathparts[0] == 'homepage' || pathparts[0] == 'connect') {
+
+					slug = pathparts[0];
+					if(slug == 'homepage') {
+						slug = 'home';
+					}
+					Model = slugs[pathparts[0]];
+					q = Model.model.findOne({
+		    			slug: slug,
+				    	editor: req.user.id
+			  		});
+				}
+			}
+
+			//Make sure the query was created. More cautiousness.
+			if(q) {
+				q.exec(function(err, result) {
+				  	if(result) {
+					  	if(result.editor) {
+					  		console.log('UNLOCK IT');
+						  	result.editor = undefined;
+						  	result.save();
+					  	}
+				  	}
+				  	next();
+			  	});
+			} else {
+				next();
+			}
+		} else {
+			next();
+		}
+	} else {
+		next();		
+	}
+
+};
+
+exports.timerUnlockUserDocs = function(req, res, next) {
+
+	for(x in Models) {
+		var Model = Models[x];
+
+		q = Model.model.find()
+			.where('state', 'published')
+			.where('editor').ne(undefined)
+			.where('checkoutTime').lt(Date.now() - 30*60*1000);
+
+		q.exec(function(err, results) {
+		  	if(results) {
+		  		for(var i = 0; i < results.length; i++) {
+		  			result = results[i];
+		  			result.editor = undefined;
+		  			result.checkoutTime = null;
+		  			result.save();
+		  		}
+		  	}
+	  	});
+
+	}
+
+	next();
+
+};
+
+exports.saveProductListOrder = function(req, res, next) {
+	if(req.body.action == 'reorder') {
+		serviceTitle = req.body.service;
+
+		var q = Product.model.find()
+				.in('services', [req.body.service_id])
+		var success = true;
+
+		q.exec(function(err, results) {
+			if(results) {
+				for(i=0; i<results.length; i++) {
+					product = results[i];
+					order = req.body.newOrder.indexOf(product.id);
+					updater = product.getUpdateHandler({order: order})
+					updater.process({order: order}, {
+						flashErrors: false,
+						fields: 'order',
+						errorMessage: 'There was a problem with saving the new order.'
+					}, function(err) {
+						if(err) {
+							req.flash('error', err);
+							success = false;
+						}
+					});
+				}
+			}
+		}).then(function() {
+			if(success) {
+				req.flash('success', "Product List Order for <a target='_blank' href=/services/" + req.body.slug + ">" + req.body.service + "</a> Updated");
+			}
+			next();
+		});
+
 	} else {
 		next();
 	}
-	
 }
+
+exports.saveData = function(req, res, next) {
+
+	if(req.body.action == 'preview') {
+		var newTitle = false;
+		var Model = Models[req.body.key];
+		slug = req.body.slug + '-preview';
+		res.locals.savedPreivew = false;
+		res.locals.newTitle = false;
+		res.locals.previewPath = '';
+		res.locals.previewSlug = '';
+
+		var autokeyPath = Model.options.autokey.from[0]['path'];
+		req.body[autokeyPath] = req.body[autokeyPath] + ' Preview';
+
+		var q = Model.model.findOne({
+			slug: slug
+		});
+
+		q.exec(function(err, result) {
+			var preview;
+
+			if(result) {
+				preview = result;
+			} else {
+				settings = {};
+				settings[autokeyPath] = req.body[autokeyPath];
+				preview = new Model.model(settings);
+				newTitle = true;
+			}
+
+			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
+				newTitle = true;
+			}
+
+			updater = preview.getUpdateHandler(req);
+
+			if(preview) {
+				for(key in req.body) {
+
+					if(/_s3obj$/.test(key)) {
+						s3obj = JSON.parse(req.body[key]);
+						key = key.replace('_s3obj', '');
+
+						if(!req.body[key + '_newfile'] || preview.get(key).url != s3obj.url) {
+							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
+								preview.set(key, s3obj);
+							} else {
+								res.status(418).end('I am a tea pot.');
+								return next();
+							}
+						}
+					}
+				}
+				preview.save();
+			}
+
+			updater.process(req.body, {
+				flashErros: false,
+				fields: Model.schema.methods.updateableFields(),
+				errorMessage: 'There was a problem with generating the preview'
+			}, function(err) {
+				if(err) {
+					res.locals.savedPreview = false;
+					req.flash('error', err);
+				} else {
+					res.locals.previewMode = req.body.previewMode;
+					res.locals.savedPreview = true;
+				}
+				if(newTitle) {
+					pathname = req.url;
+					pathname = pathname.replace('/admin/', '/admin/preview/');
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					pathname = pathname + '/' + preview.slug;
+					res.locals.previewPath = pathname;
+					res.locals.previewSlug = preview.slug;
+
+					next(err);
+				} else {
+					pathname = req.url;
+					pathname = pathname.replace('/admin/', '/admin/preview/');
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					res.locals.previewPath = pathname + '/' + preview.slug;
+
+					next(err);
+				}
+				
+			});
+		});
+	} else if(req.body.action == 'publish') {
+		var Model = Models[req.body.key];
+		
+
+		var q = Model.model.findOne({
+			slug: req.body.slug
+		});
+
+		var newTitle = false;
+		var autokeyPath = Model.options.autokey.from[0]['path'];
+
+		q.exec(function(err, result) {
+			current = result;
+
+			if(!newTitle && req.body[autokeyPath] != result[autokeyPath] && result) {
+				newTitle = true;
+			}
+
+			updater = current.getUpdateHandler(req);
+			if(current) {
+
+				for(key in req.body) {
+
+					if(/_s3obj$/.test(key)) {
+
+						s3obj = JSON.parse(req.body[key]);
+						key = key.replace('_s3obj', '');
+
+						if(!req.body[key + '_newfile'] || current.get(key).url != s3obj.url) {
+							if(security.md5hash(JSON.stringify(s3obj)) == req.body[key + '_s3obj_hash']) {
+								current.set(key, s3obj);
+							} else {
+								res.status(418).end('I am a tea pot.');
+								return next();
+							}
+						}
+					}
+				}
+				current.save();
+			}
+
+			req.body.lastEditAt = moment().format();
+			
+			updater.process(req.body, {
+				flashErrors: true,
+				fields: Model.schema.methods.updateableFields(),
+				errorMessage: 'There was a problem publishing your changes.'
+			}, function(err) {
+
+				if(err) {
+					req.flash('error', err);
+				} else {
+					req.flash('success', 'Your changes have been published.');
+				}
+
+				if(newTitle) {
+					pathname = req.url;
+					pathname = pathname.substr(0, pathname.lastIndexOf('/'));
+					pathname = pathname + '/' + current.slug;
+					res.redirect(pathname);
+					// next(err);
+				} else {
+					next(err);
+				}
+
+			});
+
+		});
+	} else {
+		next();
+	}
+}
+
+exports.s3cleaner = function(req, res, next) {
+
+	if(Math.random() < 0.1) {
+		console.log('CLEAN IT');
+		s3cleanup(keystone.mongoose);
+	}
+	next();
+}
+
+
+
+
+
+

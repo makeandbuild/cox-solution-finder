@@ -1,5 +1,6 @@
 include ../mixins/flash-messages
 include ../mixins/auth/auth-forms
+include ../mixins/admin/admin-buttons
 
 doctype html
 html
@@ -12,25 +13,28 @@ html
 
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(href="/styles/admin.min.css", rel="stylesheet")
+		link(href="/styles/bootstrap-markdown/bootstrap-markdown.min.css", rel="stylesheet")
+		link(href="/styles/summernote/summernote.css", rel="stylesheet")
 
 		block css
 		block head
 	body
 		header
 			div(role="navigation").navbar.navbar-default
-				.container-fluid
+				.container
 					.navbar-header
 						button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
 							span.sr-only Toggle navigation
 							span.icon-bar
 							span.icon-bar
 							span.icon-bar
-						a.navbar-brand(href='/').glyphicon.glyphicon-home
+						a.navbar-brand(href='/admin').glyphicon.glyphicon-home
 
 					.collapse.navbar-collapse
 						ul.nav.navbar-nav.navbar-left
 							each link in navLinks
-								li(class=(section == link.key ? 'active' : null)): a(href='/admin' + link.href)= link.label
+								if(link.admin != false)
+									li(class=(section == link.key ? 'active' : null)): a(href='/admin' + link.href)= link.label
 						ul.nav.navbar-nav.navbar-right
 							if user
 								if user.canAccessKeystone
@@ -45,6 +49,7 @@ html
 								li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign in
 
 		block intro
+			+flash-messages(messages)
 
 		block content
 
@@ -62,13 +67,21 @@ html
 		//- lib
 		script(src='/js/lib/jquery/jquery-2.1.1.min.js')
 		script(src='/js/lib/bootstrap/bootstrap-3.2.0.min.js')
-		//script(src='/js/lib/bootstrap/collapse.js')
-		//script(src='/js/lib/bootstrap/dropdown.js')
+		//-script(src='/js/lib/bootstrap/collapse.js')
+		//-script(src='/js/lib/bootstrap/dropdown.js')
+		script(src='/js/lib/bootstrap/affix.js')
 		script(src='/js/lib/bootstrap/modal.js')
+		script(src='/js/lib/bootstrap/tab.js')
 		script(src='/js/lib/jquery-validation/jquery.validate.min.js')
+		script(src='/js/lib/bootstrap-markdown/bootstrap-markdown.js')
+		script(src='/js/lib/bootstrap-markdown/to-markdown.js')
+		script(src='/js/lib/bootstrap-markdown/markdown.js')
+		script(src='/js/lib/summernote/summernote.min.js')
+		script(src='/js/lib/jquery-sortable/jquery-sortable-min.js')
 		//- site
 
 		script(src='/js/site/admin.js')
+		script(src='/js/site/admin_validations.js')
 
 
 		block js

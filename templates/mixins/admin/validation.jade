@@ -1,8 +1,24 @@
-mixin validations(maxLength)
-		if(maxLength)
-			- validation = ''
-			- label = 'Max Length'
-			- validation = '' + label + ': ' + maxLength + ' characters'
+mixin validations(validations)
+		if(validations)
+			if(validations.rangelength)
+				- validation = ''
+				- label = 'Max Length'
+				- validation = '' + label + ': ' + validations.rangelength[1] + ' characters'
+			if(validations.htmlField)
+				- validation = ''
+				- label = 'Max Length'
+				- validation = '' + label + ': ' + validations.htmlField[1] + ' characters'
+			if(validations.markdownLimit)
+				- validation = ''
+				- label = 'Max Length'
+				- validation = '' + label + ': ' + validations.markdownLimit[1] + ' characters'
+			if(validations.twoFieldHtmlMax)
+				- validation = ''
+				- label = 'Max Length'
+				- validation = '' + label + ': ' + validations.twoFieldHtmlMax + ' characters'
+
+			if(validations.required)
+				- validation += ', Required'
 		else
 			- validation = ''
 

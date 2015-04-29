@@ -1,0 +1,15 @@
+- var resourceHeaderDisplayed = false
+mixin resource(resFields)
+	if !resourceHeaderDisplayed
+		.resources
+			h3 Resources
+				button(type="button" class="add-resource").btn.btn-default Add
+		- resourceHeaderDisplayed = true
+	.resource.panel.panel-primary
+		.panel-heading.clearfix
+			h4 Resource
+			button(type="button" class="delete-resource").btn.btn-default Remove
+		.panel-body
+			- while(resFields.length)
+				- item = resFields.shift()
+				+draw-field(item)

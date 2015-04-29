@@ -1,0 +1,29 @@
+mixin htmlTwoFieldTitle(item)
+
+	+validations(item.field.options.m_cms.validations)
+
+	.form-group.mb-title.no-hide
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+		.mb-title-preview 
+			span Preview:
+			.preview-area
+				if(data.current.get(item.field.path))
+					!=data.current.get(item.field.path)
+				else
+					p=' '
+		p.help-block.text-right.counter 
+			span.curCount 
+			span /
+			span.maxCount
+		input(type="hidden" data-rules=item.field.options.m_cms.validations name=item.field.path value=data.current.get(item.field.path)).mb-title-formatted.validate
+		.row
+			.col-lg-6.col-md-6
+				label Plain Text
+				input(type='text' name="ignore").ignore.form-control.mb-title-plain
+			.col-lg-6.col-md-6
+				label Bold Text
+				input(type='text' name="ignore").ignore.form-control.mb-title-bold
+			.col-lg-12.col-md-12
+				.help-block=item.field.options.note
+					+printValidation()

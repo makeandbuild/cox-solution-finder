@@ -74,9 +74,40 @@ exports = module.exports = function(app) {
 
 	// Admin
 	app.all('/admin*', middleware.requireUser);
+	app.all('/admin*', middleware.unlockUserDocs);
+	app.all('/admin*', middleware.timerUnlockUserDocs);
+	app.all('/admin*', middleware.s3cleaner);
+
+
 	app.all('/admin', routes.admin.index);
 	app.all('/admin/me', routes.admin.me);
-	app.all('/admin/connect', routes.admin.connect);
+
+	app.all('/admin/connect', middleware.saveData, routes.admin.connect);
+	app.all('/admin/homepage', middleware.saveData, routes.admin.homepage);
+
+	app.all('/admin/services', routes.admin.services);
+	app.all('/admin/services/:service', middleware.saveData, routes.admin.service);
+
+
+	app.all('/admin/industries', routes.admin.industries);
+	app.all('/admin/industries/:industry', middleware.saveData, routes.admin.industry);
+
+	app.all('/admin/partners', routes.admin.partners);
+	app.all('/admin/partners/:partner', middleware.saveData, routes.admin.partner);
+
+	app.all('/admin/products', middleware.saveProductListOrder, routes.admin.products);
+	app.all('/admin/products/:product', middleware.saveData, routes.admin.product);
+
+	app.all('/admin/maps', routes.admin.maps);
+	app.all('/admin/maps/:map', middleware.saveData, routes.admin.map);
+
+	// app.post('/admin/preview', keystone.middleware.api, routes.admin.preview.index);
+	app.all('/admin/preview/connect', routes.admin.preview.connect);
+	app.all('/admin/preview/homepage', routes.admin.preview.homepage);
+	app.all('/admin/preview/services/:service', routes.admin.preview.service);
+	app.all('/admin/preview/industries/:industry', routes.admin.preview.industry);
+	app.all('/admin/preview/partners/:partner', routes.admin.preview.partner);
+	app.all('/admin/preview/products/:product', routes.admin.preview.product);
 
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

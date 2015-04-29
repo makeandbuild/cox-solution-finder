@@ -1,0 +1,33 @@
+include ../../mixins/admin/cms-mixins
+
+extends ../../layouts/default-admin
+
+block content
+	.container
+		h1="Product - " + data.current.title
+		form(method='post', enctype='multipart/form-data')
+			input(type='hidden', name='action', value='publish')
+			input(type='hidden', name='slug', value=data.current.slug)
+			input(type='hidden', name='key', value=data.model.key)
+			input(type='hidden', name='order', value=data.current.get('order'))
+
+			.row
+				.col-lg-8.col-md-8
+					- var complexFields = []
+					each item in data.model.uiElements
+						+cms-field(item, complexFields)
+
+				.col-xs-4
+					.right-rail(data-spy="affix" data-offset-top="130")
+						+admin-buttons()
+						
+						.icon-key
+							+site-icons-key()
+
+block js
+	if savedPreview
+		script(type="text/javascript").
+			var mode = !{JSON.stringify(previewMode)};
+			var pathname = !{JSON.stringify(previewPath)}
+		script(src='/js/site/previewlaunch.js')
+

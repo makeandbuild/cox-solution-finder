@@ -1,0 +1,75 @@
+extends ../../layouts/default-admin
+
+block content
+
+	- var products = []
+	- var titles = []
+	- var service_ids = []
+	- var slugs = []
+	each service in data.services
+		if(titles.indexOf(service.title) < 0)
+			- titles.push(service.title)
+			- service_ids.push(service.id)
+			- slugs.push(service.slug)
+		- products[titles.indexOf(service.title)] = _.filter(data.productsList, function(product) { return product.services[0]['id'] == service.id; } )
+		
+	.container
+		h1 Products
+
+		form(method="post").product-reorder
+			input(type="hidden" name="action" value="reorder")
+			input(type="hidden" name="service" value=title)
+			input(type="hidden" name="slug" value=slug)
+			input(type="hidden" name="service_id" value=service_id)
+			select(name="newOrder" multiple).form-control
+			select(name="originalOrder" multiple).form-control.original-order
+
+		each productGroup in products
+			- var title = titles[products.indexOf(productGroup)]
+			- var service_id = service_ids[products.indexOf(productGroup)]
+			- var slug = slugs[products.indexOf(productGroup)]
+			hr
+			div(data-service=title data-slug=slug data-service-id=service_id).product-list
+				.row
+					.col-lg-6.col-md-6.col-sm-6
+						h3=title
+					.col-lg-6.col-md-6.col-sm-6
+						button(type="button" data-edit-order=title).btn.btn-default.reorder Reorder
+						button(type="button").btn.btn-default.cancel Cancel
+						button(type="button").btn.btn-primary.save Publish
+
+
+				.row
+					.col-lg-12.col-md-12
+						table(data-target-class=title + '-product-list' class=title + '-product-list').table.table-striped.table-hover.table-responsive.table-product-list
+							thead
+								tr
+									th(width="5%")
+									th(width="5%") Order
+									each field in data.defaultColumns
+										if(field.path != 'state')
+											if(field.path == 'lastEditAt')
+												td(width="20%")=field.label
+											else 
+												td=field.label
+							tbody
+								each product in productGroup
+									tr(data-id=product.id)
+										each field in data.defaultColumns
+											if(field.path != 'state')
+												if(field.path == 'title')
+													td
+														span.glyphicon.glyphicon-move.pull-left
+													td.order=product.order+1
+													if(product.editor == undefined || product.editor.id == data.user)
+														td
+															a(href="/admin/products/"+product.slug)=product[field.path]
+
+													else
+														td
+															span.glyphicon.glyphicon-lock
+															span=product[field.path]
+												else if(field.path == 'lastEditAt')
+													td=product._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
+											//- a(href="/admin/services/"+service.slug) Edit
+							

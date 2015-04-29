@@ -1,0 +1,14 @@
+mixin html(item)
+	+validations(item.field.options.m_cms.validations)
+	
+	.form-group.html
+		label=item.field.label
+			+site-icons(item.field.options.m_cms)
+		textarea(name=item.field.path data-rules=item.field.options.m_cms.validations).summernote.validate=data.current.get(item.field.path)
+		p.help-block.text-right.counter 
+			span.curCount 
+			span /
+			span.maxCount
+		p.help-block=item.field.options.note
+			+printValidation()
+

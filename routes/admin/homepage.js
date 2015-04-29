@@ -30,16 +30,16 @@ exports = module.exports = function(req, res) {
 		var preview;
 
 		var q = Homepage.model.findOne({
-			slug: 'home'
-		})
-		.populate('act.act_three.map_one.products')
-		.populate('act.act_three.map_two.products')
-		.populate('act.act_three.map_three.products')
-		.populate('act.act_three.map_four.products')
-		.populate('act.act_three.map_five.products')
-		.populate('act.act_three.map_six.products')
-		.populate('editor')
-		.populate('updatedBy');
+							slug: 'home'
+						})
+						.populate('act.act_three.map_one.products')
+						.populate('act.act_three.map_two.products')
+						.populate('act.act_three.map_three.products')
+						.populate('act.act_three.map_four.products')
+						.populate('act.act_three.map_five.products')
+						.populate('act.act_three.map_six.products')
+						.populate('editor')
+						.populate('updatedBy');
 
 		q.exec(function(err, result) {
 	  		var locked = false;

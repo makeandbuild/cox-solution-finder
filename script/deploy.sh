@@ -32,7 +32,7 @@ notify_slack() {
       -H 'Content-Type: application/json' \
       -H 'Accept: application/json' \
       -XPOST https://hooks.slack.com/services/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 <<EOJSON
-{ "channel": "#cox-solution-finder", "text": "$@" }
+{ "channel": "#csfdev", "text": "$@" }
 EOJSON
 }
 

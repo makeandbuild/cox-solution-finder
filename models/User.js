@@ -3,7 +3,7 @@ var keystone = require('keystone'),
 	nodeSES = require('node-ses'),
 	client = nodeSES.createClient({ key: process.env.SES_KEY, secret: process.env.SES_SECRET }),
 	sender = process.env.SES_SENDER,
-	hostname = process.env.STATIC_URI,
+	hostname = process.env.PDOMAIN,
 	jade = require('jade');
 
 /**

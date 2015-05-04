@@ -6,8 +6,9 @@
 function initShowroom(){
 	console.log('initShowroom Called');
 	sidebarNavigation();
-	
+
 	allServices();
+	itemNavigation($('.map-type'), $('.map-type-container'));
 	itemNavigation($('.map-overlay-navitem'), $('.map-overlay'));
 	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
 	factoidGeneral();
@@ -20,8 +21,9 @@ function initShowroom(){
 	mySolutionsSessionInit();
 	mySolutionsFavoritesInits();
 	mySolutionsFavoritesInteraction();
-	
+
 	mapRelatedProducts();
+	mapTypeInits();
 
 	mySolutionsFormSubmission();
 
@@ -29,7 +31,7 @@ function initShowroom(){
 		homeStageTransitions();
 		attractLoop_Init();
 	}
-	
+
 	settingsInits();
 	settingsActions();
 	settingsPageInits();
@@ -52,14 +54,14 @@ function initShowroom(){
 	// 	var target = $(this);
 	// 	if(parent.hasClass('scrolled')){
 	// 		customScrollTo(parent, 0, 1000);
-			
+
 	// 		target.fadeOut('300', function(){
 	// 			parent.removeClass('scrolled');
 	// 			target.fadeIn('300');
 	// 		});
 	// 	} else {
 	// 		customScrollTo(parent, parent.children('.row').last().offset().top, 1000);
-			
+
 	// 		target.fadeOut('300', function(){
 	// 			parent.addClass('scrolled');
 	// 			target.fadeIn('300');

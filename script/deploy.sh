@@ -4,7 +4,7 @@ function usage () {
   cat <<EOF
 Usage: $PROGNAME ENVIRONMENT
 Deploys the application to the given ENVIRONMENT
-  ENVIRONMENT   dev|staging
+  ENVIRONMENT   dev|staging|maps
 EOF
   exit $( [ $# -ne 0 ] && echo $1 || echo 0 )
 }
@@ -15,6 +15,7 @@ APP_NAME="sfv2"
 ENVIRONMENT="$1" && shift 1 && [ "$1" ] && usage 1
 TARGET_HOST="$ENVIRONMENT.sfv2.cox.mxmcloud.com"
 APP_ROOT="/srv/$APP_NAME"
+[ "$ENVIRONMENT" == "maps" ] && APP_ROOT="$APP_ROOT-maps"
 
 run() {
   cmd=""
@@ -31,7 +32,7 @@ notify_slack() {
       -H 'Content-Type: application/json' \
       -H 'Accept: application/json' \
       -XPOST https://hooks.slack.com/services/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 <<EOJSON
-{ "channel": "#cox-solution-finder", "text": "$@" }
+{ "channel": "#csfdev", "text": "$@" }
 EOJSON
 }
 

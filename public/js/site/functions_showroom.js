@@ -12,7 +12,10 @@ var solutions_cookieName,
 	settings_cookieName,
 	settings_cookieExp,
 	settings_cookiePath,
-	settings_post_location;
+	settings_post_location,
+	map_type_cookieName,
+	map_type_cookieExp,
+	map_type_cookiePath;
 
 solutions_cookieName = 'csf_showroom_favorites';
 solutions_cookieExp = 1;
@@ -81,7 +84,7 @@ function attractLoop_Init(){
 			if ( ( (time_Now - time_Init) > time_duration_very_long*1000 ) && !attractLoopStarted ) {
 				console.log('      Starting Attract Loop');
 
-				// The Attract loop has started. 
+				// The Attract loop has started.
 				attractLoopStarted = true;
 			}
 
@@ -102,7 +105,7 @@ function attractLoop_Init(){
 				console.log('      '+timeToNextAction+' Sec To Next Action.');
 			}
 		}
-		
+
 
 	},1000);
 
@@ -153,7 +156,7 @@ function attractLoop_Action(data){
 
 				// Toggle the scene.
 				nextScene.trigger('click');
-				
+
 			}
 
 		// Non-Randomized Scenes
@@ -172,11 +175,11 @@ function attractLoop_Action(data){
 					lastSceneUsed = 0;
 				}
 				sceneOrder[lastSceneUsed].trigger('click');
-				
-				
+
+
 			}
 		}
-		
+
 		// Set the counddown to the first action of the newly accessed scene.
 		timeToNextAction = time_duration_short;
 	}
@@ -187,7 +190,7 @@ function attractLoop_Action(data){
 		// Loops thru the Factoids before going onto the next scene.
 		if(data.currentAct.type == 'factoid'){
 			console.log('LOCATION: '+data.currentAct.type);
-			
+
 			if (factoid_order) {
 
 				// Randomize the Order.
@@ -201,7 +204,7 @@ function attractLoop_Action(data){
 
 				// Toggle the factoid.
 				data.currentAct.selectors.eq(nextFactoid).trigger('click');
-				
+
 				// If the last factoid was toggled extend the coundown before leaving the scene.
 				if (factoid_order.length <= 0) {
 					factoid_order = false;
@@ -242,7 +245,7 @@ function attractLoop_Action(data){
 				video_playing = true;
 				timeToNextAction = 1;
 			}
-			
+
 
 
 
@@ -258,9 +261,11 @@ function attractLoop_Action(data){
 				map_current = 0;
 				timeToNextAction = time_duration_long;
 			} else {
+				$('.map-type').first().trigger('click');
 				map_current++;
+
 				data.currentAct.selectors.eq(map_current).trigger('click');
-				
+
 
 				// Reset countdown till the next map.
 				timeToNextAction = time_duration_short;
@@ -299,7 +304,7 @@ function attractLoop_data() {
 		} else if (isMap) {
 			selectors = currentAct.find('.map-overlay-navitem');
 		}
-		
+
 		// Create our data object to be used in actions.
 		array = {
 			"isHome" : isHome,
@@ -431,7 +436,7 @@ function factoidTransition(set, toggledClass, type, numToCount){
 		} else if (type == 'jiggle') {
 			twoClassToggle(set.eq(currentCount), 'factoid-jiggle1', 'factoid-jiggle2', 80, 8, true);
 		}
-		
+
 		currentCount++;
 		if(currentCount >= set.length){
 			currentCount = 0;
@@ -446,7 +451,7 @@ function factoidTransition(set, toggledClass, type, numToCount){
 				factoidTransition(set, toggledClass, type, currentCount);
 			},200);
 		}
-	}	
+	}
 }
 
 
@@ -459,7 +464,7 @@ function allServices(){
 	});
 }
 
-/*  
+/*
 	Adjusts the links on the navigation modals
 	using an onclick call. Readjusts them if the
 	normal navigation is used.
@@ -524,7 +529,7 @@ function homeStageTransitions(){
 					clicked.addClass('scene-in-focus');
 					target.addClass('active').siblings().removeClass('active');
 					$('.my-solutions-link').addClass('inactive');
-				}				
+				}
 			},1000);
 			setTimeout(function(){
 				if (selectorLocation == 'scene_location_3'){
@@ -532,7 +537,7 @@ function homeStageTransitions(){
 					$('.stage-background-shadow').addClass('inactive');
 				}
 			},1100);
-			
+
 			if (selectorLocation == 'scene_location_1'){
 				setTimeout(function(){
 					factoidTransition($('.factoid'), 'inactive-factoid', 'unveil', 0);
@@ -541,7 +546,7 @@ function homeStageTransitions(){
 				// 	factoidTransition($('.factoid'), 'inactive-factoid', 'jiggle', 0);
 				// },1400);
 			}
-			
+
 		}
 
 	});
@@ -583,8 +588,73 @@ function mapRelatedProducts(){
 		var selectedProduct = $('.product-navigation-item').filter("[data-navigationitem='"+productId.related_service_id+"']");
 		selectedProduct.trigger('click');
 		$.removeCookie('tmp_rel_prod', { expires: solutions_cookieExp, path: solutions_cookiePath });
-	
+
 	}
+}
+
+function mapTypeInits(){
+	if($('.home-stage')[0]){
+		if ($.cookie(settings_cookieName) != undefined){
+			var currentData = JSON.parse($.cookie(settings_cookieName));
+			if (currentData.map == 'National Maps'){
+				$('.map-type').first().trigger('click');
+				setTimeout(function(){
+					$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
+				},100);
+			} else {
+				$('.map-type').last().trigger('click');
+				setTimeout(function(){
+					$('.map-overlay-navitem-regional').filter("[data-map-navigationitem='"+currentData.map+"']").trigger('click');
+				},100);
+			}
+		} else {
+			$('.map-type').first().trigger('click');
+			setTimeout(function(){
+				$('.map-type-container').filter("[data-item='regional']").find('ul li').first().trigger('click');
+			},100);
+		}
+
+		$('.map-overlay-navitem-regional').on('click',function(e){
+			var clicked = $(this);
+			var selector = clicked.data('map-navigationitem');
+			var target = $('.map-overlay').filter("[data-map-item='"+selector+"']");
+			var asset = target.data('map-asset');
+
+			clicked.addClass('active').siblings().removeClass('active');
+
+			var newScrollTop = clicked.offset().top - $('#regional_dropdown').offset().top;
+
+			$('#regional_dropdown_outer').animate({
+		        scrollTop: newScrollTop
+		    }, 500);
+
+			target.siblings('.map-overlay').removeClass('active');
+
+			if(asset){
+				if ( /^\/\//.test(asset) ) {
+					target.css('background-image', 'url(http:'+asset+')');
+				} else {
+					target.css('background-image', 'url('+asset+')');
+				}
+			}
+
+			
+
+			setTimeout(function(){
+				target.addClass('active');
+			},200);
+		})
+	} else if($('.settings-page')[0]) {
+
+		$('.map-overlay-navitem-regional').on('click',function(e){
+			var clicked = $(this);
+			var selector = clicked.data('map');
+			$('.map-overlay-dropdown button .custom-dropdown-current').data().map = selector;
+			$('.map-overlay-dropdown button .custom-dropdown-current').html(selector);
+		});
+	}
+
+
 }
 
 function mySolutionsFavoritesInits(){
@@ -604,7 +674,7 @@ function mySolutionsFavoritesInits(){
 			var type = $(this).data('solutions-type');
 			if ( currentData[type].indexOf(slug) != -1 ) {
 				$(this).find('.coxicon').addClass('active');
-			} 
+			}
 		});
 		if (currentData.count > 0) {
 			countObject.html(currentData.count);
@@ -638,9 +708,9 @@ function mySolutionsFavoritesInits(){
 				}
 				$('.solutions-products-title').addClass('active');
 			}
-			
 
-			
+
+
 		}
 
 	} else {
@@ -648,7 +718,7 @@ function mySolutionsFavoritesInits(){
 			$('.solutions-no-solutions').addClass('active');
 		}
 	}
-	
+
 }
 
 // My Solutions Functions
@@ -689,8 +759,8 @@ function mySolutionsFavoritesInteraction(){
 		if (theStar.hasClass('active')){
 			isAddition = false;
 		} else {
-			isAddition = true;	
-		} 
+			isAddition = true;
+		}
 		//theStar.toggleClass('active');
 		$('.can-favorite').filter("[data-solutions-type='"+type+"']").filter("[data-solutions-slug='"+slug+"']").find('.coxicon').toggleClass('active');
 
@@ -726,7 +796,7 @@ function mySolutionsSessionUpdate(slug, type, isAddition){
 		$.cookie(solutions_cookieName, default_json_string, { expires: solutions_cookieExp, path: solutions_cookiePath });
 		$.cookie('csf_showroom_favorites', '{"industries":[],"services":[],"products":[], "count":0}', { expires: 1, path: '/' });
 	*/
-	
+
 
 	if ($.cookie(solutions_cookieName) == undefined){
 		$.cookie(solutions_cookieName, default_json_data, { expires: solutions_cookieExp, path: solutions_cookiePath });
@@ -868,7 +938,7 @@ function settingsActions(){
 	});
 
 	// On Submit, Set Settings, and Create the Cookie or Override it.
-	$('#settings-form').on('submit',function(e){
+	$('.settings-save').on('click',function(e){
 		e.preventDefault();
 		$('.settings-warning-text').removeClass('active');
 		$('.settings-success-text').removeClass('active');
@@ -878,7 +948,7 @@ function settingsActions(){
 			$('.settings-warning-text').addClass('active');
 			return;
 		} else {
-			
+
 			// Current Selected Setting
 			settings_filter = $('.settings-filter-item-container.active').first();
 			slug = settings_filter.data('settings-filter-slug');
@@ -900,22 +970,19 @@ function settingsActions(){
 				currentData.partner = slug;
 			}
 
-
 			// Set formData and add to currentData.
-			formData = $('#settings-form').serializeObject();
-			currentData.showname = formData.showname;
+			currentData.showname = $('.trade-show-name').val();
+			currentData.map = $('.map-overlay-dropdown button .custom-dropdown-current').data('map');
 
 			// Create the Cookie
 			$.cookie(settings_cookieName, JSON.stringify(currentData), { expires: settings_cookieExp, path: settings_cookiePath });
 
-			// Add Settings to formData
-			formData.industry = currentData.industry;
-			formData.partner = currentData.partner;
+			console.log(currentData);
 
 			// Setup the Ajax Post Request
 			var data = {
 				type: 'settings',
-				formData: formData
+				formData: currentData
 			};
 
 			$.ajax({
@@ -945,8 +1012,9 @@ function settingsPageInits(){
 			$('.settings-filter-partner').filter("[data-settings-filter-slug='"+currentData.partner+"']").addClass('active');
 
 			$('.trade-show-name').val(currentData.showname);
+			$('.map-overlay-navitem-regional').filter("[data-map='"+currentData.map+"']").trigger('click');
 		}
-		
+
 		if($('.home-menu')[0]){
 			$('.media_buffet_home_section').filter("[data-home-media-buffet='"+currentData.industry+"']").addClass('active');
 		}
@@ -954,6 +1022,11 @@ function settingsPageInits(){
 		if($('.connect-showname')[0]){
 			$('.connect-showname').val(currentData.showname);
 		}
+	} else {
+		if (!$('.settings-page')[0]){
+			window.location.replace("/settings.html");
+		}
+		
 	}
 }
 
@@ -965,8 +1038,6 @@ function settingsInits(){
 	$.get( settings_post_location, function( data ) {
 		if(data.status != "error") {
   			currentData = JSON.parse(data.data);
-
-  			console.log(currentData);
 
   			if (currentData.formData.industry == '' || currentData.formData.showroom == ''){
   				if (!$('.settings-page')[0]){
@@ -980,7 +1051,7 @@ function settingsInits(){
   			console.log('data.status == "error"');
   			console.log(data);
   		}
-  		
+
 	}).fail(function() {
 	    console.log( "SettingsInit Failure!" );
 	}).success(function(){
@@ -995,8 +1066,8 @@ function settingsClearIt(){
 	var currentData = {
 		'industry': '',
 		'partner': '',
-		'showname': ''
-
+		'showname': '',
+		'map': ''
 	}
 	var data = {
 		type: 'settings',
@@ -1057,7 +1128,7 @@ function tvTabletTransferInit() {
 				location.pathname = data.currentPage;
 			}, 1000)
     	}
-    	
+
     });
 
 }

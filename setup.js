@@ -100,6 +100,7 @@ module.exports = function(keystone, callback) {
   // Configure the navigation bar in Keystone's Admin UI
   keystone.set('nav', {
     'Home': 'homepages',
+    'Regional Maps': 'maps',
     'enquiries': 'enquiries',
     'users': 'users',
     'industries' : 'industries',

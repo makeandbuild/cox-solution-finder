@@ -234,13 +234,13 @@ function attractLoop_Action(data){
 				video_playing = false;
 			} else if (video_ready_to_complete) {
 				data.currentAct.close.trigger('click');
-				data.currentAct.selectors.volume = video_saved_volume ? video_saved_volume : 1;
+				// data.currentAct.selectors.volume = video_saved_volume ? video_saved_volume : 1;
 				data.currentAct.selectors.load();
 				timeToNextAction = time_duration_long;
 				video_ready_to_complete = false;
 			} else {
-				video_saved_volume = data.currentAct.selectors.volume;
-				data.currentAct.selectors.volume = 0;
+				//video_saved_volume = data.currentAct.selectors.volume;
+				// data.currentAct.selectors.volume = 0;
 				data.currentAct.selectors.play();
 				video_playing = true;
 				timeToNextAction = 1;

@@ -331,12 +331,99 @@ function attractLoop_data() {
 
 //Connect Keyboard Functions
 function connectKeyboard(){
-	$('input').on('focus',function(){
-		if($(this).attr('type', 'text') || $(this).attr('type', 'email')){
-			jsKeyboard.currentElement = $(this);
-			jsKeyboard.currentElementCursorPosition = 0;
+
+
+	
+	$('.form-keyboard-group input').on('click', function(e){
+		$(this).parents('.form-keyboard-group').addClass('lastFocused').siblings('.form-keyboard-group').removeClass('lastFocused');
+
+		// var id = $(this).attr('id');
+		// var keyboard = $('#'+id).getkeyboard();
+		// keyboard.metaActive = false;
+		// keyboard.altActive = keyboard.shiftActive = false;
+		// keyboard.showKeySet({ name : "normal" });
+
+	});
+
+	var keyboardOptions = {
+		layout : 'custom',
+		
+		customLayout: {
+			'normal': ['q w e r t y u i o p {b}', 'a s d f g h j k l', '{shift} z x c v b n m , . @', '{meta1} {space} {prev} {next}'],
+			'shift': ['Q W E R T Y U I O P {b}', 'A S D F G H J K L', '{shift} Z X C V B N M , . @', '{meta1} {space} {prev} {next}'],
+			'meta1': ['1 2 3 4 5 6 7 8 9 0 {b}', '- / : ; ( ) $ & @', '? ! " | \\, *, =, +', '{meta1} {space} {prev} {next}']
+		},
+		display: {
+			'meta1': "?123",
+			'b'      : '\u2190:Backspace',
+			'next': "Next",
+			'prev': "Prev"
+		},
+		position     : {
+	    of : $('#keyboard'),
+	    my : 'center top',
+	    at : 'center top',
+	    at2: 'center bottom' // used when "usePreview" is false (centers keyboard at bottom of the input/textarea)
+		},
+		usePreview   : false,
+		alwaysOpen   : false,
+		stayOpen     : true,
+		appendTo: '.keyboard-container',
+		tabNavigation: true,
+		enterNavigation : false,
+		acceptValid  : false,
+		hidden : function(e, keyboard, el) {
+			keyboard.metaActive = false;
+			keyboard.altActive = keyboard.shiftActive = false;
+			keyboard.showKeySet({ name : "normal" });
+		},
+
+	};
+
+	$('#nameFull').keyboard(keyboardOptions).addTyping({showTyping : true});
+	$('#email').keyboard(keyboardOptions).addTyping({showTyping : true});
+	$('#zipcode').keyboard(keyboardOptions).addTyping({showTyping : true});
+
+	$('[data-action="next"]').on('click',function(e){
+
+		e.preventDefault();
+
+		var current = $('.lastFocused');
+		var currentInput = current.find('.ui-keyboard-input');
+
+		if (currentInput.attr('id') == 'nameFull' || currentInput.attr('id') == 'email') {
+
+			currentInput.attr('id').getkeyboard().reveal();
+			var prev = $('.lastFocused');
+			var next = $('.lastFocused').next();
+			prev.removeClass('lastFocused');
+			next.addClass('lastFocused').find('.ui-keyboard-input').focus();
 		}
 	});
+
+	$('[data-action="prev"]').on('click',function(e){
+
+		e.preventDefault();
+
+		var current = $('.lastFocused');
+		var currentInput = current.find('.ui-keyboard-input');
+
+		if (currentInput.attr('id') == 'zipcode' || currentInput.attr('id') == 'email') {
+
+			currentInput.attr('id').getkeyboard().reveal();
+			var prev = $('.lastFocused');
+			var next = $('.lastFocused').prev();
+			prev.removeClass('lastFocused');
+			next.addClass('lastFocused').find('.ui-keyboard-input').focus();
+		}
+	});
+
+	$('.ui-keyboard').each(function(){
+		$(this).append('<div class="keyboard-background-shadow"></div>');
+	});
+
+	$('#nameFull').getkeyboard().reveal();
+
 }
 
 

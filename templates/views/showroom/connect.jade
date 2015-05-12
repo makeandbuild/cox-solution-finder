@@ -3,11 +3,12 @@ extends ../../layouts/default-showroom
 
 block css
 	link(href="/styles/keyboard/keyboard.css", rel="stylesheet")
-	link(href="/styles/keyboard/jsKeyboard.css", rel="stylesheet")
+	//- link(href="/styles/keyboard/jsKeyboard.css", rel="stylesheet")
 
 block js
 	script(src='/js/lib/jquery/jquery.keyboard.js')
-	script(src='/js/lib/jquery/jsKeyboard.js')
+	script(src='/js/lib/jquery/jquery.keyboard.extension-typing.js')
+	//- script(src='/js/lib/jquery/jsKeyboard.js')
 
 block content
 	.col-xs-6.full-height-col.connect-page-my-solutions
@@ -90,21 +91,21 @@ block content
 
 							input(type="hidden" name='showname' value='').connect-showname
 
-							.form-group(class=validationErrors.name ? 'has-error' : null)
+							.form-group.form-keyboard-group(class=validationErrors.name ? 'has-error' : null)
 								label.sr-only Full Name
-								input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
+								input#nameFull(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 								.form-empty
 									img(src="/images/close.png")
 
-							.form-group(class=validationErrors.email ? 'has-error' : null)
+							.form-group.form-keyboard-group(class=validationErrors.email ? 'has-error' : null)
 								label.sr-only Email
-								input(type='email', name='email', value=formData.email placeholder="Email").form-control
+								input#email(type='email', name='email', value=formData.email placeholder="Email").form-control
 								.form-empty
 									img(src="/images/close.png")
 
-							.form-group(class=validationErrors.zipcode ? 'has-error' : null)
+							.form-group.form-keyboard-group(class=validationErrors.zipcode ? 'has-error' : null)
 								label.sr-only Zip Code
-								input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
+								input#zipcode(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
 								.form-empty
 									img(src="/images/close.png")
 							
@@ -143,5 +144,6 @@ block content
 				.row
 					.col-xs-12
 						.keyboard-container
-							.keyboard-background-shadow
-							.virtualKeyboard#virtualKeyboard
+							
+							//- .virtualKeyboard#virtualKeyboard
+

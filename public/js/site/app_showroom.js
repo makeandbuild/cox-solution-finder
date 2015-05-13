@@ -13,8 +13,9 @@ function initShowroom(){
 	itemNavigationAlternate($('.product-navigation-item'), $('.product-container'));
 	factoidGeneral();
 	if ($('.keyboard-container')[0]){
-		jsKeyboard.init("virtualKeyboard");
+		// jsKeyboard.init("virtualKeyboard");
 		connectKeyboard();
+		
 	}
 	inputClear();
 

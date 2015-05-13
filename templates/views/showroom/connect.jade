@@ -91,19 +91,19 @@ block content
 
 							input(type="hidden" name='showname' value='').connect-showname
 
-							.form-group.form-keyboard-group(class=validationErrors.name ? 'has-error' : null)
+							.form-group.form-keyboard-group.form-keyboard-name(class=validationErrors.name ? 'has-error' : null)
 								label.sr-only Full Name
 								input#nameFull(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
 								.form-empty
 									img(src="/images/close.png")
 
-							.form-group.form-keyboard-group(class=validationErrors.email ? 'has-error' : null)
+							.form-group.form-keyboard-group.form-keyboard-email(class=validationErrors.email ? 'has-error' : null)
 								label.sr-only Email
 								input#email(type='email', name='email', value=formData.email placeholder="Email").form-control
 								.form-empty
 									img(src="/images/close.png")
 
-							.form-group.form-keyboard-group(class=validationErrors.zipcode ? 'has-error' : null)
+							.form-group.form-keyboard-group.form-keyboard-zipcode(class=validationErrors.zipcode ? 'has-error' : null)
 								label.sr-only Zip Code
 								input#zipcode(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
 								.form-empty

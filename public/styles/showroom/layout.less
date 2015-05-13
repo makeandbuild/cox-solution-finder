@@ -30,8 +30,72 @@
 	right: 0;
 }
 
+.keyboard-container {
+	margin: 4em auto 0;
+	background-color: @xxlightGray;
+	width: 90%;
+	height: 250px;
+	position: relative;
+	overflow: hidden;
+	.keyboard-background-shadow {
+		width:100%;
+		height:0px;
+		position: absolute;
+		left:0;
+		right:0;
+		bottom:0;
+		vertical-align: bottom;
+		z-index: 0;
+		.box-shadow(0 210px 121px 345px rgba(0, 0, 0, 0.15));
+		&.from-left {
+			left:0;
+			.box-shadow(-210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+		}
+		&.from-right {
+			right:0;
+			.box-shadow(210px, 0, 340px, 415px, rgba(0, 0, 0, 0.2));
+		}
+		&.lighter {
+			
+		}
+		&.to-foreground {
+			z-index:0;
+		}	
+	}
+}
+
 .ui-keyboard {
 	background:white;
 	height:100%;
 	width:100%;
+	.ui-keyboard-keyset {
+		padding: 1em 0;
+
+	}
+	.ui-keyboard-button {
+		margin: .2em;
+		width: 2em;
+		height: 2em;
+		font-size: 1.25em;
+		padding-top: 2px;
+		line-height: 0;
+		vertical-align: top;
+	}
+	.ui-keyboard-space {
+		width: 14.8em;
+	}
+	.ui-keyboard-meta1, .ui-keyboard-shift {
+		width:5.4em;
+	}
+	.ui-keyboard-custom_prev, .ui-keyboard-custom_next {
+		width:4em
+	}
+	.ui-keyboard-shift {
+		width:5.4em;
+	}
+	.ui-keyboard-bksp, .ui-keyboard-meta1, .ui-keyboard-shift {
+		background: #444;
+		color: #FFF;
+		border-color: #444;
+	}
 }

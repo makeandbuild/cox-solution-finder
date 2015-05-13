@@ -364,7 +364,7 @@ function connectKeyboard(){
     var id = '#';
 
     if(parent.hasClass('form-keyboard-name')){
-      $('.form-keyboard-name').addClass('has-form-empty');
+      $('.form-keyboard-zipcode').addClass('has-form-empty');
       $('.form-keyboard-zipcode').find('input').focus();
     } else {
       id += parent.prev().find('input').attr('id');

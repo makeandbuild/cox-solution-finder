@@ -414,9 +414,12 @@ function connectKeyboard(){
   $('#email').keyboard(keyboardOptions).addTyping({showTyping : true});
   $('#zipcode').keyboard(keyboardOptions).addTyping({showTyping : true});
 
-  // $('.ui-keyboard').each(function(){
-  //   $(this).append('<div class="keyboard-background-shadow"></div>');
-  // });
+  setTimeout(function(){
+    $('.ui-keyboard').each(function(){
+      $(this).append('<div class="keyboard-background-shadow"></div>');
+    });
+  },1)
+  
 
   $('#nameFull').getkeyboard().reveal();
 

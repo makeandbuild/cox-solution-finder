@@ -340,11 +340,15 @@ function connectKeyboard(){
     var id = '#';
 
     if(parent.hasClass('form-keyboard-zipcode')){
+      $('.form-keyboard-name').addClass('has-form-empty');
       $('.form-keyboard-name').find('input').focus();
     } else {
       id += parent.next().find('input').attr('id');
+      parent.next().addClass('has-form-empty');
       $(id).getkeyboard().reveal();
     }
+
+    parent.removeClass('has-form-empty');
 
     base.switchInput(true, base.options.autoAccept);
     theBoard.metaActive = false;
@@ -360,11 +364,15 @@ function connectKeyboard(){
     var id = '#';
 
     if(parent.hasClass('form-keyboard-name')){
+      $('.form-keyboard-name').addClass('has-form-empty');
       $('.form-keyboard-zipcode').find('input').focus();
     } else {
       id += parent.prev().find('input').attr('id');
+      parent.prev().addClass('has-form-empty');
       $(id).getkeyboard().reveal();
     }
+
+    parent.removeClass('has-form-empty');
 
     base.switchInput(false, base.options.autoAccept);
     theBoard.metaActive = false;
@@ -385,7 +393,7 @@ function connectKeyboard(){
     customLayout: {
       'normal': ['q w e r t y u i o p {b}', 'a s d f g h j k l', '{shift} z x c v b n m , . @', '{meta1} {space} {custom_prev} {custom_next}'],
       'shift': ['Q W E R T Y U I O P {b}', 'A S D F G H J K L', '{shift} Z X C V B N M , . @', '{meta1} {space} {custom_prev} {custom_next}'],
-      'meta1': ['1 2 3 4 5 6 7 8 9 0 {b}', '- / : ; ( ) $ & @', '? ! " | % \\ * = +', '{meta1} {space} {custom_prev} {custom_next}']
+      'meta1': ['1 2 3 4 5 6 7 8 9 0 {b}', '- / : ; ( ) $ & @', '? ! " _ % \\ * = +', '{meta1} {space} {custom_prev} {custom_next}']
     },
     position     : {
       of : $('#keyboard'),
@@ -414,14 +422,16 @@ function connectKeyboard(){
   $('#email').keyboard(keyboardOptions).addTyping({showTyping : true});
   $('#zipcode').keyboard(keyboardOptions).addTyping({showTyping : true});
 
-  setTimeout(function(){
-    $('.ui-keyboard').each(function(){
-      $(this).append('<div class="keyboard-background-shadow"></div>');
-    });
-  },1)
+  // setTimeout(function(){
+  //   $('.ui-keyboard').each(function(){
+  //     console.log('what');
+  //     $(this).append('<div class="keyboard-background-shadow"></div>');
+  //   });
+  // },50)
   
 
   $('#nameFull').getkeyboard().reveal();
+  $('#nameFull').parents('.form-group').addClass('has-form-empty');
 
 }
 

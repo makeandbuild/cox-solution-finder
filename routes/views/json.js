@@ -98,7 +98,6 @@ exports.sitemap = function(req, res) {
 	urls = []
 
 	async.series([
-		exports.productURLs,
 		exports.industryURLs,
 		exports.serviceURLs,
 		exports.partnersURLs,

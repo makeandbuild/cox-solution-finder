@@ -23,7 +23,7 @@ var keystone = require('keystone');
 		util = require('util'),
 		moment = require('moment'),
 		s3cleanup = require('../components/s3cleanup');
-		
+
 //index model by name
 var Models = {	'Connect': Connect,
 				'Homepage': Homepage,
@@ -120,7 +120,7 @@ exports.initLocals = function(req, res, next) {
 		{ label: 'Services',	key: 'services',	href: '/services', 		type: 'modal' },
 		{ label: 'Partners',	key: 'partners',	href: '/partners', 		type: 'modal' },
 		{ label: 'Connect',		key: 'connect',		href: '/connect', 		type: 'page' },
-		{ label: 'Products',	key: 'products',	href: '/products',		type: 'page',	adminOnly: true },		
+		{ label: 'Products',	key: 'products',	href: '/products',		type: 'page',	adminOnly: true },
 		{ label: 'Maps',	key: 'maps',	href: '/maps',		type: 'page',	adminOnly: true },
 		{ label: 'Settings',	key: 'settings',	href: '/settings', 		type: 'settings',	admin: false },
 
@@ -154,7 +154,7 @@ exports.initLocals = function(req, res, next) {
 			partnerQuery.exec(function(err, results) {
 				locals.global_data.partners = results;
 				callback(err, results);
-			});	
+			});
 		},
 		function(callback) {
 			var homeQuery = keystone.list('Homepage').model.findOne({
@@ -169,7 +169,7 @@ exports.initLocals = function(req, res, next) {
 					callback(err, false);
 				}
 			});
-		}		
+		}
 	], function(err, results) {
 		//TO;DO should probably check for an error here, but not sure what we'd do with it...
 		next();
@@ -234,7 +234,7 @@ exports.unlockUserDocs = function(req, res, next) {
 
 		var referer = url.parse(req.headers.referer);
 		if(referer.pathname != req.url) {
-		
+
 			//Strip /admin/ from referrer url.
 			pathname = referer.pathname;
 			pathname = pathname.replace('/admin', '');
@@ -288,7 +288,7 @@ exports.unlockUserDocs = function(req, res, next) {
 			next();
 		}
 	} else {
-		next();		
+		next();
 	}
 
 };
@@ -443,12 +443,12 @@ exports.saveData = function(req, res, next) {
 
 					next(err);
 				}
-				
+
 			});
 		});
 	} else if(req.body.action == 'publish') {
 		var Model = Models[req.body.key];
-		
+
 
 		var q = Model.model.findOne({
 			slug: req.body.slug
@@ -488,7 +488,7 @@ exports.saveData = function(req, res, next) {
 			}
 
 			req.body.lastEditAt = moment().format();
-			
+
 			updater.process(req.body, {
 				flashErrors: true,
 				fields: Model.schema.methods.updateableFields(),
@@ -527,9 +527,3 @@ exports.s3cleaner = function(req, res, next) {
 	}
 	next();
 }
-
-
-
-
-
-

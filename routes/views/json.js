@@ -216,7 +216,7 @@ exports.showroom_sync = function(req, res) {
 			} else {
 				setImmediate(function(fn) {
 					async.waterfall([
-						function(cb) { {
+						function(cb) {
 							console.log("Processing sync %s", fn);
 							cb(null, fn);
 						},

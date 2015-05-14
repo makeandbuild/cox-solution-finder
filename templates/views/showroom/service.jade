@@ -7,7 +7,7 @@ mixin industryDropdown(options, industry, service)
 		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
 			.icon-arrow
 				img(src="/images/arrow_down.png")
-			span.custom-dropdown-current for 
+			span.custom-dropdown-current for
 				= industry
 		ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
 			li(role="presentation")
@@ -26,14 +26,14 @@ mixin product(product)
 		.col-xs-10.col-xs-offset-1
 			if product.video.video_choice
 				if assetURI(product.video.video.url)
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(product.video) style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container						
+					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(product.video) style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container
 						img(src="/icons/png/icon-play.png").product-play-icon
 						if product.video.title_overlay
 							h2.product-video-title= product.title
 				else
 					a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
 						if product.video.title_overlay
-							h2.product-video-title= product.title			
+							h2.product-video-title= product.title
 			else
 				a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
 					if product.video.title_overlay
@@ -73,7 +73,7 @@ mixin product(product)
 					.col-xs-9.col-lg-7
 						p.section-heading= product.item_five.title
 						p.section-content= product.item_five.content
-			
+
 
 block content
 
@@ -135,7 +135,7 @@ block content
 														.solution-product-item.can-favorite(data-solutions-slug=product.slug data-solutions-type='products')
 															.coxicon.coxicon.coxicon_favorites_star_after
 														span= product.title
-									
+
 								else
 									.col-xs-6.col-lg-4.product-navigation-item-container
 										article.product-navigation-item(data-navigationitem=product.id class=(index == 0 ? 'active' : null))
@@ -165,7 +165,7 @@ block content
 									else
 										.col-xs-12.full-height-col.product-container(data-item=product.id)
 											+product(product)
-							
+
 						else
 							.col-xs-12.full-height-col.product-container(data-item=product.id class=(index == 0 ? 'active' : null))
 								+product(product)

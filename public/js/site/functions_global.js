@@ -307,19 +307,19 @@ function modalContent(){
 
 		}
 
-		if($('body').hasClass('companion-site')){
-			if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
-			    if ($(window).scrollTop() == 0){
-			    	$('.csf-content-close').css('top', '96px');
-			    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
-			    	$('.csf-content-close').css('top', (96-$(window).scrollTop())+'px');
-			    } else {
-			    	$('.csf-content-close').css('top', '0');
-			    }
-			} else {
-				$('.csf-content-close').css('top', '0');
-			}
-		}
+		// if($('body').hasClass('companion-site')){
+		// 	if(document.documentElement.clientWidth >= config.breakpoints.site.mobile) {
+		// 	    if ($(window).scrollTop() == 0){
+		// 	    	$('.csf-content-close').css('top', '96px');
+		// 	    } else if ($(window).scrollTop() > 0 && $(window).scrollTop() < 96){
+		// 	    	$('.csf-content-close').css('top', (96-$(window).scrollTop())+'px');
+		// 	    } else {
+		// 	    	$('.csf-content-close').css('top', '0');
+		// 	    }
+		// 	} else {
+		// 		$('.csf-content-close').css('top', '0');
+		// 	}
+		// }
 
 
 	});

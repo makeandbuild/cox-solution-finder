@@ -98,7 +98,6 @@ exports.sitemap = function(req, res) {
 	urls = []
 
 	async.series([
-		exports.productURLs,
 		exports.industryURLs,
 		exports.serviceURLs,
 		exports.partnersURLs,
@@ -112,25 +111,34 @@ exports.sitemap = function(req, res) {
 	})
 }
 
-function processSyncData(fn) {
+function processSyncData(fn, callback) {
 	var piwikClient = piwik.setup(process.env.PIWIK_URI, process.env.PIWIK_TOKEN);
 
 	fs.readFile(fn, {encoding: 'utf8'}, function(err, content) {
-		if (err) {
-			console.error(err);
-			return;
-		}
+		if (err) return callback(err);
+
 		var data = JSON.parse(content),
 				settings = {},
 				enquiries = [];
-		async.eachLimit(data, 5, function(recordStr, callback) {
-			var record = JSON.parse(recordStr),
-					recordType = record.type;
+
+		async.eachSeries(data, function(recordStr, next) {
+			var record, recordType;
+
+			try {
+				record = JSON.parse(recordStr);
+				recordType = record.type;
+			} catch(err) {
+				if (err instanceof SyntaxError) {
+					console.log("Error parsing record: %s:\n%j", err.message, recordStr);
+					return next();
+				}
+				return next(err);
+			}
 
 			switch (recordType) {
 				case "settings":
 					settings = record.formData;
-					callback();
+					next();
 					break;
 				case "stats":
 					piwikClient.track({
@@ -138,8 +146,12 @@ function processSyncData(fn) {
 						url: process.env.PDOMAIN + record.path,
 						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss'),
 						_cvar: { '1': ['Platform', record.device] }
-					}, console.log);
-					callback();
+					}, function(err) {
+						if (err) {
+							console.error("Error saving %s: %s\n%j", recordType, err, record);
+						}
+						next();
+					});
 					break;
 				case "enquiry":
 					var newEnquiry = new Enquiry.model(record.formData);
@@ -149,20 +161,18 @@ function processSyncData(fn) {
 						} else {
 							enquiries.push(newEnquiry);
 						}
-						callback();
+						next();
 					});
 					break;
 				default:
 					console.warn("Unknown record type: %s\n%j", recordType, record);
-					callback();
+					next();
 			}
 		}, function(err) {
-			if (err) {
-				console.error(err);
-			}
+			if (err) return callback(err);
 
-			if (enquiries.length == 0) { // don't send email if there aren't any enquiries
-				return;
+			if (!enquiries.length) { // don't send email if there aren't any enquiries
+				return callback();
 			}
 
 			var enquiriesCSVfn = "/uploads/enquiries-" + (new Date).getTime() + ".csv",
@@ -170,9 +180,7 @@ function processSyncData(fn) {
 			enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiriesCSV.join("\n");
 
 			fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {
-				if (err) {
-					console.error("Error writing file %s: %s", err);
-				}
+				if (err) return callback(err);
 
 				var enquiriesCSVuri = process.env.PDOMAIN + enquiriesCSVfn;
 				nodeSES.createClient({
@@ -185,11 +193,7 @@ function processSyncData(fn) {
 					message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 						enquiriesCSVuri, enquiriesCSVuri),
 					altText: util.format("Lead information:.\n\n%s", enquiriesCSVuri)
-				}, function (err, data, res) {
-					if (err) {
-						console.error("Error sending lead information: %s", err);
-					}
-				});
+				}, callback);
 			});
 		});
 	});
@@ -209,7 +213,21 @@ exports.showroom_sync = function(req, res) {
 			if (err) {
 				res.json({ status: 'error', message: err })
 			} else {
-				setImmediate(processSyncData, outFn);
+				setImmediate(function(fn) {
+					async.waterfall([
+						function(cb) {
+							console.log("Processing sync %s", fn);
+							cb(null, fn);
+						},
+						processSyncData
+					], function(err) {
+						if (err) {
+							console.error(err);
+						} else {
+							console.info("sync done");
+						}
+					});
+				}, outFn);
 				res.json({ status: 'success', data: json })
 			}
 		})

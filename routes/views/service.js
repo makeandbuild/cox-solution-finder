@@ -1,57 +1,57 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-	
-	var view = new keystone.View(req, res),
-		locals = res.locals;
-	
-	// locals.section is used to set the currently selected
-	// item in the header navigation.
-	locals.section = 'services';
-	locals.filters = {
-		service: req.params.service,
-		industry: req.params.industry
-	};
-	locals.data = {};
 
-	// Load the current service
-	view.on('init', function(next) {
+  var view = new keystone.View(req, res),
+    locals = res.locals;
 
-		var q = keystone.list('Service').model.findOne({
-			state: 'published',
-			slug: locals.filters.service
-		}).populate('industries');
+  // locals.section is used to set the currently selected
+  // item in the header navigation.
+  locals.section = 'services';
+  locals.filters = {
+    service: req.params.service,
+    industry: req.params.industry
+  };
+  locals.data = {};
 
-		q.exec(function(err, result) {
-			locals.data.service = result;
-			next(err);
-		});
+  // Load the current service
+  view.on('init', function(next) {
 
-	});
+    var q = keystone.list('Service').model.findOne({
+      state: 'published',
+      slug: locals.filters.service
+    }).populate('industries');
 
-	// Load Products
-	view.on('init', function(next) {
+    q.exec(function(err, result) {
+      locals.data.service = result;
+      next(err);
+    });
 
-		var q = keystone.list('Product').model.find().where('state', 'published').where('services', locals.data.service.id).populate('services').sort('order');
+  });
 
-		q.exec(function(err, results) {
-			locals.data.products = results;
-			next(err);
-		});
+  // Load Products
+  view.on('init', function(next) {
 
-	});
-	// Load Industries
-	view.on('init', function(next) {
+    var q = keystone.list('Product').model.find().where('state', 'published').where('services', locals.data.service.id).populate('services').sort('order');
 
-		var q = keystone.list('Industry').model.find().where('state', 'published').populate('services');
+    q.exec(function(err, results) {
+      locals.data.products = results;
+      next(err);
+    });
 
-		q.exec(function(err, results) {
-			locals.data.industries = results;
-			next(err);
-		});
+  });
+  // Load Industries
+  view.on('init', function(next) {
 
-	});
+    var q = keystone.list('Industry').model.find().where('state', 'published').populate('services');
 
-	// Render the view
-	view.render('service');
+    q.exec(function(err, results) {
+      locals.data.industries = results;
+      next(err);
+    });
+
+  });
+
+  // Render the view
+  view.render('service');
 };

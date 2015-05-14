@@ -1,72 +1,73 @@
 mixin industryDropdown(options, industry, service)
 
-	.dropdown.custom-dropdown
-		button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
-			.icon-arrow
-				img(src="/images/arrow_down.png")
-			span.custom-dropdown-current for
-				= industry
-		ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
-			li(role="presentation")
-				a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/")) All
-			each option in options
-				li(role="presentation")
-					a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/"+option.slug))= option.title
+  .dropdown.custom-dropdown
+    button(type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true").btn.btn-default.dropdown-toggle
+      .icon-arrow
+        img(src="/images/arrow_down.png")
+      span.custom-dropdown-current for
+        = industry
+    ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
+      li(role="presentation")
+        a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/")) All
+      each option in options
+        li(role="presentation")
+          a(role="menuitem" tabindex="-1" href=linkURI("/services/"+service.slug+"/"+option.slug))= option.title
 
 
 mixin product(product)
-	.row
-		.col-xs-10.col-xs-offset-1.col-lg-12.col-lg-offset-0
-			.services-product-title
-				h2.product-title.can-favorite.solution-page-product-title(data-solutions-slug=product.slug data-solutions-type='products')= product.title
-					.coxicon.coxicon_favorites_star_after
-		.col-xs-10.col-xs-offset-1
-			if product.video.video_choice
-				if assetURI(product.video.video.url)
-					a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(product.video) style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").video-link.product-hero-container
-						img(src="/icons/png/icon-play.png").product-play-icon
-						if product.video.title_overlay
-							h2.product-video-title= product.title
-				else
-					a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
-						if product.video.title_overlay
-							h2.product-video-title= product.title
-			else
-				a(style= assetURI(product.video.background.url) ? "background-image: url(" + assetURI(product.video.background.url)+");" : "").product-hero-container
-					if product.video.title_overlay
-						h2.product-video-title= product.title
-			.overflow-wrapper
-			section.product-item-container
-				span.product-fade-bottom
-				.product-showroom-scroll
-					img(src="/images/arrow_down.png")
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_one.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_one.title
-						p.section-content= product.item_one.content
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_two.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_two.title
-						p.section-content= product.item_two.content
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_three.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_three.title
-						p.section-content= product.item_three.content
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_four.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_four.title
-						p.section-content= product.item_four.content
-				.row
-					.col-xs-2.product-icon-container
-						.product-item-icon.coxicon(class="coxicon_"+product.item_five.svg_icon)
-					.col-xs-9.col-lg-7
-						p.section-heading= product.item_five.title
-						p.section-content= product.item_five.content
+  .row
+    .col-xs-10.col-xs-offset-1.col-lg-12.col-lg-offset-0
+      .services-product-title
+        h2.product-title.can-favorite.solution-page-product-title(data-solutions-slug=product.slug data-solutions-type='products')= product.title
+          .coxicon.coxicon_favorites_star_after
+    .col-xs-10.col-xs-offset-1
+      if product.video
+        if product.video.video_choice
+          if product.video.video.url
+            a(data-toggle="modal" data-target="#video_modal" data-video-data=assetData(product.get('video')) style= assetURI(product.get('video.background.url')) ? "background-image: url(" + assetURI(product.get('video.background.url'))+");" : "").video-link.product-hero-container
+              img(src="/icons/png/icon-play.png").product-play-icon
+              if product.video.title_overlay
+                h2.product-video-title= product.title
+          else
+            a(style= assetURI(product.get('video.background.url')) ? "background-image: url(" + assetURI(product.get('video.background.url'))+");" : "").product-hero-container
+              if product.video.title_overlay
+                h2.product-video-title= product.title
+        else
+          a(style= assetURI(product.get('video.background.url')) ? "background-image: url(" + assetURI(product.get('video.background.url'))+");" : "").product-hero-container
+            if product.video.title_overlay
+              h2.product-video-title= product.title
+      .overflow-wrapper
+      section.product-item-container
+        span.product-fade-bottom
+        .product-showroom-scroll
+          img(src="/images/arrow_down.png")
+        .row
+          .col-xs-2.product-icon-container
+            .product-item-icon.coxicon(class="coxicon_"+product.get('item_one.svg_icon'))
+          .col-xs-9.col-lg-7
+            p.section-heading= product.item_one.title
+            p.section-content= product.item_one.content
+        .row
+          .col-xs-2.product-icon-container
+            .product-item-icon.coxicon(class="coxicon_"+product.get('item_two.svg_icon'))
+          .col-xs-9.col-lg-7
+            p.section-heading= product.item_two.title
+            p.section-content= product.item_two.content
+        .row
+          .col-xs-2.product-icon-container
+            .product-item-icon.coxicon(class="coxicon_"+product.get('item_three.svg_icon'))
+          .col-xs-9.col-lg-7
+            p.section-heading= product.item_three.title
+            p.section-content= product.item_three.content
+        .row
+          .col-xs-2.product-icon-container
+            .product-item-icon.coxicon(class="coxicon_"+product.get('item_four.svg_icon'))
+          .col-xs-9.col-lg-7
+            p.section-heading= product.item_four.title
+            p.section-content= product.item_four.content
+        .row
+          .col-xs-2.product-icon-container
+            .product-item-icon.coxicon(class="coxicon_"+product.get('item_five.svg_icon'))
+          .col-xs-9.col-lg-7
+            p.section-heading= product.item_five.title
+            p.section-content= product.item_five.content

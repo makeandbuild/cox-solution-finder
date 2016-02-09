@@ -35,14 +35,25 @@ function initShowroom(){
 	settingsActions();
 	settingsPageInits();
 
+  var gradientOn = true;
+
 	$('.product-item-container').scroll(function(){
 		if ($(this).scrollTop() < 50){
 			$(this).children('.product-showroom-scroll').addClass('active');
 		} else {
 			$(this).children('.product-showroom-scroll').removeClass('active');
 		}
+
+    if (this.scrollHeight - this.scrollTop === this.clientHeight) {
+      $('.product-fade-bottom').animate({opacity: 0}, 50);
+      gradientOn = false;
+    } else if (gradientOn === false) {
+      gradientOn = true;
+      $('.product-fade-bottom').animate({opacity: 1}, 50);
+    }
 	});
 
 	// TV TABLE TRANSFER INIT CALL
 	tvTabletTransferInit();
 }
+

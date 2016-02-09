@@ -6,19 +6,6 @@
 
 // Showroom Cookie Inits
 
-
-//if($(".product-item-container").length > 0){
-//
-//  $('.product-item-container').scroll(function() {
-//    if( $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight ) {
-//      $('.product-fade-bottom').animate({opacity: 0}, 500); 
-//    } else {
-//      $('.product-fade-bottom').animate({opacity: 1}, 500);
-//    }
-//  });
-//
-//}
-
 var solutions_cookieName,
   solutions_cookieExp,
   solutions_cookiePath,

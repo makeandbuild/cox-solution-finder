@@ -36,8 +36,6 @@ var routes = {
 // Setup Route Bindings
 exports = module.exports = function(app) {
 
-  app.all('/_status_/update', routes.admin.update);
-
 	app.get('/_status_/heartbeat', function (req, res) {
 		res.type("text").send("OK");
 	});

@@ -3,7 +3,8 @@ mixin admin-buttons()
 		p.help-block='Created On: ' + data.current._.createdAt.format('MMMM DD, YYYY h:mm:ss a')
 		if(data.current.get('lastEditAt'))
 			p.help-block='Last Edit: ' + data.current._.lastEditAt.format('MMMM DD, YYYY h:mm:ss a')
-		p.help-block='By: ' + data.current.updatedBy.name.full
+		unless(data.current.updatedBy === null)
+			p.help-block='By: ' + data.current.updatedBy.name.full
 		button(type="submit").btn.btn-primary.publish Publish
 		p.help-block.errors
 		ul.error-fields

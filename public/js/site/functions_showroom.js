@@ -946,7 +946,8 @@ function mySolutionsFormSubmission(){
       }
       formData.is_showroom = true;
       formData.is_notified = false;
-      formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
+      var currentCustomer = $('#connect-form-checkbox_1').attr('checked');
+      formData.is_customer = currentCustomer === "checked" ? "Yes" : "No";
 
       var data = {
         type: 'enquiry',

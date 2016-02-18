@@ -25,10 +25,10 @@ Enquiry.add({
 	name: { type: Types.Name, required: true },
 	email: { type: Types.Email, required: true },
 	zipcode: { type: String },
-	company_population: { type: Types.Select, numeric: true, options: [
-		{ value: 1, label: '1-20' },
-		{ value: 2, label: '21-99' },
-		{ value: 3, label: '100+'}
+	company_population: { type: Types.Select, options: [
+ 		{ value: '1-20', label: '1-20' },
+ 		{ value: '21-99', label: '21-99' },
+ 		{ value: '100+', label: '100+'}
 	] },
 	is_customer: { type: Types.Boolean, default: false, label: "Is Customer?" },
 	archived: { type: Boolean, default: false, required: true },
@@ -89,7 +89,6 @@ Enquiry.schema.post('save', function() {
 			}).sendemail({
 				to: process.env.SES_DISTRO_LIST,
 				from: process.env.SES_SENDER,
-				cc: 'cox-sfv2@maxmedia.com',
 				subject: util.format('[%s] %s', showname, "Lead Information"),
 				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 					enquiriesCSVuri, enquiriesCSVuri),
@@ -186,7 +185,7 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.name.full);
 	row.push(this.email);
 	row.push(this.zipcode);
-	row.push(this.company_populationLabel);
+	row.push(this.company_population);
 	row.push(this.is_customer ? "YES" : "NO");
 	row.push(this.industries ? this.industries : "");
 	row.push(this.services ? this.services : "");

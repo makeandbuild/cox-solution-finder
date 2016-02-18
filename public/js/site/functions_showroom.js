@@ -383,7 +383,7 @@ function connectKeyboard(){
 
   var keyboardOptions = {
     layout : 'custom',
-    
+
     display: {
       'meta1': "?123",
       'b'      : '\u2190:Backspace',
@@ -428,7 +428,7 @@ function connectKeyboard(){
   //     $(this).append('<div class="keyboard-background-shadow"></div>');
   //   });
   // },50)
-  
+
 
   $('#nameFull').getkeyboard().reveal();
   $('#nameFull').parents('.form-group').addClass('has-form-empty');
@@ -734,7 +734,7 @@ function mapTypeInits(){
         }
       }
 
-      
+
 
       setTimeout(function(){
         target.addClass('active');
@@ -1120,9 +1120,9 @@ function settingsPageInits(){
     }
   } else {
     if (!$('.settings-page')[0]){
-      window.location.replace("/settings.html");
+      window.location.replace("/settings");
     }
-    
+
   }
 }
 
@@ -1137,7 +1137,7 @@ function settingsInits(){
 
         if (currentData.formData.industry == '' || currentData.formData.showroom == ''){
           if (!$('.settings-page')[0]){
-            window.location.replace("/settings.html");
+            window.location.replace("/settings");
           }
         } else {
           // Override the cookie with latest data in case it changes on another device.

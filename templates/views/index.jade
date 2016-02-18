@@ -28,7 +28,7 @@ block content
 				.col-xs-12
 					h2.hero-header.hero-custom-name #{data.home.hero.greeting} #{data.custom_data.name.first},
 					p.hero-subtext-custom
-						span Thank you for your interest 
+						span Thank you for your interest
 						span in Cox Business Solutions
 					.hero-content
 						| We look forward to hearing from you.
@@ -47,7 +47,7 @@ block content
 				.row
 					.col-xs-12.col-md-5.home-default-content
 						h1.cox-business COX
-							strong BUSINESS				
+							strong BUSINESS
 						p.section-heading= data.home.default_heading
 						p.section-content= data.home.default_content
 					.col-xs-12.col-md-7
@@ -91,7 +91,7 @@ block content
 								form(method='post').connect-form
 									input(type='hidden', name='action', value='home-connect')
 									input(type="hidden" name='showname' value='Companion Site').connect-showname
-									
+
 									.form-group(class=validationErrors.name ? 'has-error' : null)
 										label.sr-only Full Name
 										input(type='text', name='name.full', value=formData['name.full'] placeholder="Full Name").form-control
@@ -103,7 +103,7 @@ block content
 									.form-group(class=validationErrors.zipcode ? 'has-error' : null)
 										label.sr-only Zip Code
 										input(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
-									
+
 									.form-group
 										label.sr-only Company Population
 										.dropdown.custom-dropdown.dropdown-select.connect-dropdown
@@ -111,7 +111,7 @@ block content
 												.icon-arrow
 													img(src="/images/arrow_down.png")
 												span.custom-dropdown-current.dropdown-select-current
-													.current-default Company Size 
+													.current-default Company Size
 														em (select)
 											ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
 												each key, index in Object.keys(company_population)
@@ -122,15 +122,15 @@ block content
 											option(value='') Company Size (select)
 											each type in company_population
 												option(value=type.value, selected=formData.company_population == type.value)= type.label
-									
+
 									.form-group
 										label.sr-only Current Cox Business Customer
 										.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
 											.input-checkbox
 												img(src="/icons/png/icon-check.png")
 											.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-										input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
-									
+										input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer', data-checkbox-value="Current Cox Business Customer", checked=false)
+
 									.form-actions
 										button(type='submit').btn.btn-primary SUBMIT
 	else
@@ -145,7 +145,7 @@ block content
 						.row
 							.col-xs-12.col-md-5.home-default-content
 								h1.cox-business COX
-									strong BUSINESS				
+									strong BUSINESS
 								p.section-heading= data.home.default_heading
 								p.section-content= data.home.default_content
 							.col-xs-12.col-md-7
@@ -200,7 +200,7 @@ block content
 						.row
 							.col-xs-12.col-md-5.home-default-content
 								h1.cox-business COX
-									strong BUSINESS				
+									strong BUSINESS
 								p.section-heading= data.home.default_heading
 								p.section-content= data.home.default_content
 							.col-xs-12.col-md-7
@@ -251,7 +251,7 @@ block content
 					span.background-shadow.from-right
 				span.product-gradient.product-gradient-companion-services: span
 				.container
-					
+
 					.row
 						each item, index in data.products
 							if index == 0

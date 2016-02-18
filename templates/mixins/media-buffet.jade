@@ -11,7 +11,7 @@ mixin mediaBuffet(media_buffet)
 								img(src="/icons/png/icon-play.png")
 
 						else if media_buffet.media_section_one.type == 'Image' && assetURI(media_buffet.media_section_one.image.url)
-							a(data-toggle="modal" data-target="#image_modal" data-title=media_buffet.media_section_one.title data-image-data=assetData(media_buffet.media_section_one.image.url) style=media_section_one_thumbnail).image-link.pi-image
+							a(data-toggle="modal" data-target="#image_modal" data-title=media_buffet.media_section_one.title data-image-data=assetURI(media_buffet.media_section_one.image.url) style=media_section_one_thumbnail).image-link.pi-image
 								img(src="/icons/png/icon-plus.png")
 
 						else if media_buffet.media_section_one.type == 'Story' && assetURI(media_buffet.media_section_one.story.featured_image.url)
@@ -37,7 +37,7 @@ mixin mediaBuffet(media_buffet)
 						- var media_section_two_thumbnail = assetURI(media_buffet.media_section_two.thumbnail.url) ? "background-image: url(" +assetURI(media_buffet.media_section_two.thumbnail.url)+");" : ""
 
 						if media_buffet.media_section_two.type == 'Video' && assetURI(media_buffet.media_section_two.video.video.url)
-							a(data-toggle="modal" data-target="#video_modal" data-title=media_buffet.media_section_two.title data-video-data=assetData(media_buffet.media_section_two.video)     style=media_section_two_thumbnail).video-link.pi-video
+							a(data-toggle="modal" data-target="#video_modal" data-title=media_buffet.media_section_two.title data-video-data=assetURI(media_buffet.media_section_two.video)     style=media_section_two_thumbnail).video-link.pi-video
 								img(src="/icons/png/icon-play.png")
 
 						else if media_buffet.media_section_two.type == 'Image' && assetURI(media_buffet.media_section_two.image.url)

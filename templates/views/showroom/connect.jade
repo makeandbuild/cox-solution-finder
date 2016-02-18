@@ -77,7 +77,7 @@ block content
 				.two-button-container
 					button.btn.btn-primary.btn-black.solutions-clear_all CLEAR ALL
 					a(href=linkURI("/")).btn.btn-primary.btn-black.solutions-continue_browsing CONTINUE BROWSING
-				
+
 
 	.col-xs-6.full-height-col.connect-page-form-col
 		.row
@@ -108,7 +108,7 @@ block content
 								input#zipcode(type='text', name='zipcode', value=formData.zipcode, placeholder='Zip Code').form-control
 								.form-empty
 									img(src="/images/close.png")
-							
+
 							.form-group
 								label.sr-only Company Population
 								.dropdown.custom-dropdown.dropdown-select.connect-dropdown
@@ -116,7 +116,7 @@ block content
 										.icon-arrow
 											img(src="/images/arrow_down.png")
 										span.custom-dropdown-current.dropdown-select-current
-											.current-default Company Size 
+											.current-default Company Size
 												em (select)
 									ul.dropdown-menu(role="menu" aria-labelledby="dropdwonMenu1")
 										each key, index in Object.keys(company_population)
@@ -127,15 +127,15 @@ block content
 									option(value='') Company Size (select)
 									each type in company_population
 										option(value=type.value, selected=formData.company_population == type.value)= type.label
-							
+
 							.form-group
 								label.sr-only Current Cox Business Customer
 								.input-checkbox-group(data-checkbox-input="connect-form-checkbox_1")
 									.input-checkbox
 										img(src="/icons/png/icon-check.png")
 									.input-checkbox-value(data-checkbox-value="connect-form-checkbox-value")
-								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer' value="Yes" data-checkbox-value="Current Cox Business Customer")
-							
+								input#connect-form-checkbox_1.sr-only(type='checkbox', name='is_customer', data-checkbox-value="Current Cox Business Customer", checked=false)
+
 							.form-actions
 								button(type='submit').btn.btn-primary SUBMIT
 
@@ -144,6 +144,5 @@ block content
 				.row
 					.col-xs-12
 						.keyboard-container
-							
-							//- .virtualKeyboard#virtualKeyboard
 
+							//- .virtualKeyboard#virtualKeyboard

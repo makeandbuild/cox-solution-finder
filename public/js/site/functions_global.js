@@ -153,26 +153,26 @@ function initCheckbox(){
 		})
 	}
 
-	if($('body').hasClass('showroom')){
-		var waitForMe = false;
-		$('.input-checkbox-group').on('mouseover',function(e){
-			if(!waitForMe){
-				waitForMe = true;
-				var input = $('#'+$(this).data('checkbox-input'));
-				if ($(this).hasClass('active')){
-					$(this).removeClass('active');
-					input.removeAttr('checked');
-				} else {
-					$(this).addClass('active');
-					input.attr('checked', 'checked');
-				}
-				setTimeout(function(){
-					waitForMe = false;
-					e.stopPropagation();
-				},1000);
-			}
-		});
-	}
+	// if($('body').hasClass('showroom')){
+	// 	var waitForMe = false;
+	// 	$('.input-checkbox-group').on('mouseover',function(e){
+	// 		if(!waitForMe){
+	// 			waitForMe = true;
+	// 			var input = $('#'+$(this).data('checkbox-input'));
+	// 			if ($(this).hasClass('active')){
+	// 				$(this).removeClass('active');
+	// 				input.removeAttr('checked');
+	// 			} else {
+	// 				$(this).addClass('active');
+	// 				input.attr('checked', 'checked');
+	// 			}
+	// 			setTimeout(function(){
+	// 				waitForMe = false;
+	// 				e.stopPropagation();
+	// 			},1000);
+	// 		}
+	// 	});
+	// }
 
 	$('.input-checkbox-group').on('click',function(){
 		var input = $('#'+$(this).data('checkbox-input'));

@@ -64,7 +64,6 @@ exports = module.exports = function(app) {
 
 	app.get('/partners/:partner', routes.views.partner);
 
-	
 	// Session
 	app.all('/signin', routes.views.session.signin);
 	app.all('/signout', routes.views.session.signout);

@@ -2,10 +2,10 @@ var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry');
 
 exports = module.exports = function(req, res) {
-	
+
 	var view = new keystone.View(req, res),
 		locals = res.locals;
-	
+
 	// Set locals
 	locals.section = 'connect';
 	locals.company_population = Enquiry.fields.company_population.ops;
@@ -13,13 +13,13 @@ exports = module.exports = function(req, res) {
 	locals.validationErrors = {};
 	locals.enquirySubmitted = false;
 	locals.data = {};
-	
+
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'connect' }, function(next) {
-		
+
 		var newEnquiry = new Enquiry.model(),
 			updater = newEnquiry.getUpdateHandler(req);
-		
+
 		updater.process(req.body, {
 			flashErrors: true,
 			fields: 'name, email, zipcode, company_population, is_customer, showname',
@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
 			}
 			next();
 		});
-		
+
 	});
 
 	view.on('init', function(next) {
@@ -67,11 +67,11 @@ exports = module.exports = function(req, res) {
 	//   });
 
 	// });
-	
 
 
 
-	
+
+
 	view.render('connect');
-	
+
 };

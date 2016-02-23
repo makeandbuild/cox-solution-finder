@@ -26,8 +26,8 @@ Enquiry.add({
 	email: { type: Types.Email, required: true },
 	zipcode: { type: String },
 	company_population: { type: Types.Select, options: [
- 		{ value: '1-20', label: '1-20' },
- 		{ value: '21-99', label: '21-99' },
+ 		{ value: '1to20', label: '1-20' },
+ 		{ value: '21to99', label: '21-99' },
  		{ value: '100+', label: '100+'}
 	] },
 	is_customer: { type: Types.Boolean, default: false, label: "Is Customer?" },
@@ -186,7 +186,7 @@ Enquiry.schema.methods.toCSV = function() {
 	row.push(this.email);
 	row.push(this.zipcode);
 	row.push(this.company_population);
-	row.push(this.is_customer ? "YES" : "NO");
+	row.push(this.is_customer);
 	row.push(this.industries ? this.industries : "");
 	row.push(this.services ? this.services : "");
 	row.push(this.products ? this.products : "");

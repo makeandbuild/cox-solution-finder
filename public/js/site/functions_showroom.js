@@ -946,12 +946,16 @@ function mySolutionsFormSubmission(){
       }
       formData.is_showroom = true;
       formData.is_notified = false;
-      
-      if (formData.is_customer == undefined || formData.is_customer == "" ){
-          formData.is_customer = false
-      } else {
-          formData.is_customer = true
-      }
+
+    //   if (formData.is_customer == undefined || formData.is_customer == "" ){
+    //       formData.is_customer = false
+    //   } else {
+    //       formData.is_customer = true
+    //   }
+
+      var currentCustomer = $('#connect-form-checkbox_1').attr('checked');
+      formData.is_customer = currentCustomer === "checked" ? true : false;
+
 
       var data = {
         type: 'enquiry',

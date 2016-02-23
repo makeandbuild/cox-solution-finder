@@ -946,7 +946,12 @@ function mySolutionsFormSubmission(){
       }
       formData.is_showroom = true;
       formData.is_notified = false;
-      formData.is_customer = formData.is_customer == undefined ? "No" : formData.is_customer;
+      
+      if (formData.is_customer == undefined || formData.is_customer == "" ){
+          formData.is_customer = false
+      } else {
+          formData.is_customer = true
+      }
 
       var data = {
         type: 'enquiry',

@@ -10,7 +10,7 @@
 		.showroom-screen({
 			//.transition(0.3s);
 		});
-		
+
 	}
 }
 
@@ -36,6 +36,10 @@
 		height: 1080px;
 		padding-left: 3em;
 	});
+	&.seventiles {
+		height: 680px;
+		padding-left: 14em;
+	}
 }
 .navigation-modal-tile {
 	position: relative;
@@ -43,7 +47,11 @@
 	display:inline-block;
 	width: 9em;
 	height: 9em;
-	
+
+	&.awkward-tile-left {
+		width: 4em;
+	}
+
 	margin-right: 1em;
 	background-color:@darkBlue;
 	color:@white;
@@ -66,7 +74,6 @@
 		visibility: hidden;
 		opacity:0;
 		.showroom-screen({
-			
 		});
 	}
 

@@ -183,12 +183,16 @@ block content
 			section(role="navigation").media-buffet-home
 				ul.services-list
 					each item, index in global_data.services
-
-						li: a(href=linkURI('/services/' + item.slug) title=item.title).service-item
-							.service-icon.coxicon(class="coxicon_"+item.svg_icon)
-							h4.service-title=item.title
-						if index == 1
-							br
+						if index < 4
+							li: a(href=linkURI('/services/' + item.slug) title=item.title).service-item
+								.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+								h4.service-title=item.title
+							if index == 1
+								br
 				+media_buffet_home_section(data.home, 'default')
 				each industry, index in global_data.industries
 					+media_buffet_home_section(industry, industry.slug)
+					
+					
+					
+					

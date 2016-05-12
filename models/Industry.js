@@ -20,12 +20,12 @@ Industry.add(
 		title: {
 			type: String,
 			required: true,
-			m_cms: { 
+			m_cms: {
 				validations: {
 					required: true,
 					rangelength: [1,25]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
 			}
 		},
@@ -34,101 +34,101 @@ Industry.add(
 			type: Types.Relationship,
 			label: "Services",
 			ref: 'Service',
-			required: true,
+			required: false,
 			many: true,
 			initial: false,
 			note: "Select services and their order by dragging and dropping them. Choose 3 only for Showroom. All 4 will show on companion.",
-			m_cms: { limit: 3, showroom: true, companion: true } 
+			m_cms: { limit: 3, showroom: true, companion: true }
 		},
 		heading: {
-			type: String, 
-			required: true, 
-			initial: false, 
+			type: String,
+			required: false,
+			initial: false,
 			label: "Industry Heading",
-			m_cms: { 
+			m_cms: {
 				validations: {
 					required: true,
 					rangelength: [1,200]
 				},
-				showroom: true, 
-				companion: true 
+				showroom: true,
+				companion: true
 			}
 		},
 		attribute_one: {
-			type: String, 
+			type: String,
 			label: "Industry Attribute One",
-			m_cms: { 
+			m_cms: {
 			validations: {
 					required: true,
 					rangelength: [1,25]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
-			} 
+			}
 		},
 		attribute_two: {
-			type: String, 
+			type: String,
 			label: "Industry Attribute Two",
-			m_cms: { 
+			m_cms: {
 			validations: {
 					required: false,
 					rangelength: [0,25]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
-			} 
+			}
 		},
 		attribute_three: {
-			type: String, 
+			type: String,
 			label: "Industry Attribute Three",
-			m_cms: { 
+			m_cms: {
 			validations: {
 					required: false,
 					rangelength: [0,25]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
-			} 
+			}
 		},
 		content: {
-			type: Types.Textarea, 
-			height: 400, 
-			required: true, 
-			initial: false, 
+			type: Types.Textarea,
+			height: 400,
+			required: false,
+			initial: false,
 			label: "Industry Content",
-			m_cms: { 
+			m_cms: {
 				validations: {
 					required: true,
 					rangelength: [1,1000]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
-			} 
+			}
 		},
 		description: {
 			type: String,
-			required: true,
+			required: false,
 			initial: false,
 			label: "Industry Description",
 			note: "Text will appear on other pages linking this industry, and not the industry page itself.",
-			m_cms: { 
+			m_cms: {
 				validations: {
 					required: true,
 					rangelength: [1,150]
 				},
-				showroom: true, 
+				showroom: true,
 				companion: true
-			} 
+			}
 		},
 		svg_icon: Fields.svg_icon(),
-	
+
 		media_buffet: Fields.media_buffet(false, "Top Left", "Bottom Right"),
 		resource_one: 	Fields.resource(),
 		resource_two: 	Fields.resource(),
 		resource_three: Fields.resource(),
 		resource_four: 	Fields.resource(),
 		editor: {
-			type: Types.Relationship, 
+			type: Types.Relationship,
 			ref: 'User'
 		},
 		checkoutTime: {

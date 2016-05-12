@@ -58,7 +58,7 @@ mixin tiles-showroom(tiles, key)
 							a.navigation-modal-tile.fake-tile
 
 		//- After 3rd Tile go to second row and create a fake tile
-		if tiles.length > 4
+		if tiles.length > 4 && tiles.length < 7
 			.row.navigation-modal-tile-row
 				each tile, index in tiles
 					if index > 2
@@ -73,8 +73,47 @@ mixin tiles-showroom(tiles, key)
 							br
 							a.navigation-modal-tile.fake-tile
 							a.navigation-modal-tile.fake-tile
+							
+		//- After 3rd Tile go to second row and create a fake tile
+		if tiles.length == 7
+			.row.navigation-modal-tile-row.seventiles
+				each tile, index in tiles
+					if index == 0 || index == 5
+						a.navigation-modal-tile.fake-tile
+						span.go-left
+							+tile(tile, key)
+					else if index == 2
+						a.navigation-modal-tile.fake-tile.awkward-tile-left
+						span.go-left
+							+tile(tile, key)
+					else if index == 1 || index == 6
+						span.go-left
+							+tile(tile, key)
+						a.navigation-modal-tile.fake-tile
+						a.navigation-modal-tile.fake-tile
+					else if index == 3
+						span.go-left
+							+tile(tile, key)
+					else if index == 4
+						span.go-left
+							+tile(tile, key)
+						a.navigation-modal-tile.fake-tile
 
-
+		if tiles.length > 7 
+			.row.navigation-modal-tile-row.seventiles
+				each tile, index in tiles
+					if index == 0
+						a.navigation-modal-tile.fake-tile.awkward-tile-left
+						span.go-left
+							+tile(tile, key)
+					else if index == 3
+						span.go-left
+							+tile(tile, key)
+						br
+						a.navigation-modal-tile.fake-tile.awkward-tile-left
+					else
+						span.go-left
+							+tile(tile, key)
 
 mixin tiles-companion(tiles, key)
 
@@ -125,7 +164,7 @@ mixin tiles-companion(tiles, key)
 								a.navigation-modal-tile.fake-tile
 
 			//- After 3rd Tile go to second row and create a fake tile
-			if tiles.length > 4
+			if tiles.length > 4 && tiles.length < 7
 				.row.navigation-modal-tile-row
 					each tile, index in tiles
 						if index > 2
@@ -140,3 +179,38 @@ mixin tiles-companion(tiles, key)
 								br
 								a.navigation-modal-tile.fake-tile
 								a.navigation-modal-tile.fake-tile
+
+			if tiles.length == 7
+				.row.navigation-modal-tile-row
+					each tile, index in tiles
+						if index == 0
+							a.navigation-modal-tile.fake-tile
+							span.go-left
+								+tile(tile, key)
+						else if index == 2
+							span.go-left
+								+tile(tile, key)
+							br
+						else if index == 3
+							a.navigation-modal-tile.fake-tile
+							span.go-left
+								+tile(tile, key)
+						else
+							span.go-left
+								+tile(tile, key)
+								
+			if tiles.length == 8
+				.row.navigation-modal-tile-row
+					each tile, index in tiles
+						if index == 0 || index == 4 
+							a.navigation-modal-tile.fake-tile
+							span.go-right
+								+tile(tile, key)
+						else if index == 3 || index == 7 
+							span.go-right
+								+tile(tile, key)
+							a.navigation-modal-tile.fake-tile
+							br
+						else
+							span.go-left
+								+tile(tile, key)

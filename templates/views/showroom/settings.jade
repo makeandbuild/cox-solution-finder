@@ -30,11 +30,11 @@ block content
 							input(type='text', name='showname', placeholder='Trade Show Name').form-control.trade-show-name					
 
 				.settings-filter-container
-					.col-xs-6.col-lg-4.settings-filter-title-container
+					.col-xs-12.col-lg-12.settings-filter-title-container
 						article.settings-filter-title
 							span INDUSTRIES
 					each item, index in data.industries
-						.col-xs-6.col-lg-4.settings-filter-item-container.settings-filter-industry(data-settings-filter-slug=item.slug data-settings-filter-type='industry')
+						.col-xs-4.col-lg-4.settings-filter-item-container.settings-filter-industry(data-settings-filter-slug=item.slug data-settings-filter-type='industry')
 							article.settings-filter-item
 								.settings-filter-icon.coxicon(class="coxicon_"+item.svg_icon)
 								span= item.title

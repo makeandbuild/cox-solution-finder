@@ -121,6 +121,7 @@ exports = module.exports = function(req, res) {
 	}
 
 	view.on('init', function(next) {
+		
 
 	  var q = keystone.list('Homepage').model.findOne({
 	    slug: 'home'

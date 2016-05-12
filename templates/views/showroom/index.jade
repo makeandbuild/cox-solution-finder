@@ -184,7 +184,7 @@ block content
 				ul.services-list
 					each item, index in global_data.services
 						if index < 4
-							li: a(href=linkURI('/services/' + item.slug) title=item.title).service-item
+							li(data-home-service=item.slug): a(href=linkURI('/services/' + item.slug) title=item.title).service-item
 								.service-icon.coxicon(class="coxicon_"+item.svg_icon)
 								h4.service-title=item.title
 							if index == 1
@@ -196,3 +196,4 @@ block content
 					
 					
 					
+

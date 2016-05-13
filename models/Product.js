@@ -14,105 +14,104 @@ var Product = new keystone.List('Product', {
 });
 
 var section = {
-	title: { 
-		type: String, 
-		label: "Feature Title", 
-		m_cms: { 
+	title: {
+		type: String,
+		label: "Feature Title",
+		m_cms: {
 			validations: {
 				required: false,
 				markdownLimit: [0,50]
-			}, 
-			showroom: true, 
-			companion: true, 
+			},
+			showroom: true,
+			companion: true,
 			m_group: 'items'
 		}
 	},
 	svg_icon: {
 		type: Types.Select,
 		label: "Icon",
-		options:
-			'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice',
+		options: 'favorites_star, features_audio, features_building, features_channellisting, features_cloud, features_customization, features_data, features_features, features_mobility, features_networking, features_phone, features_protection, features_safety, features_scalable, features_service, features_signal, features_simple, features_speed, features_sports, features_wifi, industry_education, industry_government, industry_healthcare, industry_hospitality, industry_realestate, industry_residentialcommunities, partners_carriers, partners_resellers, resources_casestudy, resources_infographic, resources_whitepaper, service_internet, service_networking, service_TV, service_voice, industry_Carrier_Services, service_Ethernet, service_Optics, service_Small_Cell, service_Wave_DWDM, service_Wave_Alternative',
 		m_cms: { showroom: true, companion: true, m_group: 'items' }
 	},
-	content: { 
-		type: Types.Textarea, 
-		label: "Feature Content", 
+	content: {
+		type: Types.Textarea,
+		label: "Feature Content",
 		height: 200,
 		m_cms: {
  			validations: {
 				required: false,
 				markdownLimit: [0,600]
-			}, 
-			showroom: true, 
-			companion: true, 
-			m_group: 'items' 
+			},
+			showroom: true,
+			companion: true,
+			m_group: 'items'
 		}
 	}
 }
 
 Product.add({
-	title: { 
-		type: String, 
+	title: {
+		type: String,
 		required: true,
-		m_cms: { 
+		m_cms: {
  			validations: {
 				required: true,
 				rangelength: [1,40]
 			},
-			showroom: true, 
-			companion: true 
+			showroom: true,
+			companion: true
 		}
 	},
-	state: { 
-		type: Types.Select, 
-		options: 'draft, published, archived', 
-		default: 'draft', 
-		note: "This page will not show up unless published is chosen", 
-		index: true 
+	state: {
+		type: Types.Select,
+		options: 'draft, published, archived',
+		default: 'draft',
+		note: "This page will not show up unless published is chosen",
+		index: true
 	},
-	industries: { 
-		type: Types.Relationship, 
-		label: "Linked Industries", 
-		ref: 'Industry', 
-		required: true, 
-		many: true, 
+	industries: {
+		type: Types.Relationship,
+		label: "Linked Industries",
+		ref: 'Industry',
+		required: true,
+		many: true,
 		initial: false,
 		m_cms: { limit: 0, showroom: true, companion: true },
 		note: 'Choose all applicable industries. Relevant to both showroom and companion.'
 	},
-	services: { 
-		type: Types.Relationship, 
-		label: "Linked Services", 
-		ref: 'Service', 
-		required: true, 
-		many: true, 
+	services: {
+		type: Types.Relationship,
+		label: "Linked Services",
+		ref: 'Service',
+		required: true,
+		many: true,
 		initial: false,
 		m_cms: { limit: 1, showroom: true, companion: true },
 		note: 'Choose applicable service for prodcut. Relevant to both showroom and companion.'
 	},
-	order: { 
-		type: Types.Number, 
-		required: true, 
-		initial: false, 
-		default: 0, 
-		label: "Product Order", 
+	order: {
+		type: Types.Number,
+		required: true,
+		initial: false,
+		default: 0,
+		label: "Product Order",
 		note: "Use this to determine the order the product should appear on a Service page or elsewhere where products are listed. Order is lowest to highest. Example: 0 would be first, followed by 1."
 	},
 	video: {
-		title: { 
+		title: {
 			type: Types.Html,
 			wysiwyg: true,
 			height:40,
 			label: "Hero Video: Title",
 			note: "1-2 Words",
-			m_cms: { 
-				htmlEditor: false, 
+			m_cms: {
+				htmlEditor: false,
 				validations: {
 					required: true,
 					twoFieldHtmlMax: 15
 				},
-				showroom: true, 
-				companion: true 
+				showroom: true,
+				companion: true
 			}
 		},
 		video_choice: {
@@ -139,9 +138,9 @@ Product.add({
 			m_cms: { showroom: true, companion: true }
 		},
 		title_overlay: {
-			type: Types.Boolean, 
-			default: false, 
-			label: "Use title overlay over the image?", 
+			type: Types.Boolean,
+			default: false,
+			label: "Use title overlay over the image?",
 			note:"This should be used when there is no image content available for this product and the blue generic image is used.",
 			m_cms: { showroom: false, companion: false }
 		},
@@ -166,7 +165,7 @@ Product.add({
 	item_five: section,
 
 	editor: {
-		type: Types.Relationship, 
+		type: Types.Relationship,
 		ref: 'User'
 	},
 	checkoutTime: {

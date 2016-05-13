@@ -146,6 +146,7 @@ exports.initLocals = function(req, res, next) {
 					results[i].industry_list = industryList.slice(0,4);
 				}
 				locals.global_data.services = results;
+				console.log(results);
 				callback(err, results);
 			});
 		},

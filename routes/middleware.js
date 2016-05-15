@@ -136,7 +136,7 @@ exports.initLocals = function(req, res, next) {
 
 	async.parallel([
 		function(callback) {
-			var serviceQuery = keystone.list('Service').model.find().where('state', 'published');
+			var serviceQuery = keystone.list('Service').model.find().where('state', 'published').sort("sortOrder");
 			serviceQuery.exec(function(err, results) {
 				locals.global_data.services = results;
 				callback(err, results);

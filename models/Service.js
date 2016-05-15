@@ -11,7 +11,8 @@ var keystone = require('keystone'),
 var Service = new keystone.List('Service', {
 	map: { name: 'title' },
 	autokey: { path: 'slug', from: 'title', unique: true },
-	track: true
+	track: true,
+	sortable: true
 });
 
 Service.add({

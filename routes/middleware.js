@@ -136,7 +136,7 @@ exports.initLocals = function(req, res, next) {
 
 	async.parallel([
 		function(callback) {
-			var serviceQuery = keystone.list('Service').model.find().lean().where('state', 'published').populate('industries');
+			var serviceQuery = keystone.list('Service').model.find().lean().where('state', 'published').populate('industries').sort("sortOrder");
 			serviceQuery.exec(function(err, results) {
 				for (i = 0; i < results.length; i++) { 
 					var industryList = [];
@@ -146,7 +146,6 @@ exports.initLocals = function(req, res, next) {
 					results[i].industry_list = industryList.slice(0,4);
 				}
 				locals.global_data.services = results;
-				console.log(results);
 				callback(err, results);
 			});
 		},

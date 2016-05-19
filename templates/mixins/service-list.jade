@@ -34,6 +34,22 @@ mixin service-list(services, custom_ordering, industry)
 								img(src="/images/arrow_down.png")
 
 
+mixin service-list-companion(services, custom_ordering, industry)
+		ul.services-list.row
+			each custom_ordered_service, c_index in industry.custom_ordered_services
+				if c_index < 3
+					each item, index in services
+						if custom_ordered_service == item.id
+							li.col-xs-12.col-md-3
+								a(href=linkURI('/services/' + item.slug) title=item.title).service-item.pi-home-services
+									.service-icon.coxicon(class="coxicon_"+item.svg_icon)
+									section.service-info
+										h4.service-title=item.title
+										p.service-description=item.description
+										span.service-cta LEARN MORE
+											img(src="/images/arrow_down.png")
+
+
 mixin partner-service-list(services, custom_ordering, partner)
 	if custom_ordering
 		if partner

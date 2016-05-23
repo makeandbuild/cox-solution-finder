@@ -1113,7 +1113,14 @@ function settingsPageInits(){
 
     if($('.home-menu')[0]){
       $('.media_buffet_home_section').filter("[data-home-media-buffet='"+currentData.industry+"']").addClass('active');
-    }
+			
+			var services = $('ul.services-list>li');
+			for (i=0; i < services.length; i++) {
+				if ($(services[i]).attr('data-assc-industries').indexOf(currentData.industry) < 0) {
+					$(services[i]).remove();
+				}
+			}
+		}
 
     if($('.connect-showname')[0]){
       $('.connect-showname').val(currentData.showname);

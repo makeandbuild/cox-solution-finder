@@ -89,7 +89,7 @@ Enquiry.schema.post('save', function() {
 			}).sendemail({
 				to: process.env.SES_DISTRO_LIST,
 				from: process.env.SES_SENDER,
-				cc: 'cox-sfv2@maxmedia.com',
+				cc: process.env.SES_CC,
 				subject: util.format('[%s] %s', showname, "Lead Information"),
 				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 					enquiriesCSVuri, enquiriesCSVuri),

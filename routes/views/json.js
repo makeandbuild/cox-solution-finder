@@ -175,9 +175,9 @@ function processSyncData(fn, callback) {
 				nodeSES.createClient({
 					key: process.env.SES_KEY,	secret: process.env.SES_SECRET
 				}).sendemail({
-					to: 'taylor@makeandbuild.com',
+					to: process.env.SES_DISTRO_LIST,
 					from: process.env.SES_SENDER,
-					cc: 'taylor@makeandbuild.com',
+					cc: process.env.SES_CC,
 					subject: util.format('[%s] %s', settings.showname, "Lead Information"),
 					message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 						enquiriesCSVuri, enquiriesCSVuri),

@@ -122,11 +122,10 @@ function processSyncData(fn, callback) {
 				enquiries = [];
 
 		async.eachSeries(data, function(recordStr, next) {
-			var record, recordType;
+			var recordType;
 
 			try {
-				record = JSON.parse(recordStr);
-				recordType = record.type;
+				recordType = recordStr.type;
 			} catch(err) {
 				if (err instanceof SyntaxError) {
 					console.log("Error parsing record: %s:\n%j", err.message, recordStr);
@@ -137,27 +136,27 @@ function processSyncData(fn, callback) {
 
 			switch (recordType) {
 				case "settings":
-					settings = record.formData;
+					settings = recordStr.formData;
 					next();
 					break;
 				case "stats":
 					piwikClient.track({
 						idsite: process.env.PIWIK_SITEID,
-						url: process.env.PDOMAIN + record.path,
-						cdt: moment(record._id).format('YYYY-MM-DD HH:mm:ss'),
-						_cvar: { '1': ['Platform', record.device] }
+						url: process.env.PDOMAIN + recordStr.path,
+						cdt: moment(recordStr._id).format('YYYY-MM-DD HH:mm:ss'),
+						_cvar: { '1': ['Platform', recordStr.device] }
 					}, function(err) {
 						if (err) {
-							console.error("Error saving %s: %s\n%j", recordType, err, record);
+							console.error("Error saving %s: %s\n%j", recordType, err, recordStr);
 						}
 						next();
 					});
 					break;
 				case "enquiry":
-					var newEnquiry = new Enquiry.model(record.formData);
+					var newEnquiry = new Enquiry.model(recordStr.formData);
 					newEnquiry.save(function(err) {
 						if (err) {
-							console.error("Error saving %s: %s\n%j", recordType, err, record);
+							console.error("Error saving %s: %s\n%j", recordType, err, recordStr);
 						} else {
 							enquiries.push(newEnquiry);
 						}
@@ -165,7 +164,7 @@ function processSyncData(fn, callback) {
 					});
 					break;
 				default:
-					console.warn("Unknown record type: %s\n%j", recordType, record);
+					console.warn("Unknown record type: %s\n%j", recordType, recordStr);
 					next();
 			}
 		}, function(err) {
@@ -179,16 +178,16 @@ function processSyncData(fn, callback) {
 			enquiriesCSV = enquiries.map(function(e) { return e.toCSV(); });
 			enquiriesCSV = Enquiry.CSV_HEADER + "\n" + enquiriesCSV.join("\n");
 
-			fs.writeFile("public"+enquiriesCSVfn, enquiriesCSV, function(err) {
+			fs.writeFile("public" + enquiriesCSVfn, enquiriesCSV, function(err) {
 				if (err) return callback(err);
 
 				var enquiriesCSVuri = process.env.PDOMAIN + enquiriesCSVfn;
 				nodeSES.createClient({
 					key: process.env.SES_KEY,	secret: process.env.SES_SECRET
 				}).sendemail({
-					to: process.env.SES_DISTRO_LIST,
+					to: 'taylor@makeandbuild.com',
 					from: process.env.SES_SENDER,
-					cc: process.env.SES_CC,
+					cc: 'taylor@makeandbuild.com',
 					subject: util.format('[%s] %s', settings.showname, "Lead Information"),
 					message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 						enquiriesCSVuri, enquiriesCSVuri),

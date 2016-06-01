@@ -122,17 +122,7 @@ function processSyncData(fn, callback) {
 				enquiries = [];
 
 		async.eachSeries(data, function(recordStr, next) {
-			var recordType;
-
-			try {
-				recordType = recordStr.type;
-			} catch(err) {
-				if (err instanceof SyntaxError) {
-					console.log("Error parsing record: %s:\n%j", err.message, recordStr);
-					return next();
-				}
-				return next(err);
-			}
+			var recordType = recordStr.type;
 
 			switch (recordType) {
 				case "settings":

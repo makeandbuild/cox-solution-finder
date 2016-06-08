@@ -87,9 +87,9 @@ Enquiry.schema.post('save', function() {
 			nodeSES.createClient({
 				key: process.env.SES_KEY,	secret: process.env.SES_SECRET
 			}).sendemail({
-				to: process.env.SES_DISTRO_LIST,
+				to: process.env.SES_DISTRO_LIST.split(','),
 				from: process.env.SES_SENDER,
-				cc: process.env.SES_CC,
+				cc: process.env.SES_CC.split(','),
 				subject: util.format('[%s] %s', showname, "Lead Information"),
 				message: util.format('Lead information:<br /><br /><a href="%s" />%s</a>',
 					enquiriesCSVuri, enquiriesCSVuri),
